@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loja de Materiais em PDF — Dra. Priscila Palomo</title>
+<meta name="description" content="E-books, guias e materiais em PDF da Dra. Priscila Palomo (CRP 98007) sobre ansiedade, fobias, TOC e autoconhecimento. Baixe e estude no seu ritmo.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Priscila <span>Palomo</span><small>Psicóloga · CRP 98007</small></a>
+  <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
+  <ul class="nav-links">
+    <li><a href="index.html">Blog</a></li>
+    <li><a href="loja.html" class="active">Loja (PDFs)</a></li>
+    <li><a href="programa.html">Programa</a></li>
+    <li><a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Dra.%20Priscila!" target="_blank" class="nav-cta">Falar comigo</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">Loja de materiais</span>
+    <h1>Meus produtos em <em>PDF</em></h1>
+    <p>E-books, guias práticos e diários criados pela Dra. Priscila Palomo. Baixe, imprima e estude no seu ritmo, onde estiver.</p>
+    <div class="hero-actions">
+      <a href="#produtos" class="btn btn-gold">Ver produtos</a>
+      <a href="index.html" class="btn btn-primary">Voltar ao blog</a>
+    </div>
+  </div>
+</header>
+
+<!-- PRODUTOS -->
+<section id="produtos" class="wrap">
+  <div class="sec-head rv">
+    <span class="eyebrow">Catálogo</span>
+    <h2>Materiais para baixar</h2>
+    <p>Conteúdos gratuitos e premium para apoiar sua jornada de bem-estar emocional.</p>
+  </div>
+
+  <!-- Os produtos são gerados automaticamente a partir da lista no final do arquivo -->
+  <div id="shop" class="shop-grid"></div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="wrap">
+  <div class="cta-band rv" style="border-radius:var(--radius);padding:clamp(40px,6vw,64px) 30px;">
+    <span class="eyebrow" style="color:var(--ou)">Como funciona</span>
+    <h2>Simples e rápido</h2>
+    <p>Materiais gratuitos são baixados na hora. Para os materiais pagos, clique em "Comprar", finalize o pagamento via Pix ou WhatsApp e receba o link do PDF.</p>
+    <a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Dra.%20Priscila!%20Tenho%20uma%20d%C3%BAvida%20sobre%20os%20materiais%20em%20PDF." target="_blank" class="btn btn-gold">Tirar uma dúvida</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">Priscila <span>Palomo</span></div>
+        <p style="color:rgba(255,255,255,.65);font-size:14px;max-width:320px">Psicóloga · CRP 98007. Materiais educativos em PDF — não substituem acompanhamento psicológico individual.</p>
+      </div>
+      <div>
+        <h4>Navegar</h4>
+        <a href="index.html">Blog</a>
+        <a href="loja.html">Loja (PDFs)</a>
+        <a href="programa.html">Programa Vencendo a Fobia</a>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <a href="https://wa.me/5511950690537" target="_blank">WhatsApp</a>
+        <a href="mailto:contato@pripalomo.com">E-mail</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      © <span data-year>2026</span> Dra. Priscila Palomo · Todos os direitos reservados.
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL DE PAGAMENTO -->
+<div class="modal" id="payModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closePay()" aria-label="Fechar">×</button>
+    <h3 data-prod>Material</h3>
+    <p class="m-sub" data-preco></p>
+
+    <a class="pay-opt" data-wa href="#" target="_blank">
+      <span class="ico">💬</span>
+      <span><strong>Comprar pelo WhatsApp</strong><small>Atendimento direto e link do PDF na hora</small></span>
+    </a>
+
+    <div class="pay-opt" onclick="togglePix()">
+      <span class="ico">⚡</span>
+      <span><strong>Pagar com Pix</strong><small>Toque para ver a chave Pix</small></span>
+    </div>
+
+    <div class="pix-box">
+      <small style="color:var(--txs)">Chave Pix (telefone):</small>
+      <div class="pix-key">
+        <input type="text" value="11950690537" readonly>
+        <button onclick="copyPix(this)">Copiar</button>
+      </div>
+      <small style="display:block;margin-top:10px;color:var(--txs)">Após o pagamento, envie o comprovante no WhatsApp para receber o PDF.</small>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+
+<!-- =====================================================================
+     LISTA DE PRODUTOS — edite aqui para adicionar/remover materiais.
+
+     Para cada produto:
+       titulo   : nome do material
+       desc     : descrição curta
+       paginas  : nº de páginas (texto livre, opcional)
+       tag      : etiqueta no topo da capa (ex.: "E-book")
+       cor      : aparência da capa -> ''(azul) | 'c-la' | 'c-ou' | 'c-vd'
+       capa     : (opcional) caminho de uma imagem de capa, ex.: 'pdfs/capa.jpg'
+       preco    : preço (ex.: 'R$ 29'); deixe '' (vazio) para produto GRÁTIS
+       precoDe  : (opcional) preço antigo riscado, ex.: 'R$ 49'
+       arquivo  : caminho do PDF para download direto -> coloque o PDF na pasta /pdfs
+                  (use para materiais GRÁTIS; nos pagos, deixe '' para abrir o pagamento)
+
+     >>> Para subir um PDF: coloque o arquivo dentro da pasta "pdfs/"
+         e aponte "arquivo" para ele. Ex.: arquivo: 'pdfs/diario-da-ansiedade.pdf'
+     ===================================================================== -->
+<script>
+const PRODUTOS = [
+  {
+    titulo: "Diário da Ansiedade",
+    desc: "Guia prático com exercícios diários de respiração, registro de pensamentos e técnicas para acalmar a mente.",
+    paginas: "24 páginas",
+    tag: "Guia grátis",
+    cor: "",
+    preco: "",                       // vazio = grátis
+    arquivo: "pdfs/diario-da-ansiedade.pdf"
+  },
+  {
+    titulo: "Vencendo as Fobias",
+    desc: "E-book completo sobre como o medo funciona e um passo a passo de exposição gradual para retomar sua liberdade.",
+    paginas: "48 páginas",
+    tag: "E-book",
+    cor: "c-la",
+    precoDe: "R$ 49",
+    preco: "R$ 29",
+    arquivo: ""                      // pago: abre o modal de pagamento
+  },
+  {
+    titulo: "TOC sob Controle",
+    desc: "Material com a técnica de Exposição com Prevenção de Resposta (EPR) explicada e exercícios para o dia a dia.",
+    paginas: "36 páginas",
+    tag: "E-book",
+    cor: "c-vd",
+    preco: "R$ 27",
+    arquivo: ""
+  },
+  {
+    titulo: "Caderno de Autoconhecimento",
+    desc: "Diário guiado com perguntas semanais para você se reconectar com suas emoções e necessidades.",
+    paginas: "30 páginas",
+    tag: "Premium",
+    cor: "c-ou",
+    precoDe: "R$ 39",
+    preco: "R$ 19",
+    arquivo: ""
+  }
+];
+
+// --- Renderização dos cards (não precisa editar abaixo) ---
+const shop = document.getElementById('shop');
+shop.innerHTML = PRODUTOS.map(p => {
+  const gratis = !p.preco;
+  const capa = p.capa
+    ? `<img src="${p.capa}" alt="${p.titulo}">`
+    : `<div class="cover-ico">📄</div><h3>${p.titulo}</h3>`;
+  const precoHtml = gratis
+    ? `<span class="free">Grátis</span>`
+    : `${p.precoDe ? `<span class="old">${p.precoDe}</span>` : ''}<span class="now">${p.preco}</span>`;
+
+  let acao;
+  if (gratis && p.arquivo) {
+    acao = `<a class="btn btn-primary" href="${p.arquivo}" download>⬇ Baixar PDF grátis</a>`;
+  } else if (p.arquivo) {
+    acao = `<a class="btn btn-gold" href="${p.arquivo}" download>⬇ Baixar PDF</a>`;
+  } else {
+    acao = `<button class="btn btn-primary" onclick="openPay('${p.titulo.replace(/'/g,"\\'")}','${p.preco||''}')">Comprar agora</button>`;
+  }
+
+  return `
+    <article class="product rv">
+      <div class="product-cover ${p.cor||''}">
+        <div class="deco"></div>
+        <span class="pdf-badge">${p.tag||'PDF'}</span>
+        ${capa}
+      </div>
+      <div class="product-body">
+        <h4>${p.titulo}</h4>
+        ${p.paginas ? `<div class="product-pages">📘 ${p.paginas} · PDF</div>` : ''}
+        <p class="desc">${p.desc}</p>
+        <div class="product-price">${precoHtml}</div>
+        <div class="product-actions">${acao}</div>
+      </div>
+    </article>`;
+}).join('');
+
+// reativa a animação de revelar para os cards recém-criados
+document.querySelectorAll('#shop .rv').forEach(el=>{
+  new IntersectionObserver((en,ob)=>en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ob.unobserve(e.target);}}),{threshold:.1}).observe(el);
+});
+</script>
+</body>
+</html>
