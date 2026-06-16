@@ -1,53 +1,56 @@
 # Site da Dra. Priscila Palomo
 
 Site oficial da Dra. Priscila Palomo — Psicóloga (CRP 98007). Inclui um **blog**
-com artigos sobre psicologia e uma **loja de materiais em PDF**.
+e uma **loja de materiais em PDF**.
 
-🔗 Publicado via GitHub Pages: https://pripalomo-svg.github.io
+🔗 No ar em: https://www.priscilapalomo.com (e https://pripalomo-svg.github.io)
 
-## Estrutura do site
+> 👉 **Para atualizar o site no dia a dia, leia o [`COMO-USAR.md`](COMO-USAR.md).**
+> Lá estão os passos simples para escrever artigos e cadastrar produtos —
+> tudo em Markdown, sem precisar mexer em código.
+
+## Como funciona
+
+O conteúdo é separado do layout. Você só cria arquivos `.md`:
+
+- **Blog:** cada artigo é um arquivo em `posts/` (ex.: `posts/meu-artigo.md`).
+  A página inicial (`index.html`) lista os artigos **automaticamente**.
+- **Loja:** cada produto é um arquivo em `produtos/` (ex.: `produtos/2-ebook.md`).
+  A página `loja.html` monta a vitrine **automaticamente**. Os PDFs ficam em `pdfs/`.
+
+A listagem das pastas é feita pela API pública do GitHub e o texto Markdown é
+renderizado no navegador (biblioteca `marked`), sem nenhum passo de build.
+
+## Estrutura
 
 | Arquivo / pasta | O que é |
 | --- | --- |
-| `index.html` | **Blog** (página inicial) com a lista de artigos |
-| `posts/` | Páginas dos artigos do blog (um arquivo `.html` por post) |
-| `loja.html` | **Loja** — vitrine dos produtos/materiais em **PDF** |
-| `pdfs/` | Pasta onde ficam os arquivos PDF dos produtos |
-| `programa.html` | Landing page do programa "Vencendo a Fobia" (mantida) |
-| `assets/style.css` | Estilos compartilhados por todas as páginas |
-| `assets/app.js` | Scripts (menu, pagamento, newsletter) |
+| `index.html` | Página inicial do **blog** (lista os artigos sozinha) |
+| `post.html` | Página que exibe um artigo (abre via `post.html?p=nome-do-arquivo`) |
+| `posts/` | Artigos do blog, **um arquivo `.md` por artigo** |
+| `loja.html` | **Loja** — vitrine dos produtos em PDF |
+| `produtos/` | Fichas dos produtos, **um arquivo `.md` por produto** |
+| `pdfs/` | Arquivos PDF dos produtos |
+| `programa.html` | Landing do programa "Vencendo a Fobia" |
+| `assets/style.css` | Estilos compartilhados |
+| `assets/app.js` | Scripts (menu, pagamento, newsletter) e dados de contato |
+| `assets/content.js` | Carregador dos arquivos Markdown (não precisa editar) |
+| `COMO-USAR.md` | **Guia simples** de como publicar artigos e produtos |
 
-## Como publicar (GitHub Pages)
-
-O site é estático: basta os arquivos estarem no repositório com o GitHub Pages
-ativado. Após o merge, as alterações aparecem em alguns minutos.
-Para testar localmente:
+## Testar localmente
 
 ```bash
 python3 -m http.server 8000
 # abra http://localhost:8000
 ```
 
-## ✍️ Como adicionar um novo artigo no blog
-
-1. Copie um arquivo de `posts/` (ex.: `posts/vencendo-a-ansiedade.html`) e
-   renomeie (ex.: `posts/meu-novo-artigo.html`).
-2. Edite o título, a data e o conteúdo dentro de `<div class="article-content">`.
-3. Em `index.html`, duplique um bloco `<a class="post-card">...</a>` e aponte o
-   `href` para o novo arquivo. Troque o título, a data e o resumo.
-
-## 🛒 Como adicionar um produto em PDF na loja
-
-1. Coloque o arquivo PDF dentro da pasta **`pdfs/`**.
-2. Abra **`loja.html`** e edite a lista `const PRODUTOS = [ ... ]` (no final do
-   arquivo). Veja instruções detalhadas em [`pdfs/LEIA-ME.md`](pdfs/LEIA-ME.md).
-
-- **Produto grátis:** `preco: ""` + `arquivo: "pdfs/seu-arquivo.pdf"` → download direto.
-- **Produto pago:** `preco: "R$ 29"` + `arquivo: ""` → abre pagamento via Pix/WhatsApp.
+> Observação: localmente, a *listagem* de artigos/produtos usa a API do GitHub e
+> mostra o que está publicado na branch `main`. As páginas individuais
+> (`post.html?p=...`) leem os arquivos locais normalmente.
 
 ## Contato configurado
 
 - WhatsApp: `5511950690537`
 - Chave Pix (telefone): `11950690537`
 
-Esses valores podem ser ajustados em `assets/app.js` (constantes `WHATSAPP` e `PIX_KEY`).
+Edite esses valores em `assets/app.js` (constantes `WHATSAPP` e `PIX_KEY`).
