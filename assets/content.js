@@ -16,18 +16,31 @@ const REPO = {
 
 const MESES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
 
-/* Lista os arquivos .md de uma pasta usando a API pública do GitHub */
+/* Lista os arquivos .md de uma pasta usando a API pública do GitHub.
+   O resultado fica em cache por alguns minutos para evitar chamadas repetidas. */
 async function listarMarkdown(pasta){
+  const chaveCache = 'lista:'+pasta;
+  try{
+    const cru = sessionStorage.getItem(chaveCache);
+    if(cru){
+      const c = JSON.parse(cru);
+      if(Date.now() - c.t < 5*60*1000) return c.itens;
+    }
+  }catch(e){}
+
   const url = `https://api.github.com/repos/${REPO.owner}/${REPO.name}/contents/${pasta}?ref=${REPO.branch}`;
   const res = await fetch(url, { headers: { 'Accept':'application/vnd.github+json' } });
   if(!res.ok) throw new Error('Falha ao listar '+pasta+' ('+res.status+')');
   const arr = await res.json();
-  return arr
+  const itens = arr
     .filter(f => f.type==='file'
               && f.name.toLowerCase().endsWith('.md')
               && f.name.toLowerCase() !== 'leia-me.md'
               && f.name.toLowerCase() !== 'readme.md')
     .map(f => ({ slug: f.name.replace(/\.md$/i,''), name: f.name, path: pasta+'/'+f.name }));
+
+  try{ sessionStorage.setItem(chaveCache, JSON.stringify({ t:Date.now(), itens })); }catch(e){}
+  return itens;
 }
 
 /* Lê um arquivo de texto (relativo ao site, funciona local e publicado) */
