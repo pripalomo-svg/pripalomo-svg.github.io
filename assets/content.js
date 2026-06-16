@@ -43,12 +43,18 @@ async function listarMarkdown(pasta){
   return itens;
 }
 
-/* Lê um arquivo de texto (relativo ao site, funciona local e publicado) */
+/* Lê um arquivo de texto. Tenta primeiro pelo próprio site (mais rápido) e,
+   se falhar, busca a versão crua no GitHub (fallback resiliente). */
 async function lerArquivo(caminho){
   const sep = caminho.includes('?') ? '&' : '?';
-  const res = await fetch(caminho + sep + 'v=' + Date.now());
-  if(!res.ok) throw new Error('Falha ao ler '+caminho);
-  return res.text();
+  try{
+    const res = await fetch(caminho + sep + 'v=' + Date.now());
+    if(res.ok) return res.text();
+  }catch(e){}
+  const raw = `https://raw.githubusercontent.com/${REPO.owner}/${REPO.name}/${REPO.branch}/${caminho}`;
+  const res2 = await fetch(raw);
+  if(!res2.ok) throw new Error('Falha ao ler '+caminho);
+  return res2.text();
 }
 
 /* Separa o "cabeçalho" (entre ---) do corpo do texto em Markdown */
