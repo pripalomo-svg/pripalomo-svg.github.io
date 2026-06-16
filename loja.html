@@ -43,8 +43,8 @@
     <p>Conteúdos gratuitos e premium para apoiar sua jornada de bem-estar emocional.</p>
   </div>
 
-  <!-- Os produtos são gerados automaticamente a partir da lista no final do arquivo -->
-  <div id="shop" class="shop-grid"></div>
+  <!-- Os produtos são carregados automaticamente da pasta "produtos/" -->
+  <div id="shop" class="shop-grid"><p style="color:var(--txs)">Carregando produtos…</p></div>
 </section>
 
 <!-- COMO FUNCIONA -->
@@ -111,109 +111,86 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
 <script src="assets/app.js"></script>
+<script src="assets/content.js"></script>
 
 <!-- =====================================================================
-     LISTA DE PRODUTOS — edite aqui para adicionar/remover materiais.
-
-     Para cada produto:
-       titulo   : nome do material
-       desc     : descrição curta
-       paginas  : nº de páginas (texto livre, opcional)
-       tag      : etiqueta no topo da capa (ex.: "E-book")
-       cor      : aparência da capa -> ''(azul) | 'c-la' | 'c-ou' | 'c-vd'
-       capa     : (opcional) caminho de uma imagem de capa, ex.: 'pdfs/capa.jpg'
-       preco    : preço (ex.: 'R$ 29'); deixe '' (vazio) para produto GRÁTIS
-       precoDe  : (opcional) preço antigo riscado, ex.: 'R$ 49'
-       arquivo  : caminho do PDF para download direto -> coloque o PDF na pasta /pdfs
-                  (use para materiais GRÁTIS; nos pagos, deixe '' para abrir o pagamento)
-
-     >>> Para subir um PDF: coloque o arquivo dentro da pasta "pdfs/"
-         e aponte "arquivo" para ele. Ex.: arquivo: 'pdfs/diario-da-ansiedade.pdf'
+     Os produtos são carregados automaticamente da pasta "produtos/".
+     Para adicionar um produto, crie um arquivo .md nessa pasta.
+     Veja o passo a passo em COMO-USAR.md (na raiz do site).
      ===================================================================== -->
 <script>
-const PRODUTOS = [
-  {
-    titulo: "Diário da Ansiedade",
-    desc: "Guia prático com exercícios diários de respiração, registro de pensamentos e técnicas para acalmar a mente.",
-    paginas: "24 páginas",
-    tag: "Guia grátis",
-    cor: "",
-    preco: "",                       // vazio = grátis
-    arquivo: "pdfs/diario-da-ansiedade.pdf"
-  },
-  {
-    titulo: "Vencendo as Fobias",
-    desc: "E-book completo sobre como o medo funciona e um passo a passo de exposição gradual para retomar sua liberdade.",
-    paginas: "48 páginas",
-    tag: "E-book",
-    cor: "c-la",
-    precoDe: "R$ 49",
-    preco: "R$ 29",
-    arquivo: ""                      // pago: abre o modal de pagamento
-  },
-  {
-    titulo: "TOC sob Controle",
-    desc: "Material com a técnica de Exposição com Prevenção de Resposta (EPR) explicada e exercícios para o dia a dia.",
-    paginas: "36 páginas",
-    tag: "E-book",
-    cor: "c-vd",
-    preco: "R$ 27",
-    arquivo: ""
-  },
-  {
-    titulo: "Caderno de Autoconhecimento",
-    desc: "Diário guiado com perguntas semanais para você se reconectar com suas emoções e necessidades.",
-    paginas: "30 páginas",
-    tag: "Premium",
-    cor: "c-ou",
-    precoDe: "R$ 39",
-    preco: "R$ 19",
-    arquivo: ""
-  }
-];
+(async function(){
+  const shop = document.getElementById('shop');
 
-// --- Renderização dos cards (não precisa editar abaixo) ---
-const shop = document.getElementById('shop');
-shop.innerHTML = PRODUTOS.map(p => {
-  const gratis = !p.preco;
-  const capa = p.capa
-    ? `<img src="${p.capa}" alt="${p.titulo}">`
-    : `<div class="cover-ico">📄</div><h3>${p.titulo}</h3>`;
-  const precoHtml = gratis
-    ? `<span class="free">Grátis</span>`
-    : `${p.precoDe ? `<span class="old">${p.precoDe}</span>` : ''}<span class="now">${p.preco}</span>`;
+  function montarCard(p){
+    const gratis = !p.preco;
+    const capa = p.capa
+      ? `<img src="${p.capa}" alt="${escapeHtml(p.titulo)}">`
+      : `<div class="cover-ico">📄</div><h3>${escapeHtml(p.titulo)}</h3>`;
+    const precoHtml = gratis
+      ? `<span class="free">Grátis</span>`
+      : `${p.precoDe ? `<span class="old">${escapeHtml(p.precoDe)}</span>` : ''}<span class="now">${escapeHtml(p.preco)}</span>`;
 
-  let acao;
-  if (gratis && p.arquivo) {
-    acao = `<a class="btn btn-primary" href="${p.arquivo}" download>⬇ Baixar PDF grátis</a>`;
-  } else if (p.arquivo) {
-    acao = `<a class="btn btn-gold" href="${p.arquivo}" download>⬇ Baixar PDF</a>`;
-  } else {
-    acao = `<button class="btn btn-primary" onclick="openPay('${p.titulo.replace(/'/g,"\\'")}','${p.preco||''}')">Comprar agora</button>`;
+    let acao;
+    if (gratis && p.arquivo) {
+      acao = `<a class="btn btn-primary" href="${p.arquivo}" download>⬇ Baixar PDF grátis</a>`;
+    } else if (p.arquivo) {
+      acao = `<a class="btn btn-gold" href="${p.arquivo}" download>⬇ Baixar PDF</a>`;
+    } else {
+      const t = (p.titulo||'').replace(/'/g,"\\'");
+      acao = `<button class="btn btn-primary" onclick="openPay('${t}','${p.preco||''}')">Comprar agora</button>`;
+    }
+
+    return `
+      <article class="product rv">
+        <div class="product-cover ${p.cor||''}">
+          <div class="deco"></div>
+          <span class="pdf-badge">${escapeHtml(p.tag||'PDF')}</span>
+          ${capa}
+        </div>
+        <div class="product-body">
+          <h4>${escapeHtml(p.titulo)}</h4>
+          ${p.paginas ? `<div class="product-pages">📘 ${escapeHtml(p.paginas)} · PDF</div>` : ''}
+          <p class="desc">${escapeHtml(p.desc||'')}</p>
+          <div class="product-price">${precoHtml}</div>
+          <div class="product-actions">${acao}</div>
+        </div>
+      </article>`;
   }
 
-  return `
-    <article class="product rv">
-      <div class="product-cover ${p.cor||''}">
-        <div class="deco"></div>
-        <span class="pdf-badge">${p.tag||'PDF'}</span>
-        ${capa}
-      </div>
-      <div class="product-body">
-        <h4>${p.titulo}</h4>
-        ${p.paginas ? `<div class="product-pages">📘 ${p.paginas} · PDF</div>` : ''}
-        <p class="desc">${p.desc}</p>
-        <div class="product-price">${precoHtml}</div>
-        <div class="product-actions">${acao}</div>
-      </div>
-    </article>`;
-}).join('');
+  try{
+    const arquivos = await listarMarkdown('produtos');
+    arquivos.sort((a,b)=> a.name.localeCompare(b.name, 'pt', {numeric:true}));
+    const produtos = await Promise.all(arquivos.map(async a => {
+      const { meta, corpo } = lerFrontMatter(await lerArquivo(a.path));
+      return {
+        titulo: meta.titulo || a.slug,
+        desc: meta.desc || corpo,
+        paginas: meta.paginas || '',
+        tag: meta.tag || 'PDF',
+        cor: corValida(meta.cor),
+        capa: meta.capa || '',
+        precoDe: meta.precoDe || '',
+        preco: meta.preco || '',
+        arquivo: meta.arquivo || ''
+      };
+    }));
 
-// reativa a animação de revelar para os cards recém-criados
-document.querySelectorAll('#shop .rv').forEach(el=>{
-  new IntersectionObserver((en,ob)=>en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ob.unobserve(e.target);}}),{threshold:.1}).observe(el);
-});
+    if(!produtos.length){
+      shop.innerHTML = '<p style="color:var(--txs)">Nenhum produto cadastrado ainda.</p>';
+      return;
+    }
+
+    shop.innerHTML = produtos.map(montarCard).join('');
+    shop.querySelectorAll('.rv').forEach(el=>{
+      new IntersectionObserver((en,ob)=>en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ob.unobserve(e.target);}}),{threshold:.1}).observe(el);
+    });
+  }catch(e){
+    shop.innerHTML = '<p style="color:var(--txs)">Não foi possível carregar os produtos agora. Tente atualizar a página em instantes.</p>';
+  }
+})();
 </script>
 </body>
 </html>
