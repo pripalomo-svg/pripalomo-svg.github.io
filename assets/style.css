@@ -408,6 +408,104 @@ footer a:hover{color:var(--accent);}
   font-size:13px;font-weight:600;cursor:pointer;
 }
 
+/* ---------- CHIPS / TAGS ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 26px;}
+.chip{
+  display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:500;
+  color:var(--ink);background:var(--surface);border:1px solid var(--line);
+  border-radius:40px;padding:7px 16px;letter-spacing:.02em;
+}
+.chip::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);}
+.chip.plain::before{display:none;}
+
+/* ---------- STAT CARDS (mini provas) ---------- */
+.stat-cards{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px;}
+.stat-card{
+  background:var(--surface);border:1px solid var(--line-soft);border-radius:14px;
+  padding:14px 18px;box-shadow:var(--shadow-soft);min-width:130px;
+}
+.stat-card .big{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--ink);line-height:1;}
+.stat-card small{display:block;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-top:5px;}
+
+/* ---------- CREDENCIAIS / FORMAÇÃO ---------- */
+.creds{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0 4px;}
+.cred{
+  background:var(--surface);border:1px solid var(--line-soft);border-radius:12px;
+  padding:14px 16px;box-shadow:var(--shadow-soft);
+}
+.cred strong{display:block;font-size:15px;font-weight:600;color:var(--ink);}
+.cred small{font-size:12.5px;color:var(--ink-soft);}
+@media(max-width:560px){.creds{grid-template-columns:1fr;}}
+
+.value-list{list-style:none;display:grid;gap:11px;margin:8px 0 0;}
+.value-list li{display:flex;gap:11px;align-items:flex-start;color:var(--ink-soft);font-size:15px;}
+.value-list li::before{content:'✓';color:var(--accent);font-weight:700;flex:none;}
+
+.about-block{margin-top:30px;}
+.about-block .eyebrow{margin-bottom:12px;}
+
+/* ---------- CURSOS ---------- */
+.course-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(20px,3vw,30px);}
+.course-card{
+  background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius-lg);
+  padding:clamp(26px,3vw,38px);box-shadow:var(--shadow-soft);display:flex;flex-direction:column;
+  transition:transform .3s,box-shadow .3s;
+}
+.course-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);}
+.course-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.course-emoji{
+  width:56px;height:56px;border-radius:16px;background:var(--accent-soft);
+  display:flex;align-items:center;justify-content:center;font-size:28px;
+}
+.course-dur{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-2);
+  background:var(--accent-soft);padding:6px 13px;border-radius:30px;font-weight:600;}
+.course-card h3{font-size:24px;margin-bottom:12px;font-weight:600;line-height:1.2;}
+.course-card .desc{color:var(--ink-soft);font-size:15px;flex:1;margin-bottom:22px;}
+.course-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  border-top:1px solid var(--line-soft);padding-top:20px;}
+.course-foot .price{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--ink);line-height:1;}
+.course-foot .price small{display:block;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-soft);font-weight:500;margin-top:3px;}
+
+/* ---------- CONSULTAS ---------- */
+.consult-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-bottom:clamp(28px,4vw,40px);}
+.consult-card{
+  background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius);
+  padding:24px;box-shadow:var(--shadow-soft);
+}
+.consult-card .ico{font-size:26px;margin-bottom:12px;}
+.consult-card h4{font-size:19px;margin-bottom:6px;font-weight:600;}
+.consult-card p{color:var(--ink-soft);font-size:14px;}
+.price-box{
+  background:var(--ink);color:#fff;border-radius:var(--radius-lg);padding:clamp(30px,4vw,48px);
+  text-align:center;
+}
+.price-box .eyebrow{color:var(--accent);}
+.price-box .amount{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,7vw,68px);font-weight:700;color:#fff;line-height:1;margin:6px 0 4px;}
+.price-box .amount span{font-size:24px;color:rgba(255,255,255,.6);}
+.price-box p{color:rgba(255,255,255,.72);max-width:480px;margin:10px auto 24px;font-size:15px;}
+
+/* ---------- PUBLICAÇÕES ---------- */
+.pub-stats{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:clamp(28px,4vw,40px);}
+.pub-stat{
+  flex:1;min-width:150px;background:var(--surface);border:1px solid var(--line-soft);
+  border-radius:var(--radius);padding:26px 22px;text-align:center;box-shadow:var(--shadow-soft);
+}
+.pub-stat .num{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:700;color:var(--accent);line-height:1;}
+.pub-stat small{display:block;font-size:12.5px;letter-spacing:.06em;color:var(--ink-soft);margin-top:8px;text-transform:uppercase;}
+.pub-list{display:grid;gap:14px;}
+.pub{
+  background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius);
+  padding:22px 24px;box-shadow:var(--shadow-soft);
+}
+.pub h4{font-size:18px;font-weight:600;margin-bottom:8px;line-height:1.3;}
+.pub .pub-meta{font-size:13px;color:var(--ink-soft);margin-bottom:10px;}
+.pub .pub-tags{display:flex;flex-wrap:wrap;gap:7px;}
+.pub .pub-tags span{font-size:11px;letter-spacing:.04em;color:var(--accent-2);background:var(--accent-soft);
+  padding:4px 11px;border-radius:30px;text-transform:uppercase;font-weight:600;}
+.pub .cit{float:right;font-size:12px;color:var(--ink-soft);background:var(--bg2);
+  padding:4px 11px;border-radius:30px;margin-left:10px;}
+
 /* ---------- WHATSAPP FLUTUANTE ---------- */
 .wa-float{
   position:fixed;right:20px;bottom:20px;z-index:900;
