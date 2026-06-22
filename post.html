@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Artigo — Dra. Priscila Palomo</title>
 <meta name="description" content="Artigo do blog da Dra. Priscila Palomo, psicóloga (CRP 98007).">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤍</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
@@ -16,15 +16,16 @@
   <a class="nav-logo" href="index.html">Priscila <span>Palomo</span><small>Psicóloga · CRP 98007</small></a>
   <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
   <ul class="nav-links">
-    <li><a href="index.html">Blog</a></li>
-    <li><a href="loja.html">Loja (PDFs)</a></li>
+    <li><a href="index.html">Início</a></li>
+    <li><a href="index.html#artigos">Artigos</a></li>
+    <li><a href="loja.html">Materiais</a></li>
     <li><a href="programa.html">Programa</a></li>
-    <li><a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Dra.%20Priscila!" target="_blank" class="nav-cta">Falar comigo</a></li>
+    <li><a href="index.html#contato" class="nav-cta">Agendar conversa</a></li>
   </ul>
 </nav>
 
 <article class="article">
-  <a href="index.html" class="back-link">← Voltar para o blog</a>
+  <a href="index.html#artigos" class="back-link">← Voltar para os artigos</a>
   <div class="article-head">
     <span class="tag" id="art-tag" style="display:none"></span>
     <h1 id="art-titulo">Carregando…</h1>
@@ -52,6 +53,8 @@
   </div>
 </footer>
 
+<a class="wa-float" href="https://wa.me/5511950690537?text=Ol%C3%A1%20Dra.%20Priscila!" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">💬</a>
+
 <script src="assets/app.js"></script>
 <script src="assets/content.js"></script>
 <script>
@@ -65,7 +68,7 @@
 
   if(!slug){
     elT.textContent = 'Artigo não encontrado';
-    elC.innerHTML = '<p>Volte para o <a href="index.html">blog</a> e escolha um artigo.</p>';
+    elC.innerHTML = '<p>Volte para os <a href="index.html#artigos">artigos</a> e escolha um texto.</p>';
     return;
   }
 
@@ -84,7 +87,7 @@
     elC.innerHTML = md2html(corpo);
   }catch(e){
     elT.textContent = 'Artigo não encontrado';
-    elC.innerHTML = '<p>Não consegui carregar este artigo. Volte para o <a href="index.html">blog</a>.</p>';
+    elC.innerHTML = '<p>Não consegui carregar este artigo. Volte para os <a href="index.html#artigos">artigos</a>.</p>';
   }
 })();
 </script>

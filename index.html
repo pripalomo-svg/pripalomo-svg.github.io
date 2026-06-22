@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog — Dra. Priscila Palomo | Psicologia, Ansiedade e Bem-estar</title>
-<meta name="description" content="Blog da Dra. Priscila Palomo, psicóloga (CRP 98007). Artigos sobre ansiedade, fobias, TOC, autoconhecimento e terapia cognitivo-comportamental. E-books e materiais em PDF.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+<title>Dra. Priscila Palomo | Psicóloga · Ansiedade, Fobias e Bem-estar</title>
+<meta name="description" content="Site oficial da Dra. Priscila Palomo, psicóloga (CRP 98007). Terapia, artigos, e-books e materiais sobre ansiedade, fobias, TOC e autoconhecimento.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤍</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
@@ -15,76 +15,133 @@
   <a class="nav-logo" href="index.html">Priscila <span>Palomo</span><small>Psicóloga · CRP 98007</small></a>
   <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
   <ul class="nav-links">
-    <li><a href="index.html" class="active">Blog</a></li>
-    <li><a href="loja.html">Loja (PDFs)</a></li>
-    <li><a href="programa.html">Programa</a></li>
+    <li><a href="index.html" class="active">Início</a></li>
+    <li><a href="#artigos">Artigos</a></li>
+    <li><a href="loja.html">Materiais</a></li>
     <li><a href="#sobre">Sobre</a></li>
-    <li><a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Dra.%20Priscila!" target="_blank" class="nav-cta">Falar comigo</a></li>
+    <li><a href="#contato" class="nav-cta">Agendar conversa</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <header class="hero">
-  <div class="hero-inner">
-    <span class="eyebrow">Blog da Dra. Priscila Palomo</span>
-    <h1>Psicologia que <em>liberta</em></h1>
-    <p>Conteúdo baseado em evidências sobre ansiedade, fobias, TOC e autoconhecimento — para você entender sua mente e viver com mais leveza.</p>
-    <div class="hero-actions">
-      <a href="#artigos" class="btn btn-primary">Ler os artigos</a>
-      <a href="loja.html" class="btn btn-gold">Materiais em PDF</a>
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <span class="eyebrow">Psicóloga · CRP 98007</span>
+      <h1>Cuidar da mente é<br><em>cuidar de você</em></h1>
+      <p>Acompanhamento psicológico e conteúdos baseados em evidências sobre ansiedade, fobias, TOC e autoconhecimento — para você viver com mais leveza.</p>
+      <div class="hero-crp">Terapia Cognitivo-Comportamental</div>
+      <div class="hero-actions">
+        <a href="#contato" class="btn btn-primary">Quero começar</a>
+        <a href="#artigos" class="btn btn-ghost">Ler os artigos</a>
+      </div>
+    </div>
+    <div class="portrait rv">
+      <img src="assets/img/priscila-principal.jpg" data-base="assets/img/priscila-principal" alt="Dra. Priscila Palomo" onerror="photoFallback(this)">
+      <span class="portrait-fallback"><span class="mono">P</span><small>Sua foto principal</small></span>
     </div>
   </div>
 </header>
 
 <!-- ARTIGOS -->
-<section id="artigos" class="wrap">
-  <div class="sec-head rv">
-    <span class="eyebrow">Últimos artigos</span>
-    <h2>Do consultório para a sua tela</h2>
-    <p>Textos práticos e acolhedores para apoiar sua jornada de bem-estar emocional.</p>
-  </div>
-
-  <!-- Os artigos são carregados automaticamente da pasta "posts/" -->
-  <div class="posts-grid" id="lista-posts">
-    <p style="color:var(--txs)">Carregando artigos…</p>
+<section id="artigos">
+  <div class="wrap">
+    <div class="sec-topline rv">
+      <div>
+        <span class="eyebrow">Do consultório para a sua tela</span>
+        <h2 style="font-size:clamp(28px,4vw,44px)">Últimos artigos</h2>
+      </div>
+      <a href="#artigos" class="link-more" id="ver-todos" style="display:none">Ver todos</a>
+    </div>
+    <div class="posts-grid" id="lista-posts">
+      <p style="color:var(--ink-soft)">Carregando artigos…</p>
+    </div>
   </div>
 </section>
 
-<!-- DESTAQUE LOJA -->
-<section class="wrap rv">
-  <div class="cta-band" style="border-radius:var(--radius);padding:clamp(40px,6vw,68px) 30px;">
-    <span class="eyebrow" style="color:var(--ou)">Materiais em PDF</span>
-    <h2>E-books e guias para baixar agora</h2>
-    <p>Conteúdos aprofundados criados pela Dra. Priscila para você estudar no seu ritmo, onde estiver.</p>
-    <a href="loja.html" class="btn btn-gold">Visitar a loja →</a>
+<!-- DESTAQUE / OFERTA -->
+<section class="section-alt">
+  <div class="wrap">
+    <div class="feature rv">
+      <div>
+        <span class="eyebrow">Programa online</span>
+        <h2>Vencendo a Fobia</h2>
+        <p>Um caminho guiado, passo a passo, para enfrentar o medo e retomar a sua liberdade — com método e acolhimento.</p>
+        <ul>
+          <li>Método baseado em evidências (TCC)</li>
+          <li>No seu ritmo, de onde você estiver</li>
+          <li>Acompanhamento da Dra. Priscila</li>
+        </ul>
+        <a href="programa.html" class="btn btn-primary">Conhecer o programa</a>
+      </div>
+      <div class="feature-media">
+        <img src="assets/img/priscila-programa.jpg" data-base="assets/img/priscila-programa" alt="Programa Vencendo a Fobia" onerror="photoFallback(this)">
+        <span class="mono">VF</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MATERIAIS / LOJA -->
+<section id="materiais">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow">Materiais em PDF</span>
+      <h2>E-books e guias para baixar</h2>
+      <p>Conteúdos práticos, gratuitos e premium, para você estudar no seu tempo.</p>
+    </div>
+    <div style="text-align:center" class="rv">
+      <a href="loja.html" class="btn btn-dark">Visitar a loja de materiais →</a>
+    </div>
   </div>
 </section>
 
 <!-- SOBRE -->
-<section id="sobre" class="wrap">
-  <div class="about rv">
-    <div class="about-photo">PP</div>
-    <div>
-      <span class="eyebrow">Quem escreve</span>
-      <h2>Dra. Priscila <em>Palomo</em></h2>
-      <div class="crp">CRP 98007 · Psicóloga registrada</div>
+<section id="sobre" class="section-alt">
+  <div class="wrap about">
+    <div class="portrait rv">
+      <img src="assets/img/priscila-sobre.jpg" data-base="assets/img/priscila-sobre" alt="Dra. Priscila Palomo" onerror="photoFallback(this)">
+      <span class="portrait-fallback"><span class="mono">P</span><small>Sua foto (sobre)</small></span>
+    </div>
+    <div class="rv">
+      <span class="eyebrow">Quem cuida de você</span>
+      <h2>Dra. Priscila <em style="font-style:italic;color:var(--accent)">Palomo</em></h2>
+      <div class="crp">CRP 98007 · Psicóloga</div>
       <p>Especialista em Terapia Cognitivo-Comportamental, fobias específicas e TOC. Há anos ajudo pessoas a superarem o medo e a ansiedade que travam suas vidas.</p>
-      <p>Aqui no blog compartilho de forma simples o que vejo dar certo no consultório — sempre com base em ciência e muito acolhimento.</p>
-      <a href="programa.html" class="btn btn-ghost" style="margin-top:8px">Conheça o programa Vencendo a Fobia</a>
+      <p>Aqui compartilho, de forma simples, o que vejo dar certo no consultório — sempre com base em ciência e muito acolhimento.</p>
+      <div class="hero-actions" style="margin-top:8px">
+        <a href="#contato" class="btn btn-primary">Agendar uma conversa</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LINKS / CONTATO -->
+<section id="contato">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2>Meus links e contatos</h2>
+      <p>Escolha por onde prefere falar comigo ou me acompanhar.</p>
+    </div>
+    <div class="links-grid rv" id="links-grid">
+      <!-- preenchido por app.js -->
     </div>
   </div>
 </section>
 
 <!-- NEWSLETTER -->
-<section class="wrap">
-  <div class="news rv">
-    <span class="eyebrow">Newsletter</span>
-    <h2>Receba novos artigos e materiais</h2>
-    <p>Deixe seu e-mail e entraremos em contato com novidades, conteúdos gratuitos e lançamentos.</p>
-    <form onsubmit="subscribe(event)">
-      <input type="email" placeholder="Seu melhor e-mail" required>
-      <button type="submit" class="btn btn-primary">Quero receber</button>
-    </form>
+<section class="section-alt">
+  <div class="wrap">
+    <div class="news rv">
+      <span class="eyebrow">Newsletter</span>
+      <h2>Receba novos artigos e materiais</h2>
+      <p>Deixe seu e-mail e eu te aviso sobre novidades, conteúdos gratuitos e lançamentos.</p>
+      <form onsubmit="subscribe(event)">
+        <input type="email" placeholder="Seu melhor e-mail" required>
+        <button type="submit" class="btn btn-primary">Quero receber</button>
+      </form>
+    </div>
   </div>
 </section>
 
@@ -94,19 +151,20 @@
     <div class="foot-grid">
       <div>
         <div class="foot-logo">Priscila <span>Palomo</span></div>
-        <p style="color:rgba(255,255,255,.65);font-size:14px;max-width:320px">Psicóloga · CRP 98007. Terapia Cognitivo-Comportamental, fobias e TOC. Conteúdo educativo — não substitui acompanhamento individual.</p>
+        <p style="color:rgba(255,255,255,.6);font-size:14px;max-width:340px">Psicóloga · CRP 98007. Terapia Cognitivo-Comportamental, ansiedade, fobias e TOC. Conteúdo educativo — não substitui acompanhamento individual.</p>
       </div>
       <div>
         <h4>Navegar</h4>
-        <a href="index.html">Blog</a>
-        <a href="loja.html">Loja (PDFs)</a>
+        <a href="index.html">Início</a>
+        <a href="#artigos">Artigos</a>
+        <a href="loja.html">Materiais (PDFs)</a>
         <a href="programa.html">Programa Vencendo a Fobia</a>
-        <a href="#sobre">Sobre</a>
       </div>
       <div>
         <h4>Contato</h4>
-        <a href="https://wa.me/5511950690537" target="_blank">WhatsApp</a>
+        <a href="https://wa.me/5511950690537" target="_blank" rel="noopener">WhatsApp</a>
         <a href="mailto:contato@pripalomo.com">E-mail</a>
+        <a href="#contato">Todos os links</a>
       </div>
     </div>
     <div class="foot-bottom">
@@ -116,10 +174,13 @@
   </div>
 </footer>
 
+<a class="wa-float" href="https://wa.me/5511950690537?text=Ol%C3%A1%20Dra.%20Priscila!" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">💬</a>
+
 <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
 <script src="assets/app.js"></script>
 <script src="assets/content.js"></script>
 <script>
+renderLinks('links-grid');
 (async function(){
   const alvo = document.getElementById('lista-posts');
   try{
@@ -139,13 +200,13 @@
     posts.sort((x,y)=> (y.data||'').localeCompare(x.data||''));
 
     if(!posts.length){
-      alvo.innerHTML = '<p style="color:var(--txs)">Nenhum artigo publicado ainda.</p>';
+      alvo.innerHTML = '<p style="color:var(--ink-soft)">Nenhum artigo publicado ainda.</p>';
       return;
     }
 
     alvo.innerHTML = posts.map(p => `
       <a href="post.html?p=${encodeURIComponent(p.slug)}" class="post-card rv">
-        <div class="post-cover ${p.cor}"><div class="deco"></div>${p.tag?`<span class="tag">${escapeHtml(p.tag)}</span>`:''}</div>
+        <div class="post-cover ${p.cor}">${p.tag?`<span class="tag">${escapeHtml(p.tag)}</span>`:''}</div>
         <div class="post-body">
           <div class="post-meta">${formatarData(p.data)}${p.data?' · ':''}${p.leitura} min de leitura</div>
           <h3>${escapeHtml(p.titulo)}</h3>
@@ -158,7 +219,7 @@
       new IntersectionObserver((en,ob)=>en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ob.unobserve(e.target);}}),{threshold:.1}).observe(el);
     });
   }catch(e){
-    alvo.innerHTML = '<p style="color:var(--txs)">Não foi possível carregar os artigos agora. Tente atualizar a página em instantes.</p>';
+    alvo.innerHTML = '<p style="color:var(--ink-soft)">Não foi possível carregar os artigos agora. Tente atualizar a página em instantes.</p>';
   }
 })();
 </script>
