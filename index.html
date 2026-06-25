@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog — Dra. Priscila Palomo | Psicologia, Ansiedade e Bem-estar</title>
-<meta name="description" content="Blog da Dra. Priscila Palomo, psicóloga (CRP 98007). Artigos sobre ansiedade, fobias, TOC, autoconhecimento e terapia cognitivo-comportamental. E-books e materiais em PDF.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+<title>Dra. Priscila Palomo | Psicóloga · Psicologia baseada em evidências</title>
+<meta name="description" content="Dra. Priscila Palomo, psicóloga (CRP) e doutora em pesquisa científica. Terapia Cognitivo-Comportamental, Mindfulness e Realidade Virtual no tratamento de ansiedade e fobias. Consultas, cursos e artigos.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤍</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
@@ -15,76 +15,219 @@
   <a class="nav-logo" href="index.html">Priscila <span>Palomo</span><small>Psicóloga · CRP 98007</small></a>
   <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
   <ul class="nav-links">
-    <li><a href="index.html" class="active">Blog</a></li>
-    <li><a href="loja.html">Loja (PDFs)</a></li>
-    <li><a href="programa.html">Programa</a></li>
     <li><a href="#sobre">Sobre</a></li>
-    <li><a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Dra.%20Priscila!" target="_blank" class="nav-cta">Falar comigo</a></li>
+    <li><a href="#cursos">Cursos</a></li>
+    <li><a href="#consultas">Consultas</a></li>
+    <li><a href="#artigos">Artigos</a></li>
+    <li><a href="loja.html">Materiais</a></li>
+    <li><a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Dra.%20Priscila!%20Quero%20agendar%20uma%20consulta." target="_blank" rel="noopener" class="nav-cta">Agendar consulta</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <header class="hero">
-  <div class="hero-inner">
-    <span class="eyebrow">Blog da Dra. Priscila Palomo</span>
-    <h1>Psicologia que <em>liberta</em></h1>
-    <p>Conteúdo baseado em evidências sobre ansiedade, fobias, TOC e autoconhecimento — para você entender sua mente e viver com mais leveza.</p>
-    <div class="hero-actions">
-      <a href="#artigos" class="btn btn-primary">Ler os artigos</a>
-      <a href="loja.html" class="btn btn-gold">Materiais em PDF</a>
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <span class="eyebrow">Psicologia baseada em evidências</span>
+      <h1>Transforme sua saúde mental com <em>ciência</em></h1>
+      <p>Psicóloga especialista em Terapia Cognitivo-Comportamental (TCC), Mindfulness e tecnologias inovadoras como Realidade Virtual no tratamento de fobias e ansiedade.</p>
+      <div class="chips">
+        <span class="chip">TCC</span>
+        <span class="chip">Mindfulness</span>
+        <span class="chip">Realidade Virtual</span>
+        <span class="chip">Dra. em Pesquisa</span>
+      </div>
+      <div class="hero-actions">
+        <a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Dra.%20Priscila!%20Quero%20agendar%20uma%20consulta." target="_blank" rel="noopener" class="btn btn-primary">Agendar consulta · R$ 597</a>
+        <a href="#cursos" class="btn btn-ghost">Ver cursos</a>
+      </div>
+      <div class="stat-cards">
+        <div class="stat-card"><div class="big">5.0 ★</div><small>Avaliação · Excelente</small></div>
+        <div class="stat-card"><div class="big">CRP ativo</div><small>Registro profissional</small></div>
+        <div class="stat-card"><div class="big">Doutora</div><small>Pesquisa científica</small></div>
+      </div>
+    </div>
+    <div class="portrait rv">
+      <img src="assets/img/priscila-principal.jpg" data-base="assets/img/priscila-principal" alt="Dra. Priscila Palomo" onerror="photoFallback(this)">
+      <span class="portrait-fallback"><span class="mono">P</span><small>Sua foto principal</small></span>
     </div>
   </div>
 </header>
 
-<!-- ARTIGOS -->
-<section id="artigos" class="wrap">
-  <div class="sec-head rv">
-    <span class="eyebrow">Últimos artigos</span>
-    <h2>Do consultório para a sua tela</h2>
-    <p>Textos práticos e acolhedores para apoiar sua jornada de bem-estar emocional.</p>
-  </div>
-
-  <!-- Os artigos são carregados automaticamente da pasta "posts/" -->
-  <div class="posts-grid" id="lista-posts">
-    <p style="color:var(--txs)">Carregando artigos…</p>
-  </div>
-</section>
-
-<!-- DESTAQUE LOJA -->
-<section class="wrap rv">
-  <div class="cta-band" style="border-radius:var(--radius);padding:clamp(40px,6vw,68px) 30px;">
-    <span class="eyebrow" style="color:var(--ou)">Materiais em PDF</span>
-    <h2>E-books e guias para baixar agora</h2>
-    <p>Conteúdos aprofundados criados pela Dra. Priscila para você estudar no seu ritmo, onde estiver.</p>
-    <a href="loja.html" class="btn btn-gold">Visitar a loja →</a>
-  </div>
-</section>
-
 <!-- SOBRE -->
-<section id="sobre" class="wrap">
-  <div class="about rv">
-    <div class="about-photo">PP</div>
-    <div>
-      <span class="eyebrow">Quem escreve</span>
-      <h2>Dra. Priscila <em>Palomo</em></h2>
-      <div class="crp">CRP 98007 · Psicóloga registrada</div>
-      <p>Especialista em Terapia Cognitivo-Comportamental, fobias específicas e TOC. Há anos ajudo pessoas a superarem o medo e a ansiedade que travam suas vidas.</p>
-      <p>Aqui no blog compartilho de forma simples o que vejo dar certo no consultório — sempre com base em ciência e muito acolhimento.</p>
-      <a href="programa.html" class="btn btn-ghost" style="margin-top:8px">Conheça o programa Vencendo a Fobia</a>
+<section id="sobre" class="section-alt">
+  <div class="wrap">
+    <div class="about">
+      <div class="portrait rv">
+        <img src="assets/img/priscila-sobre.jpg" data-base="assets/img/priscila-sobre" alt="Dra. Priscila Palomo" onerror="photoFallback(this)">
+        <span class="portrait-fallback"><span class="mono">P</span><small>Sua foto (sobre)</small></span>
+      </div>
+      <div class="rv">
+        <span class="eyebrow">Sobre mim</span>
+        <h2>Dra. Priscila <em style="font-style:italic;color:var(--accent)">Palomo</em></h2>
+        <div class="crp">Psicóloga · CRP 98007 · Doutora em Pesquisa Científica</div>
+        <p>Uno ciência, tecnologia e comportamento humano para oferecer tratamentos eficazes e baseados em evidências, com especialização em Terapia Cognitivo-Comportamental (TCC).</p>
+        <p>Pioneira no uso de Realidade Virtual na Psicologia no Brasil, desenvolvo protocolos inovadores para o tratamento de fobias e transtornos de ansiedade, e pesquiso os mecanismos neurobiológicos do Mindfulness e sua aplicação clínica.</p>
+      </div>
+    </div>
+
+    <div class="about-block rv">
+      <span class="eyebrow">Formação acadêmica</span>
+      <div class="creds">
+        <div class="cred"><strong>Doutorado</strong><small>Pesquisa científica</small></div>
+        <div class="cred"><strong>Especialização</strong><small>Neurociência e Comportamento</small></div>
+        <div class="cred"><strong>Especialização em TCC</strong><small>Terapia Cognitivo-Comportamental</small></div>
+        <div class="cred"><strong>Graduação em Psicologia</strong><small>CRP ativo · Registro federal</small></div>
+      </div>
+    </div>
+
+    <div class="about-block rv">
+      <span class="eyebrow">Áreas de especialização</span>
+      <div class="chips">
+        <span class="chip plain">TCC</span>
+        <span class="chip plain">Mindfulness</span>
+        <span class="chip plain">Realidade Virtual</span>
+        <span class="chip plain">Neurociência</span>
+        <span class="chip plain">Ansiedade</span>
+        <span class="chip plain">Pesquisa Clínica</span>
+      </div>
+    </div>
+
+    <div class="about-block rv">
+      <span class="eyebrow">Qualidade e valores</span>
+      <ul class="value-list">
+        <li>Rigor científico aliado à prática clínica</li>
+        <li>Pioneira em Realidade Virtual na Psicologia no Brasil</li>
+        <li>Atendimento online e presencial</li>
+        <li>Protocolos personalizados e baseados em evidências</li>
+      </ul>
     </div>
   </div>
 </section>
 
-<!-- NEWSLETTER -->
-<section class="wrap">
-  <div class="news rv">
-    <span class="eyebrow">Newsletter</span>
-    <h2>Receba novos artigos e materiais</h2>
-    <p>Deixe seu e-mail e entraremos em contato com novidades, conteúdos gratuitos e lançamentos.</p>
-    <form onsubmit="subscribe(event)">
-      <input type="email" placeholder="Seu melhor e-mail" required>
-      <button type="submit" class="btn btn-primary">Quero receber</button>
-    </form>
+<!-- CURSOS -->
+<section id="cursos">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow">Cursos online</span>
+      <h2>Cursos especializados</h2>
+      <p>Aprenda com quem pesquisa e pratica. Conteúdos com base científica para uma transformação real.</p>
+    </div>
+    <div class="course-grid">
+      <article class="course-card rv">
+        <div class="course-top">
+          <span class="course-emoji">🧘</span>
+          <span class="course-dur">8 semanas</span>
+        </div>
+        <h3>Mecanismos Neurobiológicos e Psicológicos do Mindfulness</h3>
+        <p class="desc">Curso completo sobre Atenção Plena para o bem-estar. Técnicas de mindfulness fundamentadas em neurociência para reduzir estresse, ansiedade e melhorar a qualidade de vida.</p>
+        <div class="course-foot">
+          <div class="price">R$ 497<small>Acesso completo</small></div>
+          <a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Dra.%20Priscila!%20Tenho%20interesse%20no%20curso%20de%20Mindfulness." target="_blank" rel="noopener" class="btn btn-primary">Tenho interesse</a>
+        </div>
+      </article>
+
+      <article class="course-card rv">
+        <div class="course-top">
+          <span class="course-emoji">🥽</span>
+          <span class="course-dur">6 semanas</span>
+        </div>
+        <h3>Realidade Virtual Aplicada na Psicologia — Vencendo a Fobia</h3>
+        <p class="desc">Domine o uso da realidade virtual como ferramenta terapêutica no tratamento de fobias. Protocolos clínicos, casos práticos e fundamentação científica.</p>
+        <div class="course-foot">
+          <div class="price">R$ 398<small>Acesso completo</small></div>
+          <a href="programa.html" class="btn btn-primary">Saber mais</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CONSULTAS -->
+<section id="consultas" class="section-alt">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow">Atendimento individual</span>
+      <h2>Consultas individuais</h2>
+      <p>Atendimento psicológico personalizado, online ou presencial, com foco nas suas necessidades.</p>
+    </div>
+    <div class="consult-grid">
+      <div class="consult-card rv"><div class="ico">💻</div><h4>Online ou presencial</h4><p>Flexibilidade para se adaptar à sua rotina e localização.</p></div>
+      <div class="consult-card rv"><div class="ico">⏱️</div><h4>60 minutos</h4><p>Sessões com tempo adequado para um trabalho profundo e efetivo.</p></div>
+      <div class="consult-card rv"><div class="ico">🔒</div><h4>Sigilo garantido</h4><p>Total confidencialidade conforme o Código de Ética do CFP.</p></div>
+      <div class="consult-card rv"><div class="ico">📅</div><h4>Agendamento fácil</h4><p>Escolha o melhor horário direto comigo pelo WhatsApp.</p></div>
+    </div>
+    <div class="price-box rv">
+      <span class="eyebrow">Valor por sessão</span>
+      <div class="amount">R$ 597<span>/sessão</span></div>
+      <p>Atendimento online ou presencial, 60 minutos. Agende sua sessão de forma simples e segura.</p>
+      <a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Dra.%20Priscila!%20Quero%20agendar%20uma%20consulta." target="_blank" rel="noopener" class="btn btn-primary">Agendar minha consulta</a>
+    </div>
+  </div>
+</section>
+
+<!-- ARTIGOS -->
+<section id="artigos">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow">Do consultório para a sua tela</span>
+      <h2>Artigos</h2>
+      <p>Textos práticos e acolhedores sobre ansiedade, fobias, TOC e autoconhecimento.</p>
+    </div>
+    <div class="posts-grid" id="lista-posts">
+      <p style="color:var(--ink-soft)">Carregando artigos…</p>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICAÇÕES -->
+<section id="publicacoes" class="section-alt">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow">Pesquisa científica</span>
+      <h2>Publicações</h2>
+      <p>Pesquisas publicadas em periódicos e conferências internacionais sobre Mindfulness, Realidade Virtual, Embodiment e saúde mental.</p>
+    </div>
+    <div class="pub-stats rv">
+      <div class="pub-stat"><div class="num">274</div><small>Citações totais</small></div>
+      <div class="pub-stat"><div class="num">7</div><small>Índice h</small></div>
+      <div class="pub-stat"><div class="num">5</div><small>Índice i10</small></div>
+    </div>
+    <div class="pub-list">
+      <div class="pub rv">
+        <span class="cit">80 citações</span>
+        <h4>Virtual body swap: a new feasible tool to be explored in health and education</h4>
+        <div class="pub-meta">SVR — Symposium on Virtual and Augmented Reality · 2016</div>
+        <div class="pub-tags"><span>Realidade Virtual</span><span>Embodiment</span><span>Saúde</span></div>
+      </div>
+      <div class="pub rv">
+        <span class="cit">68 citações</span>
+        <h4>Body schema plasticity after stroke: correlates of the rubber hand illusion</h4>
+        <div class="pub-meta">Neuropsychologia · 2017</div>
+        <div class="pub-tags"><span>Neuropsicologia</span><span>AVC</span><span>Embodiment</span></div>
+      </div>
+      <div class="pub rv">
+        <span class="cit">54 citações</span>
+        <h4>Embodiment and body awareness in meditators</h4>
+        <div class="pub-meta">Mindfulness · 2016</div>
+        <div class="pub-tags"><span>Mindfulness</span><span>Embodiment</span><span>Meditação</span></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:30px" class="rv">
+      <a href="https://scholar.google.com/citations?user=" target="_blank" rel="noopener" class="link-more">Ver todas as publicações no Google Acadêmico →</a>
+    </div>
+  </div>
+</section>
+
+<!-- LINKS / CONTATO -->
+<section id="contato">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2>Meus links e contatos</h2>
+      <p>Escolha por onde prefere falar comigo ou me acompanhar.</p>
+    </div>
+    <div class="links-grid rv" id="links-grid"></div>
   </div>
 </section>
 
@@ -94,19 +237,21 @@
     <div class="foot-grid">
       <div>
         <div class="foot-logo">Priscila <span>Palomo</span></div>
-        <p style="color:rgba(255,255,255,.65);font-size:14px;max-width:320px">Psicóloga · CRP 98007. Terapia Cognitivo-Comportamental, fobias e TOC. Conteúdo educativo — não substitui acompanhamento individual.</p>
+        <p style="color:rgba(255,255,255,.6);font-size:14px;max-width:340px">Psicóloga · CRP 98007 · Doutora em pesquisa científica. TCC, Mindfulness e Realidade Virtual. Conteúdo educativo — não substitui acompanhamento individual.</p>
       </div>
       <div>
         <h4>Navegar</h4>
-        <a href="index.html">Blog</a>
-        <a href="loja.html">Loja (PDFs)</a>
-        <a href="programa.html">Programa Vencendo a Fobia</a>
         <a href="#sobre">Sobre</a>
+        <a href="#cursos">Cursos</a>
+        <a href="#consultas">Consultas</a>
+        <a href="#artigos">Artigos</a>
+        <a href="loja.html">Materiais (PDFs)</a>
       </div>
       <div>
         <h4>Contato</h4>
-        <a href="https://wa.me/5511950690537" target="_blank">WhatsApp</a>
+        <a href="https://wa.me/5511950690537" target="_blank" rel="noopener">WhatsApp</a>
         <a href="mailto:contato@pripalomo.com">E-mail</a>
+        <a href="#contato">Todos os links</a>
       </div>
     </div>
     <div class="foot-bottom">
@@ -116,10 +261,13 @@
   </div>
 </footer>
 
+<a class="wa-float" href="https://wa.me/5511950690537?text=Ol%C3%A1%20Dra.%20Priscila!" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">💬</a>
+
 <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
 <script src="assets/app.js"></script>
 <script src="assets/content.js"></script>
 <script>
+renderLinks('links-grid');
 (async function(){
   const alvo = document.getElementById('lista-posts');
   try{
@@ -139,13 +287,13 @@
     posts.sort((x,y)=> (y.data||'').localeCompare(x.data||''));
 
     if(!posts.length){
-      alvo.innerHTML = '<p style="color:var(--txs)">Nenhum artigo publicado ainda.</p>';
+      alvo.innerHTML = '<p style="color:var(--ink-soft)">Nenhum artigo publicado ainda.</p>';
       return;
     }
 
     alvo.innerHTML = posts.map(p => `
       <a href="post.html?p=${encodeURIComponent(p.slug)}" class="post-card rv">
-        <div class="post-cover ${p.cor}"><div class="deco"></div>${p.tag?`<span class="tag">${escapeHtml(p.tag)}</span>`:''}</div>
+        <div class="post-cover ${p.cor}">${p.tag?`<span class="tag">${escapeHtml(p.tag)}</span>`:''}</div>
         <div class="post-body">
           <div class="post-meta">${formatarData(p.data)}${p.data?' · ':''}${p.leitura} min de leitura</div>
           <h3>${escapeHtml(p.titulo)}</h3>
@@ -158,7 +306,7 @@
       new IntersectionObserver((en,ob)=>en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ob.unobserve(e.target);}}),{threshold:.1}).observe(el);
     });
   }catch(e){
-    alvo.innerHTML = '<p style="color:var(--txs)">Não foi possível carregar os artigos agora. Tente atualizar a página em instantes.</p>';
+    alvo.innerHTML = '<p style="color:var(--ink-soft)">Não foi possível carregar os artigos agora. Tente atualizar a página em instantes.</p>';
   }
 })();
 </script>

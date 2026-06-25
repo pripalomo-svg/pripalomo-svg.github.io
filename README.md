@@ -1,7 +1,8 @@
 # Site da Dra. Priscila Palomo
 
-Site oficial da Dra. Priscila Palomo — Psicóloga (CRP 98007). Inclui um **blog**
-e uma **loja de materiais em PDF**.
+Site oficial da Dra. Priscila Palomo — Psicóloga (CRP 98007). Site pessoal
+minimalista com **fotos**, **artigos**, **links/contato** e uma **loja de
+materiais em PDF**.
 
 🔗 No ar em: https://www.priscilapalomo.com (e https://pripalomo-svg.github.io)
 
@@ -25,7 +26,8 @@ renderizado no navegador (biblioteca `marked`), sem nenhum passo de build.
 
 | Arquivo / pasta | O que é |
 | --- | --- |
-| `index.html` | Página inicial do **blog** (lista os artigos sozinha) |
+| `index.html` | Página inicial: foto, artigos, materiais, **links/contato** e sobre |
+| `assets/img/` | **Suas fotos** (veja `assets/img/LEIA-ME.md`) |
 | `post.html` | Página que exibe um artigo (abre via `post.html?p=nome-do-arquivo`) |
 | `posts/` | Artigos do blog, **um arquivo `.md` por artigo** |
 | `loja.html` | **Loja** — vitrine dos produtos em PDF |

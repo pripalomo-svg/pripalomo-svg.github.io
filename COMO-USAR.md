@@ -12,6 +12,43 @@ sozinho em 1 a 2 minutinhos. ✨
 
 ---
 
+## 📸 Colocar as suas fotos
+
+O site já vem com um espaço bonito reservado para as suas fotos (com a sua
+inicial). Para colocar as **suas fotos de verdade**, é só subir os arquivos com
+o nome certo na pasta `assets/img/`.
+
+| Onde aparece | Nome do arquivo |
+| --- | --- |
+| Foto grande lá no topo da página inicial | `priscila-principal.jpg` |
+| Foto da seção "Sobre" | `priscila-sobre.jpg` |
+| Quadradinho do "Programa" (na home) | `priscila-programa.jpg` (opcional) |
+| Quadradinho de "Materiais" (na loja) | `priscila-materiais.jpg` (opcional) |
+
+Passo a passo: entre na pasta **`assets`** → **`img`** → **"Add file" → "Upload
+files"** → arraste a foto (com o nome exato da tabela) → **"Commit changes"**.
+
+> O guia completo, com dicas de foto, está em `assets/img/LEIA-ME.md`.
+
+---
+
+## 🔗 Mudar os seus links (WhatsApp, Instagram, e-mail)
+
+Na página inicial existe a seção **"Meus links e contatos"**. Os botões dela e
+seus dados de contato ficam no arquivo `assets/app.js`, lá no comecinho:
+
+```
+const WHATSAPP  = '5511950690537';   // seu WhatsApp com DDD (só números)
+const PIX_KEY   = '11950690537';     // sua chave Pix
+const EMAIL     = 'contato@pripalomo.com';
+const INSTAGRAM = 'pripalomo';       // seu @ do Instagram (sem o @)
+```
+
+É só trocar o que está entre aspas e salvar ("Commit changes"). Para esconder o
+Instagram, deixe `const INSTAGRAM = '';` (vazio).
+
+---
+
 ## ✍️ Escrever um novo artigo no blog
 
 Cada artigo é **um arquivo** na pasta `posts/`. Para criar um novo:
