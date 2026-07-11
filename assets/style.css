@@ -130,61 +130,68 @@ nav{
   display:flex;align-items:flex-end;
   padding:120px clamp(20px,5vw,56px) clamp(48px,8vw,88px);
   background:
-    linear-gradient(180deg,rgba(27,36,33,.18) 0%,rgba(27,36,33,.55) 55%,rgba(27,36,33,.78) 100%),
-    radial-gradient(ellipse 80% 60% at 70% 20%,rgba(63,111,94,.45),transparent 55%),
-    linear-gradient(135deg,#2A4F42 0%,#3F6F5E 38%,#6B8F7E 72%,#A8C0B4 100%);
+    linear-gradient(195deg,rgba(27,36,33,.25) 0%,rgba(27,36,33,.45) 40%,rgba(27,36,33,.72) 100%),
+    radial-gradient(ellipse 70% 55% at 85% 15%,rgba(168,192,180,.55),transparent 60%),
+    radial-gradient(ellipse 50% 45% at 10% 90%,rgba(63,111,94,.5),transparent 55%),
+    linear-gradient(145deg,#1E3D34 0%,#2A4F42 28%,#4A7A66 58%,#8FB5A4 100%);
   color:#fff;
 }
 .hero::before{
-  content:'';position:absolute;inset:0;opacity:.35;pointer-events:none;
+  content:'';position:absolute;inset:0;opacity:.4;pointer-events:none;
   background-image:
-    radial-gradient(circle at 20% 80%,rgba(255,255,255,.12) 0 1px,transparent 1.5px),
-    radial-gradient(circle at 80% 30%,rgba(255,255,255,.08) 0 1px,transparent 1.5px);
+    radial-gradient(circle at 20% 80%,rgba(255,255,255,.14) 0 1px,transparent 1.5px),
+    radial-gradient(circle at 80% 30%,rgba(255,255,255,.1) 0 1px,transparent 1.5px);
   background-size:48px 48px,64px 64px;
   animation:drift 28s linear infinite;
 }
 .hero::after{
-  content:'';position:absolute;width:55%;height:120%;right:-8%;top:-10%;
-  background:radial-gradient(ellipse at center,rgba(255,255,255,.14),transparent 65%);
+  content:'';position:absolute;width:60%;height:130%;right:-10%;top:-15%;
+  background:radial-gradient(ellipse at center,rgba(255,255,255,.2),transparent 65%);
   pointer-events:none;
   animation:breathe 8s ease-in-out infinite;
 }
 @keyframes drift{to{background-position:480px 320px, -320px 240px;}}
 @keyframes breathe{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.9;transform:scale(1.04)}}
 
-.hero-inner{position:relative;z-index:2;width:min(720px,100%);}
+.hero-inner{position:relative;z-index:2;width:min(780px,100%);}
 .hero-brand{
   font-family:'Fraunces',Georgia,serif;
-  font-size:clamp(42px,8vw,78px);
-  font-weight:500;letter-spacing:-.02em;line-height:1;
-  color:#fff;margin-bottom:18px;
-  animation:rise .9s var(--ease) both;
+  font-size:clamp(52px,11vw,96px);
+  font-weight:500;letter-spacing:-.03em;line-height:.95;
+  color:#fff;margin-bottom:20px;
+  animation:riseSoft .85s var(--ease) both;
 }
-.hero-brand em{font-style:italic;font-weight:400;color:rgba(255,255,255,.82);}
+.hero-brand em{font-style:italic;font-weight:400;color:rgba(255,255,255,.78);}
 .hero h1{
-  color:rgba(255,255,255,.92);
-  font-size:clamp(22px,3.2vw,32px);
-  font-weight:400;margin-bottom:14px;
-  animation:rise .9s .12s var(--ease) both;
+  color:rgba(255,255,255,.88);
+  font-family:'Outfit',system-ui,sans-serif;
+  font-size:clamp(18px,2.2vw,24px);
+  font-weight:400;margin-bottom:12px;letter-spacing:.01em;
+  animation:riseSoft .85s .1s var(--ease) both;
 }
 .hero p{
-  color:rgba(255,255,255,.72);
-  font-size:clamp(15px,1.8vw,18px);
-  max-width:480px;margin-bottom:28px;font-weight:400;
-  animation:rise .9s .22s var(--ease) both;
+  color:rgba(255,255,255,.68);
+  font-size:clamp(15px,1.7vw,17px);
+  max-width:440px;margin-bottom:28px;font-weight:400;
+  animation:riseSoft .85s .18s var(--ease) both;
 }
 .hero-actions{
   display:flex;gap:12px;flex-wrap:wrap;
-  animation:rise .9s .32s var(--ease) both;
+  animation:riseSoft .85s .26s var(--ease) both;
 }
 .hero .btn-primary{background:#fff;color:var(--sage-deep);}
 .hero .btn-primary:hover{background:var(--sage-soft);}
 .hero .btn-soft{background:transparent;color:#fff;border-color:rgba(255,255,255,.35);}
 .hero .btn-soft:hover{background:rgba(255,255,255,.12);border-color:#fff;color:#fff;}
 
-@keyframes rise{
-  from{opacity:0;transform:translateY(22px);}
-  to{opacity:1;transform:none;}
+@keyframes riseSoft{
+  from{transform:translateY(14px);}
+  to{transform:none;}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-brand,.hero h1,.hero p,.hero-actions,.hero::before,.hero::after,.rv{
+    animation:none!important;opacity:1;transform:none;
+  }
 }
 
 .page-hero{
