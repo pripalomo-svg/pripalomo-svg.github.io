@@ -162,17 +162,18 @@ nav{
   animation:riseSoft .85s var(--ease) both;
 }
 .hero-brand em{font-style:italic;font-weight:400;color:rgba(255,255,255,.78);}
-.hero h1{
+.hero-lead{
   color:rgba(255,255,255,.88);
   font-family:'Outfit',system-ui,sans-serif;
   font-size:clamp(18px,2.2vw,24px);
-  font-weight:400;margin-bottom:12px;letter-spacing:.01em;
+  font-weight:400;margin:0 0 12px;letter-spacing:.01em;
+  max-width:none;
   animation:riseSoft .85s .1s var(--ease) both;
 }
-.hero p{
+.hero-inner > p:not(.hero-lead){
   color:rgba(255,255,255,.68);
   font-size:clamp(15px,1.7vw,17px);
-  max-width:440px;margin-bottom:28px;font-weight:400;
+  max-width:440px;margin:0 0 28px;font-weight:400;
   animation:riseSoft .85s .18s var(--ease) both;
 }
 .hero-actions{
@@ -189,7 +190,7 @@ nav{
   to{transform:none;}
 }
 @media (prefers-reduced-motion:reduce){
-  .hero-brand,.hero h1,.hero p,.hero-actions,.hero::before,.hero::after,.rv{
+  .hero-brand,.hero-lead,.hero p,.hero-actions,.hero::before,.hero::after,.rv{
     animation:none!important;opacity:1;transform:none;
   }
 }
