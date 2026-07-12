@@ -55,5 +55,5 @@ function subscribe(ev){
   const msg=encodeURIComponent('Olá Dra. Priscila! Quero receber seus conteúdos por e-mail: '+email);
   window.open('https://wa.me/'+WHATSAPP+'?text='+msg,'_blank');
   ev.target.reset();
-  alert('Obrigada! Em breve entraremos em contato. 💛');
+  alert('Obrigada! Em breve entraremos em contato.');
 }
