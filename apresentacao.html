@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Priscila Palomo</title>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,700;1,400;1,700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html,body{width:100%;height:100%;overflow:hidden;}
 body{
-  background:#0f0f0f;
+  background:#1C1A16;
   color:#fff;
   font-family:'Inter',sans-serif;
   display:flex;align-items:center;justify-content:center;
@@ -25,7 +25,7 @@ body{
 .center-line{
   position:absolute;left:0;right:0;
   top:50%;transform:translateY(-50%);
-  height:1px;background:rgba(255,255,255,.08);
+  height:1px;background:rgba(196,163,90,.18);
   opacity:0;
   animation:fadein .6s 0.2s forwards;
 }
@@ -63,7 +63,7 @@ body{
   position:absolute;
   bottom:-20px;left:0;
   font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  color:rgba(255,255,255,.35);
+  color:rgba(196,163,90,.7);
   font-weight:400;
 }
 
@@ -72,13 +72,13 @@ body{
 
 .eyebrow{
   font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-  color:rgba(255,255,255,.35);font-weight:400;
+  color:rgba(196,163,90,.7);font-weight:400;
   margin-bottom:18px;display:block;
   opacity:0;animation:fadein .5s 1.0s forwards;
 }
 
 .name{
-  font-family:'Lora',Georgia,serif;
+  font-family:'Cormorant Garamond',Georgia,serif;
   font-size:clamp(36px,4.5vw,58px);
   font-weight:700;line-height:1;letter-spacing:-.02em;
   margin-bottom:14px;
@@ -86,10 +86,10 @@ body{
 }
 
 .tagline{
-  font-family:'Lora',Georgia,serif;
+  font-family:'Cormorant Garamond',Georgia,serif;
   font-style:italic;
   font-size:clamp(18px,2.2vw,24px);
-  font-weight:400;color:rgba(255,255,255,.62);
+  font-weight:400;color:rgba(245,237,214,.72);
   line-height:1.4;
   margin-bottom:36px;
   opacity:0;animation:slideUp .8s 1.5s cubic-bezier(.22,1,.36,1) forwards;
@@ -107,7 +107,7 @@ body{
 }
 .fact{
   display:grid;grid-template-columns:20px 1fr;gap:12px;
-  align-items:baseline;font-size:14px;color:rgba(255,255,255,.72);
+  align-items:baseline;font-size:14px;color:rgba(245,237,214,.82);
   opacity:0;
 }
 .fact:nth-child(1){animation:slideUp .5s 2.0s cubic-bezier(.22,1,.36,1) forwards;}
@@ -126,10 +126,10 @@ body{
 }
 .stat-block{ display:flex;flex-direction:column; }
 .stat-n{
-  font-family:'Lora',Georgia,serif;
+  font-family:'Cormorant Garamond',Georgia,serif;
   font-size:32px;font-weight:700;line-height:1;
 }
-.stat-l{font-size:12px;color:rgba(255,255,255,.4);margin-top:4px;}
+.stat-l{font-size:12px;color:rgba(196,163,90,.65);margin-top:4px;}
 
 /* RODAPÉ do vídeo */
 .foot-bar{
@@ -137,14 +137,14 @@ body{
   bottom:0;left:0;right:0;
   padding:20px 48px;
   display:flex;align-items:center;justify-content:space-between;
-  border-top:1px solid rgba(255,255,255,.06);
+  border-top:1px solid rgba(196,163,90,.18);
   opacity:0;animation:fadein .5s 3.4s forwards;
 }
 .foot-site{
-  font-size:12px;letter-spacing:.08em;color:rgba(255,255,255,.3);
+  font-size:12px;letter-spacing:.08em;color:rgba(196,163,90,.45);
 }
 .foot-crp{
-  font-size:12px;letter-spacing:.1em;color:rgba(255,255,255,.2);
+  font-size:12px;letter-spacing:.1em;color:rgba(196,163,90,.35);
 }
 
 /* KEYFRAMES */
