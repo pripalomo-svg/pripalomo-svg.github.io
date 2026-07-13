@@ -20,6 +20,9 @@ document.querySelectorAll('[data-year]').forEach(el=>el.textContent=new Date().g
 /* ----- Modal de pagamento (loja) ----- */
 const WHATSAPP='5511950690537';
 const PIX_KEY='11950690537';
+// Link de checkout de cartão de crédito (ex.: Mercado Pago, PagSeguro, InfinitePay).
+// Deixe vazio ('') para receber os pedidos com cartão pelo WhatsApp.
+const CARTAO_LINK='';
 
 function openPay(nome,preco){
   const m=document.getElementById('payModal');
@@ -28,6 +31,20 @@ function openPay(nome,preco){
   m.querySelector('[data-preco]').textContent=preco?('Investimento: '+preco):'';
   const msg=encodeURIComponent('Olá Dra. Priscila! Tenho interesse no material "'+nome+'"'+(preco?(' ('+preco+')'):'')+'. Pode me enviar mais informações?');
   m.querySelector('[data-wa]').href='https://wa.me/'+WHATSAPP+'?text='+msg;
+
+  // Cartão de crédito: usa o link de checkout se configurado; senão, cai no WhatsApp.
+  const card=m.querySelector('[data-card]');
+  if(card){
+    if(CARTAO_LINK){
+      card.href=CARTAO_LINK;
+    }else{
+      const msgCartao=encodeURIComponent('Olá Dra. Priscila! Quero pagar o material "'+nome+'"'+(preco?(' ('+preco+')'):'')+' com cartão de crédito. Pode me enviar o link de pagamento?');
+      card.href='https://wa.me/'+WHATSAPP+'?text='+msgCartao;
+    }
+    const sub=card.querySelector('[data-card-sub]');
+    if(sub)sub.textContent=CARTAO_LINK?'Parcele em até 12x no checkout seguro':'Enviamos o link de pagamento pelo WhatsApp';
+  }
+
   m.querySelector('.pix-box')?.classList.remove('show');
   m.classList.add('open');
   document.body.style.overflow='hidden';

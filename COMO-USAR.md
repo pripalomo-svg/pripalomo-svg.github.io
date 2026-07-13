@@ -134,4 +134,23 @@ const PIX_KEY   = '11950690537';
 
 ---
 
+## Formas de pagamento (WhatsApp, Pix e cartão de crédito)
+
+Ao clicar em **Comprar** na loja, aparecem três opções: **WhatsApp**, **cartão de
+crédito** e **Pix**.
+
+Para o **cartão de crédito**, abra `assets/app.js` e preencha a linha:
+
+```
+const CARTAO_LINK = '';
+```
+
+- Se você tem um link de checkout (ex.: **Mercado Pago**, **PagSeguro** ou
+  **InfinitePay**), cole-o entre as aspas. O botão "Cartão de crédito" leva o
+  cliente direto para esse pagamento.
+- Se deixar vazio (`''`), o botão abre o WhatsApp com uma mensagem pronta
+  pedindo o link de pagamento no cartão.
+
+---
+
 Qualquer dúvida, é só me chamar.
