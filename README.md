@@ -31,6 +31,7 @@ renderizado no navegador (biblioteca `marked`), sem nenhum passo de build.
 | `loja.html` | **Loja** — vitrine dos produtos em PDF |
 | `produtos/` | Fichas dos produtos, **um arquivo `.md` por produto** |
 | `pdfs/` | Arquivos PDF dos produtos |
+| `fobias.html` | Página de **psicoeducação sobre fobias** com desenhos animados |
 | `assets/style.css` | Estilos compartilhados |
 | `assets/app.js` | Scripts (menu, pagamento, newsletter) e dados de contato |
 | `assets/content.js` | Carregador dos arquivos Markdown (não precisa editar) |
