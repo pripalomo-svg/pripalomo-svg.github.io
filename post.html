@@ -20,15 +20,15 @@
   </a>
   <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
   <ul class="nav-links">
-    <li><a href="index.html" class="active">Blog</a></li>
+    <li><a href="index.html">Início</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
     <li><a href="loja.html">Materiais</a></li>
-    <li><a href="fobias.html">Fobias</a></li>
     <li><a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Dra.%20Priscila!" target="_blank" class="nav-cta">Falar comigo</a></li>
   </ul>
 </nav>
 
 <div class="article-wrap">
-  <a href="index.html" class="back-link">← Blog</a>
+  <a href="blog.html" class="back-link">← Blog</a>
 
   <div class="article-header">
     <span class="tag" id="art-tag" style="display:none"></span>
@@ -48,7 +48,7 @@
 <footer>
   <span class="foot-name">Priscila Palomo</span>
   <div class="foot-links">
-    <a href="index.html">Blog</a>
+    <a href="blog.html">Blog</a>
     <a href="loja.html">Materiais</a>
   </div>
   <span class="foot-info">CRP 98007</span>
@@ -67,7 +67,7 @@
 
   if(!slug){
     elT.textContent = 'Artigo não encontrado';
-    elC.innerHTML = '<p><a href="index.html">← Voltar ao blog</a></p>';
+    elC.innerHTML = '<p><a href="blog.html">← Voltar ao blog</a></p>';
     return;
   }
 
@@ -87,7 +87,7 @@
     elC.innerHTML = md2html(corpo);
   }catch(e){
     elT.textContent = 'Artigo não encontrado';
-    elC.innerHTML = '<p><a href="index.html">← Voltar ao blog</a></p>';
+    elC.innerHTML = '<p><a href="blog.html">← Voltar ao blog</a></p>';
   }
 })();
 </script>

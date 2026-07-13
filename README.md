@@ -14,7 +14,7 @@ e uma **loja de materiais em PDF**.
 O conteúdo é separado do layout. Você só cria arquivos `.md`:
 
 - **Blog:** cada artigo é um arquivo em `posts/` (ex.: `posts/meu-artigo.md`).
-  A página inicial (`index.html`) lista os artigos **automaticamente**.
+  A página do blog (`blog.html`) lista os artigos **automaticamente**.
 - **Loja:** cada produto é um arquivo em `produtos/` (ex.: `produtos/2-ebook.md`).
   A página `loja.html` monta a vitrine **automaticamente**. Os PDFs ficam em `pdfs/`.
 
@@ -25,13 +25,14 @@ renderizado no navegador (biblioteca `marked`), sem nenhum passo de build.
 
 | Arquivo / pasta | O que é |
 | --- | --- |
-| `index.html` | Página inicial do **blog** (lista os artigos sozinha) |
+| `index.html` | **Página de abertura** — psicoeducação sobre fobias |
+| `blog.html` | Blog + apresentação (lista os artigos sozinha) |
 | `post.html` | Página que exibe um artigo (abre via `post.html?p=nome-do-arquivo`) |
 | `posts/` | Artigos do blog, **um arquivo `.md` por artigo** |
 | `loja.html` | **Loja** — vitrine dos produtos em PDF |
 | `produtos/` | Fichas dos produtos, **um arquivo `.md` por produto** |
 | `pdfs/` | Arquivos PDF dos produtos |
-| `fobias.html` | Página de **psicoeducação sobre fobias** com desenhos animados |
+| `fobias.html` | Redireciona para a página inicial (`index.html`) |
 | `assets/style.css` | Estilos compartilhados |
 | `assets/app.js` | Scripts (menu, pagamento, newsletter) e dados de contato |
 | `assets/content.js` | Carregador dos arquivos Markdown (não precisa editar) |
