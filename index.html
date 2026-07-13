@@ -43,18 +43,20 @@
 .fb-split { display: grid; grid-template-columns: 1fr 260px; gap: clamp(24px,5vw,56px); align-items: center; }
 .fb-split.rev { grid-template-columns: 260px 1fr; }
 
-/* Grid de tipos de fobia */
+/* Catálogo de tipos de fobia — um embaixo do outro */
 .fb-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(220px,100%), 1fr));
+  display: flex;
+  flex-direction: column;
   border: 2px solid var(--fb-ink); margin-top: 22px;
 }
 .fb-card {
-  padding: 22px 20px; border-right: 1px solid var(--fb-line);
-  border-bottom: 1px solid var(--fb-line);
-  display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+  padding: 22px 20px; border-bottom: 1px solid var(--fb-line);
+  display: flex; flex-direction: row; align-items: center; gap: 20px;
   transition: background .2s;
 }
+.fb-card:last-child { border-bottom: none; }
+.fb-card .fb-ico { flex: 0 0 auto; }
+.fb-card-text { display: flex; flex-direction: column; gap: 6px; }
 .fb-card:hover { background: #F2F5F8; }
 .fb-card h3 { font-size: 14px; }
 .fb-card p  { font-size: 11.5px; color: #444; margin: 0; line-height: 1.5; }
@@ -77,6 +79,7 @@
 @media (max-width: 720px) {
   .fb-hero, .fb-split, .fb-split.rev { grid-template-columns: 1fr; }
   .fb-hero svg, .fb-split svg { max-width: 260px; margin-inline: auto; }
+  .fb-card { flex-direction: column; align-items: flex-start; gap: 12px; }
 }
 
 /* =============== ANIMAÇÕES DOS DESENHOS =============== */
@@ -289,8 +292,10 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
                   stroke="#14324B" stroke-width="2.4" fill="none" stroke-linecap="round"/>
           </g>
         </svg>
-        <h3>Aracnofobia</h3>
-        <p>Medo de aranhas — a fobia de animal mais comum no mundo.</p>
+        <div class="fb-card-text">
+          <h3>Aracnofobia</h3>
+          <p>Medo de aranhas — a fobia de animal mais comum no mundo.</p>
+        </div>
       </div>
 
       <div class="fb-card">
@@ -302,8 +307,10 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
             <path d="M54 42 l6 -2 M54 42 l6 2" stroke="#111" stroke-width="1.6"/>
           </g>
         </svg>
-        <h3>Ofidiofobia</h3>
-        <p>Medo de cobras — herança evolutiva que pode sair do controle.</p>
+        <div class="fb-card-text">
+          <h3>Ofidiofobia</h3>
+          <p>Medo de cobras — herança evolutiva que pode sair do controle.</p>
+        </div>
       </div>
 
       <div class="fb-card">
@@ -318,8 +325,10 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
           </g>
           <path d="M57 24 q4 4 0 8 M60 20 q7 6 0 14" stroke="#14324B" stroke-width="1.8" fill="none" class="anim a-blush"/>
         </svg>
-        <h3>Cinofobia</h3>
-        <p>Medo de cães, muitas vezes após um susto na infância.</p>
+        <div class="fb-card-text">
+          <h3>Cinofobia</h3>
+          <p>Medo de cães, muitas vezes após um susto na infância.</p>
+        </div>
       </div>
 
       <div class="fb-card">
@@ -330,8 +339,10 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
             <ellipse cx="30" cy="12" rx="10" ry="4.5" fill="#14324B" opacity=".85"/>
           </g>
         </svg>
-        <h3>Acrofobia</h3>
-        <p>Medo de altura: sacadas, escadas, mirantes e pontes.</p>
+        <div class="fb-card-text">
+          <h3>Acrofobia</h3>
+          <p>Medo de altura: sacadas, escadas, mirantes e pontes.</p>
+        </div>
       </div>
 
       <div class="fb-card">
@@ -342,8 +353,10 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
           <path d="M32 33 L32 46 M32 37 L25 42 M32 37 L39 42 M32 46 L27 54 M32 46 L37 54"
                 stroke="#111" stroke-width="2.4" fill="none" stroke-linecap="round"/>
         </svg>
-        <h3>Claustrofobia</h3>
-        <p>Medo de lugares fechados: elevador, avião, ressonância, túnel.</p>
+        <div class="fb-card-text">
+          <h3>Claustrofobia</h3>
+          <p>Medo de lugares fechados: elevador, avião, ressonância, túnel.</p>
+        </div>
       </div>
 
       <div class="fb-card">
@@ -354,8 +367,10 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
           </g>
           <path d="M6 52 h18 M30 52 h10" stroke="#111" stroke-width="2" stroke-dasharray="3 4"/>
         </svg>
-        <h3>Aerofobia</h3>
-        <p>Medo de voar — mesmo sabendo que o avião é o transporte mais seguro.</p>
+        <div class="fb-card-text">
+          <h3>Aerofobia</h3>
+          <p>Medo de voar — mesmo sabendo que o avião é o transporte mais seguro.</p>
+        </div>
       </div>
 
       <div class="fb-card">
@@ -363,8 +378,10 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
           <path class="anim a-drop" d="M32 8 q10 16 0 22 q-10 -6 0 -22" fill="#14324B"/>
           <rect x="14" y="44" width="36" height="4" rx="2" fill="#111"/>
         </svg>
-        <h3>Hematofobia</h3>
-        <p>Medo de sangue e ferimentos — a única fobia que pode causar desmaio.</p>
+        <div class="fb-card-text">
+          <h3>Hematofobia</h3>
+          <p>Medo de sangue e ferimentos — a única fobia que pode causar desmaio.</p>
+        </div>
       </div>
 
       <div class="fb-card">
@@ -376,8 +393,10 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
             <line x1="40" y1="14" x2="50" y2="24" stroke="#111" stroke-width="2.4"/>
           </g>
         </svg>
-        <h3>Tripanofobia</h3>
-        <p>Medo de agulhas e injeções — atrapalha vacinas e exames.</p>
+        <div class="fb-card-text">
+          <h3>Tripanofobia</h3>
+          <p>Medo de agulhas e injeções — atrapalha vacinas e exames.</p>
+        </div>
       </div>
 
       <div class="fb-card">
@@ -385,8 +404,10 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
           <path d="M14 10 q8 -8 18 -4 q12 -4 16 8 q10 2 6 12 q-4 8 -14 6 l-24 0 q-10 0 -8 -10 q-2 -8 6 -12" fill="#fff" stroke="#111" stroke-width="2.4"/>
           <path class="anim a-flash" d="M34 34 L26 48 L32 48 L28 60 L42 44 L35 44 L40 34 Z" fill="#14324B"/>
         </svg>
-        <h3>Astrafobia</h3>
-        <p>Medo de trovões e tempestades, comum em crianças e adultos.</p>
+        <div class="fb-card-text">
+          <h3>Astrafobia</h3>
+          <p>Medo de trovões e tempestades, comum em crianças e adultos.</p>
+        </div>
       </div>
 
       <div class="fb-card">
@@ -396,8 +417,10 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
           <g class="anim a-blink"><circle cx="20" cy="22" r="2.4" fill="#fff"/></g>
           <g class="anim a-blink" style="animation-delay:1.4s"><circle cx="26" cy="42" r="2" fill="#fff"/></g>
         </svg>
-        <h3>Nictofobia</h3>
-        <p>Medo do escuro — não é "coisa de criança": adultos também têm.</p>
+        <div class="fb-card-text">
+          <h3>Nictofobia</h3>
+          <p>Medo do escuro — não é "coisa de criança": adultos também têm.</p>
+        </div>
       </div>
 
       <div class="fb-card">
@@ -407,8 +430,10 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
           </g>
           <path d="M50 16 q4 4 0 8" stroke="#14324B" stroke-width="2" fill="none" class="anim a-blush"/>
         </svg>
-        <h3>Odontofobia</h3>
-        <p>Medo de dentista — leva ao adiamento de cuidados importantes.</p>
+        <div class="fb-card-text">
+          <h3>Odontofobia</h3>
+          <p>Medo de dentista — leva ao adiamento de cuidados importantes.</p>
+        </div>
       </div>
 
       <div class="fb-card">
@@ -419,8 +444,10 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
           </g>
           <circle cx="32" cy="22" r="4" fill="#fff" stroke="#111" stroke-width="2"/>
         </svg>
-        <h3>Talassofobia</h3>
-        <p>Medo do mar profundo e do que não se vê debaixo d'água.</p>
+        <div class="fb-card-text">
+          <h3>Talassofobia</h3>
+          <p>Medo do mar profundo e do que não se vê debaixo d'água.</p>
+        </div>
       </div>
 
       <div class="fb-card">
@@ -430,8 +457,10 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
           <g class="anim a-pulse"><circle cx="32" cy="22" r="16" fill="none" stroke="#14324B" stroke-width="2"/></g>
           <g class="anim a-pulse2"><circle cx="32" cy="22" r="16" fill="none" stroke="#14324B" stroke-width="2"/></g>
         </svg>
-        <h3>Glossofobia</h3>
-        <p>Medo de falar em público — o coração dispara só de pensar.</p>
+        <div class="fb-card-text">
+          <h3>Glossofobia</h3>
+          <p>Medo de falar em público — o coração dispara só de pensar.</p>
+        </div>
       </div>
 
       <div class="fb-card">
@@ -445,8 +474,10 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
           <circle class="anim a-blush" cx="25" cy="37" r="2.6" fill="#14324B"/>
           <circle class="anim a-blush" cx="39" cy="37" r="2.6" fill="#14324B"/>
         </svg>
-        <h3>Fobia social</h3>
-        <p>Medo intenso de julgamento e avaliação nas interações sociais.</p>
+        <div class="fb-card-text">
+          <h3>Fobia social</h3>
+          <p>Medo intenso de julgamento e avaliação nas interações sociais.</p>
+        </div>
       </div>
 
       <div class="fb-card">
@@ -458,8 +489,10 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
                   stroke="#111" stroke-width="2.2" fill="none" stroke-linecap="round"/>
           </g>
         </svg>
-        <h3>Agorafobia</h3>
-        <p>Medo de lugares de onde seria difícil escapar ou receber ajuda.</p>
+        <div class="fb-card-text">
+          <h3>Agorafobia</h3>
+          <p>Medo de lugares de onde seria difícil escapar ou receber ajuda.</p>
+        </div>
       </div>
 
       <div class="fb-card">
@@ -469,8 +502,10 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
           <path class="anim a-tremor" d="M25 42 q7 -5 14 0" stroke="#111" stroke-width="2.2" fill="none"/>
           <path class="anim a-drop" d="M50 20 q5 8 0 11 q-5 -3 0 -11" fill="#14324B"/>
         </svg>
-        <h3>Emetofobia</h3>
-        <p>Medo de vomitar ou ver alguém passando mal.</p>
+        <div class="fb-card-text">
+          <h3>Emetofobia</h3>
+          <p>Medo de vomitar ou ver alguém passando mal.</p>
+        </div>
       </div>
 
     </div>
