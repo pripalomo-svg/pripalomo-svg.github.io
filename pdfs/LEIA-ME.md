@@ -19,3 +19,16 @@ consegue baixar). Por isso:
 - **Produtos pagos:** prefira **não** deixar o PDF aberto aqui. Entregue o arquivo
   pelo WhatsApp após o pagamento, ou use uma plataforma de checkout
   (Hotmart, Eduzz, Gumroad) que protege o download.
+
+### Programa Escada Segura
+
+O arquivo `programa-escada-segura.pdf` é o workbook premium (pago).
+**Não** coloque o link dele na ficha do produto da loja (`arquivo` deve ficar vazio) —
+entregue pelo WhatsApp depois do Pix/cartão.
+
+Para regenerar o PDF:
+
+```bash
+pip3 install reportlab
+python3 tools/gerar-escada-segura.py
+```
