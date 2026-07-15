@@ -1,7 +1,8 @@
 # Site da Dra. Priscila Palomo
 
 Site oficial da Dra. Priscila Palomo — Psicóloga (CRP 98007). Inclui um **blog**
-e uma **loja de materiais em PDF**.
+e uma **loja de materiais em PDF**, com o produto âncora
+**[Programa Escada Segura](escada-segura.html)** (workbook de 21 dias, R$ 97).
 
 🔗 No ar em: https://www.priscilapalomo.com (e https://pripalomo-svg.github.io)
 
