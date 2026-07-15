@@ -111,7 +111,9 @@
       : `${p.precoDe ? `<span class="old">${escapeHtml(p.precoDe)}</span>` : ''}<span class="now">${escapeHtml(p.preco)}</span>`;
 
     let acao;
-    if(gratis && p.arquivo){
+    if(p.link){
+      acao = `<a class="btn btn-solid" href="${escapeHtml(p.link)}">Ver programa</a>`;
+    } else if(gratis && p.arquivo){
       acao = `<a class="btn btn-solid" href="${p.arquivo}" download>Baixar grátis</a>`;
     } else if(p.arquivo){
       acao = `<a class="btn btn-solid" href="${p.arquivo}" download>Baixar PDF</a>`;
@@ -141,7 +143,8 @@
         paginas: meta.paginas || '',
         precoDe: meta.precoDe || '',
         preco:   meta.preco   || '',
-        arquivo: meta.arquivo || ''
+        arquivo: meta.arquivo || '',
+        link:    meta.link    || ''
       };
     }));
 
