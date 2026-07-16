@@ -119,15 +119,20 @@
   const shop = document.getElementById('shop');
 
   function montarCard(p){
-    const gratis = !p.preco;
-    const precoHtml = gratis
-      ? `<span class="free">Grátis</span>`
-      : `${p.precoDe ? `<span class="old">${escapeHtml(p.precoDe)}</span>` : ''}<span class="now">${escapeHtml(p.preco)}</span>`;
+    let precoHtml = '';
+    if(p.preco){
+      precoHtml = `${p.precoDe ? `<span class="old">${escapeHtml(p.precoDe)}</span>` : ''}<span class="now">${escapeHtml(p.preco)}</span>`;
+    } else if(p.arquivo){
+      precoHtml = `<span class="free">Grátis</span>`;
+    }
 
     let acao;
     if(p.link){
-      acao = `<a class="btn btn-solid" href="${escapeHtml(p.link)}">Ver programa</a>`;
-    } else if(gratis && p.arquivo){
+      const externo = /^https?:\/\//i.test(p.link);
+      const label = p.botao || (externo ? 'Comprar' : 'Ver programa');
+      const tgt = externo ? ' target="_blank" rel="noopener"' : '';
+      acao = `<a class="btn btn-solid" href="${escapeHtml(p.link)}"${tgt}>${escapeHtml(label)}</a>`;
+    } else if(!p.preco && p.arquivo){
       acao = `<a class="btn btn-solid" href="${p.arquivo}" download>Baixar grátis</a>`;
     } else if(p.arquivo){
       acao = `<a class="btn btn-solid" href="${p.arquivo}" download>Baixar PDF</a>`;
@@ -136,10 +141,12 @@
       acao = `<button class="btn btn-solid" onclick="openPay('${t}','${p.preco||''}')">Comprar</button>`;
     }
 
+    const linhaMeta = p.formato ? p.formato : (p.paginas ? p.paginas + ' · PDF' : '');
+
     return `
       <article class="product rv">
         <h4>${escapeHtml(p.titulo)}</h4>
-        ${p.paginas ? `<div class="product-pages">${escapeHtml(p.paginas)} · PDF</div>` : ''}
+        ${linhaMeta ? `<div class="product-pages">${escapeHtml(linhaMeta)}</div>` : ''}
         <p class="desc">${escapeHtml(p.desc||'')}</p>
         <div class="product-price">${precoHtml}</div>
         <div class="product-actions">${acao}</div>
@@ -155,9 +162,11 @@
         titulo:  meta.titulo  || a.slug,
         desc:    meta.desc    || corpo,
         paginas: meta.paginas || '',
+        formato: meta.formato || '',
         precoDe: meta.precoDe || '',
         preco:   meta.preco   || '',
         arquivo: meta.arquivo || '',
+        botao:   meta.botao   || '',
         link:    meta.link    || ''
       };
     }));
