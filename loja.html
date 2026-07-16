@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Materiais — Priscila Palomo</title>
-<meta name="description" content="PDFs e guias da Dra. Priscila Palomo (CRP 98007). Preços acessíveis.">
+<meta name="description" content="Programa Escada Segura e materiais em PDF da Dra. Priscila Palomo (CRP 98007).">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>P</text></svg>"><link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -31,6 +31,20 @@
     <h1>Materiais</h1>
     <p>PDFs e guias práticos. Compra por Pix ou WhatsApp.</p>
   </div>
+
+  <aside class="es-feature" style="margin-top:36px;padding:28px 24px;border:2px solid #14324B;background:#F2F5F8;display:grid;gap:14px;max-width:720px">
+    <span style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#14324B;font-weight:700">Destaque</span>
+    <div>
+      <h2 style="font-size:clamp(20px,3vw,28px);margin-bottom:8px">Programa Escada Segura</h2>
+      <p style="font-size:14px;color:#333;line-height:1.6;max-width:52ch;margin:0">
+        Workbook de 21 dias para vencer fobias específicas com exposição gradual — o produto completo.
+      </p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+      <a href="escada-segura.html" class="btn btn-solid">Ver programa — R$&nbsp;97</a>
+      <span style="font-size:13px;color:#777"><span style="text-decoration:line-through;margin-right:6px">R$&nbsp;197</span></span>
+    </div>
+  </aside>
 
   <div style="padding:48px 0">
     <div id="shop" class="shop-grid">
@@ -111,7 +125,9 @@
       : `${p.precoDe ? `<span class="old">${escapeHtml(p.precoDe)}</span>` : ''}<span class="now">${escapeHtml(p.preco)}</span>`;
 
     let acao;
-    if(gratis && p.arquivo){
+    if(p.link){
+      acao = `<a class="btn btn-solid" href="${escapeHtml(p.link)}">Ver programa</a>`;
+    } else if(gratis && p.arquivo){
       acao = `<a class="btn btn-solid" href="${p.arquivo}" download>Baixar grátis</a>`;
     } else if(p.arquivo){
       acao = `<a class="btn btn-solid" href="${p.arquivo}" download>Baixar PDF</a>`;
@@ -141,7 +157,8 @@
         paginas: meta.paginas || '',
         precoDe: meta.precoDe || '',
         preco:   meta.preco   || '',
-        arquivo: meta.arquivo || ''
+        arquivo: meta.arquivo || '',
+        link:    meta.link    || ''
       };
     }));
 

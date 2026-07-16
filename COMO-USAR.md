@@ -121,6 +121,27 @@ Descrição curta do material gratuito.
 2. Adicione o slug do novo produto na lista (ex.: `"5-nome-do-produto"`).
 3. **"Commit changes"**.
 
+### Produto premium com página de vendas
+
+Se o produto tiver uma landing própria (como o **Programa Escada Segura**),
+adicione a linha `link` na ficha:
+
+```
+---
+titulo: Programa Escada Segura
+tag: Premium
+paginas: 40 páginas
+precoDe: R$ 197
+preco: R$ 97
+arquivo: ""
+link: escada-segura.html
+---
+Descrição curta.
+```
+
+O botão da loja vira **“Ver programa”** e leva para a landing.
+O PDF pago fica em `pdfs/` **sem** link na ficha — você envia pelo WhatsApp após o pagamento.
+
 ---
 
 ## Mudar o WhatsApp ou a chave Pix

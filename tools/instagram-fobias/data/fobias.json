@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "aracnofobia",
+    "name": "Aracnofobia",
+    "desc": "Medo de aranhas — a fobia de animal mais comum no mundo.",
+    "svg": "<svg aria-label=\"Aranha balançando no fio\" class=\"fb-ico\" viewbox=\"0 0 64 64\">\n<line stroke=\"#111\" stroke-width=\"2\" x1=\"32\" x2=\"32\" y1=\"0\" y2=\"18\"></line>\n<g class=\"anim a-swing\">\n<circle cx=\"32\" cy=\"30\" fill=\"#111\" r=\"9\"></circle>\n<circle cx=\"28\" cy=\"27\" fill=\"#fff\" r=\"1.8\"></circle>\n<circle cx=\"36\" cy=\"27\" fill=\"#fff\" r=\"1.8\"></circle>\n<path d=\"M24 26 Q14 20 10 24 M24 31 Q13 30 9 35 M40 26 Q50 20 54 24 M40 31 Q51 30 55 35 M25 36 Q17 42 13 48 M39 36 Q47 42 51 48\" fill=\"none\" stroke=\"#14324B\" stroke-linecap=\"round\" stroke-width=\"2.4\"></path>\n</g>\n</svg>"
+  },
+  {
+    "slug": "ofidiofobia",
+    "name": "Ofidiofobia",
+    "desc": "Medo de cobras — herança evolutiva que pode sair do controle.",
+    "svg": "<svg aria-label=\"Cobra rastejando\" class=\"fb-ico\" viewbox=\"0 0 64 64\">\n<g class=\"anim a-slither\">\n<path d=\"M6 44 Q16 32 26 44 T46 44\" fill=\"none\" stroke=\"#14324B\" stroke-linecap=\"round\" stroke-width=\"5\"></path>\n<circle cx=\"49\" cy=\"42\" fill=\"#111\" r=\"5\"></circle>\n<circle cx=\"51\" cy=\"40\" fill=\"#fff\" r=\"1.2\"></circle>\n<path d=\"M54 42 l6 -2 M54 42 l6 2\" stroke=\"#111\" stroke-width=\"1.6\"></path>\n</g>\n</svg>"
+  },
+  {
+    "slug": "cinofobia",
+    "name": "Cinofobia",
+    "desc": "Medo de cães, muitas vezes após um susto na infância.",
+    "svg": "<svg aria-label=\"Cachorro latindo\" class=\"fb-ico\" viewbox=\"0 0 64 64\">\n<g class=\"anim a-bark\">\n<rect fill=\"#fff\" height=\"16\" rx=\"7\" stroke=\"#111\" stroke-width=\"2.6\" width=\"26\" x=\"14\" y=\"30\"></rect>\n<circle cx=\"44\" cy=\"30\" fill=\"#fff\" r=\"9\" stroke=\"#111\" stroke-width=\"2.6\"></circle>\n<path d=\"M40 22 l-3 -7 5 2 z M50 23 l4 -6 1 6 z\" fill=\"#14324B\"></path>\n<circle cx=\"47\" cy=\"28\" fill=\"#111\" r=\"1.6\"></circle>\n<line stroke=\"#111\" stroke-width=\"2.6\" x1=\"18\" x2=\"18\" y1=\"46\" y2=\"53\"></line>\n<line stroke=\"#111\" stroke-width=\"2.6\" x1=\"34\" x2=\"34\" y1=\"46\" y2=\"53\"></line>\n</g>\n<path class=\"anim a-blush\" d=\"M57 24 q4 4 0 8 M60 20 q7 6 0 14\" fill=\"none\" stroke=\"#14324B\" stroke-width=\"1.8\"></path>\n</svg>"
+  },
+  {
+    "slug": "acrofobia",
+    "name": "Acrofobia",
+    "desc": "Medo de altura: sacadas, escadas, mirantes e pontes.",
+    "svg": "<svg aria-label=\"Montanha com nuvem passando\" class=\"fb-ico\" viewbox=\"0 0 64 64\">\n<path d=\"M4 56 L26 18 L38 38 L46 26 L60 56 Z\" fill=\"#fff\" stroke=\"#111\" stroke-width=\"2.6\"></path>\n<path d=\"M26 18 L32 28 L26 30 L22 25 Z\" fill=\"#14324B\"></path>\n<g class=\"anim a-fly\">\n<ellipse cx=\"30\" cy=\"12\" fill=\"#14324B\" opacity=\".85\" rx=\"10\" ry=\"4.5\"></ellipse>\n</g>\n</svg>"
+  },
+  {
+    "slug": "claustrofobia",
+    "name": "Claustrofobia",
+    "desc": "Medo de lugares fechados: elevador, avião, ressonância, túnel.",
+    "svg": "<svg aria-label=\"Paredes apertando uma pessoa\" class=\"fb-ico\" viewbox=\"0 0 64 64\">\n<rect class=\"anim a-squeeze\" fill=\"#14324B\" height=\"44\" width=\"10\" x=\"6\" y=\"10\"></rect>\n<rect class=\"anim a-squeezeR\" fill=\"#14324B\" height=\"44\" width=\"10\" x=\"48\" y=\"10\"></rect>\n<circle cx=\"32\" cy=\"26\" fill=\"#fff\" r=\"7\" stroke=\"#111\" stroke-width=\"2.4\"></circle>\n<path d=\"M32 33 L32 46 M32 37 L25 42 M32 37 L39 42 M32 46 L27 54 M32 46 L37 54\" fill=\"none\" stroke=\"#111\" stroke-linecap=\"round\" stroke-width=\"2.4\"></path>\n</svg>"
+  },
+  {
+    "slug": "aerofobia",
+    "name": "Aerofobia",
+    "desc": "Medo de voar — mesmo sabendo que o avião é o transporte mais seguro.",
+    "svg": "<svg aria-label=\"Avião voando\" class=\"fb-ico\" viewbox=\"0 0 64 64\">\n<g class=\"anim a-fly\">\n<path d=\"M8 36 L44 30 L56 22 L50 34 L54 40 L44 38 L20 44 Z\" fill=\"#14324B\"></path>\n<circle cx=\"49\" cy=\"27\" fill=\"#fff\" r=\"1.6\"></circle>\n</g>\n<path d=\"M6 52 h18 M30 52 h10\" stroke=\"#111\" stroke-dasharray=\"3 4\" stroke-width=\"2\"></path>\n</svg>"
+  },
+  {
+    "slug": "hematofobia",
+    "name": "Hematofobia",
+    "desc": "Medo de sangue e ferimentos — a única fobia que pode causar desmaio.",
+    "svg": "<svg aria-label=\"Gota de sangue caindo\" class=\"fb-ico\" viewbox=\"0 0 64 64\">\n<path class=\"anim a-drop\" d=\"M32 8 q10 16 0 22 q-10 -6 0 -22\" fill=\"#14324B\"></path>\n<rect fill=\"#111\" height=\"4\" rx=\"2\" width=\"36\" x=\"14\" y=\"44\"></rect>\n</svg>"
+  },
+  {
+    "slug": "tripanofobia",
+    "name": "Tripanofobia",
+    "desc": "Medo de agulhas e injeções — atrapalha vacinas e exames.",
+    "svg": "<svg aria-label=\"Seringa\" class=\"fb-ico\" viewbox=\"0 0 64 64\">\n<g class=\"anim a-needle\">\n<rect fill=\"#fff\" height=\"12\" rx=\"2\" stroke=\"#111\" stroke-width=\"2.4\" transform=\"rotate(45 33 26)\" width=\"26\" x=\"20\" y=\"20\"></rect>\n<line stroke=\"#111\" stroke-width=\"2.4\" x1=\"16\" x2=\"26\" y1=\"48\" y2=\"38\"></line>\n<line stroke=\"#14324B\" stroke-width=\"3\" x1=\"10\" x2=\"16\" y1=\"54\" y2=\"48\"></line>\n<line stroke=\"#111\" stroke-width=\"2.4\" x1=\"40\" x2=\"50\" y1=\"14\" y2=\"24\"></line>\n</g>\n</svg>"
+  },
+  {
+    "slug": "astrafobia",
+    "name": "Astrafobia",
+    "desc": "Medo de trovões e tempestades, comum em crianças e adultos.",
+    "svg": "<svg aria-label=\"Raio piscando\" class=\"fb-ico\" viewbox=\"0 0 64 64\">\n<path d=\"M14 10 q8 -8 18 -4 q12 -4 16 8 q10 2 6 12 q-4 8 -14 6 l-24 0 q-10 0 -8 -10 q-2 -8 6 -12\" fill=\"#fff\" stroke=\"#111\" stroke-width=\"2.4\"></path>\n<path class=\"anim a-flash\" d=\"M34 34 L26 48 L32 48 L28 60 L42 44 L35 44 L40 34 Z\" fill=\"#14324B\"></path>\n</svg>"
+  },
+  {
+    "slug": "nictofobia",
+    "name": "Nictofobia",
+    "desc": "Medo do escuro — não é \"coisa de criança\": adultos também têm.",
+    "svg": "<svg aria-label=\"Lua e estrela piscando no escuro\" class=\"fb-ico\" viewbox=\"0 0 64 64\">\n<rect fill=\"#111\" height=\"52\" rx=\"6\" width=\"52\" x=\"6\" y=\"6\"></rect>\n<path d=\"M40 18 a12 12 0 1 0 8 21 a10 10 0 0 1 -8 -21\" fill=\"#fff\"></path>\n<g class=\"anim a-blink\"><circle cx=\"20\" cy=\"22\" fill=\"#fff\" r=\"2.4\"></circle></g>\n<g class=\"anim a-blink\" style=\"animation-delay:1.4s\"><circle cx=\"26\" cy=\"42\" fill=\"#fff\" r=\"2\"></circle></g>\n</svg>"
+  },
+  {
+    "slug": "odontofobia",
+    "name": "Odontofobia",
+    "desc": "Medo de dentista — leva ao adiamento de cuidados importantes.",
+    "svg": "<svg aria-label=\"Dente balançando\" class=\"fb-ico\" viewbox=\"0 0 64 64\">\n<g class=\"anim a-tooth\">\n<path d=\"M20 14 q12 -8 24 0 q6 6 2 18 q-3 10 -7 18 q-3 6 -5 -2 q-1 -6 -2 -6 q-1 0 -2 6 q-2 8 -5 2 q-4 -8 -7 -18 q-4 -12 2 -18\" fill=\"#fff\" stroke=\"#111\" stroke-width=\"2.4\"></path>\n</g>\n<path class=\"anim a-blush\" d=\"M50 16 q4 4 0 8\" fill=\"none\" stroke=\"#14324B\" stroke-width=\"2\"></path>\n</svg>"
+  },
+  {
+    "slug": "talassofobia",
+    "name": "Talassofobia",
+    "desc": "Medo do mar profundo e do que não se vê debaixo d'água.",
+    "svg": "<svg aria-label=\"Ondas do mar profundo\" class=\"fb-ico\" viewbox=\"0 0 64 64\">\n<rect fill=\"#fff\" height=\"44\" rx=\"4\" stroke=\"#111\" stroke-width=\"2.4\" width=\"52\" x=\"6\" y=\"10\"></rect>\n<g class=\"anim a-wave\">\n<path d=\"M2 34 Q10 28 18 34 T34 34 T50 34 T66 34 T82 34 V56 H2 Z\" fill=\"#14324B\"></path>\n</g>\n<circle cx=\"32\" cy=\"22\" fill=\"#fff\" r=\"4\" stroke=\"#111\" stroke-width=\"2\"></circle>\n</svg>"
+  },
+  {
+    "slug": "glossofobia",
+    "name": "Glossofobia",
+    "desc": "Medo de falar em público — o coração dispara só de pensar.",
+    "svg": "<svg aria-label=\"Microfone com ondas de som\" class=\"fb-ico\" viewbox=\"0 0 64 64\">\n<rect fill=\"#14324B\" height=\"22\" rx=\"6\" width=\"12\" x=\"26\" y=\"10\"></rect>\n<path d=\"M20 26 a12 12 0 0 0 24 0 M32 40 v10 M24 52 h16\" fill=\"none\" stroke=\"#111\" stroke-linecap=\"round\" stroke-width=\"2.6\"></path>\n<g class=\"anim a-pulse\"><circle cx=\"32\" cy=\"22\" fill=\"none\" r=\"16\" stroke=\"#14324B\" stroke-width=\"2\"></circle></g>\n<g class=\"anim a-pulse2\"><circle cx=\"32\" cy=\"22\" fill=\"none\" r=\"16\" stroke=\"#14324B\" stroke-width=\"2\"></circle></g>\n</svg>"
+  },
+  {
+    "slug": "fobia-social",
+    "name": "Fobia social",
+    "desc": "Medo intenso de julgamento e avaliação nas interações sociais.",
+    "svg": "<svg aria-label=\"Rosto envergonhado entre outros rostos\" class=\"fb-ico\" viewbox=\"0 0 64 64\">\n<circle cx=\"16\" cy=\"28\" fill=\"#fff\" r=\"9\" stroke=\"#111\" stroke-width=\"2.4\"></circle>\n<circle cx=\"48\" cy=\"28\" fill=\"#fff\" r=\"9\" stroke=\"#111\" stroke-width=\"2.4\"></circle>\n<circle cx=\"32\" cy=\"34\" fill=\"#fff\" r=\"11\" stroke=\"#111\" stroke-width=\"2.6\"></circle>\n<circle cx=\"28\" cy=\"32\" fill=\"#111\" r=\"1.6\"></circle>\n<circle cx=\"36\" cy=\"32\" fill=\"#111\" r=\"1.6\"></circle>\n<path d=\"M28 40 q4 -3 8 0\" fill=\"none\" stroke=\"#111\" stroke-width=\"2\"></path>\n<circle class=\"anim a-blush\" cx=\"25\" cy=\"37\" fill=\"#14324B\" r=\"2.6\"></circle>\n<circle class=\"anim a-blush\" cx=\"39\" cy=\"37\" fill=\"#14324B\" r=\"2.6\"></circle>\n</svg>"
+  },
+  {
+    "slug": "agorafobia",
+    "name": "Agorafobia",
+    "desc": "Medo de lugares de onde seria difícil escapar ou receber ajuda.",
+    "svg": "<svg aria-label=\"Pessoa flutuando em espaço aberto\" class=\"fb-ico\" viewbox=\"0 0 64 64\">\n<circle cx=\"32\" cy=\"32\" fill=\"none\" r=\"26\" stroke=\"#111\" stroke-dasharray=\"5 6\" stroke-width=\"2.4\"></circle>\n<g class=\"anim a-float\">\n<circle cx=\"32\" cy=\"26\" fill=\"#fff\" r=\"6\" stroke=\"#111\" stroke-width=\"2.2\"></circle>\n<path d=\"M32 32 L32 44 M32 36 L26 40 M32 36 L38 40 M32 44 L28 52 M32 44 L36 52\" fill=\"none\" stroke=\"#111\" stroke-linecap=\"round\" stroke-width=\"2.2\"></path>\n</g>\n</svg>"
+  },
+  {
+    "slug": "emetofobia",
+    "name": "Emetofobia",
+    "desc": "Medo de vomitar ou ver alguém passando mal.",
+    "svg": "<svg aria-label=\"Rosto enjoado\" class=\"fb-ico\" viewbox=\"0 0 64 64\">\n<circle cx=\"32\" cy=\"32\" fill=\"#fff\" r=\"20\" stroke=\"#111\" stroke-width=\"2.6\"></circle>\n<path d=\"M24 28 l5 3 M45 28 l-5 3\" stroke=\"#111\" stroke-linecap=\"round\" stroke-width=\"2.2\"></path>\n<path class=\"anim a-tremor\" d=\"M25 42 q7 -5 14 0\" fill=\"none\" stroke=\"#111\" stroke-width=\"2.2\"></path>\n<path class=\"anim a-drop\" d=\"M50 20 q5 8 0 11 q-5 -3 0 -11\" fill=\"#14324B\"></path>\n</svg>"
+  }
+]
