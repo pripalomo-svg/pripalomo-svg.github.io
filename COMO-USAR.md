@@ -142,6 +142,26 @@ Descrição curta.
 O botão da loja vira **“Ver programa”** e leva para a landing.
 O PDF pago fica em `pdfs/` **sem** link na ficha — você envia pelo WhatsApp após o pagamento.
 
+### Curso ou produto vendido em site externo (Hotmart, Eduzz, etc.)
+
+Se a venda é feita fora do site (ex.: página de pagamento da **Hotmart**),
+use `link` com o endereço completo. Como o preço já aparece no checkout,
+pode deixar `preco` de fora.
+
+```
+---
+titulo: "Curso: Nome do curso"
+formato: Curso online
+botao: Comprar curso
+link: https://pay.hotmart.com/XXXXXXXX?off=yyyy
+---
+Descrição curta que aparece no cartão.
+```
+
+- `link` começando com `http` abre o checkout **em uma nova aba**.
+- `botao` define o texto do botão (ex.: `Comprar curso`, `Inscrever-se`).
+- `formato` aparece no lugar de “X páginas · PDF” (ex.: `Curso online`).
+
 ---
 
 ## Mudar o WhatsApp ou a chave Pix
