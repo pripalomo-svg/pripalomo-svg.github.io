@@ -2,7 +2,7 @@
 
 Site oficial da Dra. Priscila Palomo — Psicóloga (CRP 98007). Inclui um **blog**
 e a landing do produto **[Programa Escada Segura](escada-segura.html)**
-(workbook de 21 dias, R$ 97).
+(book de 200+ páginas, R$ 97).
 
 🔗 No ar em: https://www.priscilapalomo.com (e https://pripalomo-svg.github.io)
 

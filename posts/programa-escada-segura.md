@@ -26,13 +26,13 @@ Sem estrutura, a exposição vira improviso: ou você salta degraus demais e des
 
 ## O Programa Escada Segura
 
-Criei o **[Programa Escada Segura](escada-segura.html)** — um workbook digital de cerca de 40 páginas — para quem quer esse método organizado em casa, no próprio ritmo:
+Criei o **[Programa Escada Segura](escada-segura.html)** — um book digital de **200+ páginas** — para quem quer esse método organizado em casa, no próprio ritmo:
 
-- Psicoeducação sobre o ciclo do medo
-- Como montar sua escada (com exemplos: avião, altura, dentista, falar em público)
-- Plano dia a dia em três semanas
-- Folhas de registro imprimíveis
-- Regras de ouro e cuidados com comportamentos de segurança
+- O que é fobia segundo o DSM-5 e o mapa completo de sintomas
+- Quando tratar e os passos da TCC para vencer o medo
+- Habituação, pensadores e estudos importantes (em linguagem didática)
+- Analogias japonesas (“coragem de um dragão”) e parábolas de templos
+- Plano dia a dia em três semanas + folhas de registro imprimíveis
 
 > Material psicoeducativo. Não substitui psicoterapia — e, se a ansiedade for intensa ou houver outros quadros, o ideal é combinar com acompanhamento profissional.
 
