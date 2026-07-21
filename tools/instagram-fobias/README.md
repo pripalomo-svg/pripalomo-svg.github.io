@@ -15,7 +15,11 @@ cd tools/instagram-fobias
 ./gerar-tudo.sh
 ```
 
-Os vídeos finais ficam em `out/<slug>.mp4`.
+Os vídeos finais ficam em `out/<slug>.mp4` e são copiados para
+`videos/instagram-fobias/` (catálogo público no site).
+
+**Catálogo online:** https://www.priscilapalomo.com/catalogo-videos.html  
+**Narrativas:** [`LEGENDAS.md`](LEGENDAS.md)
 
 Para gerar só algumas:
 

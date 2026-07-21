@@ -34,6 +34,13 @@ for slug in "${slugs[@]}"; do
     -c:v libx264 -pix_fmt yuv420p -movflags +faststart "out/${slug}.mp4" </dev/null 2>/dev/null
 done
 
+echo "==> sincronizando para videos/instagram-fobias/ (site público)"
+PUBLIC_DIR="$(cd ../.. && pwd)/videos/instagram-fobias"
+mkdir -p "$PUBLIC_DIR"
+cp -f out/*.mp4 "$PUBLIC_DIR/"
 echo
-echo "Pronto. Vídeos em out/:"
-ls -1 out/*.mp4
+echo "Pronto."
+echo "  Locais:  out/<slug>.mp4"
+echo "  Site:    videos/instagram-fobias/<slug>.mp4"
+echo "  Catálogo: /catalogo-videos.html"
+ls -1 out/*.mp4 | wc -l | xargs -I{} echo "  {} vídeos"
