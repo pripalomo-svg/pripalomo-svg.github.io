@@ -1,0 +1,185 @@
+{
+  "base": "https://www.priscilapalomo.com/",
+  "itens": [
+    {
+      "slug": "aracnofobia",
+      "name": "Aracnofobia",
+      "tipo": "catalogo",
+      "resumo": "Medo de aranhas — a fobia de animal mais comum no mundo.",
+      "narrativa": "Você sabe o nome do seu medo?\n\nAracnofobia é o medo intenso de aranhas — a fobia de animal mais comum no mundo.\n\nNão é frescura. É o cérebro disparando um alarme sem perigo real.\n\nE a boa notícia: fobia específica tem tratamento. Com método, o medo encolhe.\n\nSalva este vídeo. Qual fobia você quer entender melhor?",
+      "hashtags": "#aracnofobia #fobia #psicoeducacao #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/aracnofobia.mp4"
+    },
+    {
+      "slug": "ofidiofobia",
+      "name": "Ofidiofobia",
+      "tipo": "catalogo",
+      "resumo": "Medo de cobras — herança evolutiva que pode sair do controle.",
+      "narrativa": "Medo de cobras tem nome: ofidiofobia.\n\nEm parte, é herança evolutiva — nosso cérebro aprendeu a se proteger. O problema é quando esse alarme sai do controle e atrapalha a vida.\n\nFobia não se resolve com \"é só não pensar\". Resolve com exposição gradual e acompanhamento.\n\nVocê evita lugares por causa desse medo?",
+      "hashtags": "#ofidiofobia #fobia #psicoeducacao #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/ofidiofobia.mp4"
+    },
+    {
+      "slug": "cinofobia",
+      "name": "Cinofobia",
+      "tipo": "catalogo",
+      "resumo": "Medo de cães, muitas vezes após um susto na infância.",
+      "narrativa": "Cinofobia: medo intenso de cães.\n\nMuitas vezes começa depois de um susto na infância. O corpo guarda a memória — e o alarme continua disparando, anos depois.\n\nDá para recalibrar. Com passos pequenos, planejados, o cérebro reaprende que nem todo encontro é perigo.\n\nVocê ou alguém próximo vive isso?",
+      "hashtags": "#cinofobia #fobia #psicoeducacao #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/cinofobia.mp4"
+    },
+    {
+      "slug": "acrofobia",
+      "name": "Acrofobia",
+      "tipo": "catalogo",
+      "resumo": "Medo de altura: sacadas, escadas, mirantes e pontes.",
+      "narrativa": "Acrofobia é o medo de altura.\n\nSacada, escada rolante, mirante, ponte — o corpo trava mesmo quando a cabeça sabe que está seguro.\n\nIsso não é falta de coragem. É um alarme desregulado.\n\nE alarmes, com método, podem ser recalibrados.",
+      "hashtags": "#acrofobia #fobia #psicoeducacao #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/acrofobia.mp4"
+    },
+    {
+      "slug": "claustrofobia",
+      "name": "Claustrofobia",
+      "tipo": "catalogo",
+      "resumo": "Medo de lugares fechados: elevador, avião, ressonância, túnel.",
+      "narrativa": "Claustrofobia: medo de lugares fechados.\n\nElevador. Avião. Ressonância. Túnel.\nO coração dispara, a respiração encurta — e a vontade é fugir.\n\nEvitar alivia agora. Mas alimenta o medo depois.\n\nO caminho é outro: exposição gradual, com apoio.",
+      "hashtags": "#claustrofobia #fobia #psicoeducacao #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/claustrofobia.mp4"
+    },
+    {
+      "slug": "aerofobia",
+      "name": "Aerofobia",
+      "tipo": "catalogo",
+      "resumo": "Medo de voar — mesmo sabendo que o avião é o transporte mais seguro.",
+      "narrativa": "Aerofobia é o medo de voar.\n\nMesmo sabendo que o avião é o transporte mais seguro, o corpo não \"aceita\" o argumento.\n\nPorque fobia não se resolve só com lógica — se resolve com experiência nova, aos poucos, até o alarme baixar.\n\nVocê evita viajar por causa disso?",
+      "hashtags": "#aerofobia #fobia #psicoeducacao #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/aerofobia.mp4"
+    },
+    {
+      "slug": "hematofobia",
+      "name": "Hematofobia",
+      "tipo": "catalogo",
+      "resumo": "Medo de sangue e ferimentos — a única fobia que pode causar desmaio.",
+      "narrativa": "Hematofobia: medo de sangue e ferimentos.\n\nÉ a única fobia que pode causar desmaio — o corpo às vezes responde \"desligando\".\n\nPor isso, força de vontade sozinha não basta. É preciso método e acompanhamento.\n\nSe exames e vacinas viraram um drama, isso tem tratamento.",
+      "hashtags": "#hematofobia #fobia #psicoeducacao #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/hematofobia.mp4"
+    },
+    {
+      "slug": "tripanofobia",
+      "name": "Tripanofobia",
+      "tipo": "catalogo",
+      "resumo": "Medo de agulhas e injeções — atrapalha vacinas e exames.",
+      "narrativa": "Tripanofobia é o medo de agulhas e injeções.\n\nParece \"besteira\" para quem não sente. Para quem sente, atrapalha vacina, exame, tratamento.\n\nO medo é real. E também é tratável — com exposição gradual e preparo.\n\nVocê adia cuidados de saúde por causa disso?",
+      "hashtags": "#tripanofobia #fobia #psicoeducacao #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/tripanofobia.mp4"
+    },
+    {
+      "slug": "astrafobia",
+      "name": "Astrafobia",
+      "tipo": "catalogo",
+      "resumo": "Medo de trovões e tempestades, comum em crianças e adultos.",
+      "narrativa": "Astrafobia: medo de trovões e tempestades.\n\nComum em crianças — e também em adultos. O barulho chega, o corpo dispara, a vontade é se esconder.\n\nNão é fraqueza. É alarme.\n\nCom psicoeducação e exposição gradual, dá para voltar a ouvir a chuva com mais calma.",
+      "hashtags": "#astrafobia #fobia #psicoeducacao #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/astrafobia.mp4"
+    },
+    {
+      "slug": "nictofobia",
+      "name": "Nictofobia",
+      "tipo": "catalogo",
+      "resumo": "Medo do escuro — não é \"coisa de criança\": adultos também têm.",
+      "narrativa": "Nictofobia é o medo do escuro.\n\nNão é \"coisa de criança\". Adultos também têm — e sofrem em silêncio.\n\nO escuro não traz perigo por si. Mas o cérebro aprendeu a temer o que não enxerga.\n\nDá para reaprender. Degrau a degrau.",
+      "hashtags": "#nictofobia #fobia #psicoeducacao #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/nictofobia.mp4"
+    },
+    {
+      "slug": "odontofobia",
+      "name": "Odontofobia",
+      "tipo": "catalogo",
+      "resumo": "Medo de dentista — leva ao adiamento de cuidados importantes.",
+      "narrativa": "Odontofobia: medo de dentista.\n\nLeva ao adiamento de cuidados importantes — e o problema só cresce.\n\nVergonha e medo andam juntos aqui. Mas tratamento psicológico + abordagem gentil no consultório mudam o jogo.\n\nSe você marca e desmarca consulta, este vídeo é para você.",
+      "hashtags": "#odontofobia #fobia #psicoeducacao #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/odontofobia.mp4"
+    },
+    {
+      "slug": "talassofobia",
+      "name": "Talassofobia",
+      "tipo": "catalogo",
+      "resumo": "Medo do mar profundo e do que não se vê debaixo d'água.",
+      "narrativa": "Talassofobia é o medo do mar profundo — e do que não se vê debaixo d'água.\n\nA imensidão assusta. A mente inventa cenários. O corpo pede para sair.\n\nFobia específica responde bem a tratamento. Você não precisa \"encarar o oceano\" de uma vez — só o próximo degrau.",
+      "hashtags": "#talassofobia #fobia #psicoeducacao #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/talassofobia.mp4"
+    },
+    {
+      "slug": "glossofobia",
+      "name": "Glossofobia",
+      "tipo": "catalogo",
+      "resumo": "Medo de falar em público — o coração dispara só de pensar.",
+      "narrativa": "Glossofobia: medo de falar em público.\n\nO coração dispara só de pensar na apresentação. A voz some. A mente fica em branco.\n\nIsso não é falta de capacidade. É ansiedade no comando.\n\nCom técnica e exposição gradual, apresentar deixa de ser um monstro.",
+      "hashtags": "#glossofobia #fobia #psicoeducacao #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/glossofobia.mp4"
+    },
+    {
+      "slug": "fobia-social",
+      "name": "Fobia social",
+      "tipo": "catalogo",
+      "resumo": "Medo intenso de julgamento e avaliação nas interações sociais.",
+      "narrativa": "Fobia social é o medo intenso de ser julgado.\n\nNão é \"timidez\". É o corpo em alerta em interações comuns — reunião, conversa, olhar dos outros.\n\nEvitar alivia. E também isola.\n\nExiste tratamento baseado em evidências. Você não precisa viver encolhido.",
+      "hashtags": "#fobiasocial #fobia #psicoeducacao #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/fobia-social.mp4"
+    },
+    {
+      "slug": "agorafobia",
+      "name": "Agorafobia",
+      "tipo": "catalogo",
+      "resumo": "Medo de lugares de onde seria difícil escapar ou receber ajuda.",
+      "narrativa": "Agorafobia: medo de lugares de onde seria difícil escapar ou receber ajuda.\n\nShopping, transporte, fila, espaço aberto — a sensação é de armadilha.\n\nMuita gente restringe a vida aos poucos, sem perceber.\n\nO bom: com método, o território seguro pode crescer de novo.",
+      "hashtags": "#agorafobia #fobia #psicoeducacao #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/agorafobia.mp4"
+    },
+    {
+      "slug": "emetofobia",
+      "name": "Emetofobia",
+      "tipo": "catalogo",
+      "resumo": "Medo de vomitar ou ver alguém passando mal.",
+      "narrativa": "Emetofobia é o medo de vomitar — ou de ver alguém passando mal.\n\nParece específico. Na prática, organiza a rotina inteira: o que comer, onde ir, o que evitar.\n\nQuanto mais se evita, maior fica o medo.\n\nTratamento existe. E começa com entender o ciclo.",
+      "hashtags": "#emetofobia #fobia #psicoeducacao #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/emetofobia.mp4"
+    },
+    {
+      "slug": "cena-medo-encolhe",
+      "name": "O medo encolhe",
+      "tipo": "cena",
+      "resumo": "Aproximar-se, aos poucos, encolhe o medo. Fobia é um alarme falso — e alarmes podem ser recalibrados.",
+      "narrativa": "O medo parece gigante.\nMas ele pode encolher.\n\nQuando a gente se aproxima — aos poucos, com método — o alarme baixa.\nFobia é um alarme falso. E alarmes podem ser recalibrados.\n\nSalva este vídeo se fizer sentido para você.",
+      "hashtags": "#fobia #psicoeducacao #exposicaogradual #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/cena-medo-encolhe.mp4"
+    },
+    {
+      "slug": "cena-alarme-corpo",
+      "name": "Alarme no corpo",
+      "tipo": "cena",
+      "resumo": "Coração acelerado, suor, tremor: o sistema de luta ou fuga dispara sem perigo real.",
+      "narrativa": "Coração acelerado.\nSuor.\nTremor.\n\nParece perigo. Mas muitas vezes é só o sistema de luta ou fuga disparando sem fogo.\n\nNa fobia, o alarme é forte demais, rápido demais, para a coisa errada.\nA boa notícia: dá para recalibrar.",
+      "hashtags": "#fobia #psicoeducacao #exposicaogradual #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/cena-alarme-corpo.mp4"
+    },
+    {
+      "slug": "cena-ciclo-evitacao",
+      "name": "O ciclo da evitação",
+      "tipo": "cena",
+      "resumo": "Evitar alivia agora — e alimenta o medo depois. Cada volta no ciclo deixa o medo maior.",
+      "narrativa": "O ciclo da fobia:\n\nMedo → evitação → alívio imediato → medo maior.\n\nCada volta confirma a \"regra\" de que aquilo é perigoso.\nPor isso força de vontade não basta: é preciso quebrar o ciclo no lugar certo — a evitação — de forma gradual.\n\nVocê se reconhece nesse ciclo?",
+      "hashtags": "#fobia #psicoeducacao #exposicaogradual #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/cena-ciclo-evitacao.mp4"
+    },
+    {
+      "slug": "cena-escada-exposicao",
+      "name": "Escada da exposição",
+      "tipo": "cena",
+      "resumo": "Degrau a degrau, o cérebro reaprende. Exposição gradual: do mais fácil ao mais difícil.",
+      "narrativa": "A escada da exposição gradual:\n\nfoto → vídeo → longe → perto → tocar.\n\nNão é pular do alto. É subir um degrau de cada vez, até o cérebro aprender na prática que o alarme era falso.\n\nÉ assim que fobia específica se trata — com método, ciência e acolhimento.",
+      "hashtags": "#fobia #psicoeducacao #exposicaogradual #ansiedade #priscilapalomo",
+      "video": "videos/instagram-fobias/cena-escada-exposicao.mp4"
+    }
+  ]
+}

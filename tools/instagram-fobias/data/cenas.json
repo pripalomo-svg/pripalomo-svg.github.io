@@ -1,0 +1,30 @@
+[
+  {
+    "slug": "cena-medo-encolhe",
+    "name": "O medo encolhe",
+    "desc": "Aproximar-se, aos poucos, encolhe o medo. Fobia é um alarme falso — e alarmes podem ser recalibrados.",
+    "kind": "cena",
+    "svg": "<svg viewBox=\"0 0 300 220\" role=\"img\" aria-label=\"Desenho animado: uma pessoa se aproxima do monstro do medo e ele encolhe\">\n        <line x1=\"10\" y1=\"196\" x2=\"290\" y2=\"196\" stroke=\"#111\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n        <g class=\"anim a-shrink\">\n          <path d=\"M195 196 C185 130 205 108 232 104 C262 100 280 128 274 158 C288 158 292 176 280 182 C286 190 278 196 270 196 Z\" fill=\"#14324B\"/>\n          <circle cx=\"228\" cy=\"132\" r=\"6\" fill=\"#fff\"/>\n          <circle cx=\"254\" cy=\"130\" r=\"6\" fill=\"#fff\"/>\n          <circle cx=\"229\" cy=\"133\" r=\"2.4\" fill=\"#111\"/>\n          <circle cx=\"255\" cy=\"131\" r=\"2.4\" fill=\"#111\"/>\n          <path d=\"M230 152 q12 8 24 0\" stroke=\"#fff\" stroke-width=\"3\" fill=\"none\" stroke-linecap=\"round\"/>\n        </g>\n        <g class=\"anim a-step\">\n          <circle cx=\"70\" cy=\"118\" r=\"16\" fill=\"#fff\" stroke=\"#111\" stroke-width=\"3\"/>\n          <circle cx=\"76\" cy=\"115\" r=\"2\" fill=\"#111\"/>\n          <path d=\"M70 134 L70 168 M70 144 L54 156 M70 144 L88 150 M70 168 L58 194 M70 168 L84 194\"\n                stroke=\"#111\" stroke-width=\"3\" fill=\"none\" stroke-linecap=\"round\"/>\n        </g>\n      </svg>"
+  },
+  {
+    "slug": "cena-alarme-corpo",
+    "name": "Alarme no corpo",
+    "desc": "Coração acelerado, suor, tremor: o sistema de luta ou fuga dispara sem perigo real.",
+    "kind": "cena",
+    "svg": "<svg viewBox=\"0 0 220 220\" role=\"img\" aria-label=\"Desenho animado: personagem com coração acelerado e suor\">\n          <g class=\"anim a-tremor\">\n            <circle cx=\"110\" cy=\"80\" r=\"44\" fill=\"#fff\" stroke=\"#111\" stroke-width=\"3\"/>\n            <circle cx=\"96\" cy=\"72\" r=\"4.5\" fill=\"#111\"/>\n            <circle cx=\"126\" cy=\"72\" r=\"4.5\" fill=\"#111\"/>\n            <ellipse cx=\"111\" cy=\"98\" rx=\"8\" ry=\"10\" fill=\"none\" stroke=\"#111\" stroke-width=\"3\"/>\n            <path d=\"M78 150 h64 v46 h-64 z\" fill=\"#fff\" stroke=\"#111\" stroke-width=\"3\"/>\n          </g>\n          <g class=\"anim a-beat\">\n            <path d=\"M110 186 C100 174 84 172 82 158 C80 146 92 140 101 147 C106 150 108 154 110 158 C112 154 114 150 119 147 C128 140 140 146 138 158 C136 172 120 174 110 186 Z\"\n                  fill=\"#14324B\" transform=\"translate(0,-18)\"/>\n          </g>\n          <path class=\"anim a-drop\"  d=\"M56 60 q6 10 0 14 q-6 -4 0 -14\" fill=\"#14324B\"/>\n          <path class=\"anim a-drop2\" d=\"M168 52 q6 10 0 14 q-6 -4 0 -14\" fill=\"#14324B\"/>\n        </svg>"
+  },
+  {
+    "slug": "cena-ciclo-evitacao",
+    "name": "O ciclo da evitação",
+    "desc": "Evitar alivia agora — e alimenta o medo depois. Cada volta no ciclo deixa o medo maior.",
+    "kind": "cena",
+    "svg": "<svg viewBox=\"0 0 220 220\" role=\"img\" aria-label=\"Desenho animado: ciclo da fobia — medo, evitação, alívio, medo maior\">\n          <circle cx=\"110\" cy=\"110\" r=\"72\" fill=\"none\" stroke=\"#111\" stroke-width=\"3\" stroke-dasharray=\"6 8\"/>\n          <g class=\"a-orbit\">\n            <circle cx=\"110\" cy=\"38\" r=\"9\" fill=\"#14324B\"/>\n          </g>\n          <g font-family=\"Arial, Helvetica, sans-serif\" font-size=\"11\" font-weight=\"bold\" fill=\"#111\" text-anchor=\"middle\">\n            <text x=\"110\" y=\"18\">MEDO</text>\n            <text x=\"188\" y=\"114\">EVITAÇÃO</text>\n            <text x=\"110\" y=\"210\">ALÍVIO</text>\n            <text x=\"30\" y=\"108\">MEDO<tspan x=\"30\" dy=\"12\">MAIOR</tspan></text>\n          </g>\n          <text x=\"110\" y=\"115\" font-family=\"Arial, Helvetica, sans-serif\" font-size=\"10\" fill=\"#14324B\" text-anchor=\"middle\" letter-spacing=\"2\">O CICLO</text>\n        </svg>"
+  },
+  {
+    "slug": "cena-escada-exposicao",
+    "name": "Escada da exposição",
+    "desc": "Degrau a degrau, o cérebro reaprende. Exposição gradual: do mais fácil ao mais difícil.",
+    "kind": "cena",
+    "svg": "<svg viewBox=\"0 0 220 190\" role=\"img\" aria-label=\"Desenho animado: personagem subindo a escada da exposição\">\n          <path d=\"M20 170 h28 v-22 h28 v-22 h28 v-22 h28 v-22 h28 v-22 h28\" fill=\"none\" stroke=\"#111\" stroke-width=\"3\"/>\n          <g class=\"anim a-climb\">\n            <circle cx=\"34\" cy=\"152\" r=\"10\" fill=\"#14324B\"/>\n            <circle cx=\"31\" cy=\"149\" r=\"2\" fill=\"#fff\"/>\n            <circle cx=\"38\" cy=\"149\" r=\"2\" fill=\"#fff\"/>\n            <path d=\"M30 156 q4 3 8 0\" stroke=\"#fff\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/>\n          </g>\n          <g font-family=\"Arial, Helvetica, sans-serif\" font-size=\"9\" fill=\"#111\">\n            <text x=\"24\" y=\"183\">foto</text>\n            <text x=\"51\" y=\"161\">vídeo</text>\n            <text x=\"79\" y=\"139\">longe</text>\n            <text x=\"107\" y=\"117\">perto</text>\n            <text x=\"135\" y=\"95\">tocar</text>\n          </g>\n        </svg>"
+  }
+]
