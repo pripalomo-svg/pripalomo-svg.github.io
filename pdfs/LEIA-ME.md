@@ -22,13 +22,13 @@ consegue baixar). Por isso:
 
 ### Programa Escada Segura
 
-O arquivo `programa-escada-segura.pdf` é o workbook premium (pago).
+O arquivo `programa-escada-segura.pdf` é o book premium (~200 páginas).
 **Não** coloque o link dele na ficha do produto da loja (`arquivo` deve ficar vazio) —
 entregue pelo WhatsApp depois do Pix/cartão.
 
 Para regenerar o PDF:
 
 ```bash
-pip3 install reportlab
+pip3 install reportlab pypdf
 python3 tools/gerar-escada-segura.py
 ```
