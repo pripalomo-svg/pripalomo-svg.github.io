@@ -1,26 +1,36 @@
-# Vídeos de Instagram — catálogo de fobias
+# Vídeos de Instagram — animações de fobias
 
-Gera um vídeo vertical (1080×1920, formato Reels/Stories) para cada fobia do
-catálogo animado em `index.html`, reaproveitando o mesmo desenho SVG e
-animação CSS de cada card — em tamanho grande, com nome, descrição e a
-marca da Priscila.
+Gera **um vídeo vertical por animação** (1080×1920, Reels/Stories),
+reaproveitando os desenhos SVG da página de fobias.
 
-## Como gerar (do zero)
+Inclui:
+
+- **16 fobias do catálogo** (aranha, cobra, altura, avião…)
+- **4 cenas educativas** (medo encolhe, alarme no corpo, ciclo da evitação, escada)
+
+## Gerar tudo de uma vez
+
+```bash
+cd tools/instagram-fobias
+./gerar-tudo.sh
+```
+
+Os vídeos finais ficam em `out/<slug>.mp4`.
+
+Para gerar só algumas:
+
+```bash
+./gerar-tudo.sh aracnofobia cinofobia cena-medo-encolhe
+```
+
+## Passo a passo manual
 
 ```bash
 cd tools/instagram-fobias
 npm install
-
-# 1. Extrai ícone, nome e descrição de cada fobia direto do index.html
-python3 extract.py
-
-# 2. Gera um .html independente por fobia (render/<slug>.html)
-python3 generate.py
-
-# 3. Abre cada .html num Chrome headless e captura frames (4.5s, 24fps)
+python3 extract.py          # atualiza data/fobias.json a partir do index.html
+python3 generate.py         # render/<slug>.html (catálogo + cenas)
 CHROME_PATH=/usr/bin/google-chrome-stable node capture.js
-
-# 4. Junta os frames em .mp4 com ffmpeg
 mkdir -p out
 for d in frames/*/; do
   slug=$(basename "$d")
@@ -29,14 +39,38 @@ for d in frames/*/; do
 done
 ```
 
-Os vídeos finais ficam em `out/<slug>.mp4`, prontos para publicar.
+## Lista dos vídeos
 
-## Atualizando o catálogo
+### Catálogo
 
-Se o catálogo de fobias em `index.html` mudar (novo texto, nova fobia, novo
-ícone), basta rodar os 4 passos de novo — tudo é extraído automaticamente,
-não precisa editar nada manualmente aqui.
+| Arquivo | Tema |
+| --- | --- |
+| `aracnofobia.mp4` | Medo de aranhas |
+| `ofidiofobia.mp4` | Medo de cobras |
+| `cinofobia.mp4` | Medo de cães |
+| `acrofobia.mp4` | Medo de altura |
+| `claustrofobia.mp4` | Medo de lugares fechados |
+| `aerofobia.mp4` | Medo de voar |
+| `hematofobia.mp4` | Medo de sangue |
+| `tripanofobia.mp4` | Medo de agulhas |
+| `astrafobia.mp4` | Medo de trovão/raio |
+| `nictofobia.mp4` | Medo do escuro |
+| `odontofobia.mp4` | Medo de dentista |
+| `talassofobia.mp4` | Medo de mar profundo |
+| `glossofobia.mp4` | Medo de falar em público |
+| `fobia-social.mp4` | Fobia social |
+| `agorafobia.mp4` | Agorafobia |
+| `emetofobia.mp4` | Medo de vomitar |
+
+### Cenas educativas
+
+| Arquivo | Tema |
+| --- | --- |
+| `cena-medo-encolhe.mp4` | Aproximar-se encolhe o medo |
+| `cena-alarme-corpo.mp4` | Alarme falso no corpo |
+| `cena-ciclo-evitacao.mp4` | Ciclo da evitação |
+| `cena-escada-exposicao.mp4` | Escada da exposição gradual |
 
 ## Observação
 
-`render/`, `frames/` e `out/` não são versionados (são artefatos gerados).
+`render/`, `frames/` e `out/` não são versionados (artefatos gerados).
