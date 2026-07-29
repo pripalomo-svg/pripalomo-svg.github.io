@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+:root {
+  --navy: #14324B;
+  --ink: #111111;
+  --green: #2E8B57;
+  --paper: #FFFFFF;
+  --tint: #F2F5F8;
+  --line: rgba(17,17,17,.14);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  width: 1920px; height: 1080px;
+  background: var(--paper);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+}
+.stage {
+  width: 1920px; height: 1080px;
+  position: relative;
+}
+.stage::before {
+  content: '';
+  position: absolute; inset: 56px;
+  border: 2px solid var(--ink);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Barra fixa inferior */
+.bar {
+  position: absolute; left: 96px; right: 96px; bottom: 78px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 20px; letter-spacing: .1em; color: rgba(20,50,75,.55);
+  opacity: 0;
+  z-index: 6;
+}
+.bar .crp { letter-spacing: .12em; }
+
+/* Cenas */
+.scene {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 200px;
+  opacity: 0;
+}
+.scene-inner { max-width: 1400px; width: 100%; }
+
+.kicker {
+  font-size: 24px; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--navy); font-weight: 700; margin-bottom: 28px; display: block;
+}
+.big-quote {
+  font-size: 58px; font-weight: 700; line-height: 1.28; color: var(--ink);
+  max-width: 20ch;
+}
+.big-quote em { font-style: normal; color: var(--navy); }
+
+/* Cena de abertura */
+#s-intro .scene-inner { display: flex; align-items: center; gap: 90px; }
+#s-intro img {
+  width: 340px; height: 453px; object-fit: cover;
+  border: 3px solid var(--ink);
+}
+#s-intro .name { font-size: 84px; font-weight: 800; color: var(--ink); line-height: 1.02; margin-bottom: 16px; }
+#s-intro .sub { font-size: 26px; color: #555; letter-spacing: .04em; }
+
+/* Cenas de trajetória com rótulo lateral */
+.beat { display: grid; grid-template-columns: 260px 1fr; gap: 48px; align-items: flex-start; }
+.beat .label {
+  font-size: 22px; font-weight: 700; color: var(--navy);
+  letter-spacing: .1em; text-transform: uppercase;
+  border-left: 4px solid var(--navy); padding-left: 20px;
+}
+.beat p { font-size: 42px; line-height: 1.45; color: var(--ink); font-weight: 600; max-width: 20ch; }
+
+/* Cena de stats */
+.stats-row { display: flex; gap: 90px; }
+.stat-block { display: flex; flex-direction: column; }
+.stat-n { font-size: 96px; font-weight: 800; color: var(--navy); line-height: 1; }
+.stat-l { font-size: 24px; color: #555; margin-top: 12px; letter-spacing: .02em; }
+
+/* Cena final */
+#s-final .scene-inner { text-align: center; }
+#s-final .big-quote { max-width: none; margin: 0 auto 36px; }
+#s-final .site { font-size: 30px; color: var(--navy); font-weight: 700; letter-spacing: .06em; }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <div class="scene" id="s-intro">
+    <div class="scene-inner">
+      <img src="ilustracao-priscila.jpg" alt="Priscila Palomo">
+      <div>
+        <span class="kicker">Minha história</span>
+        <div class="name">Priscila<br>Palomo</div>
+        <div class="sub">Psicóloga · CRP 98007 · São Paulo</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene" id="s-1">
+    <div class="scene-inner">
+      <span class="kicker">Minha história</span>
+      <p class="big-quote">Todo mundo tem um medo que parece maior <em>do que a vida real</em>.</p>
+    </div>
+  </div>
+
+  <div class="scene" id="s-2">
+    <div class="scene-inner">
+      <p class="big-quote">Eu decidi dedicar minha carreira a entender esse medo — e ajudar as pessoas a <em>atravessá-lo</em>, degrau a degrau.</p>
+    </div>
+  </div>
+
+  <div class="scene" id="s-3">
+    <div class="scene-inner beat">
+      <span class="label">Formação</span>
+      <p>Graduação em Psicologia, com foco em <em style="color:var(--navy);font-style:normal">comportamento humano</em>.</p>
+    </div>
+  </div>
+
+  <div class="scene" id="s-4">
+    <div class="scene-inner beat">
+      <span class="label">Especialização</span>
+      <p>Terapia Cognitivo-Comportamental — a abordagem com <em style="color:var(--navy);font-style:normal">mais evidência científica</em>.</p>
+    </div>
+  </div>
+
+  <div class="scene" id="s-5">
+    <div class="scene-inner beat">
+      <span class="label">Doutorado</span>
+      <p>Universidade de Valencia — pesquisa em <em style="color:var(--navy);font-style:normal">fobias específicas</em> e terapia de exposição.</p>
+    </div>
+  </div>
+
+  <div class="scene" id="s-6">
+    <div class="scene-inner beat">
+      <span class="label">Hoje</span>
+      <p>Especialista em fobias. <em style="color:var(--navy);font-style:normal">Pioneira no uso de realidade virtual</em> no tratamento.</p>
+    </div>
+  </div>
+
+  <div class="scene" id="s-7">
+    <div class="scene-inner beat">
+      <span class="label">Atendimento</span>
+      <p>Online, para todo o Brasil. Presencial na <em style="color:var(--navy);font-style:normal">Vila Leopoldina</em>, São Paulo.</p>
+    </div>
+  </div>
+
+  <div class="scene" id="s-8">
+    <div class="scene-inner">
+      <span class="kicker">Em números</span>
+      <div class="stats-row">
+        <div class="stat-block"><span class="stat-n">+500</span><span class="stat-l">pacientes atendidos</span></div>
+        <div class="stat-block"><span class="stat-n">98%</span><span class="stat-l">de satisfação</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene" id="s-final">
+    <div class="scene-inner">
+      <p class="big-quote">Se o medo está encolhendo sua vida,<br><em>vamos conversar?</em></p>
+      <div class="site">priscilapalomo.com</div>
+    </div>
+  </div>
+
+  <div class="bar" id="bar">
+    <span>Priscila Palomo · Especialista em fobias</span>
+    <span class="crp">CRP 98007</span>
+  </div>
+
+</div>
+
+<script>
+// Renderizador determinístico: para qualquer tempo virtual (ms), calcula
+// a opacidade exata de cada cena. Não depende de setTimeout/tempo real,
+// então funciona de forma exata não importa quanto tempo a captura de
+// frames realmente leve.
+const FADE = 450;   // duração do fade in/out
+const HOLD = {       // tempo "parado" de cada cena, além do fade
+  's-intro': 3400,
+  's-1':     3200,
+  's-2':     3600,
+  's-3':     2800,
+  's-4':     3000,
+  's-5':     3200,
+  's-6':     2800,
+  's-7':     3000,
+  's-8':     3000,
+  's-final': 6000,
+};
+const GAP = 260;     // pausa em branco entre cenas (evita texto sobreposto)
+const START_DELAY = 300;
+const order = ['s-intro','s-1','s-2','s-3','s-4','s-5','s-6','s-7','s-8','s-final'];
+
+const timeline = [];
+let cursor = START_DELAY;
+order.forEach((id, i) => {
+  const hold = HOLD[id];
+  const isLast = i === order.length - 1;
+  const start = cursor;
+  const fadeInEnd = start + FADE;
+  const holdEnd = fadeInEnd + hold;
+  const fadeOutEnd = isLast ? holdEnd : holdEnd + FADE; // última cena não some
+  timeline.push({ id, start, fadeInEnd, holdEnd, fadeOutEnd, isLast });
+  cursor = fadeOutEnd + (isLast ? 0 : GAP);
+});
+
+window.__totalDuration = cursor + 600; // pequena folga final
+window.__barOnAt = START_DELAY + 200;
+
+window.__render = function (t) {
+  timeline.forEach(({ id, start, fadeInEnd, holdEnd, fadeOutEnd, isLast }) => {
+    const el = document.getElementById(id);
+    let op = 0;
+    if (t < start) op = 0;
+    else if (t < fadeInEnd) op = (t - start) / FADE;
+    else if (t < holdEnd) op = 1;
+    else if (isLast) op = 1;
+    else if (t < fadeOutEnd) op = 1 - (t - holdEnd) / FADE;
+    else op = 0;
+    el.style.opacity = Math.max(0, Math.min(1, op));
+  });
+  const bar = document.getElementById('bar');
+  bar.style.opacity = t >= window.__barOnAt ? Math.min(1, (t - window.__barOnAt) / 400) : 0;
+};
+
+window.__render(0);
+</script>
+</body>
+</html>
