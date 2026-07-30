@@ -1,0 +1,9 @@
+node_modules/
+frames/
+out/
+render/
+audio/narracao/*.mp3
+audio/narracao_completa.wav
+audio/mix_final.wav
+musica_raw.wav
+musica_final.wav
