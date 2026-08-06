@@ -1,13 +1,16 @@
 [
-  {"id": "s1", "text": "Eu nasci em 1983, em São Paulo, filha de um cirurgião cardíaco e de uma enfermeira. Cresci ouvindo histórias de ciência, ética e coragem."},
-  {"id": "s2", "text": "Desde menina eu era a criança cientista. Vivia misturando tubos de ensaio, curiosa para entender como o coração e a mente funcionavam."},
-  {"id": "s3", "text": "Na adolescência, tímida e caladinha, foram os livros que me salvaram. Uma professora querida, Ana, colocou Machado e Clarice nas minhas mãos, e eu me encontrei."},
-  {"id": "s4", "text": "Em 2003 entrei na Psicologia. Ali senti que tinha achado minhas raízes: transformar a complexidade da mente em cuidado."},
-  {"id": "s5", "text": "Depois fui para a Espanha. Na Universidad de Salamanca, fiz meus mestrados e ganhei uma base sólida em método de pesquisa e escuta clínica."},
-  {"id": "s6", "text": "Veio então o doutorado na Universitat de València, no laboratório Labpsitec, estudando o embodiment e a realidade virtual: como habitamos o nosso próprio corpo."},
-  {"id": "s7", "text": "E eu não caminhei sozinha. Tive a orientação da Rosa María Baños, do Ausiàs Cebolla e do Marcelo Demarzo, e colegas queridos de vários países."},
-  {"id": "s8", "text": "Em 2016 defendi minha tese diante de uma banca internacional e recebi o Cum Laude, com o título de Doutora Internacional."},
-  {"id": "s9", "text": "Voltei ao Brasil e me tornei professora e pesquisadora, unindo psicologia e tecnologia com as próprias mãos, para ajudar pessoas de verdade."},
-  {"id": "s10", "text": "Hoje, aos 43 anos, minha maior alegria é a minha família: duas mães e dois filhos, cheios de amor e de histórias para contar."},
-  {"id": "s11", "text": "Essa sou eu, Priscila Palomo. Da curiosidade de menina à ciência que hoje eu divido com você."}
+  {"id": "s1", "text": "Eu nasci em 1983, em São Paulo."},
+  {"id": "s2", "text": "Sou filha de um cirurgião cardíaco, que veio da Bolívia, e de uma enfermeira dedicada. Cresci entre histórias de ciência, ética e coragem."},
+  {"id": "s3", "text": "E não cresci sozinha: tenho dois irmãos, o Álvaro e a Patrícia, que dividiram comigo essas primeiras histórias."},
+  {"id": "s4", "text": "Desde menina eu era a criança cientista, misturando tubos de ensaio para entender como o coração e a mente funcionavam."},
+  {"id": "s5", "text": "Na adolescência, tímida, foi a professora Ana quem me salvou, colocando Machado e Clarice nas minhas mãos. Nos livros, eu me encontrei."},
+  {"id": "s6", "text": "Em 2003 encontrei a Psicologia, e senti que ali estavam as minhas raízes."},
+  {"id": "s7", "text": "Depois fui para a Espanha. Na Universidad de Salamanca, fiz meus mestrados e ganhei uma base sólida em pesquisa e escuta clínica."},
+  {"id": "s8", "text": "Veio então o doutorado na Universitat de València, no laboratório Labpsitec, estudando o embodiment e a realidade virtual."},
+  {"id": "s9", "text": "Fui orientada pela Rosa María Baños, pelo Ausiàs Cebolla e pelo Marcelo Demarzo, nomes que eu admiro profundamente."},
+  {"id": "s10", "text": "E aprendi com colegas queridos de vários países, como Giuseppe Riva, Joaquim Soler, Carmelo Vázquez e Javier García Campayo."},
+  {"id": "s11", "text": "Em 2016 defendi minha tese diante de uma banca internacional e recebi o Cum Laude, com o título de Doutora Internacional."},
+  {"id": "s12", "text": "Voltei ao Brasil e me tornei professora e pesquisadora, unindo psicologia e tecnologia com as próprias mãos, para ajudar pessoas."},
+  {"id": "s13", "text": "Hoje, aos 43 anos, minha maior alegria é a minha família: duas mães e dois filhos, cheios de amor."},
+  {"id": "s14", "text": "Essa sou eu, Priscila Palomo. Da curiosidade de menina à ciência que hoje eu divido com você."}
 ]
