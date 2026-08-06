@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@400;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:1920px;height:1080px;background:#fbfaf7;overflow:hidden;font-family:'Kalam',cursive;}
+.stage{position:relative;width:1920px;height:1080px;
+  background-image:radial-gradient(rgba(20,50,75,.06) 2px, transparent 2px);background-size:44px 44px;}
+.frame{position:absolute;inset:26px;border:3px solid #14324B;border-radius:10px;opacity:.10;}
+.brand{position:absolute;top:44px;left:0;right:0;text-align:center;font-family:'Caveat',cursive;
+  font-weight:700;font-size:40px;color:#14324B;opacity:.92;}
+.brand small{display:block;font-family:'Kalam',cursive;font-weight:400;font-size:15px;
+  letter-spacing:.28em;text-transform:uppercase;color:#9a8f80;margin-top:-2px;}
+svg{position:absolute;inset:0;width:1920px;height:1080px;}
+.ink{fill:none;stroke:#14324B;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;}
+.ink.accent{stroke:#C77D3A;}
+.ink.red{stroke:#C0392B;}
+.lbl{font-family:'Caveat',cursive;font-weight:700;fill:#14324B;opacity:0;}
+.lbl.accent{fill:#C77D3A;}
+#pen{opacity:0;}
+#pen path{fill:#14324B;stroke:none;}
+#pen .nib{fill:#C77D3A;}
+/* timeline */
+#tl-line{stroke:#14324B;stroke-width:4;stroke-linecap:round;opacity:.35;}
+.tl-tick{stroke:#14324B;stroke-width:4;opacity:.4;}
+.tl-year{font-family:'Kalam',cursive;font-weight:700;font-size:24px;fill:#5a6a7a;text-anchor:middle;}
+#tl-dot{fill:#C77D3A;stroke:#fff;stroke-width:3;}
+.cap{position:absolute;left:0;right:0;top:702px;text-align:center;
+  font-family:'Caveat',cursive;font-weight:700;color:#14324B;font-size:60px;line-height:1.12;opacity:0;padding:0 150px;}
+.closing-name{font-family:'Caveat',cursive;font-weight:700;font-size:86px;}
+.closing-sub{font-family:'Kalam',cursive;font-weight:400;font-size:28px;color:#5a6a7a;margin-top:2px;}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="frame"></div>
+  <div class="brand">Minha história — linha do tempo<small>Priscila Palomo · Psicóloga · Doutora</small></div>
+  <svg id="art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet">
+    <g id="scenes"></g>
+    <g id="timeline"></g>
+    <g id="pen">
+      <path class="nib" d="M0 0 L11 -7 L18 -12 L11 -19 L-6 4 Z"></path>
+      <path d="M11 -19 L44 -60 C48 -65 58 -55 53 -50 L18 -12 Z"></path>
+      <path d="M44 -60 L58 -74 C64 -80 74 -70 68 -64 L53 -50 Z"></path>
+    </g>
+  </svg>
+  <div class="cap" id="cap"></div>
+</div>
+
+<script>
+/* ================= helpers de desenho (retornam arrays de {d,c}) ================= */
+const n=(v)=>Math.round(v*10)/10;
+function heart(cx,cy,s,c){return [{d:`M${cx} ${cy+34*s} C${cx-34*s} ${cy+6*s} ${cx-42*s} ${cy-26*s} ${cx-16*s} ${cy-30*s} C${cx-5*s} ${cy-32*s} ${cx} ${cy-22*s} ${cx} ${cy-15*s} C${cx} ${cy-22*s} ${cx+5*s} ${cy-32*s} ${cx+16*s} ${cy-30*s} C${cx+42*s} ${cy-26*s} ${cx+34*s} ${cy+6*s} ${cx} ${cy+34*s} Z`, c:c||'red'}];}
+function person(cx,cy,s,c){const h=cy-92*s; return [
+  {d:`M${cx} ${h} m${-26*s} 0 a${26*s} ${26*s} 0 1 0 ${52*s} 0 a${26*s} ${26*s} 0 1 0 ${-52*s} 0`, c},
+  {d:`M${cx} ${cy-40*s} L${cx} ${cy+22*s}`, c},
+  {d:`M${cx-32*s} ${cy-14*s} L${cx} ${cy-34*s} L${cx+32*s} ${cy-14*s}`, c},
+  {d:`M${cx} ${cy+22*s} L${cx-22*s} ${cy+66*s}`, c},
+  {d:`M${cx} ${cy+22*s} L${cx+22*s} ${cy+66*s}`, c}
+];}
+function child(cx,cy,s,c){return person(cx,cy,s*0.66,c);}
+function openHand(cx,cy,s,c){const f=(dx,dy)=>`M${cx+dx*s} ${cy} L${cx+dx*s+dy*0.1} ${cy-44*s}`; return [
+  {d:`M${cx-28*s} ${cy+40*s} C${cx-34*s} ${cy} ${cx+34*s} ${cy} ${cx+28*s} ${cy+40*s} C${cx+22*s} ${cy+66*s} ${cx-22*s} ${cy+66*s} ${cx-28*s} ${cy+40*s} Z`, c},
+  {d:`M${cx-22*s} ${cy+2*s} L${cx-25*s} ${cy-42*s}`, c},
+  {d:`M${cx-8*s} ${cy-2*s} L${cx-9*s} ${cy-48*s}`, c},
+  {d:`M${cx+8*s} ${cy-2*s} L${cx+9*s} ${cy-48*s}`, c},
+  {d:`M${cx+22*s} ${cy+2*s} L${cx+25*s} ${cy-42*s}`, c},
+  {d:`M${cx-28*s} ${cy+16*s} L${cx-52*s} ${cy-4*s}`, c}
+];}
+function bookOpen(cx,cy,s,c){return [
+  {d:`M${cx} ${cy-36*s} C${cx-58*s} ${cy-54*s} ${cx-118*s} ${cy-44*s} ${cx-118*s} ${cy-44*s} L${cx-118*s} ${cy+40*s} C${cx-58*s} ${cy+30*s} ${cx} ${cy+48*s} ${cx} ${cy+48*s} Z`, c},
+  {d:`M${cx} ${cy-36*s} C${cx+58*s} ${cy-54*s} ${cx+118*s} ${cy-44*s} ${cx+118*s} ${cy-44*s} L${cx+118*s} ${cy+40*s} C${cx+58*s} ${cy+30*s} ${cx} ${cy+48*s} ${cx} ${cy+48*s} Z`, c},
+  {d:`M${cx} ${cy-36*s} L${cx} ${cy+48*s}`, c},
+  {d:`M${cx-96*s} ${cy-24*s} L${cx-30*s} ${cy-16*s}`, c:'accent'},
+  {d:`M${cx-96*s} ${cy-2*s} L${cx-30*s} ${cy+6*s}`, c:'accent'},
+  {d:`M${cx+30*s} ${cy-16*s} L${cx+96*s} ${cy-24*s}`, c:'accent'},
+  {d:`M${cx+30*s} ${cy+6*s} L${cx+96*s} ${cy-2*s}`, c:'accent'}
+];}
+function tube(x,top,len,c){return [
+  {d:`M${x-15} ${top} L${x-15} ${top+len-18} C${x-15} ${top+len} ${x+15} ${top+len} ${x+15} ${top+len-18} L${x+15} ${top}`, c},
+  {d:`M${x-22} ${top} L${x+22} ${top}`, c}
+];}
+function star(cx,cy,s,c){const pts=[];for(let i=0;i<10;i++){const r=(i%2? 0.42:1)*s;const a=-Math.PI/2+i*Math.PI/5;pts.push(`${n(cx+r*Math.cos(a))} ${n(cy+r*Math.sin(a))}`);}return [{d:`M${pts.join(' L')} Z`, c:c||'accent'}];}
+function diploma(cx,cy,c){return [
+  {d:`M${cx-136} ${cy-40} L${cx+136} ${cy-40} L${cx+136} ${cy+58} L${cx-136} ${cy+58} Z`, c},
+  {d:`M${cx-136} ${cy-52} C${cx-158} ${cy-52} ${cx-158} ${cy+70} ${cx-136} ${cy+70}`, c},
+  {d:`M${cx+136} ${cy-52} C${cx+158} ${cy-52} ${cx+158} ${cy+70} ${cx+136} ${cy+70}`, c},
+  {d:`M${cx-96} ${cy-6} L${cx+96} ${cy-6}`, c:'accent'},
+  {d:`M${cx-96} ${cy+26} L${cx+40} ${cy+26}`, c:'accent'}
+];}
+function vr(cx,cy,c){return [
+  {d:`M${cx-84} ${cy-34} L${cx+84} ${cy-34} C${cx+110} ${cy-34} ${cx+110} ${cy+38} ${cx+84} ${cy+38} L${cx-84} ${cy+38} C${cx-110} ${cy+38} ${cx-110} ${cy-34} ${cx-84} ${cy-34} Z`, c},
+  {d:`M${cx} ${cy-34} L${cx} ${cy+38}`, c},
+  {d:`M${cx-110} ${cy-8} C${cx-150} ${cy-30} ${cx-150} ${cy-60} ${cx-110} ${cy-70}`, c:'accent'},
+  {d:`M${cx+110} ${cy-8} C${cx+150} ${cy-30} ${cx+150} ${cy-60} ${cx+110} ${cy-70}`, c:'accent'}
+];}
+function bodyOutline(cx,cy,c){return [
+  {d:`M${cx} ${cy-70} m${-30} 0 a30 30 0 1 0 60 0 a30 30 0 1 0 -60 0`, c},
+  {d:`M${cx-30} ${cy-16} C${cx-40} ${cy+60} ${cx-34} ${cy+120} ${cx-22} ${cy+150} L${cx+22} ${cy+150} C${cx+34} ${cy+120} ${cx+40} ${cy+60} ${cx+30} ${cy-16}`, c}
+];}
+function baby(cx,cy,c){return [
+  {d:`M${cx} ${cy} m${-52} 0 a52 52 0 1 0 104 0 a52 52 0 1 0 -104 0`, c},
+  {d:`M${cx-20} ${cy-6} l0 0`, c},
+  {d:`M${cx-22} ${cy-6} m-6 0 a6 6 0 1 0 12 0 a6 6 0 1 0 -12 0`, c},
+  {d:`M${cx+22} ${cy-6} m-6 0 a6 6 0 1 0 12 0 a6 6 0 1 0 -12 0`, c},
+  {d:`M${cx-14} ${cy+22} C${cx-4} ${cy+32} ${cx+4} ${cy+32} ${cx+14} ${cy+22}`, c},
+  {d:`M${cx-70} ${cy+70} C${cx-30} ${cy+40} ${cx+30} ${cy+40} ${cx+70} ${cy+70} L${cx+70} ${cy+120} L${cx-70} ${cy+120} Z`, c}
+];}
+function brain(cx,cy,c){return [
+  {d:`M${cx-10} ${cy-30} C${cx-40} ${cy-40} ${cx-46} ${cy} ${cx-20} ${cy+6} C${cx-40} ${cy+22} ${cx-14} ${cy+48} ${cx+2} ${cy+38} C${cx+16} ${cy+52} ${cx+44} ${cy+34} ${cx+30} ${cy+12} C${cx+52} ${cy} ${cx+40} ${cy-36} ${cx+12} ${cy-30} C${cx+6} ${cy-44} ${cx-6} ${cy-42} ${cx-10} ${cy-30} Z`, c},
+  {d:`M${cx} ${cy-30} L${cx} ${cy+38}`, c}
+];}
+
+/* ================= CENAS ================= */
+const CX=960, CY=430;
+const SCENES = [
+  { year:"1983", cap:"Nasci em 1983, em São Paulo.", paths:[
+      ...baby(CX,CY-10), ...heart(CX+150,CY-40,1.1) ],
+    labels:[{x:CX,y:CY+180,t:"São Paulo · 1983",s:34,c:''}] },
+
+  { cap:"Desde menina, a criança cientista.", paths:[
+      ...tube(CX-70,CY-60,150), ...tube(CX+2,CY-30,180,'accent'), ...tube(CX+74,CY-60,150),
+      {d:`M${CX-70} ${CY-80} q-8 -22 8 -30`, c:'accent'}, {d:`M${CX+74} ${CY-80} q10 -20 -6 -30`, c:'accent'} ],
+    labels:[] },
+
+  { cap:"Na adolescência, os livros me salvaram.", paths:[
+      ...bookOpen(CX,CY,1.15),
+      ...bookOpen(CX,CY+150,0.5) ],
+    labels:[{x:CX,y:CY+210,t:"Machado · Clarice",s:30,c:''}] },
+
+  { year:"2003", cap:"Em 2003, encontrei a Psicologia.", paths:[
+      ...bodyOutline(CX,CY-90), ...brain(CX,CY-160), ...heart(CX,CY+40,0.9) ],
+    labels:[{x:CX,y:CY+150,t:"Psicologia · 2003",s:32,c:''}] },
+
+  { year:"2011", cap:"Fui à Espanha — mestrados em Salamanca.", paths:[
+      // Península Ibérica estilizada
+      {d:`M780 340 C900 300 1120 300 1200 340 C1260 366 1240 430 1180 470 C1160 520 1080 540 1000 520 C940 540 860 520 820 480 C760 460 730 380 780 340 Z`},
+      ...star(1010,410,26),
+      ...bookOpen(880,470,0.5) ],
+    labels:[{x:1010,y:452,t:"Salamanca",s:30,c:'accent'},{x:960,y:600,t:"Espanha · 2011–2012",s:30,c:''}] },
+
+  { cap:"Doutorado em València: corpo, mente e realidade virtual.", paths:[
+      ...vr(CX,CY-70), ...bodyOutline(CX,CY+40) ],
+    labels:[{x:CX,y:CY+230,t:"Labpsitec · embodiment",s:30,c:''}] },
+
+  { cap:"Com os meus orientadores e colegas.", paths:[
+      ...person(720,CY-10,1.0), ...person(960,CY-30,1.05), ...person(1200,CY-10,1.0),
+      ...heart(960,CY-150,0.6,'red') ],
+    labels:[{x:720,y:CY+90,t:"Ausiàs",s:30,c:''},{x:960,y:CY+70,t:"Rosa",s:34,c:'accent'},{x:1200,y:CY+90,t:"Demarzo",s:30,c:''}] },
+
+  { year:"2016", cap:"2016 — defesa e Cum Laude, Doutora Internacional.", paths:[
+      ...star(CX,CY-120,42), ...diploma(CX,CY+20) ],
+    labels:[{x:CX,y:CY+150,t:"Cum Laude · 2016",s:34,c:'accent'}] },
+
+  { cap:"Voltei ao Brasil: ciência e cuidado, com as próprias mãos.", paths:[
+      ...openHand(870,CY,1.05), ...openHand(1050,CY,1.05),
+      ...heart(960,CY-70,0.8,'red') ],
+    labels:[{x:960,y:CY+140,t:"Professora & pesquisadora",s:30,c:''}] },
+
+  { year:"Hoje", cap:"Hoje, aos 43 anos: minha família.", paths:[
+      ...person(820,CY,1.0), ...person(1100,CY,1.0),
+      ...child(920,CY+40,1.0), ...child(1010,CY+40,1.0),
+      ...heart(700,CY-90,0.7,'red'), ...heart(1220,CY-90,0.7,'red') ],
+    labels:[{x:960,y:CY+160,t:"duas mães · dois filhos",s:32,c:''}] },
+
+  { cap:"", closing:true, paths:[ {d:`M${CX} 402 m-146 0 a146 146 0 1 0 292 0 a146 146 0 1 0 -292 0`} ] }
+];
+
+/* ================= build DOM ================= */
+const NS='http://www.w3.org/2000/svg';
+const scenesG=document.getElementById('scenes');
+const tlG=document.getElementById('timeline');
+const capEl=document.getElementById('cap');
+const penEl=document.getElementById('pen');
+
+const built = SCENES.map((sc)=>{
+  const g=document.createElementNS(NS,'g'); g.style.opacity='0';
+  const paths=sc.paths.map(p=>{const el=document.createElementNS(NS,'path');el.setAttribute('d',p.d);el.setAttribute('class','ink'+(p.c?' '+p.c:''));g.appendChild(el);return el;});
+  const labelEls=(sc.labels||[]).map(l=>{const t=document.createElementNS(NS,'text');t.setAttribute('x',l.x);t.setAttribute('y',l.y);t.setAttribute('text-anchor','middle');t.setAttribute('font-size',l.s||30);t.setAttribute('class','lbl'+(l.c?' '+l.c:''));t.textContent=l.t;g.appendChild(t);return t;});
+  let imgEl=null,nameG=null;
+  if(sc.closing){
+    const defs=document.createElementNS(NS,'defs');const cp=document.createElementNS(NS,'clipPath');cp.setAttribute('id','cpp');
+    const cc=document.createElementNS(NS,'circle');cc.setAttribute('cx','960');cc.setAttribute('cy','402');cc.setAttribute('r','138');cp.appendChild(cc);defs.appendChild(cp);g.appendChild(defs);
+    imgEl=document.createElementNS(NS,'image');imgEl.setAttribute('href','../../../assets/avatar-priscila.jpg');
+    imgEl.setAttribute('x','822');imgEl.setAttribute('y','264');imgEl.setAttribute('width','276');imgEl.setAttribute('height','276');
+    imgEl.setAttribute('preserveAspectRatio','xMidYMid slice');imgEl.setAttribute('clip-path','url(#cpp)');imgEl.style.opacity='0';g.appendChild(imgEl);
+    nameG=document.createElementNS(NS,'foreignObject');nameG.setAttribute('x','360');nameG.setAttribute('y','600');nameG.setAttribute('width','1200');nameG.setAttribute('height','300');
+    nameG.innerHTML='<div xmlns="http://www.w3.org/1999/xhtml" style="text-align:center;color:#14324B;opacity:0" class="ct"><div class="closing-name">Priscila Palomo</div><div class="closing-sub">Psicóloga · Doutora pela Universitat de València · Cum Laude</div><div class="closing-sub" style="color:#C77D3A;font-weight:700;margin-top:6px">priscilapalomo.com</div></div>';
+    g.appendChild(nameG);
+  }
+  scenesG.appendChild(g);
+  const lens=paths.map(el=>el.getTotalLength());
+  paths.forEach((el,k)=>{el.style.strokeDasharray=lens[k];el.style.strokeDashoffset=lens[k];});
+  return {g,paths,lens,labelEls,imgEl,nameG,sc};
+});
+
+/* durações (ms) — o build injeta as reais da narração */
+/*DUR_START*/
+let SCENE_DURMS = [11672,10232,11264,9656,10520,11792,10928,9752,10616,9872,7592];
+/*DUR_END*/
+
+function computeStarts(){const s=[];let a=0;for(let i=0;i<SCENE_DURMS.length;i++){s.push(a);a+=SCENE_DURMS[i];}return {starts:s,total:a};}
+let {starts,total}=computeStarts();
+window.__totalDuration=total;
+const clamp=(v,a,b)=>v<a?a:(v>b?b:v);
+
+/* timeline estático: linha + ticks/anos + ponto móvel */
+const TLX0=220,TLX1=1700,TLY=940;
+(function(){
+  const line=document.createElementNS(NS,'line');line.id='tl-line';
+  line.setAttribute('x1',TLX0);line.setAttribute('y1',TLY);line.setAttribute('x2',TLX1);line.setAttribute('y2',TLY);tlG.appendChild(line);
+  const {starts,total}=computeStarts();
+  SCENES.forEach((sc,i)=>{ if(!sc.year) return;
+    const x=TLX0+(TLX1-TLX0)*((starts[i]+SCENE_DURMS[i]/2)/total);
+    const tk=document.createElementNS(NS,'line');tk.setAttribute('class','tl-tick');tk.setAttribute('x1',x);tk.setAttribute('y1',TLY-12);tk.setAttribute('x2',x);tk.setAttribute('y2',TLY+12);tlG.appendChild(tk);
+    const yr=document.createElementNS(NS,'text');yr.setAttribute('class','tl-year');yr.setAttribute('x',x);yr.setAttribute('y',TLY+42);yr.textContent=sc.year;tlG.appendChild(yr);
+  });
+  const dot=document.createElementNS(NS,'circle');dot.id='tl-dot';dot.setAttribute('cx',TLX0);dot.setAttribute('cy',TLY);dot.setAttribute('r','11');tlG.appendChild(dot);
+})();
+const tlDot=document.getElementById('tl-dot');
+
+window.__render=function(t){
+  ({starts,total}=computeStarts());window.__totalDuration=total;
+  t=clamp(t,0,total-1);
+  let k=SCENE_DURMS.length-1;
+  for(let i=0;i<SCENE_DURMS.length;i++){if(t>=starts[i]&&t<starts[i]+SCENE_DURMS[i]){k=i;break;}}
+  const localT=t-starts[k], durK=SCENE_DURMS[k];
+  const drawDur=Math.max(1400,durK-950);
+  const df=clamp(localT/drawDur,0,1);
+  penEl.style.opacity='0';
+
+  built.forEach((b,i)=>{
+    if(i!==k){
+      b.g.style.opacity='0';
+      b.paths.forEach((el,j)=>el.style.strokeDashoffset=(i<k)?0:b.lens[j]);
+      b.labelEls.forEach(t=>t.style.opacity='0');
+      if(b.imgEl)b.imgEl.style.opacity='0';
+      if(b.nameG){const d=b.nameG.querySelector('.ct');if(d)d.style.opacity='0';}
+    } else {
+      b.g.style.opacity=clamp(localT/160,0,1);
+      const nn=b.paths.length, seg=1/nn; let penSet=false;
+      for(let j=0;j<nn;j++){
+        const pj=clamp((df-j*seg)/seg,0,1);
+        b.paths[j].style.strokeDashoffset=b.lens[j]*(1-pj);
+        if(!penSet&&pj>0&&pj<1){const pt=b.paths[j].getPointAtLength(b.lens[j]*pj);penEl.setAttribute('transform','translate('+pt.x+','+pt.y+') rotate(6)');penEl.style.opacity='1';penSet=true;}
+      }
+      const lop=clamp((localT-drawDur*0.55)/450,0,1);
+      b.labelEls.forEach(t=>t.style.opacity=lop);
+      if(b.imgEl)b.imgEl.style.opacity=clamp((df-0.6)/0.4,0,1);
+      if(b.nameG){const d=b.nameG.querySelector('.ct');if(d)d.style.opacity=clamp((localT-700)/500,0,1);}
+    }
+  });
+
+  tlDot.setAttribute('cx', TLX0+(TLX1-TLX0)*(t/total));
+
+  const sc=built[k].sc;
+  if(sc.cap){
+    if(capEl.dataset.k!==String(k)){capEl.innerHTML=sc.cap.split('\n').map(l=>'<div>'+l+'</div>').join('');capEl.dataset.k=String(k);}
+    capEl.style.opacity=clamp((localT-250)/450,0,1);
+  } else {capEl.style.opacity='0';capEl.dataset.k=String(k);}
+};
+window.__render(0);
+</script>
+</body>
+</html>
