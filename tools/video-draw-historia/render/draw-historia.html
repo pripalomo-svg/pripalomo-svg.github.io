@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@400;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:1920px;height:1080px;background:#fbfaf7;overflow:hidden;font-family:'Kalam',cursive;}
+.stage{position:relative;width:1920px;height:1080px;
+  background-image:radial-gradient(rgba(20,50,75,.06) 2px, transparent 2px);
+  background-size:44px 44px;}
+.frame{position:absolute;inset:26px;border:3px solid #14324B;border-radius:10px;opacity:.10;}
+.brand{position:absolute;top:52px;left:0;right:0;text-align:center;font-family:'Caveat',cursive;
+  font-weight:700;font-size:40px;color:#14324B;letter-spacing:.02em;opacity:.9;}
+.brand small{display:block;font-family:'Kalam',cursive;font-weight:400;font-size:16px;
+  letter-spacing:.28em;text-transform:uppercase;color:#9a8f80;margin-top:-4px;}
+svg{position:absolute;inset:0;width:1920px;height:1080px;}
+.ink{fill:none;stroke:#14324B;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;}
+.ink.accent{stroke:#C77D3A;}
+.ink.red{stroke:#C0392B;}
+.ink.fillnavy{fill:#14324B;stroke:none;}
+#pen{opacity:0;}
+#pen path{fill:#14324B;stroke:none;}
+#pen .nib{fill:#C77D3A;}
+.cap{position:absolute;left:0;right:0;bottom:120px;text-align:center;
+  font-family:'Caveat',cursive;font-weight:700;color:#14324B;
+  font-size:66px;line-height:1.15;opacity:0;padding:0 120px;}
+.cap .u{position:relative;}
+.closing-name{font-family:'Caveat',cursive;font-weight:700;font-size:92px;}
+.closing-sub{font-family:'Kalam',cursive;font-weight:400;font-size:30px;color:#5a6a7a;margin-top:2px;}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="frame"></div>
+  <div class="brand">Minha história<small>Priscila Palomo · Psicóloga</small></div>
+  <svg id="art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet">
+    <g id="scenes"></g>
+    <g id="pen">
+      <path class="nib" d="M0 0 L11 -7 L18 -12 L11 -19 L-6 4 Z"></path>
+      <path d="M11 -19 L44 -60 C48 -65 58 -55 53 -50 L18 -12 Z"></path>
+      <path d="M44 -60 L58 -74 C64 -80 74 -70 68 -64 L53 -50 Z"></path>
+    </g>
+  </svg>
+  <div class="cap" id="cap"></div>
+</div>
+
+<script>
+/* ---- ROTEIRO / CENAS ---- */
+const SCENES = [
+  { cap:"Meu nome é Priscila Palomo,\numa psicóloga brasileira.", paths:[
+    {d:"M960 285 C1052 285 1098 356 1098 430 C1098 512 1036 566 960 566 C884 566 822 512 822 430 C822 356 868 285 960 285 Z"},
+    {d:"M846 372 C876 320 1044 320 1074 372"},
+    {d:"M912 420 m-30 0 a30 30 0 1 0 60 0 a30 30 0 1 0 -60 0"},
+    {d:"M1008 420 m-30 0 a30 30 0 1 0 60 0 a30 30 0 1 0 -60 0"},
+    {d:"M942 416 C954 405 966 405 978 416"},
+    {d:"M916 492 C946 520 974 520 1004 492"},
+    {d:"M806 660 C858 566 1062 566 1114 660"},
+    {d:"M1150 300 C1168 279 1198 291 1198 315 C1198 339 1168 358 1150 368 C1132 358 1102 339 1102 315 C1102 291 1132 279 1150 300 Z", c:"red"}
+  ]},
+  { cap:"Fui fazer doutorado em\nValència, na Espanha.", paths:[
+    {d:"M690 650 C820 470 1140 470 1300 590", c:"accent"},
+    {d:"M660 656 C700 640 812 640 852 656 C812 672 700 672 660 656 Z"},
+    {d:"M756 648 L724 606"},
+    {d:"M756 664 L724 706"},
+    {d:"M846 656 L878 632"},
+    {d:"M846 656 L878 680"},
+    {d:"M1312 556 C1352 556 1352 612 1312 648 C1272 612 1272 556 1312 556 Z", c:"accent"},
+    {d:"M1312 582 m-12 0 a12 12 0 1 0 24 0 a12 12 0 1 0 -24 0", c:"accent"}
+  ]},
+  { cap:"Estudei o embodiment:\ncomo corpo e mente se conectam.", paths:[
+    {d:"M960 250 C1112 250 1150 692 960 692 C770 692 808 250 960 250 Z", c:"accent"},
+    {d:"M960 336 m-44 0 a44 44 0 1 0 88 0 a44 44 0 1 0 -88 0"},
+    {d:"M940 328 C931 317 949 310 958 321 C969 310 986 319 977 332 C988 339 981 356 966 351 C958 362 940 355 945 342 C934 342 931 330 940 328 Z"},
+    {d:"M916 392 C904 494 908 588 926 656 L994 656 C1012 588 1016 494 1004 392"},
+    {d:"M1032 452 L1082 440", c:"accent"},
+    {d:"M1032 476 L1082 488", c:"accent"}
+  ]},
+  { cap:"E a integração multissensorial\ndo corpo na alimentação.", paths:[
+    {d:"M960 470 m-98 0 a98 98 0 1 0 196 0 a98 98 0 1 0 -196 0"},
+    {d:"M960 470 m-62 0 a62 62 0 1 0 124 0 a62 62 0 1 0 -124 0"},
+    {d:"M792 372 L792 548"},
+    {d:"M776 372 L776 424 C776 444 808 444 808 424 L808 372"},
+    {d:"M1128 372 C1150 396 1150 446 1128 470 L1128 548", c:"accent"},
+    {d:"M900 636 C930 618 990 618 1020 636 C990 654 930 654 900 636 Z", c:"accent"},
+    {d:"M960 636 m-12 0 a12 12 0 1 0 24 0 a12 12 0 1 0 -24 0", c:"accent"}
+  ]},
+  { cap:"Com grandes orientadores\nao meu lado.", paths:[
+    {d:"M700 430 L770 402 L840 430 L770 458 Z"},
+    {d:"M742 444 L742 476 C742 496 798 496 798 476 L798 444"},
+    {d:"M840 430 L840 474"},
+    {d:"M890 392 L960 364 L1030 392 L960 420 Z"},
+    {d:"M932 406 L932 440 C932 462 988 462 988 440 L988 406"},
+    {d:"M1030 392 L1030 438"},
+    {d:"M1080 430 L1150 402 L1220 430 L1150 458 Z"},
+    {d:"M1122 444 L1122 476 C1122 496 1178 496 1178 476 L1178 444"},
+    {d:"M1220 430 L1220 474"}
+  ]},
+  { cap:"2016 · Sobresaliente Cum Laude\ncom Menção Internacional.", paths:[
+    {d:"M960 292 L974 332 L1016 334 L983 360 L995 401 L960 376 L925 401 L937 360 L904 334 L946 332 Z", c:"accent"},
+    {d:"M824 432 L1096 432 L1096 566 L824 566 Z"},
+    {d:"M824 420 C804 420 804 578 824 578"},
+    {d:"M1096 420 C1116 420 1116 578 1096 578"},
+    {d:"M864 474 L1056 474"},
+    {d:"M864 508 L1008 508"},
+    {d:"M772 470 C742 452 742 512 776 528", c:"accent"},
+    {d:"M1148 470 C1178 452 1178 512 1144 528", c:"accent"}
+  ]},
+  { cap:"Voltei ao Brasil\ncom um só propósito: ajudar você.", paths:[
+    {d:"M960 362 C1012 300 1094 322 1094 392 C1094 464 990 524 960 550 C930 524 826 464 826 392 C826 322 908 300 960 362 Z", c:"red"},
+    {d:"M812 548 C770 566 770 628 824 640"},
+    {d:"M1108 548 C1150 566 1150 628 1096 640"},
+    {d:"M846 690 C920 664 1000 664 1074 690", c:"accent"}
+  ]},
+  { cap:"", closing:true, paths:[
+    {d:"M960 402 m-146 0 a146 146 0 1 0 292 0 a146 146 0 1 0 -292 0"}
+  ]}
+];
+
+/* Duração de cada cena em ms. O build injeta as durações reais da narração. */
+/*DUR_START*/
+let SCENE_DURMS = [11312,7904,9608,8936,9008,9704,7232,6968];
+/*DUR_END*/
+
+const NS = 'http://www.w3.org/2000/svg';
+const scenesG = document.getElementById('scenes');
+const capEl = document.getElementById('cap');
+const penEl = document.getElementById('pen');
+
+const built = SCENES.map((sc, i) => {
+  const g = document.createElementNS(NS, 'g');
+  g.style.opacity = '0';
+  const paths = sc.paths.map(p => {
+    const el = document.createElementNS(NS, 'path');
+    el.setAttribute('d', p.d);
+    el.setAttribute('class', 'ink' + (p.c ? ' ' + p.c : ''));
+    g.appendChild(el);
+    return el;
+  });
+  // Cena final: foto em círculo + nome
+  let imgEl = null, nameG = null;
+  if (sc.closing) {
+    const clipId = 'clip-photo';
+    const defs = document.createElementNS(NS, 'defs');
+    const cp = document.createElementNS(NS, 'clipPath'); cp.setAttribute('id', clipId);
+    const cc = document.createElementNS(NS, 'circle');
+    cc.setAttribute('cx','960'); cc.setAttribute('cy','402'); cc.setAttribute('r','138');
+    cp.appendChild(cc); defs.appendChild(cp); g.appendChild(defs);
+    imgEl = document.createElementNS(NS, 'image');
+    imgEl.setAttribute('href', '../../../assets/avatar-priscila.jpg');
+    imgEl.setAttribute('x','822'); imgEl.setAttribute('y','264');
+    imgEl.setAttribute('width','276'); imgEl.setAttribute('height','276');
+    imgEl.setAttribute('preserveAspectRatio','xMidYMid slice');
+    imgEl.setAttribute('clip-path', 'url(#'+clipId+')');
+    imgEl.style.opacity = '0';
+    g.appendChild(imgEl);
+    nameG = document.createElementNS(NS, 'foreignObject');
+    nameG.setAttribute('x','360'); nameG.setAttribute('y','610');
+    nameG.setAttribute('width','1200'); nameG.setAttribute('height','300');
+    nameG.innerHTML = '<div xmlns="http://www.w3.org/1999/xhtml" style="text-align:center;color:#14324B;opacity:0" class="closingtxt">'
+      + '<div class="closing-name">Priscila Palomo</div>'
+      + '<div class="closing-sub">Doutora pela Universitat de València · Cum Laude</div>'
+      + '<div class="closing-sub" style="color:#C77D3A;font-weight:700;margin-top:8px">priscilapalomo.com</div>'
+      + '</div>';
+    g.appendChild(nameG);
+  }
+  scenesG.appendChild(g);
+  const lens = paths.map(el => el.getTotalLength());
+  paths.forEach((el, k) => { el.style.strokeDasharray = lens[k]; el.style.strokeDashoffset = lens[k]; });
+  return { g, paths, lens, imgEl, nameG, sc };
+});
+
+function computeStarts(){
+  const starts = []; let acc = 0;
+  for (let i=0;i<SCENE_DURMS.length;i++){ starts.push(acc); acc += SCENE_DURMS[i]; }
+  return { starts, total: acc };
+}
+let { starts, total } = computeStarts();
+window.__totalDuration = total;
+
+function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+
+window.__render = function(t){
+  ({ starts, total } = computeStarts());
+  window.__totalDuration = total;
+  t = clamp(t, 0, total - 1);
+
+  let k = SCENE_DURMS.length - 1;
+  for (let i=0;i<SCENE_DURMS.length;i++){
+    if (t >= starts[i] && t < starts[i] + SCENE_DURMS[i]) { k = i; break; }
+  }
+  const localT = t - starts[k];
+  const durK = SCENE_DURMS[k];
+  const drawDur = Math.max(1400, durK - 900);
+  const df = clamp(localT / drawDur, 0, 1);
+
+  penEl.style.opacity = '0';
+
+  built.forEach((b, i) => {
+    if (i !== k) {
+      // apenas a cena ativa fica visível — cada cena é uma "página"
+      b.g.style.opacity = '0';
+      b.paths.forEach((el,j)=> el.style.strokeDashoffset = (i < k) ? 0 : b.lens[j]);
+      if (b.imgEl) b.imgEl.style.opacity = '0';
+      if (b.nameG){ const d=b.nameG.querySelector('.closingtxt'); if(d) d.style.opacity='0'; }
+    } else {
+      b.g.style.opacity = clamp(localT/180, 0, 1);
+      const n = b.paths.length;
+      const seg = 1 / n;
+      let penSet = false;
+      for (let j=0;j<n;j++){
+        const pj = clamp((df - j*seg) / seg, 0, 1);
+        b.paths[j].style.strokeDashoffset = b.lens[j] * (1 - pj);
+        if (!penSet && pj > 0 && pj < 1){
+          const pt = b.paths[j].getPointAtLength(b.lens[j] * pj);
+          penEl.setAttribute('transform', 'translate('+pt.x+','+pt.y+') rotate(6)');
+          penEl.style.opacity = '1';
+          penSet = true;
+        }
+      }
+      // foto/nome da cena final aparecem depois do traço
+      if (b.imgEl){ b.imgEl.style.opacity = clamp((df-0.6)/0.4,0,1); }
+      if (b.nameG){ const d=b.nameG.querySelector('.closingtxt'); if(d) d.style.opacity = clamp((localT-700)/500,0,1); }
+    }
+  });
+
+  // legenda manuscrita
+  const sc = built[k].sc;
+  if (sc.cap){
+    if (capEl.dataset.k !== String(k)){
+      capEl.innerHTML = sc.cap.split('\n').map(l=>'<div>'+l+'</div>').join('');
+      capEl.dataset.k = String(k);
+    }
+    capEl.style.opacity = clamp((localT-250)/450, 0, 1);
+  } else {
+    capEl.style.opacity = '0'; capEl.dataset.k = String(k);
+  }
+};
+
+window.__render(0);
+</script>
+</body>
+</html>
