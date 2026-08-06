@@ -65,12 +65,12 @@ function copyPix(btn){
 document.addEventListener('click',e=>{if(e.target.id==='payModal')closePay();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closePay();});
 
-// Newsletter (sem backend — abre WhatsApp)
+// Newsletter NeuroNews (sem backend — abre WhatsApp com o e-mail)
 function subscribe(ev){
   ev.preventDefault();
   const email=ev.target.querySelector('input').value;
-  const msg=encodeURIComponent('Olá Dra. Priscila! Quero receber seus conteúdos por e-mail: '+email);
+  const msg=encodeURIComponent('Olá Priscila! Quero assinar a NeuroNews e receber suas historinhas e conteúdos. Meu e-mail: '+email);
   window.open('https://wa.me/'+WHATSAPP+'?text='+msg,'_blank');
   ev.target.reset();
-  alert('Obrigada! Em breve entraremos em contato.');
+  alert('Que bom te ter por aqui! 💛 Em breve você começa a receber a NeuroNews.');
 }
