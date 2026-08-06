@@ -69,52 +69,30 @@ def build_full_audio(scenes, scene_durs_ms):
 
 
 def build_music(total_ms):
-    """Compõe uma trilha suave (pad de acordes F–C–Dm–Bb) com ffmpeg e a mistura
-    sob a narração, com ducking. Gera audio/mix_final.wav."""
+    """Gera uma trilha pop-rock alegre (compose_rock.py) e a mistura sob a
+    narração com ducking, mantendo a voz sempre à frente. Gera audio/mix_final.wav."""
     total_s = total_ms / 1000.0
-    seg = 6.0
-    segdir = AUDIO_DIR / "music"; segdir.mkdir(parents=True, exist_ok=True)
-    # tríades (Hz) + baixo
-    PROG = [
-        ([174.61, 220.00, 261.63], 87.31),   # F
-        ([130.81, 164.81, 196.00], 65.41),   # C
-        ([146.83, 174.61, 220.00], 73.42),   # Dm
-        ([116.54, 146.83, 174.61], 58.27),   # Bb
-    ]
-    n = int(total_s / seg) + 1
-    parts = []
-    for i in range(n):
-        notes, bass = PROG[i % len(PROG)]
-        freqs = notes + [bass]
-        segf = segdir / f"seg_{i:03d}.wav"
-        inputs, labels = [], ""
-        for f in freqs:
-            inputs += ["-f", "lavfi", "-i", f"sine=frequency={f}:duration={seg}:sample_rate=44100"]
-        labels = "".join(f"[{j}:a]" for j in range(len(freqs)))
-        subprocess.check_call([
-            "ffmpeg","-y","-loglevel","error", *inputs,
-            "-filter_complex",
-            f"{labels}amix=inputs={len(freqs)}:normalize=0,volume=0.16,afade=t=in:d=1.2,afade=t=out:st={seg-1.0}:d=1.0[a]",
-            "-map","[a]", str(segf)
-        ])
-        parts.append(segf)
-    listf = segdir / "concat.txt"
-    listf.write_text("".join(f"file '{p}'\n" for p in parts))
+    AUDIO_DIR.mkdir(exist_ok=True)
+    raw = AUDIO_DIR / "musica_raw.wav"
+    subprocess.check_call(["python3", str(ROOT / "compose_rock.py"), f"{total_s}", str(raw)])
     music = AUDIO_DIR / "musica.wav"
+    # brilho + leve reverb + fades
     subprocess.check_call([
-        "ffmpeg","-y","-loglevel","error","-f","concat","-safe","0","-i",str(listf),
-        "-af", f"atrim=0:{total_s},aecho=0.8:0.7:70:0.25,lowpass=f=3200,"
-               f"afade=t=in:d=2.5,afade=t=out:st={max(0,total_s-3.0)}:d=3.0",
+        "ffmpeg","-y","-loglevel","error","-i",str(raw),
+        "-af", f"highpass=f=60,lowpass=f=9000,aecho=0.7:0.6:55:0.15,"
+               f"afade=t=in:d=1.5,afade=t=out:st={max(0,total_s-2.5)}:d=2.5",
         str(music)
     ])
     narr = AUDIO_DIR / "narracao_completa.wav"
     mix = AUDIO_DIR / "mix_final.wav"
+    # música viva, mas abaixo da voz: ducking forte quando há narração
     subprocess.check_call([
         "ffmpeg","-y","-loglevel","error","-i",str(narr),"-i",str(music),
         "-filter_complex",
-        "[1:a]volume=0.85[m];"
-        "[m][0:a]sidechaincompress=threshold=0.03:ratio=8:attack=6:release=350:makeup=1[mk];"
-        "[0:a][mk]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.95[out]",
+        "[1:a]volume=0.42[m];"
+        "[m][0:a]sidechaincompress=threshold=0.025:ratio=14:attack=5:release=320:makeup=1[mk];"
+        "[0:a]volume=1.15[v];"
+        "[v][mk]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.95[out]",
         "-map","[out]", str(mix)
     ])
     return mix
