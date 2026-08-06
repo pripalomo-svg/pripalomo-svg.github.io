@@ -121,7 +121,7 @@ nav {
 }
 .btn-gold {
   background: var(--dourado); color: #fff;
-  box-shadow: 0 4px 18px rgba(46,139,87,.30);
+  box-shadow: 0 4px 18px rgba(226,122,46,.30);
 }
 .btn-gold:hover { background: var(--dourado-escuro); transform: translateY(-1px); }
 .btn-outline {
