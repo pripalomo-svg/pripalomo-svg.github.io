@@ -112,6 +112,13 @@ function brain(cx,cy,c){return [
   {d:`M${cx-10} ${cy-30} C${cx-40} ${cy-40} ${cx-46} ${cy} ${cx-20} ${cy+6} C${cx-40} ${cy+22} ${cx-14} ${cy+48} ${cx+2} ${cy+38} C${cx+16} ${cy+52} ${cx+44} ${cy+34} ${cx+30} ${cy+12} C${cx+52} ${cy} ${cx+40} ${cy-36} ${cx+12} ${cy-30} C${cx+6} ${cy-44} ${cx-6} ${cy-42} ${cx-10} ${cy-30} Z`, c},
   {d:`M${cx} ${cy-30} L${cx} ${cy+38}`, c}
 ];}
+function cross(cx,cy,s,c){const a=8*s,b=20*s;return [{d:`M${cx-a} ${cy-b} L${cx+a} ${cy-b} L${cx+a} ${cy-a} L${cx+b} ${cy-a} L${cx+b} ${cy+a} L${cx+a} ${cy+a} L${cx+a} ${cy+b} L${cx-a} ${cy+b} L${cx-a} ${cy+a} L${cx-b} ${cy+a} L${cx-b} ${cy-a} L${cx-a} ${cy-a} Z`, c:c||'red'}];}
+function globe(cx,cy,r,c){return [
+  {d:`M${cx} ${cy} m${-r} 0 a${r} ${r} 0 1 0 ${2*r} 0 a${r} ${r} 0 1 0 ${-2*r} 0`, c},
+  {d:`M${cx-r} ${cy} L${cx+r} ${cy}`, c},
+  {d:`M${cx} ${cy-r} C${cx-r*0.72} ${cy-r*0.4} ${cx-r*0.72} ${cy+r*0.4} ${cx} ${cy+r}`, c},
+  {d:`M${cx} ${cy-r} C${cx+r*0.72} ${cy-r*0.4} ${cx+r*0.72} ${cy+r*0.4} ${cx} ${cy+r}`, c}
+];}
 
 /* ================= CENAS ================= */
 const CX=960, CY=430;
@@ -120,22 +127,29 @@ const SCENES = [
       ...baby(CX,CY-10), ...heart(CX+150,CY-40,1.1) ],
     labels:[{x:CX,y:CY+180,t:"São Paulo · 1983",s:34,c:''}] },
 
+  { cap:"Filha de um cirurgião cardíaco e de uma enfermeira.", paths:[
+      ...person(800,CY,1.0), ...person(1120,CY,1.0),
+      ...heart(660,CY-96,0.62,'red'), ...cross(1260,CY-96,1.0,'accent') ],
+    labels:[{x:800,y:CY+92,t:"Pai · cirurgião",s:28,c:''},{x:1120,y:CY+92,t:"Mãe · enfermeira",s:28,c:''}] },
+
+  { cap:"Cresci com meus irmãos, Álvaro e Patrícia.", paths:[
+      ...person(800,CY,0.98), ...person(1120,CY,0.98), ...heart(960,CY-104,0.55,'red') ],
+    labels:[{x:800,y:CY+92,t:"Álvaro",s:30,c:''},{x:1120,y:CY+92,t:"Patrícia",s:30,c:''}] },
+
   { cap:"Desde menina, a criança cientista.", paths:[
       ...tube(CX-70,CY-60,150), ...tube(CX+2,CY-30,180,'accent'), ...tube(CX+74,CY-60,150),
       {d:`M${CX-70} ${CY-80} q-8 -22 8 -30`, c:'accent'}, {d:`M${CX+74} ${CY-80} q10 -20 -6 -30`, c:'accent'} ],
     labels:[] },
 
-  { cap:"Na adolescência, os livros me salvaram.", paths:[
-      ...bookOpen(CX,CY,1.15),
-      ...bookOpen(CX,CY+150,0.5) ],
-    labels:[{x:CX,y:CY+210,t:"Machado · Clarice",s:30,c:''}] },
+  { cap:"A Profª Ana e os livros que me salvaram.", paths:[
+      ...person(760,CY,1.0), ...bookOpen(1080,CY-10,1.05), ...bookOpen(1080,CY+150,0.5) ],
+    labels:[{x:760,y:CY+92,t:"Profª Ana",s:30,c:'accent'},{x:1080,y:CY+210,t:"Machado · Clarice",s:28,c:''}] },
 
   { year:"2003", cap:"Em 2003, encontrei a Psicologia.", paths:[
       ...bodyOutline(CX,CY-90), ...brain(CX,CY-160), ...heart(CX,CY+40,0.9) ],
     labels:[{x:CX,y:CY+150,t:"Psicologia · 2003",s:32,c:''}] },
 
   { year:"2011", cap:"Fui à Espanha — mestrados em Salamanca.", paths:[
-      // Península Ibérica estilizada
       {d:`M780 340 C900 300 1120 300 1200 340 C1260 366 1240 430 1180 470 C1160 520 1080 540 1000 520 C940 540 860 520 820 480 C760 460 730 380 780 340 Z`},
       ...star(1010,410,26),
       ...bookOpen(880,470,0.5) ],
@@ -145,10 +159,15 @@ const SCENES = [
       ...vr(CX,CY-70), ...bodyOutline(CX,CY+40) ],
     labels:[{x:CX,y:CY+230,t:"Labpsitec · embodiment",s:30,c:''}] },
 
-  { cap:"Com os meus orientadores e colegas.", paths:[
+  { cap:"Meus orientadores: Rosa, Ausiàs e Demarzo.", paths:[
       ...person(720,CY-10,1.0), ...person(960,CY-30,1.05), ...person(1200,CY-10,1.0),
       ...heart(960,CY-150,0.6,'red') ],
     labels:[{x:720,y:CY+90,t:"Ausiàs",s:30,c:''},{x:960,y:CY+70,t:"Rosa",s:34,c:'accent'},{x:1200,y:CY+90,t:"Demarzo",s:30,c:''}] },
+
+  { cap:"E colegas de vários países.", paths:[
+      ...globe(CX,CY-190,52,'accent'),
+      ...person(560,CY,0.72), ...person(800,CY,0.72), ...person(1120,CY,0.72), ...person(1360,CY,0.72) ],
+    labels:[{x:560,y:CY+76,t:"Riva",s:26,c:''},{x:800,y:CY+76,t:"Soler",s:26,c:''},{x:1120,y:CY+76,t:"Vázquez",s:26,c:''},{x:1360,y:CY+76,t:"Campayo",s:26,c:''}] },
 
   { year:"2016", cap:"2016 — defesa e Cum Laude, Doutora Internacional.", paths:[
       ...star(CX,CY-120,42), ...diploma(CX,CY+20) ],
@@ -198,7 +217,7 @@ const built = SCENES.map((sc)=>{
 
 /* durações (ms) — o build injeta as reais da narração */
 /*DUR_START*/
-let SCENE_DURMS = [11672,10232,11264,9656,10520,11792,10928,9752,10616,9872,7592];
+let SCENE_DURMS = [5048,10328,8408,8936,9824,6752,9896,9536,8936,9944,9752,9896,8408,7592];
 /*DUR_END*/
 
 function computeStarts(){const s=[];let a=0;for(let i=0;i<SCENE_DURMS.length;i++){s.push(a);a+=SCENE_DURMS[i];}return {starts:s,total:a};}
