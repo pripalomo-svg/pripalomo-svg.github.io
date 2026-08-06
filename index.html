@@ -10,7 +10,7 @@
 <style>
 /* ── Página Fobias: preto, branco e azul marinho ── */
 :root {
-  --fb-navy:  #14324B;
+  --fb-navy:  #0E4A57;
   --fb-ink:   #111111;
   --fb-paper: #FFFFFF;
   --fb-line:  rgba(17,17,17,.15);
@@ -57,7 +57,7 @@
 .fb-card:last-child { border-bottom: none; }
 .fb-card .fb-ico { flex: 0 0 auto; }
 .fb-card-text { display: flex; flex-direction: column; gap: 6px; }
-.fb-card:hover { background: #F2F5F8; }
+.fb-card:hover { background: #EAF2F2; }
 .fb-card h3 { font-size: 14px; }
 .fb-card p  { font-size: 11.5px; color: #444; margin: 0; line-height: 1.5; }
 .fb-ico { width: 64px; height: 64px; }
@@ -157,6 +157,26 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
 
 <main class="wrap">
 
+  <!-- ═══════════ BOAS-VINDAS (primeira visita) ═══════════ -->
+  <section class="welcome">
+    <img class="welcome-avatar" src="assets/avatar-ilustrado.png" alt="Ilustração de Priscila Palomo">
+    <div class="welcome-text">
+      <span class="fb-kicker">Boas-vindas · é a sua primeira vez aqui?</span>
+      <h2>Oi! Eu sou a Priscila 💛</h2>
+      <p>
+        Que bom que você chegou. Sou psicóloga (CRP 98007), doutora pela Universitat de València
+        e especialista em <strong>ansiedade e fobias</strong>. Aqui eu explico a mente com
+        desenhos animados, conto <strong>historinhas</strong> que carrego comigo e compartilho,
+        de um jeito simples, o que ajuda a gente a viver com mais leveza. Fique à vontade para explorar.
+      </p>
+      <div class="welcome-links">
+        <a href="apresentacao.html" class="btn btn-navy">Conhecer minha história</a>
+        <a href="blog.html" class="btn btn-ghost">Ler minhas historinhas</a>
+        <a href="#neuronews" class="btn btn-ghost">Assinar a NeuroNews</a>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══════════ HERO ═══════════ -->
   <section class="fb-hero">
     <div>
@@ -173,7 +193,7 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
       <svg viewBox="0 0 300 220" role="img" aria-label="Desenho animado: uma pessoa se aproxima do monstro do medo e ele encolhe">
         <line x1="10" y1="196" x2="290" y2="196" stroke="#111" stroke-width="3" stroke-linecap="round"/>
         <g class="anim a-shrink">
-          <path d="M195 196 C185 130 205 108 232 104 C262 100 280 128 274 158 C288 158 292 176 280 182 C286 190 278 196 270 196 Z" fill="#14324B"/>
+          <path d="M195 196 C185 130 205 108 232 104 C262 100 280 128 274 158 C288 158 292 176 280 182 C286 190 278 196 270 196 Z" fill="#0E4A57"/>
           <circle cx="228" cy="132" r="6" fill="#fff"/>
           <circle cx="254" cy="130" r="6" fill="#fff"/>
           <circle cx="229" cy="133" r="2.4" fill="#111"/>
@@ -221,10 +241,10 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
           </g>
           <g class="anim a-beat">
             <path d="M110 186 C100 174 84 172 82 158 C80 146 92 140 101 147 C106 150 108 154 110 158 C112 154 114 150 119 147 C128 140 140 146 138 158 C136 172 120 174 110 186 Z"
-                  fill="#14324B" transform="translate(0,-18)"/>
+                  fill="#0E4A57" transform="translate(0,-18)"/>
           </g>
-          <path class="anim a-drop"  d="M56 60 q6 10 0 14 q-6 -4 0 -14" fill="#14324B"/>
-          <path class="anim a-drop2" d="M168 52 q6 10 0 14 q-6 -4 0 -14" fill="#14324B"/>
+          <path class="anim a-drop"  d="M56 60 q6 10 0 14 q-6 -4 0 -14" fill="#0E4A57"/>
+          <path class="anim a-drop2" d="M168 52 q6 10 0 14 q-6 -4 0 -14" fill="#0E4A57"/>
         </svg>
         <span class="fb-caption">Coração acelerado, suor, tremor: alarme falso</span>
       </div>
@@ -240,7 +260,7 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
         <svg viewBox="0 0 220 220" role="img" aria-label="Desenho animado: ciclo da fobia — medo, evitação, alívio, medo maior">
           <circle cx="110" cy="110" r="72" fill="none" stroke="#111" stroke-width="3" stroke-dasharray="6 8"/>
           <g class="a-orbit">
-            <circle cx="110" cy="38" r="9" fill="#14324B"/>
+            <circle cx="110" cy="38" r="9" fill="#0E4A57"/>
           </g>
           <g font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="bold" fill="#111" text-anchor="middle">
             <text x="110" y="18">MEDO</text>
@@ -248,7 +268,7 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
             <text x="110" y="210">ALÍVIO</text>
             <text x="30" y="108">MEDO<tspan x="30" dy="12">MAIOR</tspan></text>
           </g>
-          <text x="110" y="115" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#14324B" text-anchor="middle" letter-spacing="2">O CICLO</text>
+          <text x="110" y="115" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#0E4A57" text-anchor="middle" letter-spacing="2">O CICLO</text>
         </svg>
         <span class="fb-caption">Evitar alivia agora — e alimenta o medo depois</span>
       </div>
@@ -289,7 +309,7 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
             <circle cx="28" cy="27" r="1.8" fill="#fff"/>
             <circle cx="36" cy="27" r="1.8" fill="#fff"/>
             <path d="M24 26 Q14 20 10 24 M24 31 Q13 30 9 35 M40 26 Q50 20 54 24 M40 31 Q51 30 55 35 M25 36 Q17 42 13 48 M39 36 Q47 42 51 48"
-                  stroke="#14324B" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+                  stroke="#0E4A57" stroke-width="2.4" fill="none" stroke-linecap="round"/>
           </g>
         </svg>
         <div class="fb-card-text">
@@ -301,7 +321,7 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
       <div class="fb-card">
         <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Cobra rastejando">
           <g class="anim a-slither">
-            <path d="M6 44 Q16 32 26 44 T46 44" fill="none" stroke="#14324B" stroke-width="5" stroke-linecap="round"/>
+            <path d="M6 44 Q16 32 26 44 T46 44" fill="none" stroke="#0E4A57" stroke-width="5" stroke-linecap="round"/>
             <circle cx="49" cy="42" r="5" fill="#111"/>
             <circle cx="51" cy="40" r="1.2" fill="#fff"/>
             <path d="M54 42 l6 -2 M54 42 l6 2" stroke="#111" stroke-width="1.6"/>
@@ -318,12 +338,12 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
           <g class="anim a-bark">
             <rect x="14" y="30" width="26" height="16" rx="7" fill="#fff" stroke="#111" stroke-width="2.6"/>
             <circle cx="44" cy="30" r="9" fill="#fff" stroke="#111" stroke-width="2.6"/>
-            <path d="M40 22 l-3 -7 5 2 z M50 23 l4 -6 1 6 z" fill="#14324B"/>
+            <path d="M40 22 l-3 -7 5 2 z M50 23 l4 -6 1 6 z" fill="#0E4A57"/>
             <circle cx="47" cy="28" r="1.6" fill="#111"/>
             <line x1="18" y1="46" x2="18" y2="53" stroke="#111" stroke-width="2.6"/>
             <line x1="34" y1="46" x2="34" y2="53" stroke="#111" stroke-width="2.6"/>
           </g>
-          <path d="M57 24 q4 4 0 8 M60 20 q7 6 0 14" stroke="#14324B" stroke-width="1.8" fill="none" class="anim a-blush"/>
+          <path d="M57 24 q4 4 0 8 M60 20 q7 6 0 14" stroke="#0E4A57" stroke-width="1.8" fill="none" class="anim a-blush"/>
         </svg>
         <div class="fb-card-text">
           <h3>Cinofobia</h3>
@@ -334,9 +354,9 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
       <div class="fb-card">
         <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Montanha com nuvem passando">
           <path d="M4 56 L26 18 L38 38 L46 26 L60 56 Z" fill="#fff" stroke="#111" stroke-width="2.6"/>
-          <path d="M26 18 L32 28 L26 30 L22 25 Z" fill="#14324B"/>
+          <path d="M26 18 L32 28 L26 30 L22 25 Z" fill="#0E4A57"/>
           <g class="anim a-fly">
-            <ellipse cx="30" cy="12" rx="10" ry="4.5" fill="#14324B" opacity=".85"/>
+            <ellipse cx="30" cy="12" rx="10" ry="4.5" fill="#0E4A57" opacity=".85"/>
           </g>
         </svg>
         <div class="fb-card-text">
@@ -347,8 +367,8 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
 
       <div class="fb-card">
         <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Paredes apertando uma pessoa">
-          <rect class="anim a-squeeze"  x="6"  y="10" width="10" height="44" fill="#14324B"/>
-          <rect class="anim a-squeezeR" x="48" y="10" width="10" height="44" fill="#14324B"/>
+          <rect class="anim a-squeeze"  x="6"  y="10" width="10" height="44" fill="#0E4A57"/>
+          <rect class="anim a-squeezeR" x="48" y="10" width="10" height="44" fill="#0E4A57"/>
           <circle cx="32" cy="26" r="7" fill="#fff" stroke="#111" stroke-width="2.4"/>
           <path d="M32 33 L32 46 M32 37 L25 42 M32 37 L39 42 M32 46 L27 54 M32 46 L37 54"
                 stroke="#111" stroke-width="2.4" fill="none" stroke-linecap="round"/>
@@ -362,7 +382,7 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
       <div class="fb-card">
         <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Avião voando">
           <g class="anim a-fly">
-            <path d="M8 36 L44 30 L56 22 L50 34 L54 40 L44 38 L20 44 Z" fill="#14324B"/>
+            <path d="M8 36 L44 30 L56 22 L50 34 L54 40 L44 38 L20 44 Z" fill="#0E4A57"/>
             <circle cx="49" cy="27" r="1.6" fill="#fff"/>
           </g>
           <path d="M6 52 h18 M30 52 h10" stroke="#111" stroke-width="2" stroke-dasharray="3 4"/>
@@ -375,7 +395,7 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
 
       <div class="fb-card">
         <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Gota de sangue caindo">
-          <path class="anim a-drop" d="M32 8 q10 16 0 22 q-10 -6 0 -22" fill="#14324B"/>
+          <path class="anim a-drop" d="M32 8 q10 16 0 22 q-10 -6 0 -22" fill="#0E4A57"/>
           <rect x="14" y="44" width="36" height="4" rx="2" fill="#111"/>
         </svg>
         <div class="fb-card-text">
@@ -389,7 +409,7 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
           <g class="anim a-needle">
             <rect x="20" y="20" width="26" height="12" rx="2" transform="rotate(45 33 26)" fill="#fff" stroke="#111" stroke-width="2.4"/>
             <line x1="16" y1="48" x2="26" y2="38" stroke="#111" stroke-width="2.4"/>
-            <line x1="10" y1="54" x2="16" y2="48" stroke="#14324B" stroke-width="3"/>
+            <line x1="10" y1="54" x2="16" y2="48" stroke="#0E4A57" stroke-width="3"/>
             <line x1="40" y1="14" x2="50" y2="24" stroke="#111" stroke-width="2.4"/>
           </g>
         </svg>
@@ -402,7 +422,7 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
       <div class="fb-card">
         <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Raio piscando">
           <path d="M14 10 q8 -8 18 -4 q12 -4 16 8 q10 2 6 12 q-4 8 -14 6 l-24 0 q-10 0 -8 -10 q-2 -8 6 -12" fill="#fff" stroke="#111" stroke-width="2.4"/>
-          <path class="anim a-flash" d="M34 34 L26 48 L32 48 L28 60 L42 44 L35 44 L40 34 Z" fill="#14324B"/>
+          <path class="anim a-flash" d="M34 34 L26 48 L32 48 L28 60 L42 44 L35 44 L40 34 Z" fill="#0E4A57"/>
         </svg>
         <div class="fb-card-text">
           <h3>Astrafobia</h3>
@@ -428,7 +448,7 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
           <g class="anim a-tooth">
             <path d="M20 14 q12 -8 24 0 q6 6 2 18 q-3 10 -7 18 q-3 6 -5 -2 q-1 -6 -2 -6 q-1 0 -2 6 q-2 8 -5 2 q-4 -8 -7 -18 q-4 -12 2 -18" fill="#fff" stroke="#111" stroke-width="2.4"/>
           </g>
-          <path d="M50 16 q4 4 0 8" stroke="#14324B" stroke-width="2" fill="none" class="anim a-blush"/>
+          <path d="M50 16 q4 4 0 8" stroke="#0E4A57" stroke-width="2" fill="none" class="anim a-blush"/>
         </svg>
         <div class="fb-card-text">
           <h3>Odontofobia</h3>
@@ -440,7 +460,7 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
         <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Ondas do mar profundo">
           <rect x="6" y="10" width="52" height="44" rx="4" fill="#fff" stroke="#111" stroke-width="2.4"/>
           <g class="anim a-wave">
-            <path d="M2 34 Q10 28 18 34 T34 34 T50 34 T66 34 T82 34 V56 H2 Z" fill="#14324B"/>
+            <path d="M2 34 Q10 28 18 34 T34 34 T50 34 T66 34 T82 34 V56 H2 Z" fill="#0E4A57"/>
           </g>
           <circle cx="32" cy="22" r="4" fill="#fff" stroke="#111" stroke-width="2"/>
         </svg>
@@ -452,10 +472,10 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
 
       <div class="fb-card">
         <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Microfone com ondas de som">
-          <rect x="26" y="10" width="12" height="22" rx="6" fill="#14324B"/>
+          <rect x="26" y="10" width="12" height="22" rx="6" fill="#0E4A57"/>
           <path d="M20 26 a12 12 0 0 0 24 0 M32 40 v10 M24 52 h16" stroke="#111" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-          <g class="anim a-pulse"><circle cx="32" cy="22" r="16" fill="none" stroke="#14324B" stroke-width="2"/></g>
-          <g class="anim a-pulse2"><circle cx="32" cy="22" r="16" fill="none" stroke="#14324B" stroke-width="2"/></g>
+          <g class="anim a-pulse"><circle cx="32" cy="22" r="16" fill="none" stroke="#0E4A57" stroke-width="2"/></g>
+          <g class="anim a-pulse2"><circle cx="32" cy="22" r="16" fill="none" stroke="#0E4A57" stroke-width="2"/></g>
         </svg>
         <div class="fb-card-text">
           <h3>Glossofobia</h3>
@@ -471,8 +491,8 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
           <circle cx="28" cy="32" r="1.6" fill="#111"/>
           <circle cx="36" cy="32" r="1.6" fill="#111"/>
           <path d="M28 40 q4 -3 8 0" stroke="#111" stroke-width="2" fill="none"/>
-          <circle class="anim a-blush" cx="25" cy="37" r="2.6" fill="#14324B"/>
-          <circle class="anim a-blush" cx="39" cy="37" r="2.6" fill="#14324B"/>
+          <circle class="anim a-blush" cx="25" cy="37" r="2.6" fill="#0E4A57"/>
+          <circle class="anim a-blush" cx="39" cy="37" r="2.6" fill="#0E4A57"/>
         </svg>
         <div class="fb-card-text">
           <h3>Fobia social</h3>
@@ -500,7 +520,7 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
           <circle cx="32" cy="32" r="20" fill="#fff" stroke="#111" stroke-width="2.6"/>
           <path d="M24 28 l5 3 M45 28 l-5 3" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
           <path class="anim a-tremor" d="M25 42 q7 -5 14 0" stroke="#111" stroke-width="2.2" fill="none"/>
-          <path class="anim a-drop" d="M50 20 q5 8 0 11 q-5 -3 0 -11" fill="#14324B"/>
+          <path class="anim a-drop" d="M50 20 q5 8 0 11 q-5 -3 0 -11" fill="#0E4A57"/>
         </svg>
         <div class="fb-card-text">
           <h3>Emetofobia</h3>
@@ -536,7 +556,7 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
         <svg viewBox="0 0 220 190" role="img" aria-label="Desenho animado: personagem subindo a escada da exposição">
           <path d="M20 170 h28 v-22 h28 v-22 h28 v-22 h28 v-22 h28 v-22 h28" fill="none" stroke="#111" stroke-width="3"/>
           <g class="anim a-climb">
-            <circle cx="34" cy="152" r="10" fill="#14324B"/>
+            <circle cx="34" cy="152" r="10" fill="#0E4A57"/>
             <circle cx="31" cy="149" r="2" fill="#fff"/>
             <circle cx="38" cy="149" r="2" fill="#fff"/>
             <path d="M30 156 q4 3 8 0" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
@@ -555,7 +575,7 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
   </section>
 
   <!-- ═══════════ PROGRAMA PREMIUM ═══════════ -->
-  <section class="fb-section" style="background:#F2F5F8;border-bottom:2px solid #111">
+  <section class="fb-section" style="background:#EAF2F2;border-bottom:2px solid #111">
     <span class="fb-section-title">Programa Escada Segura</span>
     <h2 style="margin-bottom:12px">Book de 200+ páginas + plano de 21 dias</h2>
     <p style="margin-bottom:8px">
@@ -567,6 +587,21 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
       <strong style="font-size:18px">R$&nbsp;97</strong>
     </p>
     <a href="escada-segura.html" class="btn btn-navy">Conhecer o programa</a>
+  </section>
+
+  <!-- ═══════════ NEWSLETTER NEURONEWS ═══════════ -->
+  <section class="news" id="neuronews">
+    <span class="news-kicker">NeuroNews</span>
+    <h2>Receba minhas historinhas no seu e-mail</h2>
+    <p>
+      Uma carta leve, de vez em quando: pequenos contos, ideias sobre a mente e o
+      que aprendo no consultório — para te aproximar de mim e da ciência do bem-estar.
+    </p>
+    <form onsubmit="subscribe(event)">
+      <input type="email" placeholder="Seu melhor e-mail" required>
+      <button type="submit">Assinar</button>
+    </form>
+    <span class="news-mini">Sem spam. Só carinho e ciência. Cancele quando quiser.</span>
   </section>
 
   <!-- ═══════════ CTA ═══════════ -->
