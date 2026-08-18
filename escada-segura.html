@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Programa Escada Segura — Dra. Priscila Palomo</title>
-<meta name="description" content="Book de 200+ páginas sobre fobias (DSM-5, TCC, habituação, estudos e metáforas japonesas) + plano de 21 dias. Programa Escada Segura — Dra. Priscila Palomo (CRP 98007).">
+<meta name="description" content="Entenda a fobia com historinhas, metáforas fofas e desenhos claros — e vença o medo degrau a degrau. Programa Escada Segura, book de 200+ páginas + plano de 21 dias. Dra. Priscila Palomo (CRP 98007).">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>P</text></svg>">
 <link rel="stylesheet" href="assets/style.css">
 <style>
@@ -14,113 +14,68 @@
   --fb-paper: #FFFFFF;
   --fb-line:  rgba(17,17,17,.15);
   --fb-pale:  #EAF2F2;
+  --fb-orange:#E27A2E;
 }
 .es-page { background: var(--fb-paper); color: var(--fb-ink); }
 .es-page h1, .es-page h2, .es-page h3 { color: var(--fb-ink); }
 
 .es-hero {
-  padding: 56px 0 48px;
-  border-bottom: 2px solid var(--fb-ink);
-  position: relative;
-  background:
-    linear-gradient(180deg, #EAF2F2 0%, #FFFFFF 55%);
+  padding: 56px 0 48px; border-bottom: 2px solid var(--fb-ink);
+  background: linear-gradient(180deg, #EAF2F2 0%, #FFFFFF 55%);
 }
-.es-kicker {
-  font-size: 10px; letter-spacing: .24em; text-transform: uppercase;
-  color: var(--fb-navy); font-weight: 700; display: block; margin-bottom: 14px;
-}
-.es-hero h1 {
-  font-size: clamp(32px, 5.5vw, 52px);
-  line-height: 1.05; margin-bottom: 16px; max-width: 16ch;
-}
+.es-kicker { font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--fb-navy); font-weight: 700; display: block; margin-bottom: 14px; }
+.es-hero h1 { font-size: clamp(32px, 5.5vw, 52px); line-height: 1.05; margin-bottom: 16px; max-width: 16ch; }
 .es-hero h1 em { font-style: normal; color: var(--fb-navy); }
-.es-lead {
-  font-size: 15px; line-height: 1.7; max-width: 48ch; color: #333; margin-bottom: 28px;
-}
+.es-lead { font-size: 15px; line-height: 1.7; max-width: 52ch; color: #333; margin-bottom: 28px; }
 .es-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.es-price-inline {
-  font-size: 13px; color: #555;
-}
+.es-price-inline { font-size: 13px; color: #555; }
 .es-price-inline .now { font-weight: 700; color: var(--fb-ink); font-size: 18px; }
 .es-price-inline .old { text-decoration: line-through; margin-right: 8px; }
 
 .es-section { padding: 48px 0; border-bottom: 1px solid var(--fb-line); }
-.es-label {
-  font-size: 10px; letter-spacing: .24em; text-transform: uppercase;
-  color: var(--fb-navy); font-weight: 700; display: block; margin-bottom: 14px;
-}
-.es-section h2 { font-size: clamp(22px, 3.4vw, 32px); margin-bottom: 12px; max-width: 22ch; }
+.es-label { font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--fb-navy); font-weight: 700; display: block; margin-bottom: 14px; }
+.es-section h2 { font-size: clamp(22px, 3.4vw, 32px); margin-bottom: 12px; max-width: 26ch; }
 .es-section p { font-size: 14px; line-height: 1.75; color: #333; max-width: 62ch; margin-bottom: 12px; }
 
-.es-list {
-  list-style: none; margin-top: 20px;
-  display: grid; gap: 0;
-  border: 2px solid var(--fb-ink);
+/* Cartões de conceito (historinhas) */
+.es-concepts { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px,100%),1fr)); gap: 18px; margin-top: 26px; }
+.es-concept {
+  border: 2px solid var(--fb-ink); border-radius: 14px; padding: 24px 22px 26px;
+  display: flex; flex-direction: column; background: #fff;
 }
-.es-list li {
-  padding: 16px 18px;
-  border-bottom: 1px solid var(--fb-line);
-  font-size: 14px; line-height: 1.5;
-  display: grid; grid-template-columns: 28px 1fr; gap: 10px;
+.es-concept .es-ico { width: 100%; max-width: 220px; height: 150px; margin: 0 auto 14px; display: block; }
+.es-concept .tag { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--fb-orange); font-weight: 700; margin-bottom: 6px; }
+.es-concept h3 { font-size: 19px; line-height: 1.2; margin-bottom: 12px; }
+.es-concept .story {
+  background: var(--fb-pale); border-left: 4px solid var(--fb-navy);
+  padding: 13px 15px; border-radius: 0 10px 10px 0;
+  font-size: 13.5px; line-height: 1.65; color: #2a2a2a; margin-bottom: 12px;
 }
-.es-list li:last-child { border-bottom: none; }
-.es-list .n {
-  font-weight: 700; color: var(--fb-navy); font-size: 13px;
-}
+.es-concept .real { font-size: 12.5px; line-height: 1.6; color: #555; margin-top: auto; }
+.es-concept .real strong { color: var(--fb-navy); }
 
-.es-steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border: 2px solid var(--fb-ink);
-  margin-top: 22px;
-}
-.es-step {
-  padding: 22px 18px;
-  border-right: 1px solid var(--fb-line);
-}
+.es-list { list-style: none; margin-top: 20px; display: grid; gap: 0; border: 2px solid var(--fb-ink); }
+.es-list li { padding: 16px 18px; border-bottom: 1px solid var(--fb-line); font-size: 14px; line-height: 1.5; display: grid; grid-template-columns: 28px 1fr; gap: 10px; }
+.es-list li:last-child { border-bottom: none; }
+.es-list .n { font-weight: 700; color: var(--fb-navy); font-size: 13px; }
+
+.es-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 2px solid var(--fb-ink); margin-top: 22px; }
+.es-step { padding: 22px 18px; border-right: 1px solid var(--fb-line); }
 .es-step:last-child { border-right: none; }
-.es-step strong {
-  display: block; font-size: 12px; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--fb-navy); margin-bottom: 8px;
-}
+.es-step strong { display: block; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--fb-navy); margin-bottom: 8px; }
 .es-step p { font-size: 13px; margin: 0; max-width: none; }
 
-.es-offer {
-  padding: 48px 0 64px;
-  background: var(--fb-pale);
-  border-bottom: 2px solid var(--fb-ink);
-}
-.es-offer-box {
-  max-width: 520px;
-}
+.es-offer { padding: 48px 0 64px; background: var(--fb-pale); border-bottom: 2px solid var(--fb-ink); }
+.es-offer-box { max-width: 520px; }
 .es-offer h2 { font-size: clamp(24px, 3.6vw, 34px); margin-bottom: 10px; }
-.es-offer .es-price {
-  display: flex; align-items: baseline; gap: 10px;
-  margin: 18px 0 8px;
-}
-.es-offer .es-price .now {
-  font-size: 36px; font-weight: 700; color: var(--fb-ink);
-}
-.es-offer .es-price .old {
-  font-size: 16px; color: #777; text-decoration: line-through;
-}
+.es-offer .es-price { display: flex; align-items: baseline; gap: 10px; margin: 18px 0 8px; }
+.es-offer .es-price .now { font-size: 36px; font-weight: 700; color: var(--fb-ink); }
+.es-offer .es-price .old { font-size: 16px; color: #777; text-decoration: line-through; }
 .es-offer .hint { font-size: 13px; color: #555; margin-bottom: 22px; }
-.es-disclaimer {
-  margin-top: 28px; font-size: 12px; color: #666; max-width: 56ch; line-height: 1.6;
-}
+.es-disclaimer { margin-top: 28px; font-size: 12px; color: #666; max-width: 56ch; line-height: 1.6; }
 
-.btn-navy {
-  background: var(--fb-navy); color: #fff !important;
-  box-shadow: none;
-}
+.btn-navy { background: var(--fb-navy); color: #fff !important; box-shadow: none; }
 .btn-navy:hover { background: var(--fb-ink); }
-.btn-outline-dark {
-  border: 2px solid var(--fb-ink);
-  background: transparent;
-  color: var(--fb-ink) !important;
-}
-.btn-outline-dark:hover { background: var(--fb-ink); color: #fff !important; }
 
 @media (max-width: 720px) {
   .es-steps { grid-template-columns: 1fr; }
@@ -143,6 +98,7 @@
   <ul class="nav-links">
     <li><a href="index.html">Início</a></li>
     <li><a href="blog.html">Blog</a></li>
+    <li><a href="cursos.html">Cursos</a></li>
     <li><a href="apresentacao.html">Minha história</a></li>
     <li><a href="#comprar" class="nav-cta">Quero o programa</a></li>
   </ul>
@@ -155,8 +111,10 @@
       <span class="es-kicker">Programa Escada Segura</span>
       <h1>Vença sua fobia <em>degrau a degrau</em></h1>
       <p class="es-lead">
-        Book de 200+ páginas: psicoeducação, DSM-5, sintomas, TCC, habituação,
-        pensadores, estudos e parábolas japonesas — mais o plano prático de 21 dias.
+        Aqui eu explico o medo do jeitinho mais simples que existe: com
+        <strong>historinhas</strong>, <strong>metáforas fofas</strong> e
+        <strong>desenhos claros</strong> — como se eu estivesse contando para uma
+        criança. Quando a gente entende, o medo já começa a encolher.
       </p>
       <div class="es-hero-actions">
         <a href="#comprar" class="btn btn-navy">Quero o programa — R$&nbsp;97</a>
@@ -169,15 +127,191 @@
   <section class="es-section">
     <div class="wrap">
       <span class="es-label">Para quem é</span>
-      <h2>Se uma fobia específica está encolhendo sua vida</h2>
+      <h2>Se um medo específico está deixando a sua vida pequenininha</h2>
       <p>
         Feito para quem evita avião, altura, dentista, falar em público, animais,
-        agulhas ou outro gatilho claro — e quer um plano concreto, sem “só ter coragem”.
+        agulhas ou outro gatilho claro — e quer um caminho gentil e concreto, sem
+        aquele “é só ter coragem”.
       </p>
+    </div>
+  </section>
+
+  <!-- ENTENDENDO COM HISTORINHAS -->
+  <section class="es-section">
+    <div class="wrap">
+      <span class="es-label">Entendendo o medo · com historinhas</span>
+      <h2>Cada conceito vira uma historinha com desenho</h2>
       <p>
-        Ideal se você já entende o medo, mas trava na hora de agir; ou se quer
-        chegar na terapia (ou complementar) com um método organizado.
+        Respira fundo e vem comigo. Vou te contar, com desenhos e comparações fofas,
+        o que é o medo e como ele encolhe. Pode ler devagar. 💛
       </p>
+
+      <div class="es-concepts">
+
+        <!-- 1. O alarme sem fogo -->
+        <article class="es-concept">
+          <svg class="es-ico" viewBox="0 0 220 150" role="img" aria-label="Um alarme apitando sem fogo, e uma torradinha feliz">
+            <line x1="24" y1="16" x2="196" y2="16" stroke="#0E4A57" stroke-width="4" stroke-linecap="round"/>
+            <line x1="110" y1="16" x2="110" y2="24" stroke="#0E4A57" stroke-width="5"/>
+            <circle cx="110" cy="50" r="27" fill="#fff" stroke="#0E4A57" stroke-width="5"/>
+            <circle cx="110" cy="50" r="6" fill="#E27A2E"/>
+            <path d="M150 40 q14 10 0 22 M162 32 q26 18 0 40" fill="none" stroke="#E27A2E" stroke-width="4" stroke-linecap="round"/>
+            <path d="M70 40 q-14 10 0 22 M58 32 q-26 18 0 40" fill="none" stroke="#E27A2E" stroke-width="4" stroke-linecap="round"/>
+            <rect x="84" y="104" width="52" height="36" rx="9" fill="#fff" stroke="#0E4A57" stroke-width="5"/>
+            <circle cx="99" cy="119" r="2.6" fill="#0E4A57"/>
+            <circle cx="121" cy="119" r="2.6" fill="#0E4A57"/>
+            <path d="M99 127 q11 8 22 0" stroke="#0E4A57" stroke-width="3" fill="none" stroke-linecap="round"/>
+          </svg>
+          <span class="tag">O que é o medo</span>
+          <h3>O alarme que toca sem fogo</h3>
+          <p class="story">
+            Imagina um alarme de incêndio que dispara super alto só porque você fez
+            uma torradinha. Não tem fogo nenhum — mas ele apita como se a casa fosse
+            pegar fogo! O medo, às vezes, é bem assim.
+          </p>
+          <p class="real"><strong>Na vida real:</strong> o corpo dispara (coração
+            acelera, mãos suam) mesmo sem perigo de verdade. É um alarme falso.</p>
+        </article>
+
+        <!-- 2. O monstrinho que a gente alimenta -->
+        <article class="es-concept">
+          <svg class="es-ico" viewBox="0 0 220 150" role="img" aria-label="Um monstrinho do medo que cresce quando ganha um biscoito">
+            <path d="M36 122 C32 92 50 80 64 80 C78 80 94 92 90 122 Z" fill="#0E4A57"/>
+            <circle cx="56" cy="96" r="5.5" fill="#fff"/><circle cx="72" cy="96" r="5.5" fill="#fff"/>
+            <circle cx="56" cy="97" r="2.2" fill="#111"/><circle cx="72" cy="97" r="2.2" fill="#111"/>
+            <path d="M104 100 L128 100 M120 92 L131 100 L120 108" stroke="#E27A2E" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="116" cy="72" r="12" fill="#E27A2E"/>
+            <circle cx="112" cy="68" r="1.9" fill="#7a3f12"/><circle cx="120" cy="74" r="1.9" fill="#7a3f12"/><circle cx="119" cy="65" r="1.6" fill="#7a3f12"/>
+            <path d="M142 130 C134 78 162 58 182 58 C202 58 210 86 202 130 Z" fill="#0E4A57"/>
+            <circle cx="166" cy="86" r="7" fill="#fff"/><circle cx="188" cy="86" r="7" fill="#fff"/>
+            <circle cx="166" cy="87" r="3" fill="#111"/><circle cx="188" cy="87" r="3" fill="#111"/>
+            <path d="M164 106 q14 8 26 0" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+          </svg>
+          <span class="tag">Por que o medo cresce</span>
+          <h3>O monstrinho que a gente alimenta</h3>
+          <p class="story">
+            Existe um monstrinho do medo. Toda vez que você foge do que assusta, é
+            como dar um biscoito pra ele — e ele cresce, fica enorme! Mas quando você
+            fica pertinho por um tempinho, ele não ganha biscoito… e vai encolhendo.
+          </p>
+          <p class="real"><strong>Na vida real:</strong> fugir alivia na hora, mas
+            ensina o cérebro que aquilo era perigoso — e o medo volta maior.</p>
+        </article>
+
+        <!-- 3. A escada -->
+        <article class="es-concept">
+          <svg class="es-ico" viewBox="0 0 220 150" role="img" aria-label="Uma criança feliz subindo uma escada enquanto o medo encolhe no topo">
+            <path d="M20 140 h34 v-26 h34 v-26 h34 v-26 h34 v-26 h30" fill="none" stroke="#0E4A57" stroke-width="4" stroke-linejoin="round"/>
+            <circle cx="45" cy="100" r="9" fill="#E27A2E"/>
+            <path d="M45 109 v15 M45 113 l-8 6 M45 113 l8 6 M45 124 l-6 10 M45 124 l6 10" stroke="#0E4A57" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M180 62 C178 50 186 44 192 44 C198 44 206 50 204 62 Z" fill="#0E4A57"/>
+            <circle cx="188" cy="54" r="2.4" fill="#fff"/><circle cx="196" cy="54" r="2.4" fill="#fff"/>
+          </svg>
+          <span class="tag">Como a gente vence</span>
+          <h3>Subir a escada, um degrau de cada vez</h3>
+          <p class="story">
+            Ninguém pula do chão direto pro telhado, né? A gente sobe um degrau de
+            cada vez. Cada degrau é um passinho perto do medo: você sobe, dá um
+            “oi” pra ele, espera ele se acalmar… e sobe o próximo.
+          </p>
+          <p class="real"><strong>Na vida real:</strong> é a exposição gradual —
+            enfrentar o medo em passos pequenos e planejados, do fácil ao difícil.</p>
+        </article>
+
+        <!-- 4. A piscina fria -->
+        <article class="es-concept">
+          <svg class="es-ico" viewBox="0 0 220 150" role="img" aria-label="Uma cabecinha na piscina se acostumando com a água fria">
+            <rect x="24" y="58" width="172" height="76" rx="12" fill="#EAF2F2" stroke="#0E4A57" stroke-width="4"/>
+            <path d="M24 82 q22 -12 43 0 t43 0 t43 0 t43 0" fill="none" stroke="#0E4A57" stroke-width="4"/>
+            <circle cx="104" cy="60" r="13" fill="#fff" stroke="#0E4A57" stroke-width="4"/>
+            <circle cx="100" cy="58" r="2" fill="#111"/><circle cx="108" cy="58" r="2" fill="#111"/>
+            <path d="M99 65 q5 4 10 0" stroke="#111" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <text x="150" y="44" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#E27A2E" font-weight="700">brrr!</text>
+          </svg>
+          <span class="tag">Por que dá certo</span>
+          <h3>A piscina fria</h3>
+          <p class="story">
+            Lembra quando a gente entra na piscina e “aaai, que fria!”? Mas se a
+            gente fica um pouquinho, o corpo diz “ah, tá bom” e a água nem parece
+            mais tão gelada. O medo é igualzinho: fique perto dele um tempinho e ele esfria.
+          </p>
+          <p class="real"><strong>Na vida real:</strong> é a habituação — a ansiedade
+            sobe, dá um pico e desce sozinha se você permanecer.</p>
+        </article>
+
+        <!-- 5. Ensinar o cachorrinho -->
+        <article class="es-concept">
+          <svg class="es-ico" viewBox="0 0 220 150" role="img" aria-label="Um cachorrinho calmo ao lado de um aspirador, com um coração">
+            <rect x="150" y="82" width="42" height="46" rx="8" fill="#0E4A57"/>
+            <rect x="167" y="42" width="8" height="42" rx="4" fill="#0E4A57"/>
+            <rect x="148" y="120" width="48" height="12" rx="4" fill="#E27A2E"/>
+            <ellipse cx="70" cy="114" rx="36" ry="20" fill="#fff" stroke="#0E4A57" stroke-width="4"/>
+            <circle cx="44" cy="96" r="17" fill="#fff" stroke="#0E4A57" stroke-width="4"/>
+            <path d="M31 82 l-4 -13 9 5 z M57 82 l6 -13 3 13 z" fill="#0E4A57"/>
+            <circle cx="42" cy="95" r="2.6" fill="#111"/>
+            <circle cx="35" cy="100" r="2.4" fill="#0E4A57"/>
+            <path d="M104 108 q9 -6 14 3" stroke="#0E4A57" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M120 58 c4 -6 14 -2 14 6 c0 7 -10 12 -14 15 c-4 -3 -14 -8 -14 -15 c0 -8 10 -12 14 -6 z" fill="#E27A2E"/>
+          </svg>
+          <span class="tag">O que acontece na cabeça</span>
+          <h3>Ensinar o cachorrinho</h3>
+          <p class="story">
+            É como ensinar um cachorrinho que o aspirador não morde: você mostra bem
+            devagar, com calma, e ele aprende que pode relaxar. O seu cérebro é
+            espertinho assim — ele reaprende que aquilo ali é seguro.
+          </p>
+          <p class="real"><strong>Na vida real:</strong> o cérebro cria um novo
+            aprendizado de segurança — e passa a mandar no medo antigo.</p>
+        </article>
+
+        <!-- 6. Soprar as velinhas -->
+        <article class="es-concept">
+          <svg class="es-ico" viewBox="0 0 220 150" role="img" aria-label="Um cupcake com velinha e um sopro suave">
+            <path d="M74 132 L146 132 L138 92 L82 92 Z" fill="#fff" stroke="#0E4A57" stroke-width="4"/>
+            <path d="M80 92 q30 -20 60 0" fill="#E27A2E" stroke="#0E4A57" stroke-width="4"/>
+            <rect x="106" y="56" width="8" height="24" fill="#0E4A57"/>
+            <path d="M110 42 q8 9 0 15 q-8 -6 0 -15" fill="#E27A2E"/>
+            <path d="M150 58 q24 6 42 -4 M150 74 q28 8 48 -2" fill="none" stroke="#0E4A57" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 8"/>
+          </svg>
+          <span class="tag">Um truque pra acalmar</span>
+          <h3>Soprar as velinhas devagar</h3>
+          <p class="story">
+            Quando o alarme tocar, respire como quem sopra velinhas de aniversário
+            bem devagarinho: puxa o ar pelo nariz e solta lento pela boca. Esse
+            sopro conta um segredo pro cérebro: “tá tudo bem”.
+          </p>
+          <p class="real"><strong>Na vida real:</strong> expirar devagar aciona o
+            “freio” do corpo e reduz a ansiedade em minutos.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section class="es-section">
+    <div class="wrap">
+      <span class="es-label">O plano, passo a passo</span>
+      <h2>A escada da exposição gradual — em 21 dias</h2>
+      <p>
+        Você não enfrenta o pior medo de uma vez. Sobe degraus pequenos, planejados
+        e repetidos, no seu ritmo, até o cérebro aprender na prática que o alarme
+        estava exagerado. Simples, gentil e com você no comando.
+      </p>
+      <div class="es-steps">
+        <div class="es-step">
+          <strong>Semana 1</strong>
+          <p>A gente conhece o seu medo e monta a sua escada — e você vence os primeiros degraus fáceis. 🎈</p>
+        </div>
+        <div class="es-step">
+          <strong>Semana 2</strong>
+          <p>Repetimos os degraus do meio até a ansiedade virar “tá tranquilo”. 🌤️</p>
+        </div>
+        <div class="es-step">
+          <strong>Semana 3</strong>
+          <p>Você chega pertinho da sua meta e guarda um mapinha para não voltar atrás. ⭐</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -185,43 +319,16 @@
   <section class="es-section">
     <div class="wrap">
       <span class="es-label">O que você recebe</span>
-      <h2>Um book completo, pronto para usar</h2>
+      <h2>Um book completo, contado com carinho</h2>
       <ul class="es-list">
-        <li><span class="n">01</span><span>O que é fobia segundo o DSM-5 + sintomas completos</span></li>
-        <li><span class="n">02</span><span>Quando tratar e os passos da TCC para vencer o medo</span></li>
-        <li><span class="n">03</span><span>Habituação e aprendizado de segurança — explicados com clareza</span></li>
-        <li><span class="n">04</span><span>Pensadores e estudos importantes, em linguagem didática e lúdica</span></li>
-        <li><span class="n">05</span><span>A coragem de um dragão: analogias e parábolas de templos japoneses</span></li>
-        <li><span class="n">06</span><span>Plano de 21 dias + dezenas de folhas de registro imprimíveis</span></li>
+        <li><span class="n">01</span><span>O que é fobia (baseado no DSM-5) e todos os sintomas — explicados com historinhas</span></li>
+        <li><span class="n">02</span><span>Quando tratar e os passos da TCC, com metáforas fáceis de lembrar</span></li>
+        <li><span class="n">03</span><span>Habituação e aprendizado de segurança — a “piscina fria” do medo</span></li>
+        <li><span class="n">04</span><span>Pensadores e estudos importantes, em linguagem lúdica e clara</span></li>
+        <li><span class="n">05</span><span>A coragem de um dragão: parábolas e analogias fofas de templos japoneses</span></li>
+        <li><span class="n">06</span><span>Plano de 21 dias + dezenas de folhas de registro para imprimir</span></li>
         <li><span class="n">07</span><span>200+ páginas em PDF — entrega pelo WhatsApp após o pagamento</span></li>
       </ul>
-    </div>
-  </section>
-
-  <!-- COMO FUNCIONA -->
-  <section class="es-section">
-    <div class="wrap">
-      <span class="es-label">Como funciona</span>
-      <h2>A escada da exposição gradual</h2>
-      <p>
-        Em vez de enfrentar o pior medo de uma vez, você sobe degraus pequenos,
-        planejados e repetidos — até o cérebro aprender, na prática, que o alarme
-        estava exagerado. É o coração da TCC para fobias específicas.
-      </p>
-      <div class="es-steps">
-        <div class="es-step">
-          <strong>Semana 1</strong>
-          <p>Mapear o medo, montar a escada e vencer os primeiros degraus fáceis.</p>
-        </div>
-        <div class="es-step">
-          <strong>Semana 2</strong>
-          <p>Repetir degraus intermediários até a ansiedade ficar manejável.</p>
-        </div>
-        <div class="es-step">
-          <strong>Semana 3</strong>
-          <p>Aproximar-se da meta e criar um plano de manutenção.</p>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -230,7 +337,7 @@
     <div class="wrap">
       <div class="es-offer-box">
         <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
-          <img src="assets/avatar-priscila.jpg" alt="Dra. Priscila Palomo"
+          <img src="assets/avatar-ilustrado.png" alt="Dra. Priscila Palomo"
                width="72" height="72"
                style="width:72px;height:72px;object-fit:cover;border-radius:50%;border:2px solid #0E4A57">
           <div>
@@ -267,6 +374,7 @@
   <a href="index.html" class="foot-logo"><img src="assets/logo.svg" alt="Priscila Palomo Psicologia"></a>
   <div class="foot-links">
     <a href="blog.html">Blog</a>
+    <a href="cursos.html">Cursos</a>
     <a href="https://wa.me/5511950690537" target="_blank">WhatsApp</a>
   </div>
   <span class="foot-info">© <span data-year></span> · CRP 98007</span>
