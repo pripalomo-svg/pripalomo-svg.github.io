@@ -10,16 +10,19 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import cm
 from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle,
-    PageBreak, KeepTogether, HRFlowable, ListFlowable, ListItem,
+    PageBreak, KeepTogether, HRFlowable, ListFlowable, ListItem, Image,
 )
 
-NAVY = HexColor("#14324B")
+NAVY = HexColor("#0E4A57")
+ORANGE = HexColor("#E27A2E")
 INK = HexColor("#111111")
 MUTED = HexColor("#555555")
 LINE = HexColor("#CCCCCC")
-PALE = HexColor("#F2F5F8")
+PALE = HexColor("#EAF2F2")
 
-OUT = Path(__file__).resolve().parents[1] / "pdfs" / "programa-escada-segura.pdf"
+ROOT_DIR = Path(__file__).resolve().parents[1]
+IMG = ROOT_DIR / "assets" / "img" / "escada"
+OUT = ROOT_DIR / "pdfs" / "programa-escada-segura.pdf"
 
 
 def styles():
@@ -99,6 +102,29 @@ def styles():
 
 def hr():
     return HRFlowable(width="100%", thickness=1, color=LINE, spaceBefore=4, spaceAfter=10)
+
+
+def ilustra(nome, largura=7.5 * cm):
+    """Insere um desenho (PNG) centralizado, preservando a proporção."""
+    img = Image(str(IMG / (nome + ".png")))
+    ratio = img.imageHeight / float(img.imageWidth)
+    img.drawWidth = largura
+    img.drawHeight = largura * ratio
+    img.hAlign = "CENTER"
+    return img
+
+
+def historinha(nome, tag, titulo, historia, real, s):
+    """Bloco lúdico: desenho + historinha + 'na vida real'."""
+    return KeepTogether([
+        ilustra(nome, 7.5 * cm),
+        Spacer(1, 6),
+        Paragraph(tag, s["label"]),
+        Paragraph(titulo, s["h2"]),
+        Paragraph(historia, s["story"]),
+        Paragraph("<b>Na vida real:</b> " + real, s["small"]),
+        Spacer(1, 14),
+    ])
 
 
 def bullets(items, style):
@@ -278,6 +304,7 @@ def build():
     p(story, "Sumário", s["h1"])
     story.append(hr())
     toc = [
+        "Comece por aqui — O medo em 7 historinhas ilustradas",
         "Parte I — Psicoeducação: como o medo funciona",
         "Parte II — O que é fobia segundo o DSM-5",
         "Parte III — Sintomas: corpo, mente e comportamento",
@@ -289,11 +316,70 @@ def build():
         "Parte IX — A coragem de um dragão: analogias japonesas",
         "Parte X — Templos, parábolas e determinação",
         "Parte XI — Sua Escada Segura (montar e treinar)",
-        "Parte XII — Plano de 21 dias + registros",
+        "Parte XII — Plano de 21 dias + folhas de registro",
         "Parte XIII — Conclusão: tratamento sério e seguro",
+        "Apêndices — Diários, escadas extras, frases e glossário",
     ]
-    for item in toc:
-        p(story, item, s["toc"])
+    for i, item in enumerate(toc, 1):
+        p(story, f"{i:>2}.&nbsp;&nbsp;{item}", s["toc"])
+    story.append(PageBreak())
+
+    # ═══════════ COMECE POR AQUI — HISTORINHAS ILUSTRADAS ═══════════
+    section_break(story, "COMECE POR AQUI", "O medo em 7 historinhas\nilustradas", s)
+    p(story, "Antes da ciência mais detalhada, vem comigo pelo caminho mais simples: "
+      "vou te explicar o essencial com desenhos e comparações fofas — do jeitinho que "
+      "eu contaria para uma criança. Pode ler devagar. Quando a gente entende, o medo "
+      "já começa a encolher.", s["body"])
+    story.append(Spacer(1, 10))
+    historinhas = [
+        ("alarme", "O QUE É O MEDO", "O alarme que toca sem fogo",
+         "Imagina um alarme de incêndio que dispara super alto só porque você fez uma "
+         "torradinha. Você corre assustado, o coração dispara... e era só o pãozinho "
+         "ficando dourado! Não tinha fogo nenhum. O medo, às vezes, é bem assim: um "
+         "alarme lá dentro que apita alto demais para um perigo que nem existe.",
+         "o corpo dispara (coração acelera, mãos suam) mesmo sem perigo de verdade. É um alarme falso."),
+        ("monstrinho", "POR QUE O MEDO CRESCE", "O monstrinho que a gente alimenta",
+         "Existe um monstrinho do medo escondido na gente. Toda vez que você foge do que "
+         "assusta, é como dar um biscoito pra ele — e ele cresce, cresce, fica enorme! "
+         "Mas toda vez que você fica pertinho por um tempinho, o monstrinho não ganha "
+         "biscoito nenhum... e vai encolhendo, até virar do tamanhinho de um chaveiro.",
+         "fugir alivia na hora, mas ensina o cérebro que aquilo era perigoso — e o medo volta maior."),
+        ("escada", "COMO A GENTE VENCE", "Subir a escada, um degrau de cada vez",
+         "Ninguém pula do chão direto pro telhado, né? A gente sobe um degrau de cada "
+         "vez, segurando no corrimão. Cada degrau é um passinho perto do medo: você "
+         "sobe, dá um 'oi' pra ele, respira, espera ele se acalmar... e só então sobe o "
+         "próximo. Sem pressa, sem susto.",
+         "é a exposição gradual — enfrentar o medo em passos pequenos e planejados, do fácil ao difícil."),
+        ("piscina", "POR QUE DÁ CERTO", "A piscina fria",
+         "Lembra quando a gente entra na piscina e 'aaai, que fria!'? A vontade é sair "
+         "correndo. Mas se a gente fica só um pouquinho, o corpo diz 'ah, tá bom' e a "
+         "água nem parece mais tão gelada. O medo é igualzinho: fique perto dele um "
+         "tempinho e ele vai esfriando sozinho.",
+         "é a habituação — a ansiedade sobe, dá um pico e desce sozinha se você permanecer."),
+        ("cachorrinho", "O QUE ACONTECE NA CABEÇA", "Ensinar o cachorrinho",
+         "É como ensinar um cachorrinho que o aspirador não morde: você mostra bem "
+         "devagar, de longe, com carinho e um agrado — e ele aprende que pode relaxar e "
+         "até cochilar do lado. O seu cérebro é espertinho assim: com jeitinho, ele "
+         "reaprende que aquilo ali é seguro.",
+         "o cérebro cria um novo aprendizado de segurança — e passa a mandar no medo antigo."),
+        ("velinha", "UM TRUQUE PRA ACALMAR", "Soprar as velinhas devagar",
+         "Quando o alarme tocar, respire como quem sopra velinhas de aniversário bem "
+         "devagarinho: puxa o ar pelo nariz contando até quatro e solta pela boca "
+         "contando até seis. Esse sopro lento conta um segredinho pro cérebro: "
+         "'ó, tá tudo bem por aqui'.",
+         "expirar devagar aciona o 'freio' do corpo e reduz a ansiedade em minutos."),
+        ("dragao", "A CORAGEM ESCONDIDA", "Domar o dragão",
+         "Nos contos japoneses, o dragão não era só assustador — ele era guardião, cheio "
+         "de força. O seu medo é parecidinho: parece gigante e solta fogo... mas, quando "
+         "você aprende a olhar nos olhos dele e a chegar pertinho, com jeitinho, aquela "
+         "mesma força vira a sua coragem. A gente não precisa matar o dragão — a gente "
+         "faz dele um amigo.",
+         "a energia do medo (a adrenalina) é a mesma da coragem. O programa te ensina a domá-la a seu favor."),
+    ]
+    for i, (nome, tag, tit, hist, real) in enumerate(historinhas):
+        story.append(historinha(nome, tag, tit, hist, real, s))
+        if (i + 1) % 2 == 0:
+            story.append(PageBreak())
     story.append(PageBreak())
 
     # ═══════════ PARTE I ═══════════
@@ -301,6 +387,8 @@ def build():
 
     p(story, "1. O alarme que salva — e o alarme que exagera", s["h1"])
     story.append(hr())
+    story.append(ilustra("alarme", 6.5 * cm))
+    story.append(Spacer(1, 8))
     p(story, "Imagine um templo antigo no alto de uma montanha. No pátio há um sino enorme. "
       "Quando um visitante se aproxima demais da beirada do penhasco, o sino toca — "
       "alerta de perigo real. Esse é o <b>medo útil</b>: proteção.", s["body"])
@@ -316,6 +404,8 @@ def build():
 
     p(story, "2. O ciclo que mantém a fobia", s["h1"])
     story.append(hr())
+    story.append(ilustra("monstrinho", 6.5 * cm))
+    story.append(Spacer(1, 8))
     p(story, "Quase toda fobia específica se alimenta do mesmo ciclo:", s["body"])
     story.append(bullets([
         "<b>Gatilho</b> — situação, imagem, pensamento, sensação ou lembrança.",
@@ -616,6 +706,8 @@ def build():
 
     p(story, "21. Habituação: o sino que cansa de tocar sozinho", s["h1"])
     story.append(hr())
+    story.append(ilustra("piscina", 6.5 * cm))
+    story.append(Spacer(1, 8))
     p(story, "<b>Habituação</b> é a diminuição natural da resposta de ansiedade quando você "
       "permanece diante do estímulo, sem fugir, por tempo suficiente e com repetição. "
       "O alarme sobe… e depois desce — mesmo sem a “fuga salvadora”.", s["body"])
@@ -837,6 +929,8 @@ def build():
 
     p(story, "30. O que é a coragem de um dragão", s["h1"])
     story.append(hr())
+    story.append(ilustra("dragao", 6.5 * cm))
+    story.append(Spacer(1, 8))
     p(story, "No imaginário japonês e do Leste Asiático, o dragão (龍 / ryū) muitas vezes "
       "não é só monstro: é força da natureza, guardião, sabedoria das águas e dos céus. "
       "A <b>coragem de um dragão</b>, neste book, não é agressividade. É "
@@ -971,6 +1065,8 @@ def build():
 
     p(story, "39. Montar a escada — passo a passo", s["h1"])
     story.append(hr())
+    story.append(ilustra("escada", 6.5 * cm))
+    story.append(Spacer(1, 8))
     p(story, "Sem escada clara, a exposição vira improviso. Improviso aumenta abandono "
       "ou saltos perigosos demais.", s["body"])
     p(story, "Minha fobia / medo-alvo (bem específico):", s["label"])
@@ -1079,13 +1175,14 @@ def build():
         p(story, text, s["body"])
     story.append(PageBreak())
 
-    p(story, "45. Folhas de registro — use e imprima", s["h1"])
+    p(story, "45. Folhas de registro do plano de 21 dias — use e imprima", s["h1"])
     story.append(hr())
-    p(story, "Uma folha por dia de exposição. Quanto mais concreto, mais forte o aprendizado.", s["body"])
+    p(story, "Uma folha para cada dia do plano, do Dia 1 ao Dia 21 — e ainda folhas "
+      "extras para continuar treinando depois. Quanto mais concreto o registro, mais "
+      "forte o aprendizado (a “violação de expectativa”: o que o medo previa × o que aconteceu).", s["body"])
 
-    log_days = [f"Dia {d} — Registro" for d in
-                [4, 5, 6, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20]]
-    log_days += [f"Registro extra {i}" for i in range(1, 46)]
+    log_days = [f"Dia {d} — Registro de exposição" for d in range(1, 22)]
+    log_days += [f"Folha extra {i}" for i in range(1, 25)]
     for i, d in enumerate(log_days):
         story.append(exposure_log(s, d))
         if (i + 1) % 2 == 0 and i < len(log_days) - 1:
@@ -1314,7 +1411,7 @@ def build():
       "em TCC e exposição para fobias. Se houver desmaios em sangue/agulha, mencione "
       "isso — há técnicas específicas. Se houver trauma, pânico amplo ou depressão, "
       "avalie um plano integrado.", s["body"])
-    p(story, "Materiais complementares no site: www.priscilapalomo.com/loja.html", s["body"])
+    p(story, "Cursos e materiais no site: www.priscilapalomo.com/cursos.html", s["body"])
     p(story, "Landing do programa: www.priscilapalomo.com/escada-segura.html", s["body"])
     story.append(Spacer(1, 12))
     p(story, "Notas pessoais / perguntas para a próxima sessão de terapia:", s["label"])
