@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Gera o book PDF Programa Escada Segura (~200+ páginas).
-Refeito com foco lúdico, didático (explicado como para criança de 5 anos),
-com base robusta na TCC e na teoria da Tríplice Vulnerabilidade / Protocolo Unificado
-de David H. Barlow, enriquecido com metáforas fofas, ilustrações e evidências científicas.
+"""Gera o book PDF Programa Escada Segura com 200+ páginas.
+
+Cada um dos 13 capítulos possui uma narrativa lúdica completa com um arquétipo
+da casa interior, integrando rigor clínico, TCC, DSM-5-TR, neurobiologia de David H. Barlow,
+protocolos inibitórios de Michelle Craske, sabedoria oriental e folhas de registro.
 """
 
 from pathlib import Path
@@ -23,6 +24,7 @@ INK = HexColor("#111111")
 MUTED = HexColor("#555555")
 LINE = HexColor("#CCCCCC")
 PALE = HexColor("#EAF2F2")
+WARM_PALE = HexColor("#FDF6EC")
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 IMG = ROOT_DIR / "assets" / "img" / "escada"
@@ -50,19 +52,19 @@ def styles():
     )
     s["h1"] = ParagraphStyle(
         "h1", parent=base["Normal"], fontName="Helvetica-Bold",
-        fontSize=18, textColor=NAVY, spaceBefore=4, spaceAfter=12, leading=22,
+        fontSize=16, textColor=NAVY, spaceBefore=4, spaceAfter=10, leading=20,
     )
     s["h2"] = ParagraphStyle(
         "h2", parent=base["Normal"], fontName="Helvetica-Bold",
-        fontSize=13, textColor=INK, spaceBefore=12, spaceAfter=8, leading=17,
+        fontSize=12.5, textColor=INK, spaceBefore=10, spaceAfter=6, leading=16,
     )
     s["h3"] = ParagraphStyle(
         "h3", parent=base["Normal"], fontName="Helvetica-Bold",
-        fontSize=11, textColor=NAVY, spaceBefore=10, spaceAfter=6, leading=14,
+        fontSize=10.5, textColor=NAVY, spaceBefore=8, spaceAfter=4, leading=14,
     )
     s["body"] = ParagraphStyle(
         "body", parent=base["Normal"], fontName="Helvetica",
-        fontSize=10, textColor=INK, alignment=TA_JUSTIFY, leading=15, spaceAfter=8,
+        fontSize=9.8, textColor=INK, alignment=TA_JUSTIFY, leading=14.5, spaceAfter=7,
     )
     s["body_left"] = ParagraphStyle(
         "body_left", parent=s["body"], alignment=TA_LEFT,
@@ -73,29 +75,33 @@ def styles():
     )
     s["quote"] = ParagraphStyle(
         "quote", parent=base["Normal"], fontName="Helvetica-Oblique",
-        fontSize=11, textColor=NAVY, alignment=TA_CENTER, leading=16,
-        spaceBefore=10, spaceAfter=10, leftIndent=16, rightIndent=16,
+        fontSize=10.5, textColor=NAVY, alignment=TA_CENTER, leading=15,
+        spaceBefore=8, spaceAfter=8, leftIndent=14, rightIndent=14,
+    )
+    s["story_archetype"] = ParagraphStyle(
+        "story_archetype", parent=base["Normal"], fontName="Helvetica-Bold",
+        fontSize=12, textColor=ORANGE, alignment=TA_LEFT, leading=15, spaceAfter=6,
     )
     s["story"] = ParagraphStyle(
         "story", parent=base["Normal"], fontName="Helvetica-Oblique",
-        fontSize=10, textColor=INK, alignment=TA_JUSTIFY, leading=15,
-        spaceAfter=8, leftIndent=8, rightIndent=8,
+        fontSize=9.8, textColor=INK, alignment=TA_JUSTIFY, leading=14.5,
+        spaceAfter=7, leftIndent=6, rightIndent=6,
     )
     s["label"] = ParagraphStyle(
         "label", parent=base["Normal"], fontName="Helvetica-Bold",
-        fontSize=9, textColor=NAVY, spaceBefore=6, spaceAfter=3,
+        fontSize=9, textColor=NAVY, spaceBefore=5, spaceAfter=2,
     )
     s["field"] = ParagraphStyle(
         "field", parent=base["Normal"], fontName="Helvetica",
-        fontSize=9, textColor=MUTED, leading=13, spaceAfter=4,
+        fontSize=8.8, textColor=MUTED, leading=12.5, spaceAfter=3,
     )
     s["toc"] = ParagraphStyle(
         "toc", parent=base["Normal"], fontName="Helvetica",
-        fontSize=10, textColor=INK, leading=16, spaceAfter=2,
+        fontSize=9.5, textColor=INK, leading=15.5, spaceAfter=2,
     )
     s["day_title"] = ParagraphStyle(
         "day_title", parent=base["Normal"], fontName="Helvetica-Bold",
-        fontSize=12, textColor=white, alignment=TA_LEFT, leading=15,
+        fontSize=11.5, textColor=white, alignment=TA_LEFT, leading=14.5,
     )
     s["footer"] = ParagraphStyle(
         "footer", parent=base["Normal"], fontName="Helvetica",
@@ -105,12 +111,14 @@ def styles():
 
 
 def hr():
-    return HRFlowable(width="100%", thickness=1, color=LINE, spaceBefore=4, spaceAfter=10)
+    return HRFlowable(width="100%", thickness=1, color=LINE, spaceBefore=4, spaceAfter=8)
 
 
-def ilustra(nome, largura=7.5 * cm):
-    """Insere um desenho (PNG) centralizado, preservando a proporção."""
-    img = Image(str(IMG / (nome + ".png")))
+def ilustra(nome, largura=7.0 * cm):
+    img_path = IMG / (nome + ".png")
+    if not img_path.exists():
+        return Spacer(1, 1)
+    img = Image(str(img_path))
     ratio = img.imageHeight / float(img.imageWidth)
     img.drawWidth = largura
     img.drawHeight = largura * ratio
@@ -121,7 +129,7 @@ def ilustra(nome, largura=7.5 * cm):
 def bullets(items, style):
     return ListFlowable(
         [ListItem(Paragraph(i, style), leftIndent=8, bulletColor=NAVY) for i in items],
-        bulletType="bullet", start="•", leftIndent=16, spaceBefore=2, spaceAfter=8,
+        bulletType="bullet", start="•", leftIndent=14, spaceBefore=2, spaceAfter=6,
     )
 
 
@@ -130,59 +138,78 @@ def blank_lines(n=3):
     t = Table(rows, colWidths=[16.5 * cm])
     t.setStyle(TableStyle([
         ("TEXTCOLOR", (0, 0), (-1, -1), LINE),
-        ("FONTSIZE", (0, 0), (-1, -1), 9),
+        ("FONTSIZE", (0, 0), (-1, -1), 8.5),
         ("TOPPADDING", (0, 0), (-1, -1), 6),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
     ]))
     return t
 
 
-def callout(title, text, s):
+def callout(title, text, s, bg=PALE, border=NAVY):
     header = Table([[Paragraph(title, s["day_title"])]], colWidths=[16.5 * cm])
     header.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, -1), NAVY),
-        ("LEFTPADDING", (0, 0), (-1, -1), 10),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 10),
-        ("TOPPADDING", (0, 0), (-1, -1), 8),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+        ("BACKGROUND", (0, 0), (-1, -1), border),
+        ("LEFTPADDING", (0, 0), (-1, -1), 9),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 9),
+        ("TOPPADDING", (0, 0), (-1, -1), 7),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
     ]))
     body = Table([[Paragraph(text, s["body"])]], colWidths=[16.5 * cm])
     body.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, -1), PALE),
+        ("BACKGROUND", (0, 0), (-1, -1), bg),
+        ("LEFTPADDING", (0, 0), (-1, -1), 9),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 9),
+        ("TOPPADDING", (0, 0), (-1, -1), 7),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 9),
+        ("BOX", (0, 0), (-1, -1), 0.5, LINE),
+    ]))
+    return KeepTogether([header, body, Spacer(1, 8)])
+
+
+def story_box(arquetipo, titulo_conto, texto_conto, s):
+    header_content = [
+        Paragraph(f"<b>ARQUÉTIPO NA CASA:</b> {arquetipo}", s["story_archetype"]),
+        Paragraph(f"<b>História Lúdica:</b> {titulo_conto}", s["h2"]),
+        HRFlowable(width="100%", thickness=1, color=ORANGE, spaceBefore=2, spaceAfter=6),
+        Paragraph(texto_conto, s["story"]),
+    ]
+    box = Table([[item] for item in header_content], colWidths=[16.5 * cm])
+    box.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), WARM_PALE),
         ("LEFTPADDING", (0, 0), (-1, -1), 10),
         ("RIGHTPADDING", (0, 0), (-1, -1), 10),
         ("TOPPADDING", (0, 0), (-1, -1), 8),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 10),
-        ("BOX", (0, 0), (-1, -1), 0.5, LINE),
+        ("BOTTOMPADDING", (0, -1), (-1, -1), 9),
+        ("BOX", (0, 0), (-1, -1), 1, ORANGE),
     ]))
-    return KeepTogether([header, body, Spacer(1, 10)])
+    return KeepTogether([box, Spacer(1, 8)])
 
 
-def day_box(title, paras, s):
+def day_box_full(title, paras, s):
     header = Table([[Paragraph(title, s["day_title"])]], colWidths=[16.5 * cm])
     header.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, -1), NAVY),
-        ("LEFTPADDING", (0, 0), (-1, -1), 10),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 10),
+        ("LEFTPADDING", (0, 0), (-1, -1), 9),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 9),
         ("TOPPADDING", (0, 0), (-1, -1), 8),
         ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
     ]))
     body = Table([[p] for p in paras], colWidths=[16.5 * cm])
     body.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, -1), PALE),
-        ("LEFTPADDING", (0, 0), (-1, -1), 10),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 10),
+        ("LEFTPADDING", (0, 0), (-1, -1), 9),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 9),
         ("TOPPADDING", (0, 0), (0, 0), 8),
         ("BOTTOMPADDING", (0, -1), (-1, -1), 10),
         ("BOX", (0, 0), (-1, -1), 0.5, LINE),
     ]))
-    return KeepTogether([header, body, Spacer(1, 10)])
+    return KeepTogether([header, body, Spacer(1, 8)])
 
 
 def ladder_template(s):
     header = [
         Paragraph("<font color='white'><b>#</b></font>", s["field"]),
-        Paragraph("<font color='white'><b>Degrau (situação)</b></font>", s["field"]),
+        Paragraph("<font color='white'><b>Degrau (situação específica na casa/vida)</b></font>", s["field"]),
         Paragraph("<font color='white'><b>Ansiedade (0–10)</b></font>", s["field"]),
     ]
     rows = [header]
@@ -192,7 +219,7 @@ def ladder_template(s):
             Paragraph("_" * 42, s["field"]),
             Paragraph("_" * 10, s["field"]),
         ])
-    t = Table(rows, colWidths=[1.2 * cm, 11 * cm, 4.3 * cm])
+    t = Table(rows, colWidths=[1.2 * cm, 11.2 * cm, 4.1 * cm])
     t.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, 0), NAVY),
         ("GRID", (0, 0), (-1, -1), 0.4, LINE),
@@ -204,17 +231,30 @@ def ladder_template(s):
     return t
 
 
-def exposure_log(s, day_label):
+def exposure_log_page(s, day_num, day_title_text, arquetipo_text, foco_text):
+    """Gera uma página de registro rica e estruturada ocupando a página inteira."""
     paras = [
-        Paragraph(f"<b>{day_label}</b>", s["label"]),
-        Paragraph("Degrau trabalhado: ________________________________", s["field"]),
-        Paragraph("Ansiedade antes (0–10): ____ &nbsp;&nbsp; pico: ____ &nbsp;&nbsp; depois: ____", s["field"]),
-        Paragraph("O que fiz exatamente:", s["label"]), blank_lines(2),
-        Paragraph("O que o medo previa (catástrofe imaginada)?", s["label"]), blank_lines(2),
-        Paragraph("O que aconteceu de fato (dados reais)?", s["label"]), blank_lines(2),
-        Paragraph("Aprendizado de hoje (metáfora do dragão / Barlow):", s["label"]), blank_lines(2),
+        Paragraph(f"<b>Arquétipo Guardião do Dia:</b> {arquetipo_text}", s["label"]),
+        Paragraph(f"<b>Foco do Treino:</b> {foco_text}", s["field"]),
+        Spacer(1, 4),
+        Paragraph("1. Degrau da Escada trabalhado hoje:", s["label"]),
+        Paragraph("Situação / Estímulo: __________________________________________________________________", s["field"]),
+        Paragraph("Nível de Ansiedade (SUDS 0 a 10): &nbsp;&nbsp; Antes: [ ___ ] &nbsp;&nbsp; Pico máx: [ ___ ] &nbsp;&nbsp; Ao final: [ ___ ]", s["field"]),
+        Paragraph("Tempo total de permanência no degrau sem fugir: ________ minutos", s["field"]),
+        Spacer(1, 4),
+        Paragraph("2. Ação de Presença (o que fiz exatamente):", s["label"]),
+        blank_lines(3),
+        Spacer(1, 4),
+        Paragraph("3. O Alarme Falso imaginado (a catástrofe que o medo previa):", s["label"]),
+        blank_lines(3),
+        Spacer(1, 4),
+        Paragraph("4. Os Fatos Reais observados (o que aconteceu de verdade nos dados):", s["label"]),
+        blank_lines(3),
+        Spacer(1, 4),
+        Paragraph("5. Novo Pergaminho da Casa (o aprendizado inibitório consolidado hoje):", s["label"]),
+        blank_lines(3),
     ]
-    return day_box(day_label, paras, s)
+    return day_box_full(f"Dia {day_num:02d} — {day_title_text}", paras, s)
 
 
 def add_page_number(canvas, doc):
@@ -225,7 +265,7 @@ def add_page_number(canvas, doc):
         canvas.setFillColor(MUTED)
         canvas.drawCentredString(
             A4[0] / 2, 1.2 * cm,
-            f"Programa Escada Segura — Book  ·  Dra. Priscila Palomo  ·  p. {page}"
+            f"Programa Escada Segura — Book dos Arquétipos  ·  Dra. Priscila Palomo  ·  p. {page}"
         )
         canvas.setStrokeColor(LINE)
         canvas.setLineWidth(0.4)
@@ -246,35 +286,33 @@ def section_break(story, part, title, s):
     story.append(Spacer(1, 0.5 * cm))
 
 
-def conceito_duas_paginas(story, nome_img, tag, titulo, hist_p1, hist_p2, ciencia_barlow, tcc_pratica, s):
-    """Gera exatamente 2 páginas completas para cada conceito central.
-    Página 1: Ilustração grande + Historinha lúdica para criança de 5 anos (com analogia fofa).
-    Página 2: A Ciência por Trás (Fundamentos de David H. Barlow e TCC) + Exemplo Científico e Aplicação.
-    """
-    # ── PÁGINA 1: Ilustração + Historinha infantil ──
-    story.append(ilustra(nome_img, 8.5 * cm))
-    story.append(Spacer(1, 8))
+def conceito_duas_paginas(story, nome_img, tag, arquetipo, titulo, hist_p1, hist_p2, ciencia_barlow, tcc_pratica, s):
+    """Gera exatamente 2 páginas completas para cada conceito central."""
+    # Página 1
+    story.append(ilustra(nome_img, 7.5 * cm))
+    story.append(Spacer(1, 6))
     p(story, tag.upper(), s["label"])
+    p(story, f"<b>Arquétipo na Casa:</b> {arquetipo}", s["story_archetype"])
     p(story, titulo, s["h1"])
     story.append(hr())
     p(story, hist_p1, s["story"])
-    story.append(Spacer(1, 4))
+    story.append(Spacer(1, 3))
     p(story, hist_p2, s["story"])
     story.append(PageBreak())
 
-    # ── PÁGINA 2: Ciência de David H. Barlow + TCC Robusta ──
-    p(story, f"A Ciência por trás: {titulo}", s["h1"])
+    # Página 2
+    p(story, f"A Ciência do Arquétipo: {titulo}", s["h1"])
     story.append(hr())
     p(story, "<b>Fundamentação na Teoria de David H. Barlow e TCC:</b>", s["h3"])
     p(story, ciencia_barlow, s["body"])
-    story.append(Spacer(1, 6))
-    p(story, "<b>Evidência Científica e Aplicação Terapêutica:</b>", s["h3"])
+    story.append(Spacer(1, 5))
+    p(story, "<b>Evidência Científica e Aplicação Terapêutica na Casa:</b>", s["h3"])
     p(story, tcc_pratica, s["body"])
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 6))
     story.append(callout(
-        "Lição Prática da Escada Segura",
-        "Ao compreender o mecanismo neurobiológico e comportamental, a ansiedade deixa de ser uma ameaça invisível "
-        "e passa a ser uma resposta previsível e treinável do organismo.",
+        f"Lição Prática: {arquetipo}",
+        "Quando compreendemos o arquétipo em nossa casa interior, o medo deixa de ser um inimigo misterioso "
+        "e passa a ser uma parte protetora que apenas precisa de novo treinamento e acolhimento estruturado.",
         s
     ))
     story.append(PageBreak())
@@ -286,506 +324,458 @@ def build():
         str(OUT), pagesize=A4,
         leftMargin=2 * cm, rightMargin=2 * cm,
         topMargin=2 * cm, bottomMargin=2.2 * cm,
-        title="Programa Escada Segura — Book",
+        title="Programa Escada Segura — Book dos Arquétipos na Casa",
         author="Dra. Priscila Palomo",
     )
     story = []
 
     # ═══════════ CAPA ═══════════
-    story.append(Spacer(1, 2.8 * cm))
+    story.append(Spacer(1, 2.5 * cm))
     p(story, "DRA. PRISCILA PALOMO  ·  CRP 98007", s["cover_brand"])
-    story.append(Spacer(1, 0.5 * cm))
-    story.append(HRFlowable(width="40%", thickness=2, color=NAVY, spaceBefore=0, spaceAfter=16))
+    story.append(Spacer(1, 0.4 * cm))
+    story.append(HRFlowable(width="40%", thickness=2, color=NAVY, spaceBefore=0, spaceAfter=14))
     p(story, "Programa Escada Segura", s["cover_title"])
-    p(story, "Book de psicoeducação e exposição gradual<br/>para vencer fobias específicas", s["cover_sub"])
-    story.append(Spacer(1, 0.6 * cm))
-    p(story, "A coragem de um dragão · Degrau a degrau · Ciência e determinação", s["cover_sub"])
-    story.append(Spacer(1, 1.2 * cm))
-    p(story, "Baseado no modelo de David H. Barlow, DSM-5 e Terapia Cognitivo-Comportamental<br/>"
-             "com metáforas lúdicas, historinhas infantis e exemplos científicos robustos.", s["cover_sub"])
-    story.append(Spacer(1, 2.2 * cm))
+    p(story, "Book de Psicoeducação e Exposição Gradual<br/>para Vencer Fobias Específicas", s["cover_sub"])
+    story.append(Spacer(1, 0.5 * cm))
+    p(story, "A Jornada dos Arquétipos na Casa Interior · A Coragem de um Dragão · Ciência e Determinação", s["cover_sub"])
+    story.append(Spacer(1, 1.0 * cm))
+    p(story, "Baseado no modelo de David H. Barlow, critérios do DSM-5 e Terapia Cognitivo-Comportamental.<br/>"
+             "Cada capítulo enriquecido com histórias lúdicas de arquétipos em casa e sabedoria milenar.", s["cover_sub"])
+    story.append(Spacer(1, 2.0 * cm))
     p(story, "www.priscilapalomo.com", s["cover_brand"])
     story.append(PageBreak())
 
-    # ═══════════ AVISO ═══════════
-    p(story, "Antes de começar — aviso ético", s["h1"])
+    # ═══════════ AVISO ÉTICO ═══════════
+    p(story, "Antes de Começar — Aviso Ético e Clínico", s["h1"])
     story.append(hr())
-    p(story, "Este book é um <b>material psicoeducativo estruturado</b>. Ele traduz critérios clínicos, "
-      "princípios da Terapia Cognitivo-Comportamental (TCC) e o modelo da Tríplice Vulnerabilidade "
-      "de David H. Barlow para uma linguagem acolhedora e lúdica, com metáforas que auxiliam a "
-      "memória emocional a acompanhar a compreensão racional.", s["body"])
-    p(story, "<b>Importante:</b> este programa <b>não substitui psicoterapia individual</b>, avaliação "
-      "clínica nem tratamento médico psiquiátrico. Se você apresenta crises de pânico descompensadas, "
-      "ideação suicida, trauma complexo recente sem suporte, transtorno alimentar ativo ou faz uso "
-      "de substâncias psicoativas para tolerar o medo, procure atendimento profissional especializado antes "
-      "de iniciar tarefas de exposição de forma autônoma.", s["body"])
-    p(story, "Em qualquer momento, se a ansiedade atingir níveis intoleráveis: <b>pare</b>, utilize as "
-      "técnicas de regulação somática deste material e, se necessário, procure seu terapeuta ou o CVV (188).", s["body"])
+    p(story, "Este book é um <b>material psicoeducativo de alta profundidade e estrutura</b>. Ele traduz critérios clínicos, "
+      "princípios da Terapia Cognitivo-Comportamental (TCC) e o modelo da Tríplice Vulnerabilidade de David H. Barlow para uma "
+      "linguagem acolhedora, com arquétipos vivos que habitam os diferentes cômodos de nossa casa emocional. Essa metodologia "
+      "permite que a memória intuitiva acompanhe a compreensão científica.", s["body"])
+    p(story, "<b>Importante:</b> este programa <b>não substitui psicoterapia individual</b>, avaliação clínica nem tratamento "
+      "médico psiquiátrico. Se você apresenta crises de pânico descompensadas, ideação suicida, histórico de trauma complexo recente "
+      "sem suporte, transtorno alimentar ativo ou faz uso de substâncias para suportar o medo, procure atendimento profissional "
+      "especializado antes de iniciar tarefas de exposição autônoma.", s["body"])
+    p(story, "Em qualquer momento, se a ansiedade atingir níveis intoleráveis: <b>pare</b>, utilize as técnicas de regulação somática "
+      "deste material (o freio das velinhas e o ancoramento) e, se necessário, contate seu terapeuta ou o CVV (188).", s["body"])
     p(story, "A Dra. Priscila Palomo (CRP 98007) atende online e presencialmente em São Paulo. "
       "WhatsApp: (11) 95069-0537 · www.priscilapalomo.com", s["small"])
     story.append(PageBreak())
 
     # ═══════════ SUMÁRIO ═══════════
-    p(story, "Sumário Geral", s["h1"])
+    p(story, "Sumário Geral dos Arquétipos e Capítulos", s["h1"])
     story.append(hr())
     toc = [
-        "Comece por aqui — 7 Grandes Conceitos em Historinhas de 2 Páginas (com Barlow & TCC)",
-        "Parte I — Psicoeducação: como o medo e a ansiedade funcionam no cérebro",
-        "Parte II — O que é fobia segundo o DSM-5 e a perspectiva de Barlow",
-        "Parte III — Sintomas completos: corpo, mente e comportamento",
-        "Parte IV — Quando tratar e os sinais de alerta",
-        "Parte V — TCC e Exposição: passos metodológicos para vencer o medo",
-        "Parte VI — O processo de habituação e o aprendizado inibitório",
-        "Parte VII — Galeria dos pensadores da fobia (com metáforas)",
-        "Parte VIII — Estudos científicos e evidências robustas da TCC",
-        "Parte IX — A coragem de um dragão: analogias e parábolas japonesas",
-        "Parte X — Templos, sabedoria e determinação diária",
-        "Parte XI — Sua Escada Segura: montagem prática da hierarquia",
-        "Parte XII — Plano prático de 21 dias + 21 folhas diárias de registro",
-        "Parte XIII — Conclusão: a aliança com a coragem sustentável",
-        "Apêndices A a J — Diários semanais, registros livres e glossário clínico",
+        "Comece por Aqui — 7 Grandes Conceitos em Histórias com Arquétipos da Casa (Barlow & TCC)",
+        "Capítulo I — O Vigia da Porta: Psicoeducação e o Alarme Sem Fogo",
+        "Capítulo II — O Construtor do Labirinto: O DSM-5 e as Fronteiras Clínicas da Fobia",
+        "Capítulo III — O Mensageiro das Luzes: O Mapeamento Completo de Todos os Sintomas",
+        "Capítulo IV — O Engenheiro de Estruturas: Quando Tratar e Quando Pedir Apoio",
+        "Capítulo V — O Mestre da Escadaria: Os Passos da TCC e o Desarmamento das Muletas",
+        "Capítulo VI — O Alquimista da Piscina: A Habituação e o Aprendizado Inibitório",
+        "Capítulo VII — O Conselho dos Sábios da Biblioteca: Galeria dos Pensadores com Metáforas",
+        "Capítulo VIII — O Laboratório do Castelo: Estudos Científicos e Evidências Robustas",
+        "Capítulo IX — O Dragão Guardião da Lareira: A Coragem Oriental e a Força do Afeto",
+        "Capítulo X — O Monge do Jardim Zen: Templos, Parábolas e a Força da Determinação",
+        "Capítulo XI — O Arquiteto da Torre: Montagem Prática da Sua Escada Segura Pessoal",
+        "Capítulo XII — O Diário do Viajante: O Plano Prático de 21 Dias + 21 Folhas Diárias",
+        "Capítulo XIII — O Selo Dourado da Aliança: Conclusão, Ética e a Coragem Sustentável",
+        "Apêndices A a J — Diários de Autoeficácia, Banco de Frases, Registros Extras e Glossário",
     ]
     for i, item in enumerate(toc, 1):
         p(story, f"<b>{i:>2}.</b>&nbsp;&nbsp;{item}", s["toc"])
     story.append(Spacer(1, 10))
-    p(story, "<i>Dica de leitura: Se for sua primeira vez, comece pelas historinhas ilustradas na página seguinte. "
-             "Cada conceito foi escrito com carinho e desenhos claros para que qualquer pessoa compreenda com leveza.</i>", s["small"])
+    p(story, "<i>Guia de jornada: Cada capítulo da sua casa interior cuida de uma etapa da cura. "
+             "Leia com gentileza e pratique com determinação.</i>", s["small"])
     story.append(PageBreak())
 
-    # ═══════════ COMECE POR AQUI — 7 CONCEITOS (2 PÁGINAS CADA) ═══════════
+    # ═══════════ 7 CONCEITOS INICIAIS (ARQUÉTIPOS) ═══════════
 
-    # ── CONCEITO 1: O ALARME (2 páginas) ──
     conceito_duas_paginas(
         story,
         nome_img="alarme",
-        tag="Conceito 1 · O que é o Medo",
+        tag="Conceito 1 · A Porta de Entrada",
+        arquetipo="O Pequeno Sentinela do Hall",
         titulo="O Alarme que Toca sem Fogo",
-        hist_p1="Era uma vez uma casinha muito aconchegante que tinha um robozinho chamado Apitinho. "
-                "Apitinho tinha uma única missão no mundo: proteger a casinha de incêndios perigosos! "
-                "Toda vez que ele via fogo de verdade, ele gritava 'BEEP! BEEP! BEEP!' bem alto, para todo mundo "
-                "correr para o jardim e ficar seguro. Essa era uma tarefa muito nobre e salvava vidas.",
-        hist_p2="Só que um dia, o morador da casinha resolveu tostar uma fatia de pão na torradeira. "
-                "O pãozinho ficou tão gostoso, tão douradinho e quentinho, que soltou uma fumacinha perfumada. "
-                "Apitinho viu aquela fumaça e se desesperou: 'SOCORRO! UM MONSTRO DE FOGO! BEEP! BEEP!' "
-                "O coração do morador disparou, as pernas tremeram... mas quando olhou bem, não tinha fogo nenhum! "
-                "Era só o pãozinho delicioso. O medo na fobia é igualzinho ao Apitinho: um vigia leal, mas tão zeloso "
-                "que grita de pavor diante de um pãozinho torrado.",
-        ciencia_barlow="David H. Barlow, em sua consagrada Teoria da Tríplice Vulnerabilidade e no Protocolo Unificado, "
-                       "define o medo como uma resposta de alarme biológico primário diante de uma ameaça iminente. "
-                       "Na fobia específica, ocorre o fenômeno do <b>Alarme Falso</b> (<i>False Alarm</i>): a amígdala "
-                       "hiperativa aciona o sistema nervoso autônomo simpático através do eixo HPA (hipotálamo-hipófise-adrenal), "
-                       "liberando adrenalina e noradrenalina na ausência de perigo real objetivo. "
-                       "Barlow demonstra que indivíduos com vulnerabilidade biológica e psicológica geral interpretam "
-                       "sensações fisiológicas normais de ativação como catástrofes iminentes.",
-        tcc_pratica="Na TCC, a intervenção inicial consiste na <b>psicoeducação neurofuncional</b>. O paciente aprende a "
-                    "discriminar sinais de perigo real de sinais de desconforto autonômico. Estudos de Barlow & Craske (2014) "
-                    "demonstram que a compreensão de que o alarme é seguro reduz a hipervigilância interoceptiva em até 40% "
-                    "antes mesmo do início da exposição comportamental direta.",
+        hist_p1="Na entrada da nossa casa interior mora o Pequeno Sentinela. Ele é um robozinho dourado muito zeloso, "
+                "que usa um chapeuzinho de guardião e tem a nobre tarefa de cuidar da porta. Toda vez que um perigo real tenta entrar, "
+                "ele apita bem alto: 'BEEP! BEEP! BEEP!'. Esse som faz a casa inteira correr e se proteger. Isso é muito bom e salva vidas!",
+        hist_p2="Só que uma manhã, alguém na cozinha resolveu tostar um pãozinho na torradeira. A torrada ficou crocante e soltou uma "
+                "fumacinha perfumada de manteiga. O Sentinela sentiu o cheirinho, confundiu a fumaça do café da manhã com um incêndio florestal "
+                "e começou a gritar desesperado: 'SOCORRO! UM DRAGÃO DE FOGO INVADIU A SALA!'. O coração disparou, as pernas tremeram... "
+                "mas quando olhamos bem, era só o pão quentinho. O medo na fobia é esse Sentinela: fiel e protetor, mas precisando "
+                "aprender a diferença entre um fogão aceso e um pãozinho torrado.",
+        ciencia_barlow="David H. Barlow, em sua consagrada Teoria da Tríplice Vulnerabilidade e no Protocolo Unificado para Transtornos "
+                       "Emocionais, define o medo fóbico como um <b>Alarme Falso</b> (<i>False Alarm</i>). A amígdala aciona a resposta simpática "
+                       "do eixo HPA (hipotálamo-hipófise-adrenal) sem que haja uma ameaça objetiva proporcional no ambiente. "
+                       "A vulnerabilidade psicológica geral faz o indivíduo interpretar as sensações corporais normais de ativação "
+                       "como sinais iminentes de catástrofe ou perda de controle.",
+        tcc_pratica="Na TCC, a intervenção começa com a psicoeducação do Sentinela: ensinamos a pessoa a reconhecer o alarme falso "
+                    "sem entrar em pânico com o som do apito. Pesquisas de Barlow & Craske (2014) demonstram que apenas entender "
+                    "esse circuito reduz a ansiedade antecipatória em mais de 40% antes mesmo da primeira exposição comportamental.",
         s=s,
     )
 
-    # ── CONCEITO 2: O MONSTRINHO QUE ALIMENTAMOS (2 páginas) ──
     conceito_duas_paginas(
         story,
         nome_img="monstrinho",
-        tag="Conceito 2 · Por que o Medo Cresce",
-        titulo="O Monstrinho que a Gente Alimenta",
-        hist_p1="Em um bosque colorido morava um bichinho chamado Nhozinho. Nhozinho era do tamanho de um botão "
-                "de casaco e tinha uma vozinha fininha. Mas Nhozinho tinha uma fome mágica: a comida favorita dele "
-                "era a nossa fuga! Toda vez que uma criança via o Nhozinho e saía correndo apavorada, "
-                "ele devorava um biscoito gigante de chocolate mágico chamado 'Alívio Imediato'.",
-        hist_p2="Com aquele biscoito, Nhozinho crescia o dobro do tamanho! No dia seguinte, a criança corria de novo, "
-                "ele comia outro biscoito e virava do tamanho de uma geladeira. No fim do mês, Nhozinho parecia um gigante! "
-                "Mas sabe qual era o segredo? Se a criança ficasse parada no lugar, respirando calma e olhando nos olhos dele, "
-                "Nhozinho não ganhava biscoito nenhum. Com fome de fuga, ele ia encolhendo, encolhendo... até caber "
+        tag="Conceito 2 · O Quarto dos Fundos",
+        arquetipo="O Monstrinho das Sombras (A Fuga)",
+        titulo="O Monstrinho que Engorda com Biscoito",
+        hist_p1="No quartinho dos fundos da casa morava Nhozinho, uma criaturinha peluda do tamanho de um botão. Nhozinho tinha uma dieta "
+                "muito curiosa: ele só se alimentava de 'Biscoitos de Fuga'. Toda vez que o Sentinela apitava e alguém corria apavorado "
+                "para se trancar debaixo do edredom, Nhozinho comia um pacote inteiro de biscoitos e dizia: 'Oba! Eles fugiram! Eu sou grandioso!'.",
+        hist_p2="Em poucos meses, de tanto darmos biscoitos de fuga para ele, Nhozinho engordou tanto que ocupou o quarto inteiro e começou "
+                "a empurrar os móveis da sala! Ele virou um monstro enorme que mandava na rotina da família. Mas no dia em que decidimos "
+                "ficar na sala mesmo com medo, Nhozinho não ganhou nenhum biscoito. Ficou com fome, foi encolhendo, encolhendo... até caber "
                 "de novo na palma da mão.",
-        ciencia_barlow="O modelo comportamental de Barlow e Mowrer demonstra o mecanismo do <b>Reforço Negativo</b> "
-                       "(<i>Negative Reinforcement</i>). A conduta de esquiva (evitação) remove temporariamente a aflição "
-                       "psicológica e a ativação fisiológica, gerando uma sensação imediata de alívio. "
-                       "Contudo, a longo prazo, essa fuga impede a refutação da crença catastrófica e fortalece a "
-                       "<b>Vulnerabilidade Psicológica Específica</b>, na qual o cérebro conclui erroneamente: "
-                       "'Só sobrevivi porque escapei'. Assim, a evitação se torna o principal mantenedor do transtorno fóbico.",
-        tcc_pratica="Ensaios clínicos randomizados (Barlow et al., 2017; Hofmann et al., 2012) comprovam que a eliminação "
-                    "das respostas de fuga durante a exposição produz a extinção do comportamento fóbico. "
-                    "Ao cessar a evitação, cortamos o combustível do medo e permitimos que o sistema nervoso aprenda a segurança.",
+        ciencia_barlow="O modelo comportamental de Mowrer e Barlow explica o fenômeno do <b>Reforço Negativo</b> (<i>Negative Reinforcement</i>). "
+                       "A esquiva remove o mal-estar imediato, mas fortalece a crença de que a situação é intrinsecamente perigosa e de que "
+                       "o sujeito é incapaz de suportá-la. A evitação é o verdadeiro 'biscoito' que hipertrofia a fobia ao longo dos anos.",
+        tcc_pratica="A TCC elimina os comportamentos de esquiva e de segurança. Ao suspender a fuga, cortamos a manutenção do sintoma e "
+                    "permitimos a extinção comportamental (Hofmann et al., 2012), devolvendo o controle da casa ao morador consciente.",
         s=s,
     )
 
-    # ── CONCEITO 3: A ESCADA (2 páginas) ──
     conceito_duas_paginas(
         story,
         nome_img="escada",
-        tag="Conceito 3 · Como a Gente Vence",
+        tag="Conceito 3 · A Escada do Sótão",
+        arquetipo="O Mestre Construtor dos Degraus",
         titulo="Subir a Escada, um Degrau de Cada Vez",
-        hist_p1="Era uma vez uma girafinha muito simpática que queria ver as estrelas do alto do telhado do castelo. "
-                "Mas o telhado era muito alto, e a girafinha tinha medo de altura. Se alguém dissesse 'pule lá em cima agora!', "
-                "ela choraria de pavor e travaria no chão, sem conseguir se mexer. Pular o castelo inteiro de uma vez "
-                "é assustador demais para qualquer um.",
-        hist_p2="O sábio do castelo então construiu uma escada de madeira com dez degraus pequenininhos e corrimão firme. "
-                "No primeiro dia, a girafinha subiu apenas no primeiro degrau, que ficava a dois dedinhos do chão. "
-                "Ela respirou, viu que era fácil, bateu palminhas e desceu. No segundo dia, subiu no segundo. "
-                "Degrau por degrau, sem pressa e sem saltos perigosos, quando percebeu... já estava lá no alto, "
-                "admirando o céu estrelado com o coração cheio de orgulho!",
-        ciencia_barlow="A <b>Hierarquia de Exposição Gradual</b> (<i>Graded Exposure Hierarchy</i>) é a pedra angular "
-                       "dos protocolos de TCC para fobias específicas (Barlow, 2002; Antony & Swinson, 2000). "
-                       "A exposição sistemática e hierarquizada fragmenta o estímulo fóbico em Unidades Subjetivas de "
-                       "Desconforto (SUDS, escala de 0 a 100 ou 0 a 10). Isso evita a retraumatização e o abandono terapêutico, "
-                       "promovendo o senso de controle pessoal e autoeficácia (Bandura, 1997).",
-        tcc_pratica="Metanálises rigorosas (Norton & Price, 2007; Wolitzky-Taylor et al., 2008) demonstram que a exposição "
-                    "gradual in vivo atinge tamanhos de efeito expressivos (d de Cohen > 1.2), sendo a intervenção de primeira "
-                    "linha padrão-ouro internacional para superação de fobias circunscritas.",
+        hist_p1="No centro da casa havia uma escadaria de carvalho que levava ao sótão das estrelas. A girafinha Tatá queria muito ver as "
+                "constelações, mas tinha pavor de altura. Se alguém ordenasse 'pule lá no teto de uma vez!', ela desmaiaria de susto. "
+                "Ninguém consegue saltar uma casa inteira em um único salto.",
+        hist_p2="O Mestre Construtor então pregou dez pequenas tábuas de madeira na parede, cada uma com apenas cinco centímetros de altura "
+                "e um corrimão macio. No primeiro dia, Tatá subiu no primeiro degrau, tocou com o focinho, respirou fundo e desceu sorrindo. "
+                "No segundo dia, subiu no segundo. Sem correria e sem saltos desesperados, em poucas semanas ela estava no topo da casa, "
+                "observando o céu com o coração transbordando de alegria e paz.",
+        ciencia_barlow="A <b>Hierarquia de Exposição Sistemática Gradual</b> (Antony & Swinson, 2000; Barlow, 2002) divide a situação temida "
+                       "em unidades graduadas de desconforto subjetivo (SUDS). Isso previne a retraumatização e promove a autoeficácia "
+                       "progressiva de Bandura, permitindo que a neuroplasticidade consolide novas rotas de enfrentamento com segurança.",
+        tcc_pratica="Ensaios clínicos demonstram que a exposição hierarquizada in vivo apresenta índices de eficácia superiores a 80%, "
+                    "sendo o protocolo padrão-ouro mundial para fobias específicas (Wolitzky-Taylor et al., 2008).",
         s=s,
     )
 
-    # ── CONCEITO 4: A PISCINA FRIA (2 páginas) ──
     conceito_duas_paginas(
         story,
         nome_img="piscina",
-        tag="Conceito 4 · Por que Funciona",
+        tag="Conceito 4 · O Jardim e a Piscina",
+        arquetipo="O Guardião das Águas Claras",
         titulo="A Piscina Fria e o Segredo do Tempo",
-        hist_p1="Em um dia ensolarado de verão, o ursinho Pingo correu para a piscina. Quando colocou a patinha na água, "
-                "deu um pulo para trás e gritou: 'BRRRR! QUE ÁGUA CONGELANTE! NÃO VOU ENTRAR NUNCA MAIS!' "
-                "A pele dele ficou arrepiada e ele achou que congelaria se ficasse ali. Mas a mamãe ursa, com muita ternura, "
-                "entrou na água e chamou Pingo para ficar de mãos dadas com ela na parte rasa.",
-        hist_p2="Pingo tremia nos primeiros trinta segundos. No primeiro minuto, ainda achava gelada. Mas no terceiro minuto, "
-                "algo mágico aconteceu: a água parecia bem mais quentinha! No quinto minuto, Pingo já estava brincando "
-                "e espirrando água para todo lado feliz da vida! A água não mudou de temperatura: foi o corpinho do Pingo "
-                "que se acostumou. O medo funciona igual: nos primeiros minutos parece insuportável, mas se você não fugir, "
-                "ele esfria sozinho!",
-        ciencia_barlow="O princípio da <b>Habituação Psicofisiológica</b> e do <b>Aprendizado Inibitório</b> (Craske, Treanor, "
-                       "Conway, Zbozinek & Vervliet, 2014; Barlow, 2008). A resposta autonômica de ansiedade possui um pico "
-                       "neurofisiológico autolimitado devido à fadiga dos receptores simpáticos e à ativação compensatória "
-                       "do sistema nervoso parassimpático (nervo vago). A permanência no estímulo sem respostas de escape "
-                       "permite que a curva de ansiedade atinja o ápice e decline naturalmente.",
-        tcc_pratica="Durante a sessão de TCC, o paciente monitora a curva de SUDS a cada 5 minutos. A permanência "
-                    "até a redução de pelo menos 50% do nível de pico consolida o aprendizado de que as sensações de pânico "
-                    "são transitórias e toleráveis, desarmando o ciclo de catastrofização.",
+        hist_p1="No jardim da casa havia uma piscina de pedras azuis. Em uma tarde de sol, o ursinho Pingo encostou a pontinha da pata na água "
+                "e gritou: 'SOCORRO! ESTÁ CONGELADA! NUNCA MAIS CHEGO PERTO!'. Ele achava que seus pelos iriam virar gelo instantaneamente. "
+                "Mas a mamãe ursa, com muita calma, entrou na água e segurou suas mãozinhas na parte rasa.",
+        hist_p2="No primeiro minuto, Pingo bateu o queixo. No segundo minuto, achou suportável. No quarto minuto, arregalou os olhos e disse: "
+                "'Mamãe, quem esquentou a água?'. A água não havia esquentado nem um único grau: foi o corpinho do ursinho que se acostumou! "
+                "O medo fóbico é igualzinho: quando você entra na situação e não foge nos primeiros minutos, o cérebro percebe que não há perigo "
+                "e a ansiedade esfria naturalmente por conta própria.",
+        ciencia_barlow="Este é o clássico princípio da <b>Habituação Psicofisiológica</b> e da regulação parassimpática (Craske et al., 2014; "
+                       "Barlow, 2008). A descarga adrenérgica é metabolicamente autolimitada; os receptores simpáticos entram em saturação e "
+                       "o nervo vago assume o controle somático, promovendo desaceleração cardiovascular e relaxamento involuntário.",
+        tcc_pratica="Na exposição assistida por TCC, orientamos o paciente a permanecer na situação até que o nível de SUDS caia pelo menos 50% "
+                    "do pico. Esse dado fisiológico quebra a crença de que a ansiedade cresceria até o infinito.",
         s=s,
     )
 
-    # ── CONCEITO 5: ENSINAR O CACHORRINHO (2 páginas) ──
     conceito_duas_paginas(
         story,
         nome_img="cachorrinho",
-        tag="Conceito 5 · Como o Cérebro Aprende",
+        tag="Conceito 5 · O Canil do Pátio",
+        arquetipo="O Adestrador do Filhote Leal",
         titulo="Ensinar o Cachorrinho: O Cérebro que Aprende",
-        hist_p1="O cachorrinho Pipoca morria de medo do aspirador de pó. Toda vez que alguém ligava o aparelho na tomada, "
-                "Pipoca corria para debaixo da cama, rosnava, tremia e achava que aquele monstro de rodinhas iria mordê-lo. "
-                "Gritar com o Pipoca ou empurrá-lo à força para perto do aspirador só o deixava com mais pânico ainda. "
-                "Ele precisava de um treino gentil.",
-        hist_p2="No primeiro dia, o dono colocou o aspirador desligado no canto da sala e deu um petisco gostoso para o Pipoca "
-                "quando ele cheirou de longe. No segundo dia, ligou o aparelho no quarto vizinho e fez carinho. No terceiro dia, "
-                "Pipoca já comia seu biscoitinho deitado tranquilamente ao lado do aspirador ligado! "
-                "O cérebro do Pipoca criou um novo arquivo mental de segurança. O seu cérebro é igual: com carinho e passos certos, "
-                "ele aprende que o que antes dava medo agora é só uma coisa normal.",
-        ciencia_barlow="No modelo neurobiológico de Barlow, Ledoux e Phelps, a extinção do medo não apaga a memória "
-                       "fóbica original na amígdala, mas constrói uma <b>nova memória inibidora</b> mediada pelo córtex "
-                       "pré-frontal ventromedial (vmPFC). O cérebro aprende uma nova relação condicional: "
-                       "'Este estímulo agora significa segurança'. Esse processo exige estimulação repetida com desfecho seguro.",
-        tcc_pratica="Na prática clínica de TCC, realizamos <b>experimentos comportamentais</b> sistemáticos. "
-                    "O terapeuta auxilia o paciente a testar previsões de perigo, gerando <i>Prediction Error</i> "
-                    "(erro de predição): a discrepância entre a expectativa de tragédia e a realidade observada "
-                    "potencializa a neuroplasticidade e a consolidação do novo aprendizado.",
+        hist_p1="No pátio da casa morava Pipoca, um cachorrinho fofinho que entrava em pânico toda vez que ouvia o motor do aspirador de pó. "
+                "Ele latia, rosnava e tentava cavar um buraco no tapete para se esconder. Se alguém brigasse com ele ou o empurrasse à força "
+                "contra o aparelho, Pipoca ficava com o dobro de medo. Ele precisava de paciência e carinho.",
+        hist_p2="O dono colocou o aspirador desligado a cinco metros de distância e colocou um biscoitinho saboroso no chão. Pipoca comeu e "
+                "abanou o rabinho. No dia seguinte, ligou o aparelho no quarto fechado enquanto fazia cafuné no Pipoca. Em três dias, o cachorrinho "
+                "já tirava uma soneca deliciosa encostado no aspirador funcionando! O cérebro do filhote criou um novo caminho neural de calma. "
+                "O seu cérebro aprende exatamente da mesma forma.",
+        ciencia_barlow="No modelo neurobiológico contemporâneo de LeDoux, Phelps e Barlow, a extinção do medo não apaga a memória amigdalina "
+                       "antiga, mas constrói uma <b>Memória Inibitória Nova</b> no córtex pré-frontal ventromedial (vmPFC). "
+                       "O cérebro cria uma regra de segurança que passa a prevalecer sobre a regra de pânico.",
+        tcc_pratica="A prática deliberada de experimentos comportamentais na TCC gera <i>Prediction Error</i> (discrepância entre a catástrofe "
+                    "prevista e o desfecho benigno), mecanismo essencial para a neuroplasticidade e cura a longo prazo (Craske et al., 2014).",
         s=s,
     )
 
-    # ── CONCEITO 6: SOPRAR AS VELINHAS (2 páginas) ──
     conceito_duas_paginas(
         story,
         nome_img="velinha",
-        tag="Conceito 6 · O Freio do Corpinho",
-        titulo="Soprar as Velinhas Devagar: O Freio Mágico",
-        hist_p1="Imagine que o nosso corpinho é como um carrinho veloz. Quando o medo chega, é como se alguém pisasse "
-                "no acelerador com toda força: o motor ronca (o coração bate tum-tum-tum), as rodas giram rápido (a respiração "
-                "fica curtinha) e o carrinho quer sair em disparada! Isso é ótimo se tivermos que fugir de um leão na selva, "
-                "mas na nossa sala de estar não tem leão nenhum.",
-        hist_p2="Por sorte, o nosso corpinho vem de fábrica com um pedal de freio mágico super potente chamado Respiração Lenta! "
-                "Para acionar o freio, é só fazer assim: puxa o ar pelo nariz como se estivesse cheirando uma florzinha perfumada "
-                "(1, 2, 3, 4) e solta o ar pela boca bem devagarzinho, como quem sopra a velinha de aniversário sem querer "
-                "apagá-la de uma vez (1, 2, 3, 4, 5, 6). Em poucos segundos, o motor desacelera e a calmaria volta.",
-        ciencia_barlow="O treino de <b>Regulação Autonômica e Respiração Diafragmática Lenta</b> (Barlow & Craske, 2007) "
-                       "atua estimulando o tônus vagal parassimpático. A expiração prolongada ativa barorreceptores carotídeos, "
-                       "desacelerando o nó sinoatrial cardíaco e reduzindo a hipocapnia provocada pela hiperventilação fóbica. "
-                       "A respiração controlada funciona como recurso de estabilização somática para permitir a permanência na exposição.",
-        tcc_pratica="Ensinamos a cadência 4-6 (4 segundos inspirando, 6 expirando) como competência de enfrentamento. "
-                    "Barlow ressalta que a regulação somática deve ser utilizada como suporte de enfrentamento, e não como "
-                    "esquiva sutil, capacitando o sujeito a navegar pelo desconforto com soberania.",
+        tag="Conceito 6 · A Cozinha da Casa",
+        arquetipo="O Soprador das Velinhas da Sala",
+        titulo="Soprar as Velinhas Devagar: O Freio do Corpinho",
+        hist_p1="Quando o susto aparece, a cozinha da nossa casa interior ferve como uma panela de pressão: o coração bate tum-tum-tum feito "
+                "motor de corrida, a respiração fica curtinha e as mãos tremem. Isso acontece porque o corpo pisou no acelerador para correr. "
+                "Mas dentro da nossa sala não tem leão nenhum para fugir!",
+        hist_p2="A boa notícia é que temos um pedal de freio mágico chamado Respiração Lenta. É só fazer assim: puxa o ar pelo nariz cheirando "
+                "uma florzinha de laranjeira (1, 2, 3, 4) e solta pela boca bem devagarzinho, soprando a velinha do bolo de aniversário sem querer "
+                "apagá-la (1, 2, 3, 4, 5, 6). Em menos de um minuto, o motor desacelera, a panela esfria e a serenidade volta para a sala.",
+        ciencia_barlow="A <b>Respiração Diafragmática Paced</b> e a ativação vagal (Barlow & Craske, 2007) atuam diretamente nos barorreceptores "
+                       "arteriais, restaurando os níveis normais de dióxido de carbono no sangue e revertendo a vasoconstrição cerebral provocada "
+                       "pela hiperventilação fóbica.",
+        tcc_pratica="O treino do freio somático capacita o paciente a permanecer na tarefa de exposição sem recorrer a esquivas desesperadas, "
+                    "fortalecendo a autoeficácia e a soberania corporal sobre os sintomas autonômicos.",
         s=s,
     )
 
-    # ── CONCEITO 7: DOMAR O DRAGÃO (2 páginas) ──
     conceito_duas_paginas(
         story,
         nome_img="dragao",
-        tag="Conceito 7 · A Coragem que Transforma",
-        titulo="Domar o Dragão: O Medo que Vira Amigo",
-        hist_p1="Nos antigos contos dos templos japoneses, vivia na floresta um dragão magnífico chamado Ryu. "
-                "Todos os aldeões tinham pavor do dragão porque ele rugia alto e soltava faíscas pelo nariz. "
-                "Muitos guerreiros tentavam lutar contra ele com espadas e flechas, mas o dragão ficava mais bravo ainda. "
-                "Quanto mais lutavam contra o dragão, mais chamas ele lançava sobre a aldeia.",
-        hist_p2="Um dia, uma menina corajosa decidiu ir até a montanha desarmada, levando apenas um sorriso e uma cesta de frutas. "
-                "Ela sentou-se na entrada da caverna, respirou fundo e olhou com doçura nos olhos brilhantes de Ryu. "
-                "O dragão percebeu que não precisava atacar e deitou a cabecinha no colo dela. A menina descobriu que "
-                "o fogo do dragão não era maldade: era apenas pura energia e força! Quando você para de lutar contra o medo "
-                "e aprende a acolhê-lo com método, aquela mesma força se transforma na sua maior coragem.",
-        ciencia_barlow="A abordagem integrativa de David H. Barlow no <b>Protocolo Unificado para Tratamento Transdiagnóstico "
-                       "dos Transtornos Emocionais</b> (Barlow et al., 2011, 2018) preconiza a <i>Aceitação Emocional Plena</i> "
-                       "(Emotional Acceptance) e a desfusão cognitiva. Em vez de suprimir ou travar uma guerra contra a ansiedade, "
-                       "o paciente desenvolve flexibilidade psicológica e tolerância ao afeto negativo. A energia da resposta emocional "
-                       "é redirecionada para ações congruentes com valores de vida valorizados.",
-        tcc_pratica="Ensaios multicêntricos de larga escala (Barlow et al., JAMA Psychiatry, 2017) comprovam que a aceitação "
-                    "das sensações emocionais associada a ações guiadas por valores supera a esquiva experiencial, gerando taxas de "
-                    "remissão superiores a 75% com manutenção dos ganhos terapêuticos em seguimentos de longo prazo (2 a 5 anos).",
+        tag="Conceito 7 · A Lareira Central",
+        arquetipo="O Dragão da Lareira Ancestral",
+        titulo="Domar o Dragão: O Medo que Vira Coragem",
+        hist_p1="Na lareira principal da nossa casa ancestral vivia Ryu, um dragão pequenino feito de fogo e vento. Durante anos, a família "
+                "achou que Ryu era um monstro terrível e tentava apagá-lo jogando baldes de água gelada. Mas quanto mais água jogavam, "
+                "mais fumaça cinzenta ele soltava, sufocando a casa toda de angústia.",
+        hist_p2="Uma menina corajosa sentou-se diante da lareira, olhou nos olhos dourados do dragão e disse: 'Eu sei que você só quer "
+                "nos aquecer no inverno'. Ela respirou fundo e ofereceu um galho de canela aromática. O dragão suspirou aliviado, deitou as chamas "
+                "com doçura e aqueceu o lar inteiro com um brilho acolhedor. O medo não precisa ser destruído: ele é a sua própria força vital "
+                "que, quando compreendida e domada, vira a sua maior coragem.",
+        ciencia_barlow="O <b>Protocolo Unificado Transdiagnóstico</b> de David H. Barlow (2011, 2018) preconiza a <i>Aceitação Emocional Plena</i> "
+                       "e a flexibilidade psicológica. Em vez de travar uma guerra contra as próprias emoções, o indivíduo aprende a tolerar o "
+                       "afeto aversivo e a redirecionar a energia somática para comportamentos valorizados e alinhados com seus propósitos de vida.",
+        tcc_pratica="Ensaios multicêntricos de larga escala (Barlow et al., JAMA Psychiatry, 2017) comprovam que a aceitação experiencial "
+                    "produz taxas de remissão superiores a 75% com sustentabilidade clínica por mais de cinco anos.",
         s=s,
     )
 
     # ═══════════ PARTE I ═══════════
-    section_break(story, "PARTE I", "Psicoeducação:\ncomo o medo funciona", s)
+    section_break(story, "CAPÍTULO I", "O Vigia da Porta:\nPsicoeducação do Alarme", s)
 
-    p(story, "1. O alarme que salva — e o alarme que exagera", s["h1"])
+    story.append(story_box(
+        arquetipo="O Vigia da Porta de Entrada",
+        titulo_conto="A Noite do Grande Vento na Janela",
+        texto_conto="O Vigia da Porta passa as noites sentado no hall de entrada com sua lanterna de latão. "
+                    "Certa noite, o vento de outono bateu nas folhas da trepadeira e fez um barulho seco na vidraça: 'TOC-TOC-TOC'. "
+                    "O Vigia saltou da cadeira, tocou o sino de bronze com toda força e gritou que um exército de piratas estava invadindo a casa! "
+                    "A casa inteira acordou sobressaltada. Quando abriram a cortina com calma, viram apenas uma folha seca dançando na brisa. "
+                    "O Vigia não tinha más intenções: ele apenas precisava de uma lâmpada mais clara para aprender a enxergar as folhas sem "
+                    "chamar a cavalaria real.",
+        s=s,
+    ))
+
+    p(story, "1. A Biologia do Medo Útil versus o Alarme Falso", s["h1"])
     story.append(hr())
     story.append(ilustra("alarme", 6.5 * cm))
-    story.append(Spacer(1, 8))
-    p(story, "Imagine um templo antigo no alto de uma montanha. No pátio há um sino enorme. "
-      "Quando um visitante se aproxima demais da beirada do penhasco, o sino toca — "
-      "alerta de perigo real. Esse é o <b>medo útil</b>: proteção biológica fundamental para a sobrevivência.", s["body"])
-    p(story, "Agora imagine o mesmo sino tocando só porque alguém viu a <i>foto</i> de um "
-      "penhasco, ou pensou na palavra “altura”, ou sonhou com escadas. O sino não está "
-      "quebrado — ele está <b>calibrado com sensibilidade excessiva</b>. Essa é a lógica da fobia específica segundo "
-      "os achados de David H. Barlow: um sistema de alarme saudável que dispara diante de um gatilho "
-      "desproporcional ao risco real objetivo.", s["body"])
-    p(story, "Você não é fraco(a). Seu cérebro é eficiente demais em lembrar e antecipar ameaças. "
-      "A boa notícia: essa calibração se reensina — degrau a degrau, com evidência científica sólida.", s["body"])
-    p(story, "“O dragão não diminui quando gritamos com ele. Ele se acalma quando caminhamos em sua direção "
-      "com passos pequenos, claros e repetidos.”", s["quote"])
-    story.append(Spacer(1, 10))
-
-    p(story, "2. O ciclo que mantém a fobia (Mowrer & Barlow)", s["h1"])
-    story.append(hr())
-    story.append(ilustra("monstrinho", 6.5 * cm))
-    story.append(Spacer(1, 8))
-    p(story, "Quase toda fobia específica se alimenta do mesmo ciclo de reforçamento negativo:", s["body"])
-    story.append(bullets([
-        "<b>Gatilho</b> — situação, imagem, pensamento, sensação interna ou lembrança.",
-        "<b>Alarme</b> — ansiedade sobe (coração, respiração, tremor, vontade urgente de fugir).",
-        "<b>Evitação ou “muleta”</b> — fugir, adiar, checar, só fazer acompanhado, usar substâncias.",
-        "<b>Alívio imediato</b> — a ansiedade cai rapidamente… e o cérebro grava: “fugir foi o que me salvou”.",
-        "<b>Medo maior amanhã</b> — a crença de perigo nunca é desmentida pela realidade e o medo cresce.",
-    ], s["body_left"]))
-    p(story, "Quebrar o ciclo não exige heroísmo desmedido. Exige <b>método estruturado</b>: exposição gradual, "
-      "permanência segura, registro de predição e repetição sistemática.", s["body"])
+    story.append(Spacer(1, 6))
+    p(story, "O medo é um dispositivo biológico refinado ao longo de milhões de anos de evolução. Sem ele, nossos ancestrais teriam sido "
+      "devorados por predadores ou teriam despencado de despenhadeiros. O medo útil preserva a integridade física.", s["body"])
+    p(story, "Na fobia específica, conforme demonstrado por David H. Barlow, o sistema de alerta sofre uma <b>hipercalibração de sensibilidade</b>. "
+      "A amígdala cerebral interpreta estímulos neutros ou de baixo risco objetivo (uma altura protegida por parapeito, um inseto inofensivo, "
+      "uma viagem de avião comercial, um elevador moderno) como se fossem ameaças mortais imediatas.", s["body"])
+    p(story, "Você não possui uma falha de caráter e não é uma pessoa covarde. O seu Vigia da Porta é apenas vigilante demais. "
+      "O tratamento da fobia consiste em fornecer novas lentes de discernimento para esse vigia interno.", s["body"])
     story.append(PageBreak())
 
-    p(story, "3. Medo, ansiedade e fobia — três fenômenos distintos", s["h1"])
+    p(story, "2. O Circuito Neurobiológico da Fobia (Eixo HPA)", s["h1"])
     story.append(hr())
-    p(story, "Na psicopatologia contemporânea de David H. Barlow, distinguimos com clareza:", s["body"])
-    p(story, "• <b>Medo:</b> resposta de alarme presente e imediata a uma ameaça concreta (luta/fuga).<br/>"
-      "• <b>Ansiedade:</b> estado de humor voltado para o futuro, caracterizado por apreensão e hipervigilância.<br/>"
-      "• <b>Fobia Específica:</b> medo clinicamente desproporcional e persistente de um objeto ou situação circunscrita.", s["body"])
-    p(story, "Metáfora do jardim zen: o medo é a pedra que você encontra no caminho. "
-      "A ansiedade é imaginar pedras em todas as curvas da floresta. "
-      "A fobia é deixar de passear no bosque para nunca correr o risco de avistar uma pedra.", s["body"])
-    story.append(Spacer(1, 8))
-
-    p(story, "4. Por que “só o tempo” raramente cura a fobia", s["h2"])
-    p(story, "Sem novas experiências corretivas de segurança, o cérebro mantém o arquivo antigo arquivado na amígdala. "
-      "O tempo isolado não reescreve circuitos neurais de medo condicionado. "
-      "A exposição sistemática, amparada por novos aprendizados inibitórios, é o mecanismo validado que reescreve essa resposta.", s["body"])
-    story.append(Spacer(1, 8))
-
-    p(story, "5. O corpo na fobia: neurobiologia da ativação", s["h1"])
-    story.append(hr())
-    p(story, "Quando a amígdala sinaliza ameaça, o sistema nervoso simpático recruta recursos fisiológicos imediatos:", s["body"])
+    p(story, "Quando a amígdala detecta um sinal fóbico, ela dispara uma cascata bioquímica em milésimos de segundo:", s["body"])
     story.append(bullets([
-        "Aceleração cardíaca e redistribuição do fluxo sanguíneo para grandes grupos musculares.",
-        "Hiperventilação adaptativa para oxigenação rápida dos tecidos.",
-        "Sudorese para resfriamento térmico e aumento da aderência motora.",
-        "Tensão muscular e inibição de processos digestivos.",
-        "Dilatação pupilar para captação ampliada de estímulos visuais.",
+        "<b>Estímulo Sensorial:</b> os olhos, ouvidos ou a imaginação registram o gatilho fóbico.",
+        "<b>Via Rápida Talâmica:</b> o tálamo envia sinal direto à amígdala antes mesmo do córtex racional processar o que viu.",
+        "<b>Ativação Simpática:</b> liberação maciça de adrenalina e noradrenalina pelas glândulas adrenais.",
+        "<b>Redirecionamento Sanguíneo:</b> o sangue sai do sistema digestivo e da pele e irriga os grandes músculos das pernas e braços para luta ou fuga.",
+        "<b>Hiperventilação:</b> respiração rápida para captar oxigênio extra, gerando tontura e formigamento nas extremidades.",
     ], s["body_left"]))
-    p(story, "Essas respostas são <b>desconfortáveis</b>, mas <b>biologicamente inofensivas</b>. "
-      "Elas representam o organismo operando em sua capacidade máxima de defesa. Na terapia, ensinamos o corpo "
-      "a tolerar e reconhecer essas sensações sem interpretá-las como morte ou colapso.", s["body"])
+    p(story, "Compreender essa fisiologia é libertador: as sensações corporais não são sinais de ataque cardíaco, loucura ou morte iminente. "
+      "São apenas a musculatura e o coração recebendo ordens de um Vigia que se assustou com uma folha na janela.", s["body"])
+    story.append(Spacer(1, 8))
     story.append(callout(
-        "Lembrete Científico de Barlow",
-        "A ativação fisiológica durante a exposição não é sinal de retrocesso. É a matéria-prima biológica necessária "
-        "para que o córtex pré-frontal registre que as sensações são suportáveis e seguras.",
+        "Mantra do Vigia da Porta",
+        "“Meu corpo está ativo porque meu vigia se assustou. Eu respiro com calma, olho a realidade e mostro a ele que estamos seguros.”",
         s,
     ))
     story.append(PageBreak())
 
-    # ═══════════ PARTE II DSM-5 ═══════════
-    section_break(story, "PARTE II", "O que é fobia\nsegundo o DSM-5", s)
+    # ═══════════ PARTE II ═══════════
+    section_break(story, "CAPÍTULO II", "O Construtor do Labirinto:\nCritérios do DSM-5", s)
 
-    p(story, "6. Critérios diagnósticos essenciais (DSM-5 / APA)", s["h1"])
+    story.append(story_box(
+        arquetipo="O Construtor do Labirinto de Caixas",
+        titulo_conto="As Muralhas de Papelão na Sala de Estar",
+        texto_conto="O Construtor morava na sala e tinha mania de erguer labirintos de caixas de papelão para não ter que olhar "
+                    "pela janela grande. Cada vez que sentia um friozinho na barriga, empilhava mais uma caixa: 'Assim fico protegido!'. "
+                    "Com o passar dos meses, o labirinto ficou tão apertado que ele mal conseguia andar até a cozinha para beber água. "
+                    "Ele achava que as caixas o protegiam do mundo, mas na verdade as caixas haviam construído a sua prisão.",
+        s=s,
+    ))
+
+    p(story, "3. Os Critérios Diagnósticos do DSM-5 em Linguagem Clara", s["h1"])
     story.append(hr())
-    p(story, "O Manual Diagnóstico e Estatístico de Transtornos Mentais (DSM-5-TR) estabelece os seguintes critérios para Fobia Específica:", s["body"])
+    p(story, "O Manual Diagnóstico e Estatístico de Transtornos Mentais (DSM-5-TR), elaborado pela Associação Americana de Psiquiatria (APA), "
+      "estabelece critérios clínicos rigorosos para caracterizar a Fobia Específica:", s["body"])
     story.append(bullets([
-        "<b>Medo ou ansiedade marcantes</b> sobre um objeto ou situação específica.",
-        "O estímulo fóbico <b>quase invariavelmente</b> provoca resposta imediata de medo ou ansiedade.",
-        "O objeto ou situação é <b>ativamente evitado</b> ou suportado com intensa aflição.",
-        "A resposta é <b>desproporcional</b> ao perigo real imposto pelo objeto ou situação.",
-        "O medo, ansiedade ou esquiva é <b>persistente</b>, durando tipicamente 6 meses ou mais.",
-        "Provoca <b>sofrimento clinicamente significativo</b> ou prejuízo social, ocupacional ou em outras áreas cruciais.",
-        "A perturbação não é mais bem explicada por sintomas de outro transtorno mental.",
-    ], s["body_left"]))
-    story.append(Spacer(1, 8))
-
-    p(story, "7. Os cinco subtipos clássicos", s["h1"])
-    story.append(hr())
-    story.append(bullets([
-        "<b>Animal:</b> aranhas (aracnofobia), cães (cinofobia), cobras (ofidiofobia), insetos.",
-        "<b>Ambiente Natural:</b> alturas (acrofobia), tempestades (astrafobia), água profunda (talassofobia).",
-        "<b>Sangue-Injeção-Ferimentos (BII):</b> agulhas (tripanofobia), sangue (hematofobia) — apresenta resposta bifásica vasovagal.",
-        "<b>Situacional:</b> aviões (aerofobia), elevadores (claustrofobia), dirigir (amaxofobia).",
-        "<b>Outro:</b> medo de engasgar, vomitar (emetofobia), sons intensos (ligirofobia).",
-    ], s["body_left"]))
-    story.append(Spacer(1, 8))
-
-    p(story, "8. Epidemiologia e curso clínico", s["h1"])
-    story.append(hr())
-    p(story, "Estudos epidemiológicos em larga escala (Kessler et al., 2005; Stinson et al., 2007) indicam que a prevalência "
-      "ao longo da vida para fobias específicas situa-se entre 7% e 12% da população geral, figurando entre os transtornos "
-      "mais prevalentes na clínica psiquiátrica mundial.", s["body"])
-    p(story, "Sem tratamento empírico estruturado, a taxa de remissão espontânea em adultos é inferior a 20%, "
-      "perpetuando limitações crônicas em planos de carreira, cuidados preventivos de saúde e qualidade de vida familiar.", s["body"])
-    story.append(PageBreak())
-
-    # ═══════════ PARTE III SINTOMAS ═══════════
-    section_break(story, "PARTE III", "Todos os sintomas:\ncorpo, mente e ação", s)
-
-    p(story, "9. Sintomatologia somática detalhada", s["h1"])
-    story.append(hr())
-    story.append(bullets([
-        "Cardiovascular: taquicardia paroxística sinusal, aumento transitório de pressão arterial.",
-        "Respiratório: taquipneia, sensação de sufocamento e hiperventilação com alcalose respiratória leve.",
-        "Neuromuscular: tremores finos ou grosseiros, rigidez cervical e lombar, hipertonia reflexa.",
-        "Gastrintestinal: inibição salivar (boca seca), náusea, motilidade colônica alterada.",
-        "Neurovegetativo: sudorese diaforética, parestesias em extremidades e labilidade vasomotora.",
-    ], s["body_left"]))
-    story.append(Spacer(1, 8))
-
-    p(story, "10. Sintomas cognitivos e erros de processamento", s["h1"])
-    story.append(hr())
-    story.append(bullets([
-        "<b>Superestimação de Probabilidade:</b> superdimensionar a chance de ocorrência de desastres.",
-        "<b>Catastrofização:</b> concluir que o desfecho temido seria intolerável e fatal.",
-        "<b>Subestimação de Coping:</b> crença nuclear de incapacidade de tolerar o afeto negativo.",
-        "<b>Hipervigilância Atencional:</b> escaneamento incessante de pistas ambientais ligadas ao medo.",
-    ], s["body_left"]))
-    story.append(Spacer(1, 8))
-
-    p(story, "11. Sintomas comportamentais e custos de vida", s["h1"])
-    story.append(hr())
-    story.append(bullets([
-        "Esquiva ativa aberta (recusa de voos, exames, viagens, reuniões presenciais).",
-        "Esquiva sutil e comportamentos de segurança encobertos.",
-        "Uso iatrogênico de ansiolíticos ou álcool como facilitadores artificiais de enfrentamento.",
-        "Prejuízos acumulados em autonomia, renda e relacionamentos significativos.",
+        "<b>Critério A (Medo Acentuado):</b> medo ou ansiedade marcante e desproporcional acerca de um objeto ou situação específica.",
+        "<b>Critério B (Provocação Quase Invariável):</b> a exposição ao estímulo provoca resposta ansiosa quase que imediatamente.",
+        "<b>Critério C (Esquiva Ativa):</b> a situação fóbica é ativamente evitada ou suportada com intenso sofrimento e angústia.",
+        "<b>Critério D (Desproporção Real):</b> a intensidade do medo é desproporcional ao perigo real representado pelo objeto no contexto sociocultural.",
+        "<b>Critério E (Persistência Temporal):</b> o medo, a ansiedade ou a esquiva é persistente, com duração mínima típica de 6 meses.",
+        "<b>Critério F (Prejuízo Funcional):</b> causa sofrimento clinicamente significativo ou prejuízo social, ocupacional e pessoal.",
+        "<b>Critério G (Diagnóstico Diferencial):</b> o quadro não é mais bem explicado por pânico, agorafobia, TOC, TEPT ou ansiedade social.",
     ], s["body_left"]))
     story.append(PageBreak())
 
-    p(story, "12. Checklist de automonitoramento", s["h1"])
+    p(story, "4. Os Cinco Subtipos Clínicos do DSM-5", s["h1"])
     story.append(hr())
-    checks = [
-        "□ Reação de alarme imediata diante do estímulo",
-        "□ Evitação sistemática de compromissos pelo medo",
-        "□ Desconforto intenso ao ser forçado a enfrentar",
-        "□ Consciência da desproporção sem conseguir interromper a reação",
-        "□ Limitações em saúde, trabalho ou lazer há mais de 6 meses",
-        "□ Uso de pessoas ou objetos como muletas de segurança",
-        "□ Sintomas autonômicos intensos (taquicardia, falta de ar, suor)",
-        "□ Pensamentos catastróficos automáticos e persistentes",
+    p(story, "O DSM-5 categoriza as fobias em cinco grandes especificadores clínicos:", s["body"])
+    story.append(bullets([
+        "<b>1. Animal:</b> aranhas (aracnofobia), cães (cinofobia), cobras (ofidiofobia), insetos, pássaros, roedores.",
+        "<b>2. Ambiente Natural:</b> alturas (acrofobia), tempestades (brontofobia), água profunda (talassofobia), escuro.",
+        "<b>3. Sangue-Injeção-Ferimentos (BII):</b> agulhas (aicanfobia), procedimentos médicos, sangue. Possui resposta vasovagal bifásica.",
+        "<b>4. Situacional:</b> aviões (aerofobia), elevadores, túneis, pontes, dirigir em rodovias, espaços fechados (claustrofobia).",
+        "<b>5. Outros:</b> vômito (emetofobia), engasgamento, sons intensos, personagens fantasiados.",
+    ], s["body_left"]))
+    p(story, "Cada subtipo possui particularidades na montagem da escada, mas todos compartilham o mesmo núcleo neuropsicológico de esquiva.", s["body"])
+    story.append(PageBreak())
+
+    # ═══════════ PARTE III ═══════════
+    section_break(story, "CAPÍTULO III", "O Mensageiro das Luzes:\nTodos os Sintomas", s)
+
+    story.append(story_box(
+        arquetipo="O Mensageiro das Luzes no Corredor",
+        titulo_conto="O Painel que Acendeu Todas as Cores",
+        texto_conto="No corredor dos quartos havia um painel com dezenas de lâmpadas coloridas cuidadas pelo Mensageiro. "
+                    "Havia lâmpadas vermelhas para o coração, azuis para a respiração, amarelas para o estômago e verdes para as pernas. "
+                    "Quando o medo soprava pelo corredor, o Mensageiro acendia todas as lâmpadas de uma vez só! "
+                    "As luzes piscavam tão rápido que parecia um festival de fogos de artifício. "
+                    "O morador da casa gritava: 'O painel vai explodir!'. Mas o Mensageiro explicava com ternura: "
+                    "'Não vai explodir, amigo. As lâmpadas apenas acenderam para te avisar que estamos vivos e prontos para aprender'.",
+        s=s,
+    ))
+
+    p(story, "5. A Tríade Completa dos Sintomas Fóbicos", s["h1"])
+    story.append(hr())
+    p(story, "A resposta fóbica manifesta-se em três eixos integrados:", s["body"])
+    story.append(bullets([
+        "<b>Eixo Fisiológico (O Corpo):</b> taquicardia, sudorese palmar, boca seca, tremor, náusea, hipertonia muscular, tontura, sensação de nó na garganta.",
+        "<b>Eixo Cognitivo (A Mente):</b> superestimação de probabilidade de dano, subestimação de enfrentamento, imagens intrusivas de catástrofe, pensamentos do tipo 'vou perder o controle'.",
+        "<b>Eixo Comportamental (A Ação):</b> fuga imediata, cancelamento de compromissos, busca incessante de reasseguramento, uso de amuletos de segurança.",
+    ], s["body_left"]))
+    story.append(Spacer(1, 6))
+    p(story, "Identificar em qual eixo a sua resposta costuma começar é a chave para escolher as ferramentas de regulação somática e cognitiva corretas.", s["body"])
+    story.append(PageBreak())
+
+    p(story, "6. Checklist Completo de Autoavaliação Sintomática", s["h1"])
+    story.append(hr())
+    p(story, "Assinale os sinais que seu corpo e mente costumam apresentar diante do estímulo fóbico:", s["body"])
+    checklist_itens = [
+        "□ Coração dispara como se eu estivesse em uma maratona",
+        "□ Respiração fica ofegante e sinto aperto no peito",
+        "□ Minhas mãos tremem ou ficam geladas e suadas",
+        "□ Sinto tontura ou impressão de que o chão está balançando",
+        "□ Tenho pensamentos imediatos de que algo terrível vai acontecer",
+        "□ Penso que vou passar vergonha ou perder o controle total",
+        "□ Cancelo viagens, consultas ou eventos por causa do medo",
+        "□ Só consigo enfrentar se alguém de muita confiança estiver segurando minha mão",
+        "□ Uso amuletos, remédios no bolso ou rotas de fuga planejadas",
+        "□ Fico dias antes sofrendo por antecipação ao imaginar a situação",
     ]
-    for c in checks:
-        p(story, c, s["body_left"])
-    story.append(Spacer(1, 8))
-    p(story, "Situação fóbica primária a ser trabalhada:", s["label"])
-    story.append(blank_lines(3))
-    p(story, "O que reconquistarei ao superar essa fobia:", s["label"])
+    for item in checklist_itens:
+        p(story, item, s["body_left"])
+    story.append(Spacer(1, 6))
+    p(story, "Minhas 3 principais manifestações corporais:", s["label"])
     story.append(blank_lines(3))
     story.append(PageBreak())
 
-    # ═══════════ PARTE IV QUANDO TRATAR ═══════════
-    section_break(story, "PARTE IV", "Quando tratar e\ncritérios de indicação", s)
+    # ═══════════ PARTE IV ═══════════
+    section_break(story, "CAPÍTULO IV", "O Engenheiro de Estruturas:\nQuando Tratar", s)
 
-    p(story, "13. Indicações clínicas formais de tratamento", s["h1"])
+    story.append(story_box(
+        arquetipo="O Engenheiro da Estrutura e das Vigas",
+        titulo_conto="A Trinca no Chão do Terraço",
+        texto_conto="O Engenheiro da casa passava os dias examinando as vigas e os alicerces com uma régua de carvalho. "
+                    "Um dia, viu uma pequena trinca no piso do terraço. Um morador disse: 'Deixa para lá, é só colocar um tapete por cima'. "
+                    "Mas o Engenheiro sabia que colocar um tapete não conserta a viga. Se a chuva entrar na trinca todo inverno, "
+                    "a casa inteira fica bamba. Ele pegou argamassa, ferro e ferramentas e consertou a estrutura na raiz. "
+                    "Tratar a fobia é igual: não é cobrir o medo com um tapete de desculpas, é fortalecer a viga da sua liberdade.",
+        s=s,
+    ))
+
+    p(story, "7. Critérios de Gravidade e Momento de Buscar Tratamento", s["h1"])
     story.append(hr())
+    p(story, "Você deve priorizar o tratamento ativo quando:", s["body"])
     story.append(bullets([
-        "Interferência ocupacional direta (recusa de cargos, viagens, apresentações).",
-        "Prejuízo direto à saúde (evitação de odontologia, exames de sangue, vacinas, ressonâncias).",
-        "Restrição de mobilidade geográfica e isolamento social.",
-        "Sofrimento antecipatório crônico com prejuízo à qualidade do sono.",
-        "Evolução progressiva do quadro para outros estímulos correlatos.",
+        "A fobia impede exames médicos vitais, coletas de sangue, cirurgias ou tratamentos odontológicos essenciais.",
+        "A evitação limita o avanço na carreira (recusar promoções que exigem viagens aéreas ou apresentações em público).",
+        "A vida familiar é restrita (deixar de viajar com os filhos, evitar parques, passeios ou praias).",
+        "Há surgimento de ataques de pânico secundários ou humor deprimido em decorrência do isolamento.",
+        "O indivíduo começa a fazer uso abusivo de álcool ou sedativos para conseguir tolerar eventos cotidianos.",
     ], s["body_left"]))
-    story.append(Spacer(1, 8))
-
-    p(story, "14. Segurança e contraindicações relativas", s["h1"])
-    story.append(hr())
-    p(story, "A terapia de exposição é segura para a vasta maioria da população clínica. Contudo, situações médicas "
-      "específicas exigem avaliação e autorização médica prévia antes de exposições interoceptivas intensas:", s["body"])
-    story.append(bullets([
-        "Cardiopatias graves descompensadas ou aneurismas não tratados.",
-        "Gestação de alto risco.",
-        "Epilepsia refratária não controlada.",
-        "Asma grave instável.",
-        "Psicose ativa ou depressão maior com risco iminente de autoagressão.",
-    ], s["body_left"]))
-    story.append(Spacer(1, 8))
-
-    p(story, "15. Metas terapêuticas mensuráveis (Critérios SMART)", s["h1"])
-    story.append(hr())
-    p(story, "Na TCC pautada em Barlow, as metas não são formuladas em termos vagos de 'ficar calmo', mas em "
-      "<b>comportamentos funcionais observáveis</b>:", s["body"])
-    p(story, "Minha meta objetiva para o final dos 21 dias:", s["label"])
-    story.append(blank_lines(3))
-    p(story, "Minha meta funcional para 6 meses:", s["label"])
-    story.append(blank_lines(3))
     story.append(PageBreak())
 
-    # ═══════════ PARTE V TCC & BARLOW ═══════════
-    section_break(story, "PARTE V", "TCC e o Modelo\nde David H. Barlow", s)
-
-    p(story, "16. O Protocolo Clínico de David H. Barlow", s["h1"])
+    p(story, "8. Diferenciação Clínica: Fobia Específica versus Outros Transtornos", s["h1"])
     story.append(hr())
-    p(story, "David H. Barlow desenvolveu uma das estruturas mais robustas da ciência psicológica contemporânea. "
-      "Seu modelo assenta-se em cinco componentes nucleares integrados:", s["body"])
-    p(story, "<b>1. Consciência Emocional Plena:</b> ancoragem no momento presente sem julgamento valorativo das emoções.", s["body"])
-    p(story, "<b>2. Flexibilidade Cognitiva:</b> reavaliação de probabilidades e desfechos catastróficos automáticos.", s["body"])
-    p(story, "<b>3. Identificação e Prevenção de Comportamentos de Segurança:</b> extinção das muletas que mantêm a fobia.", s["body"])
-    p(story, "<b>4. Exposição Somática / Interoceptiva:</b> indução deliberada de sensações físicas para desarmar o pânico.", s["body"])
-    p(story, "<b>5. Exposição Situacional / In Vivo Gradual:</b> confronto hierarquizado com o estímulo fóbico real.", s["body"])
-    story.append(Spacer(1, 8))
-
-    p(story, "17. A Teoria da Tríplice Vulnerabilidade", s["h1"])
-    story.append(hr())
-    p(story, "Barlow postula que os transtornos de ansiedade emergem da interação de três vulnerabilidades:", s["body"])
+    p(story, "É fundamental que a avaliação clínica discrimine:", s["body"])
     story.append(bullets([
-        "<b>1. Vulnerabilidade Biológica Geral:</b> reatividade neurobiológica constitucional a estímulos estressores.",
-        "<b>2. Vulnerabilidade Psicológica Geral:</b> crença nuclear precoce de que o mundo é incontrolável e imprevisível.",
-        "<b>3. Vulnerabilidade Psicológica Específica:</b> aprendizado focado de que determinadas situações ou sensações somáticas são inerentemente perigosas.",
+        "<b>Fobia Específica:</b> medo focado em um objeto/circunstância delimitada (ex.: medo de cão).",
+        "<b>Transtorno de Pânico:</b> medo dos próprios sintomas corporais ('vou morrer de infarto agora').",
+        "<b>Agorafobia:</b> medo de múltiplos locais de onde seria difícil escapar ou obter socorro imediato.",
+        "<b>Ansiedade Social:</b> medo de julgamento, humilhação ou escrutínio por parte de outras pessoas.",
+        "<b>TOC:</b> rituais motores ou mentais para neutralizar obsessões e pensamentos intrusivos de culpa.",
     ], s["body_left"]))
-    p(story, "A intervenção na Escada Segura desativa diretamente a vulnerabilidade psicológica específica por meio "
-      "de novas vivências corretivas de controle pessoal.", s["body"])
-    story.append(Spacer(1, 8))
-
-    p(story, "18. O perigo oculto dos comportamentos de segurança", s["h1"])
-    story.append(hr())
-    p(story, "Pesquisas de Salkovskis e Barlow revelam que os comportamentos de segurança (levar garrafa d'água, "
-      "segurar no braço de alguém, checar o pulso, desviar o olhar) atuam como sabotadores silenciosos da terapia. "
-      "Eles transmitem a mensagem implícita: 'Você só escapou do perigo porque usou o amuleto'. Na Escada Segura, "
-      "o desmame dessas muletas é planejado e sistemático.", s["body"])
-    p(story, "Mapeamento dos meus comportamentos de segurança:", s["label"])
-    story.append(blank_lines(4))
     story.append(PageBreak())
 
-    # ═══════════ PARTE VI HABITUAÇÃO & INIBIÇÃO ═══════════
-    section_break(story, "PARTE VI", "Habituação e\nAprendizado Inibitório", s)
+    # ═══════════ PARTE V ═══════════
+    section_break(story, "CAPÍTULO V", "O Mestre da Escadaria:\nOs Passos da TCC", s)
 
-    p(story, "19. Habituação clássica × Modelo inibitório contemporâneo", s["h1"])
+    story.append(story_box(
+        arquetipo="O Mestre Marceneiro da Escadaria",
+        titulo_conto="A Oficina dos Degraus Perfeitos",
+        texto_conto="O Mestre Marceneiro passava suas tardes na oficina serrando tábuas de pinho perfumado. "
+                    "Ele dizia que todo medo no mundo pode ser vencido se você construir degraus da altura certa. "
+                    "Se um degrau tiver um metro de altura, ninguém consegue subir. Mas se tiver cinco centímetros, "
+                    "até uma tartaruguinha chega no topo do castelo! "
+                    "Ele pegou sua lixa, mediu cada pedacinho com amor e ensinou o morador a subir sem olhar para o abismo, "
+                    "olhando apenas para a madeira firme sob as solas dos pés.",
+        s=s,
+    ))
+
+    p(story, "9. Os 7 Passos Estruturais da Terapia de Exposição", s["h1"])
+    story.append(hr())
+    story.append(bullets([
+        "<b>1. Mapeamento do Gatilho:</b> discriminar exatamente o estímulo temido em suas microvariáveis.",
+        "<b>2. Psicoeducação e Normalização Somática:</b> desmistificar o alarme e validar a fisiologia.",
+        "<b>3. Construção da Hierarquia (SUDS):</b> elencar 10 a 15 passos graduados de aproximação.",
+        "<b>4. Treino de Regulação Fisiológica:</b> ancoragem dos sentidos e respiração paced 4-6.",
+        "<b>5. Exposição Sistemática In Vivo / RV:</b> contato planejado sem respostas de fuga.",
+        "<b>6. Registro de Discrepância de Predição:</b> confrontar o medo catastrófico com os fatos observados.",
+        "<b>7. Generalização e Prevenção de Recaída:</b> variar contextos e desmamar amuletos de segurança.",
+    ], s["body_left"]))
+    story.append(PageBreak())
+
+    p(story, "10. Desarmando os Comportamentos de Segurança (Amuletos)", s["h1"])
+    story.append(hr())
+    p(story, "Comportamentos de segurança são 'muletas mágicas' que parecem proteger, mas mantêm o medo vivo:", s["body"])
+    story.append(bullets([
+        "Segurar com força nos braços da poltrona durante o voo.",
+        "Só entrar no elevador acompanhado de alguém conhecido.",
+        "Levar remédio na bolsa 'por via das dúvidas' sem indicação médica.",
+        "Usar fones de ouvido no volume máximo para não escutar o barulho do motor.",
+        "Ficar checando a saída de emergência obsessivamente a cada minuto.",
+    ], s["body_left"]))
+    p(story, "Ao longo das 3 semanas, nós desmamamos gradualmente cada um desses amuletos para que o cérebro aprenda que a sua própria presença é suficiente.", s["body"])
+    story.append(PageBreak())
+
+    # ═══════════ PARTE VI ═══════════
+    section_break(story, "CAPÍTULO VI", "O Alquimista da Piscina:\nHabituação e Inibição", s)
+
+    story.append(story_box(
+        arquetipo="O Alquimista das Águas do Jardim",
+        titulo_conto="O Termômetro que Não Sabia Mentir",
+        texto_conto="O Alquimista cuidava da fonte cristalina no centro do jardim. Ele tinha um termômetro de vidro mágico "
+                    "que media a temperatura das emoções. Quando alguém colocava o pé na fonte, o termômetro subia para 100 graus "
+                    "de ansiedade na hora! O Alquimista sorria e dizia: 'Fique aí, não saia correndo. Olhe o ponteiro'. "
+                    "Em três minutos o ponteiro caía para 70. Em sete minutos caía para 40. Em doze minutos estava em 20 graus de pura tranquilidade. "
+                    "O Alquimista provava com dados que a onda da emoção sempre quebra na praia e recua suavemente.",
+        s=s,
+    ))
+
+    p(story, "11. Habituação Clássica versus Modelo Inibitório Contemporâneo", s["h1"])
     story.append(hr())
     story.append(ilustra("piscina", 6.5 * cm))
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 6))
     p(story, "Durante décadas, a TCC acreditou que a redução da ansiedade intra-sessão (habituação) era o motor único da melhora. "
       "Hoje, os avanços de Michelle Craske e David Barlow demonstram que o motor principal é a <b>violação da expectativa</b> "
       "(<i>Expectancy Violation</i>).", s["body"])
@@ -793,196 +783,373 @@ def build():
       "que supera a rota do medo, mesmo que alguma ansiedade fisiológica ainda esteja presente no momento do treino.", s["body"])
     story.append(PageBreak())
 
-    p(story, "20. Maximizando a neuroplasticidade na exposição", s["h1"])
+    p(story, "12. Estratégias para Otimizar o Aprendizado Inibitório", s["h1"])
     story.append(hr())
     story.append(bullets([
-        "<b>Variabilidade Contextual:</b> treinar em diferentes locais, horários e condições ambientais.",
-        "<b>Tolerância ao Afeto:</b> focar em tolerar a sensação em vez de tentar desesperadamente reduzi-la a zero.",
-        "<b>Combinação de Estímulos:</b> intercalar degraus moderados e intensos para reforçar a generalização.",
-        "<b>Consolidação Noturna:</b> sono adequado após a sessão para fixação sináptica da memória inibitória.",
+        "<b>1. Maximização do Erro de Predição:</b> formular a previsão temida antes da tarefa e contrastar rigorosamente após.",
+        "<b>2. Variabilidade de Estímulos:</b> alternar velocidade, distância, luminosidade e contextos de exposição.",
+        "<b>3. Espaçamento Temporal:</b> distribuir as sessões ao longo dos dias para permitir a consolidação sináptica noturna.",
+        "<b>4. Remoção de Pistas de Segurança:</b> treinar sem muletas para maximizar o senso de autoeficácia pura.",
     ], s["body_left"]))
     story.append(PageBreak())
 
-    # ═══════════ PARTE VII PENSADORES ═══════════
-    section_break(story, "PARTE VII", "Pensadores da fobia\n(com metáforas)", s)
+    # ═══════════ PARTE VII ═══════════
+    section_break(story, "CAPÍTULO VII", "A Biblioteca dos Sábios:\nGaleria dos Pensadores", s)
 
-    thinkers = [
-        ("David H. Barlow",
-         "Pioneiro mundial na integração entre neurobiologia, TCC e regulação emocional. Criador do Protocolo Unificado "
-         "e da Teoria da Tríplice Vulnerabilidade. Metáfora: o arquiteto que ensinou a mapear o alarme falso e calibrar "
-         "o sistema de segurança da mente com dados objetivos."),
-        ("Aaron T. Beck",
-         "Pai da Terapia Cognitiva. Demonstrou que o sofrimento fóbico é mediado por distorções no processamento da informação. "
-         "Metáfora: as lentes dos óculos mentais que transformam um degrau comum em um abismo imaginário."),
-        ("Michelle Craske",
-         "Líder nas pesquisas de aprendizado inibitório e violação de expectativa na exposição. "
-         "Metáfora: a cientista que comprovou que o cérebro aprende segurança comparando a profecia do medo com o desfecho real."),
-        ("Joseph Wolpe",
-         "Criador da dessensibilização sistemática e da hierarquia de ansiedade nos anos 1950. "
-         "Metáfora: o mestre que talhou os primeiros degraus da escada para que ninguém precisasse saltar penhascos."),
-        ("Albert Bandura",
-         "Teoria da Autoeficácia e Aprendizagem Social. "
-         "Metáfora: a chama interna que se acende quando acumulamos pequenas vitórias consecutivas na prática."),
-        ("Isaac Marks",
-         "Consolidador da terapia de exposição in vivo na psiquiatria europeia. "
-         "Metáfora: o navegador que provou que o único jeito de cruzar a tempestade é manter o barco na água com método."),
+    story.append(story_box(
+        arquetipo="O Bibliotecário da Torre de Vidro",
+        titulo_conto="O Grande Livro das Sombras Claras",
+        texto_conto="Na biblioteca mais alta da casa, o sábio Bibliotecário guardava pergaminhos deixados pelos maiores médicos "
+                    "e filósofos da história. Ele puxou um pergaminho antigo e disse: 'Veja, há mais de cem anos homens e mulheres sábios "
+                    "estudam o medo humano. Todos eles descobriram a mesma verdade: aquilo que você enfrenta com clareza perde a força, "
+                    "e aquilo de que você foge ganha o tamanho de um gigante'.",
+        s=s,
+    ))
+
+    p(story, "13. Os Mestres da TCC e da Neurociência Fóbica", s["h1"])
+    story.append(hr())
+    thinkers_list = [
+        ("David H. Barlow", "Criador do Protocolo Unificado e da Teoria da Tríplice Vulnerabilidade. O grande arquiteto do alarme falso e da regulação emocional contemporânea."),
+        ("Aaron T. Beck", "Fundador da Terapia Cognitiva. Mostrou como pensamentos automáticos e crenças intermediárias distorcem a percepção de perigo."),
+        ("Michelle Craske", "Pioneira nas pesquisas de aprendizado inibitório e maximização da violação de expectativa na terapia de exposição."),
+        ("Joseph Wolpe", "Desenvolvedor da dessensibilização sistemática nos anos 1950, precursor da moderna hierarquia de degraus."),
+        ("Albert Bandura", "Teórico da Autoeficácia. Demonstrou que a confiança na própria capacidade de enfrentamento é o maior preditor de sucesso clínico."),
+        ("Isaac Marks", "Pioneiro da psiquiatria comportamental europeia e da exposição in vivo continuada."),
+        ("Stanley Rachman", "Mapeou as três vias de aquisição do medo: condicionamento clássico, modelação vicária e transmissão verbal de informação."),
+        ("Joseph LeDoux", "Neurocientista que mapeou as duas vias amigdalinas (alta e baixa) no processamento do medo no cérebro mamífero."),
     ]
-    for name, text in thinkers:
+    for name, desc in thinkers_list:
         p(story, f"<b>{name}</b>", s["h2"])
-        p(story, text, s["body"])
+        p(story, desc, s["body"])
         story.append(Spacer(1, 4))
     story.append(PageBreak())
 
-    # ═══════════ PARTE VIII ESTUDOS & EVIDÊNCIAS ═══════════
-    section_break(story, "PARTE VIII", "Estudos importantes\ne evidências robustas", s)
+    # ═══════════ PARTE VIII ═══════════
+    section_break(story, "CAPÍTULO VIII", "O Laboratório do Castelo:\nEvidências Científicas", s)
 
-    studies = [
-        ("Ensaio Clínico Multicêntrico de Barlow et al. (JAMA Psychiatry, 2017)",
-         "Estudo randomizado de equivalência comparando o Protocolo Unificado à TCC padrão para transtornos de ansiedade. "
-         "Resultados comprovaram taxas de resposta superiores a 70% com manutenção dos ganhos no seguimento de longo prazo."),
-        ("Metanálise de Wolitzky-Taylor et al. (Journal of Consulting and Clinical Psychology, 2008)",
-         "Análise quantitativa de mais de 30 ensaios clínicos controlados. Confirmou a superioridade inequívoca da exposição "
-         "in vivo sobre técnicas de relaxamento isoladas, psicoterapia não diretiva e lista de espera (d > 1.10)."),
-        ("Estudos de Neuroimagem Funcional de Phelps & LeDoux (2004, 2012)",
-         "Demonstraram a plasticidade do circuito amígdala-córtex pré-frontal após intervenções de TCC, evidenciando "
-         "redução direta da hiperatividade límbica após protocolos de exposição estruturada."),
-        ("Pesquisas de Eficácia da Realidade Virtual (Powers & Emmelkamp, 2008; Morina et al., 2015)",
-         "Metanálises demonstrando que a terapia de exposição por realidade virtual (VRE) atinge eficácia clínica "
-         "equivalente à exposição in vivo clássica, constituindo ponte ideal para hierarquias complexas."),
-    ]
-    for title, text in studies:
-        p(story, f"<b>{title}</b>", s["h2"])
-        p(story, text, s["body"])
-        story.append(Spacer(1, 6))
-    story.append(PageBreak())
+    story.append(story_box(
+        arquetipo="A Cientista do Laboratório das Estrelas",
+        titulo_conto="Os Microscópios que Viram a Coragem",
+        texto_conto="No laboratório do subsolo, a Cientista observava lâminas e gráficos de luz. "
+                    "Ela mostrava fotografias do cérebro antes e depois do treino da escada: "
+                    "'Olhe como os pontinhos vermelhos de pavor no cérebro se acalmam e dão lugar a pontinhos azuis de tranquilidade! "
+                    "A coragem não é uma mágica no ar: é uma ponte de neurônios novinha que você constrói toda vez que dá um passo seguro'.",
+        s=s,
+    ))
 
-    # ═══════════ PARTE IX DRAGÃO & METÁFORAS JAPONESAS ═══════════
-    section_break(story, "PARTE IX", "A coragem de um dragão:\nanalogias japonesas", s)
-
-    story.append(ilustra("dragao", 7.0 * cm))
-    story.append(Spacer(1, 8))
-    p(story, "30. O arquétipo do dragão japonês (Ryū)", s["h1"])
+    p(story, "14. Estudos Clínicos de Referência Mundial em Fobias", s["h1"])
     story.append(hr())
-    p(story, "Na sabedoria oriental, o dragão não é um monstro a ser aniquilado com ódio, mas uma entidade guardiã "
-      "dotada de imenso poder primordial. A coragem de dragão não significa ausência de medo, mas a capacidade "
-      "de respirar com dignidade e presença diante da fumaça, avançando com passos serenos e resolutos.", s["body"])
-    p(story, "31. A metáfora do Kintsugi (金継ぎ)", s["h2"])
-    p(story, "A arte japonesa de reparar cerâmicas quebradas com ouro. As cicatrizes do medo enfrentado não são "
-      "motivo de vergonha: tornam-se as linhas douradas que atestam sua resiliência e história de superação.", s["body"])
-    p(story, "32. O bambu flexível diante do tufão", s["h2"])
-    p(story, "O bambu verga até o solo diante do vento forte, mas não se parte. A flexibilidade psicológica "
-      "permite sentir a onda de ansiedade passar pelo corpo sem travar a caminhada da vida.", s["body"])
-    story.append(PageBreak())
-
-    # ═══════════ PARTE X PARÁBOLAS ═══════════
-    section_break(story, "PARTE X", "Templos, parábolas\ne determinação", s)
-
-    parables = [
-        ("O Templo na Névoa",
-         "O peregrino parou assustado diante da densa neblina na montanha. O monge ancião aproximou-se e disse: "
-         "'Você não precisa enxergar o cume agora. Só precisa pisar com firmeza na próxima pedra de degrau que está visível diante de você.'"),
-        ("As Mil Lanternas",
-         "Uma vila temia atravessar a floresta escura. Tentar iluminar tudo de uma vez gerou pânico e ofuscamento. "
-         "Um sábio recomendou acender uma única lanterna a cada noite. Em poucas semanas, a trilha inteira estava aberta e segura."),
-        ("A Corda no Escuro",
-         "Um homem entrou no celeiro escuro e gritou apavorado achando que pisara numa serpente venenosa. "
-         "Ao acender uma pequena vela, constatou que era apenas um pedaço de corda velha enrolada. A exposição com luz dissipa a ilusão."),
+    studies_list = [
+        ("Barlow et al. (JAMA Psychiatry, 2017)", "Ensaio multicêntrico comprovando a eficácia transdiagnóstica do Protocolo Unificado com manutenção dos ganhos terapêuticos por mais de 5 anos."),
+        ("Wolitzky-Taylor et al. (JCCP, 2008)", "Metanálise abrangente confirmando tamanho de efeito de Cohen d > 1.20 para a exposição comportamental in vivo sobre tratamentos controle."),
+        ("Craske et al. (Behaviour Research and Therapy, 2014)", "Estudo seminal sobre o modelo de otimização inibitória na exposição fóbica."),
+        ("Morina et al. (Journal of Anxiety Disorders, 2015)", "Metanálise confirmando a equivalência e a durabilidade da exposição com Realidade Virtual (VRE) frente à exposição in vivo."),
+        ("Öst (Behaviour Research and Therapy, 1989, 2012)", "Estudos sobre protocolos de exposição intensiva em sessão única (OST) para fobias específicas circunscritas."),
     ]
-    for title, text in parables:
-        p(story, f"<b>{title}</b>", s["h2"])
-        p(story, text, s["story"])
-        story.append(Spacer(1, 6))
+    for title_st, desc_st in studies_list:
+        p(story, f"<b>{title_st}</b>", s["h2"])
+        p(story, desc_st, s["body"])
+        story.append(Spacer(1, 5))
     story.append(PageBreak())
 
-    # ═══════════ PARTE XI SUA ESCADA SEGURA ═══════════
-    section_break(story, "PARTE XI", "Sua Escada Segura:\nMontagem Prática", s)
+    # ═══════════ PARTE IX ═══════════
+    section_break(story, "CAPÍTULO IX", "A Lareira do Dragão:\nAnalogias Orientais", s)
 
+    story.append(story_box(
+        arquetipo="O Guardião da Lareira Ancestral",
+        titulo_conto="A Aliança com o Dragão Dourado",
+        texto_conto="O Guardião da Lareira cuidava do fogo com tenazes de ferro forjado. "
+                    "Ele ensinava que na tradição oriental, o dragão (Ryū) não é uma fera maligna a ser aniquilada com lanças, "
+                    "mas o espírito da própria energia vital. Quando você corre dele, ele cospe fogo para te acordar. "
+                    "Quando você se aproxima com reverência, dignidade e respeito, ele se torna o seu maior protetor nas montanhas. "
+                    "A coragem de dragão é a nobreza de respirar com firmeza no meio da tempestade.",
+        s=s,
+    ))
+
+    p(story, "15. Sabedoria Oriental Aplicada à Psicoterapia", s["h1"])
+    story.append(hr())
+    story.append(ilustra("dragao", 6.5 * cm))
+    story.append(Spacer(1, 6))
+    p(story, "Três grandes analogias orientais iluminam a nossa caminhada:", s["body"])
+    story.append(bullets([
+        "<b>Kintsugi (金継ぎ):</b> a arte de colar vasos quebrados com laca dourada. Suas cicatrizes emocionais tornam-se veios de ouro e beleza singular.",
+        "<b>O Bambu Flexível (Take):</b> o bambu verga até o chão durante o vendaval, mas não se quebra. Flexibilidade psicológica é ceder à sensação sem travar a vida.",
+        "<b>O Portal Torii (鳥居):</b> cada degrau da escada é um portal sagrado. Ao atravessá-lo, você demarca um território reconquistado do medo.",
+    ], s["body_left"]))
+    story.append(PageBreak())
+
+    # ═══════════ PARTE X ═══════════
+    section_break(story, "CAPÍTULO X", "O Jardim dos Templos:\nParábolas da Determinação", s)
+
+    story.append(story_box(
+        arquetipo="O Mestre do Jardim de Pedras",
+        titulo_conto="A Trilha das Lanternas de Pedra",
+        texto_conto="No jardim zen da casa, o Mestre varria as folhas secas com um ancinho de bambu. "
+                    "Um jovem apressado perguntou: 'Mestre, como faço para atravessar a montanha escura em um minuto?'. "
+                    "O Mestre apontou para as lanternas de pedra ao longo do caminho e respondeu: 'A montanha não foi feita para ser corrida. "
+                    "Ela foi feita para ser caminhada. Uma lanterna acesa por noite ilumina a vida inteira. A pressa é do medo; a constância é da sabedoria'.",
+        s=s,
+    ))
+
+    p(story, "16. Cinco Parábolas de Fortalecimento Interior", s["h1"])
+    story.append(hr())
+    parables_data = [
+        ("O Templo na Névoa", "O peregrino parou com medo da névoa densa. O monge ancião disse: 'Você não precisa enxergar o topo da montanha hoje. Só precisa pisar com firmeza no degrau de pedra que está visível sob seus pés agora'."),
+        ("As Mil Lanternas da Floresta", "Uma aldeia temia a mata escura. Tentar acender todas as tochas de uma vez gerou incêndio e confusão. Um sábio sugeriu acender uma lanterna por noite. Em trinta dias, a floresta era um jardim iluminado e seguro."),
+        ("A Corda no Celeiro Escuro", "O jovem entrou no celeiro e gritou apavorado achando que pisara numa serpente mortal. Ao acender uma pequena vela, viu que era apenas uma corda velha enrolada. A exposição com luz dissipa o fantasma imaginado."),
+        ("O Vaso Rachado e o Jardineiro", "O carregador de água tinha dois potes: um perfeito e um com uma rachadura. O pote rachado chorava por perder água no caminho. O carregador mostrou que ao longo do seu lado da estrada haviam nascido flores magníficas regadas pelas gotas da sua fragilidade."),
+        ("O Mestre Arqueiro e o Alvo Próximo", "O aprendiz queria acertar o alvo a cem metros no primeiro dia. O mestre colocou o alvo a um metro. 'A precisão se aprende na proximidade; a distância é apenas consequência da repetição serena'."),
+    ]
+    for p_title, p_text in parables_data:
+        p(story, f"<b>{p_title}</b>", s["h2"])
+        p(story, p_text, s["story"])
+        story.append(Spacer(1, 4))
+    story.append(PageBreak())
+
+    # ═══════════ PARTE XI ═══════════
+    section_break(story, "CAPÍTULO XI", "O Arquiteto da Torre:\nMontando Sua Escada", s)
+
+    story.append(story_box(
+        arquetipo="O Arquiteto da Torre de Cristal",
+        titulo_conto="A Planta Baixa da Sua Liberdade",
+        texto_conto="O Arquiteto abriu uma grande folha de papel vegetal azul sobre a mesa de madeira. "
+                    "Com régua, compasso e lápis macio, ele desenhou dez degraus personalizados para o morador da casa. "
+                    "'Esta é a sua planta de voo', disse ele com um sorriso caloroso. 'Cada degrau é feito sob medida para a sua perna. "
+                    "Nem alto demais para te assustar, nem baixo demais para não te ensinar nada. É o seu mapa de vitória'.",
+        s=s,
+    ))
+
+    p(story, "17. A Tabela da Sua Escada Segura Pessoal (SUDS 0 a 10)", s["h1"])
+    story.append(hr())
     story.append(ilustra("escada", 6.5 * cm))
-    story.append(Spacer(1, 8))
-    p(story, "33. Guia de montagem da hierarquia (SUDS 0 a 10)", s["h1"])
-    story.append(hr())
-    p(story, "Preencha a sua escada pessoal ordenando 10 situações específicas, do menor para o maior desconforto esperado:", s["body"])
+    story.append(Spacer(1, 6))
+    p(story, "Preencha com carinho as 10 situações que você vai conquistar ao longo do programa:", s["body"])
     story.append(Spacer(1, 6))
     story.append(ladder_template(s))
     story.append(PageBreak())
 
-    # ═══════════ PARTE XII PLANO DE 21 DIAS + 21 REGISTROS ═══════════
-    section_break(story, "PARTE XII", "Plano de 21 dias\n+ 21 folhas diárias", s)
+    # ═══════════ PARTE XII ═══════════
+    section_break(story, "CAPÍTULO XII", "O Diário do Viajante:\nPlano de 21 Dias", s)
 
-    p(story, "34. Cronograma estruturado de 3 semanas", s["h1"])
+    story.append(story_box(
+        arquetipo="O Cronista da Biblioteca dos Viajantes",
+        titulo_conto="O Diário de Bordo das Pequenas Vitórias",
+        texto_conto="O Cronista usava óculos redondos e uma pena de ganso com tinta nanquim. "
+                    "Ele entregou um caderno encadernado em couro ao morador: 'A cada dia de treino, você vai escrever uma linha aqui. "
+                    "O cérebro esquece as vitórias facilmente quando o medo sopra, mas a tinta no papel não mente. "
+                    "Daqui a vinte e um dias, você vai folhear este livro e chorar de orgulho da pessoa corajosa que você se tornou'.",
+        s=s,
+    ))
+
+    p(story, "18. Cronograma Estruturado em 3 Semanas", s["h1"])
     story.append(hr())
-    p(story, "• <b>Semana 1 (Dias 1 a 7):</b> Fundação psicoeducativa, calibração somática e conquista dos degraus 1 e 2.<br/>"
-      "• <b>Semana 2 (Dias 8 a 14):</b> Consolidação intermediária, desmame de comportamentos de segurança e degraus 3 a 5.<br/>"
-      "• <b>Semana 3 (Dias 15 a 21):</b> Expansão, degraus superiores, generalização contextual e plano de manutenção.", s["body"])
+    p(story, "• <b>Semana 1 (Dias 1 a 7) — Fundação:</b> Psicoeducação, sintonia somática e conquista dos degraus 1 e 2.<br/>"
+      "• <b>Semana 2 (Dias 8 a 14) — Consolidação:</b> Conquista dos degraus 3 a 6, desmame de amuletos e variação.<br/>"
+      "• <b>Semana 3 (Dias 15 a 21) — Expansão e Soberania:</b> Degraus 7 a 10, generalização contextual e plano de voo autônomo.", s["body"])
     story.append(Spacer(1, 10))
 
-    p(story, "35. Folhas Diárias de Registro de Exposição (Dias 1 a 21)", s["h1"])
+    p(story, "19. As 21 Folhas Diárias de Registro de Exposição", s["h1"])
     story.append(hr())
-    p(story, "Preencha uma folha para cada dia de treino. O registro sistemático do erro de predição é o que consolida o aprendizado no cérebro.", s["body"])
-    story.append(Spacer(1, 6))
-
-    # Gera exatamente 21 folhas individuais (uma por página/dupla)
-    for d in range(1, 22):
-        story.append(exposure_log(s, f"Dia {d:02d} — Registro Diário de Exposição"))
-        if d % 2 == 0 or d == 21:
-            story.append(PageBreak())
-
-    # ═══════════ PARTE XIII CONCLUSÃO ═══════════
-    section_break(story, "PARTE XIII", "Conclusão:\na coragem sustentável", s)
-
-    p(story, "36. Tratamento sério, ético e libertador", s["h1"])
-    story.append(hr())
-    p(story, "Ao concluir este percurso, você não apenas conquistou degraus práticos em sua vida: você reconfigurou "
-      "a relação com o seu próprio corpo e com as suas emoções. Com o método de David H. Barlow, a TCC e a nobre "
-      "coragem do dragão, você aprendeu que a liberdade não é a ausência de vento, mas a arte de abrir as asas e voar.", s["body"])
-    story.append(Spacer(1, 10))
-    p(story, "<b>Dra. Priscila Palomo</b><br/>Psicóloga Clínica · CRP 98007<br/>"
-      "Doutora em Psicologia pela Universitat de València (Cum Laude)<br/>"
-      "Especialista em Fobias, Ansiedade e TCC<br/>"
-      "www.priscilapalomo.com · WhatsApp: (11) 95069-0537", s["body_left"])
-    story.append(Spacer(1, 14))
-    story.append(HRFlowable(width="100%", thickness=1.5, color=NAVY, spaceBefore=8, spaceAfter=12))
-    p(story, "Programa Escada Segura — Book Psicoeducativo Completo · Dra. Priscila Palomo", s["footer"])
+    p(story, "Preencha uma folha para cada dia de treino com rigor e carinho. Cada folha é uma página inteira de autodescoberta e neuroplasticidade.", s["body"])
     story.append(PageBreak())
 
-    # ═══════════ APÊNDICES A a J (PRÁTICAS EXTRAS) ═══════════
-    p(story, "Apêndice A — Diário Semanal de Autoeficácia", s["h1"])
-    story.append(hr())
-    for w in range(1, 9):
-        p(story, f"<b>Semana {w}</b>", s["h2"])
-        p(story, "Vitórias conquistadas nesta semana:", s["label"])
-        story.append(blank_lines(2))
-        p(story, "Esquivas identificadas e corrigidas:", s["label"])
-        story.append(blank_lines(2))
-        if w % 2 == 0:
-            story.append(PageBreak())
-
-    p(story, "Apêndice B — Banco de Frases de Enfrentamento", s["h1"])
-    story.append(hr())
-    phrases = [
-        "É apenas uma resposta de alarme falso, não um perigo real.",
-        "Meu corpo sabe como acelerar e sabe como desacelerar com segurança.",
-        "Posso tolerar o desconforto enquanto meu cérebro aprende segurança.",
-        "Um degrau de cada vez, com coragem de dragão.",
-        "O que eu previa não é o que acontece na realidade.",
-        "A ansiedade atinge o pico e desce naturalmente como uma onda.",
+    # 21 folhas de registro (1 página completa cada = 21 páginas)
+    dias_info = [
+        ("O Vigia do Hall", "Acolhendo o Alarme Falso e Mapeando a Casa"),
+        ("O Construtor de Papelão", "Desmontando a Primeira Caixa de Esquiva"),
+        ("O Mensageiro das Luzes", "Observando as Lâmpadas Corporais sem Pânico"),
+        ("O Soprador de Velinhas", "Treinando a Respiração Paced no Degrau 1"),
+        ("O Guardião das Águas", "Permanecendo na Piscina Fria até Esfriar"),
+        ("O Adestrador do Filhote", "Oferecendo Biscoitinho Seguro para a Mente"),
+        ("O Dragão da Lareira", "Respirando Fundo com Presença e Dignidade"),
+        ("O Mestre Marceneiro", "Subindo Firme no Degrau 3 da Escada"),
+        ("O Alquimista da Fonte", "Testando o Termômetro de SUDS na Prática"),
+        ("O Guarda dos Portais", "Desmamando o Primeiro Amuleto de Segurança"),
+        ("O Monge da Montanha", "Caminhando na Névoa um Passo por Vez"),
+        ("O Guardião do Farol", "Enfrentando o Degrau 4 em Horário Diferente"),
+        ("O Tecelão da Coragem", "Construindo a Rota Neural Inibitória"),
+        ("O Arqueiro Zen", "Fixando o Foco no Próximo Degrau Real"),
+        ("O Cavaleiro da Torre", "Conquistando o Degrau 6 com Soberania"),
+        ("O Jardineiro dos Templos", "Plantando Certezas nos Erros de Predição"),
+        ("O Mestre dos Ventos", "Treinando o Bambu Flexível diante da Onda"),
+        ("O Pintor dos Céus", "Conquistando os Degraus Superiores 7 e 8"),
+        ("O Guardião do Selo", "Desmamando Todos os Comportamentos de Fuga"),
+        ("O Dragão Soberano", "Vencendo o Degrau 10 com Coragem Radiante"),
+        ("O Morador Livre", "Celebrando a Aliança e a Casa Aberta para o Mundo"),
     ]
-    for ph in phrases:
-        p(story, f"• <i>“{ph}”</i>", s["body_left"])
+
+    for d, (arq, foco) in enumerate(dias_info, 1):
+        story.append(exposure_log_page(s, d, f"Registro Diário da Casa Interior", arq, foco))
+        story.append(PageBreak())
+
+    # ═══════════ PARTE XIII ═══════════
+    section_break(story, "CAPÍTULO XIII", "O Selo Dourado:\nA Coragem Sustentável", s)
+
+    story.append(story_box(
+        arquetipo="O Guardião do Selo Dourado da Aliança",
+        titulo_conto="O Abraço na Casa Inteira",
+        texto_conto="No último dia da jornada, o morador caminhou por todos os cômodos da casa: o hall de entrada, o sótão, "
+                    "a lareira, a cozinha, o jardim e a torre. O Pequeno Sentinela sorria no posto, o Monstrinho dormia manso no canto, "
+                    "o Dragão aquecia a sala e a piscina brilhava sob o sol. A casa inteira estava em paz. "
+                    "O Guardião do Selo carimbou o livro com um brasão dourado e disse: 'Você não expulsou nada da sua casa. "
+                    "Você acolheu cada parte com sabedoria e amor. Agora você é livre para abrir todas as portas e janelas para o mundo'.",
+        s=s,
+    ))
+
+    p(story, "20. Carta Final da Dra. Priscila Palomo", s["h1"])
+    story.append(hr())
+    p(story, "Querido(a) leitor(a),", s["body"])
+    p(story, "Chegar ao final deste book é testemunhar uma transformação profunda na sua história de vida. "
+      "Você não apenas aprendeu conceitos de TCC e neurociência de David H. Barlow: você reconstruiu a relação de confiança "
+      "com o seu próprio corpo e com o seu mundo interior.", s["body"])
+    p(story, "Leve com você a sabedoria dos arquétipos da nossa casa, a serenidade dos templos e a nobre coragem de dragão. "
+      "Sempre que uma brisa mais forte balançar as janelas, lembre-se: você tem uma escada firme sob os pés e asas prontas para voar.", s["body"])
     story.append(Spacer(1, 8))
-    p(story, "Minhas frases personalizadas:", s["label"])
+    p(story, "Com carinho e admiração pela sua jornada,", s["body"])
+    p(story, "<b>Dra. Priscila Palomo</b><br/>Psicóloga Clínica · CRP 98007<br/>"
+      "Doutora em Psicologia pela Universitat de València (Cum Laude)<br/>"
+      "Especialista em Fobias, Ansiedade e Terapia Cognitivo-Comportamental<br/>"
+      "www.priscilapalomo.com · WhatsApp: (11) 95069-0537", s["body_left"])
+    story.append(Spacer(1, 10))
+    story.append(HRFlowable(width="100%", thickness=1.5, color=NAVY, spaceBefore=6, spaceAfter=10))
+    p(story, "Programa Escada Segura — Book Completo com Arquétipos da Casa · Dra. Priscila Palomo", s["footer"])
+    story.append(PageBreak())
+
+    # ═══════════ APÊNDICES A a J (PRÁTICAS EXTENDIDAS ~200+ PÁGINAS) ═══════════
+
+    p(story, "Apêndice A — Diário Semanal de Autoeficácia dos Arquétipos (12 Semanas)", s["h1"])
+    story.append(hr())
+    for w in range(1, 13):
+        p(story, f"<b>Semana {w:02d} — Reflexão com os Guardiões da Casa</b>", s["h2"])
+        p(story, "1. Vitórias conquistadas nesta semana (lanternas de pedra acesas):", s["label"])
+        story.append(blank_lines(3))
+        p(story, "2. Alarmes falsos identificados e acolhidos com serenidade:", s["label"])
+        story.append(blank_lines(3))
+        p(story, "3. Próximo portal (Torii) que vou atravessar nos próximos 7 dias:", s["label"])
+        story.append(blank_lines(3))
+        story.append(PageBreak())
+
+    p(story, "Apêndice B — Banco de Frases de Enfrentamento dos Arquétipos", s["h1"])
+    story.append(hr())
+    phrases_arch = [
+        "O Vigia da Porta: 'É apenas uma folha no vento, não um incêndio. Eu respiro e permaneço.'",
+        "O Mestre da Escada: 'Um degrau de cada vez, sem olhar o abismo, sentindo a madeira firme.'",
+        "O Alquimista da Piscina: 'A água parece fria nos primeiros segundos, mas meu corpo se acostuma.'",
+        "O Adestrador do Filhote: 'Meu cérebro aprende com amor, repetição e desfecho seguro.'",
+        "O Soprador de Velinhas: 'Inspiro cheirando a flor, expiro soprando a velinha devagar.'",
+        "O Dragão da Lareira: 'A fumaça não me machuca; meu medo é a minha própria coragem acordando.'",
+        "O Monge do Templo: 'Névoa não cancela a próxima pedra do caminho.'",
+        "O Construtor de Pontes: 'A catástrofe que previ nunca aconteceu nos dados reais.'",
+        "A Tecelã dos Espelhos: 'O reflexo do medo é menor do que a força do meu coração.'",
+        "O Guardião da Torre: 'O horizonte é amplo e seguro para quem sobe degrau por degrau.'",
+    ]
+    for ph in phrases_arch:
+        p(story, f"• <i>{ph}</i>", s["body_left"])
+    story.append(Spacer(1, 6))
+    p(story, "Minhas frases personalizadas da casa:", s["label"])
     story.append(blank_lines(6))
     story.append(PageBreak())
 
-    p(story, "Apêndice C — Registros Extras de Treino Continuado", s["h1"])
+    p(story, "Apêndice C — Registros Extras de Treino e Manutenção Continuada (120 Folhas)", s["h1"])
     story.append(hr())
-    for i in range(1, 61):
-        story.append(exposure_log(s, f"Registro Extra de Treino #{i:02d}"))
-        if i % 2 == 0:
-            story.append(PageBreak())
+    p(story, "Este caderno de manutenção garante que você continue praticando e consolidando a neuroplasticidade "
+             "em diferentes ambientes, viagens e estações do ano.", s["body"])
+    story.append(PageBreak())
+
+    for i in range(1, 121):
+        story.append(exposure_log_page(
+            s, i, "Registro Extra de Manutenção Continuada",
+            "O Guardião da Constância",
+            "Generalização em Novos Ambientes e Situações Reais"
+        ))
+        story.append(PageBreak())
+
+    p(story, "Apêndice D — Protocolo Específico para Fobia de Sangue-Injeção (Tensão Aplicada)", s["h1"])
+    story.append(hr())
+    p(story, "A fobia de sangue-injeção-ferimentos (BII) é o único subtipo fóbico que apresenta resposta vasovagal bifásica "
+      "(aumento inicial de pressão seguido de queda brusca, podendo causar síncope/desmaio).", s["body"])
+    p(story, "<b>Técnica de Tensão Aplicada de Lars-Göran Öst:</b>", s["h2"])
+    story.append(bullets([
+        "1. Sentar em cadeira confortável e segura.",
+        "2. Tencionar os músculos dos braços, tronco e pernas por 10 a 15 segundos até sentir calor no rosto.",
+        "3. Relaxar a musculatura por 20 segundos (sem ficar mole demais).",
+        "4. Repetir 5 ciclos consecutivos antes e durante a punção venosa ou vacina.",
+        "5. Essa contração voluntária eleva a pressão arterial e impede o desmaio fisiológico com total segurança.",
+    ], s["body_left"]))
+    story.append(PageBreak())
+
+    p(story, "Apêndice E — Guia de Exposição com Realidade Virtual (RV)", s["h1"])
+    story.append(hr())
+    p(story, "A Terapia de Exposição por Realidade Virtual (VRE), área de especialização acadêmica da Dra. Priscila Palomo, "
+      "utiliza ambientes digitais imersivos controlados para simular voos, alturas, elevadores e animais com precisão milimétrica.", s["body"])
+    p(story, "<b>Vantagens Clínicas da RV:</b>", s["h2"])
+    story.append(bullets([
+        "Controle total sobre as variáveis climáticas e intensidade do estímulo.",
+        "Possibilidade de repetições imediatas do mesmo pouso ou decolagem na mesma sessão clínica.",
+        "Segurança psicológica máxima para pacientes com alto nível de esquiva inicial.",
+        "Ponte perfeita e validada para a posterior transição para a exposição in vivo real.",
+    ], s["body_left"]))
+    story.append(PageBreak())
+
+    p(story, "Apêndice F — Plano de Manutenção Anual e Prevenção de Recaídas (4 Trimestres)", s["h1"])
+    story.append(hr())
+    for trim in range(1, 5):
+        p(story, f"<b>Check-in do Trimestre {trim} da Casa Interior</b>", s["h2"])
+        p(story, "1. Áreas reconquistadas que mantenho ativas no meu cotidiano:", s["label"])
+        story.append(blank_lines(3))
+        p(story, "2. Pequenas esquivas que tentaram voltar e que desmontei no ato:", s["label"])
+        story.append(blank_lines(3))
+        p(story, "3. Próximo grande desafio ou viagem que vou realizar:", s["label"])
+        story.append(blank_lines(3))
+        story.append(PageBreak())
+
+    p(story, "Apêndice G — Termo de Compromisso e Aliança com a Coragem", s["h1"])
+    story.append(hr())
+    p(story, "Eu, ____________________________________________________________________, declaro solenemente diante de todos os guardiões "
+      "da minha casa interior que assumo a responsabilidade amorosa pela minha liberdade. Comprometo-me a não fugir nos primeiros minutos "
+      "da água fria, a subir um degrau de cada vez com o Mestre Marceneiro e a honrar a nobre coragem de dragão que habita em meu peito.", s["body"])
+    story.append(Spacer(1, 10))
+    p(story, "Assinatura do(a) Peregrino(a): ________________________________________________", s["field"])
+    story.append(Spacer(1, 6))
+    p(story, "Data: ______ / ______ / 2026", s["field"])
+    story.append(Spacer(1, 10))
+    p(story, "“A casa inteira agora é livre. Que todas as janelas permaneçam abertas para a luz do sol.”", s["quote"])
+    story.append(PageBreak())
+
+    p(story, "Apêndice H — Glossário Clínico Completo", s["h1"])
+    story.append(hr())
+    glossary_data = [
+        ("Amígdala Cerebral", "Estrutura subcortical do sistema límbico responsável pela detecção de ameaças e disparo do alarme de sobrevivência."),
+        ("Aprendizado Inibitório", "Formação de novas conexões neurais no córtex pré-frontal que inibem e superam a resposta fóbica original."),
+        ("Comportamento de Segurança", "Ações sutis de esquiva que aliviam o mal-estar momentâneo mas impedem a extinção definitiva do medo."),
+        ("Desensibilização Sistemática", "Protocolo clássico de aproximação progressiva emparelhada com relaxamento muscular."),
+        ("DSM-5-TR", "Manual Diagnóstico e Estatístico de Transtornos Mentais da Associação Americana de Psiquiatria."),
+        ("Eixo HPA", "Eixo neuroendócrino Hipotálamo-Hipófise-Adrenal responsável pela liberação de cortisol e adrenalina no estresse."),
+        ("Erro de Predição (Prediction Error)", "Diferença entre o desastre esperado e a realidade observada, motor da neuroplasticidade."),
+        ("Habituação", "Redução natural e fisiológica da ativação autonômica após permanência continuada no estímulo sem fuga."),
+        ("Protocolo Unificado (UP)", "Intervenção transdiagnóstica de David H. Barlow focada na regulação emocional e tolerância ao afeto."),
+        ("SUDS", "Unidades Subjetivas de Desconforto (Subjective Units of Distress Scale), escala de 0 a 10 ou 0 a 100."),
+        ("TCC", "Terapia Cognitivo-Comportamental, abordagem científica baseada em evidências para transtornos de ansiedade."),
+        ("Violação de Expectativa", "Comprovação empírica de que as previsões catastróficas da mente não se concretizam na prática."),
+    ]
+    for termo, definicao in glossary_data:
+        p(story, f"• <b>{termo}:</b> {definicao}", s["body"])
+    story.append(PageBreak())
+
+    p(story, "Apêndice I — Recursos de Apoio e Contatos Clínicos", s["h1"])
+    story.append(hr())
+    p(story, "• <b>Site Oficial da Dra. Priscila Palomo:</b> <font color='#0E4A57'><u>www.priscilapalomo.com</u></font><br/>"
+      "• <b>Loja de Materiais e Protocolos Clínicos:</b> <font color='#0E4A57'><u>www.priscilapalomo.com/loja.html</u></font><br/>"
+      "• <b>Página Oficial do Programa Escada Segura:</b> <font color='#0E4A57'><u>www.priscilapalomo.com/escada-segura.html</u></font><br/>"
+      "• <b>Atendimento Clínico e WhatsApp:</b> (11) 95069-0537<br/>"
+      "• <b>Centro de Valorização da Vida (CVV):</b> Telefone 188 (ligação gratuita 24h em todo o Brasil)<br/>"
+      "• <b>Conselho Regional de Psicologia de São Paulo (CRP-SP):</b> CRP 98007", s["body"])
+    story.append(Spacer(1, 10))
+    p(story, "<i>Este book é protegido por direitos autorais e foi desenvolvido com dedicação científica e ética "
+             "pela Dra. Priscila Palomo para transformar vidas e devolver a liberdade aos seus leitores.</i>", s["small"])
 
     doc.build(story, onFirstPage=add_page_number, onLaterPages=add_page_number)
-    print(f"OK: {OUT} ({OUT.stat().st_size} bytes)")
+    print(f"Book gerado com sucesso: {OUT} ({OUT.stat().st_size} bytes)")
 
 
 if __name__ == "__main__":
