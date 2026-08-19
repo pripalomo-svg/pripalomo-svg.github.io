@@ -32,6 +32,7 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
 - `apresentacao.html` — bio + vídeos "draw my life".
 - `escada-segura.html` — landing do produto "Programa Escada Segura".
 - `catalogo-videos.html` — catálogo interno de vídeos.
+- `jogo-avaliacao.html` — **jogo de autoavaliação** (tiro ao alvo + blocos estilo Tetris) para observar padrões de ansiedade e impulsividade; resultados lúdicos, não diagnósticos. Lógica em `assets/jogo-avaliacao.js`.
 
 ## Conteúdo em Markdown (blog)
 
