@@ -58,9 +58,11 @@ let alvosMetade = false;
 function iniciarAlvos(){
   const area = document.getElementById('alvoArea');
   const feedback = document.getElementById('alvoFeedback');
-  area.innerHTML = '';
-  feedback.textContent = '';
-  feedback.classList.remove('mostra');
+  area.querySelectorAll('.alvo').forEach(el => el.remove());
+  if(feedback){
+    feedback.textContent = '';
+    feedback.classList.remove('mostra');
+  }
   alvosRestante = ALVOS_DURACAO;
   alvosAtivos.clear();
   alvoIdSeq = 0;
@@ -71,7 +73,7 @@ function iniciarAlvos(){
   area.onclick = (e) => {
     if(e.target === area){
       JOGO.metrics.alvos.cliquesVazios++;
-      flashFeedback('—', area);
+      flashFeedback('—');
       atualizarBarraAlvos();
     }
   };
@@ -118,13 +120,13 @@ function spawnAlvo(){
     const rt = Date.now() - spawn;
     if(ruim){
       JOGO.metrics.alvos.erros++;
-      flashFeedback('Ops!', area);
+      flashFeedback('Ops!');
     }else{
       JOGO.metrics.alvos.acertos++;
       JOGO.metrics.alvos.temposReacao.push(rt);
       const metade = alvosMetade ? 1 : 0;
       JOGO.metrics.alvos.temposPorMetade[metade].push(rt);
-      flashFeedback('✓', area);
+      flashFeedback('✓');
     }
     removerAlvo(id, true);
     atualizarBarraAlvos();
@@ -147,8 +149,9 @@ function removerAlvo(id, clicado){
   alvosAtivos.delete(id);
 }
 
-function flashFeedback(txt, area){
+function flashFeedback(txt){
   const fb = document.getElementById('alvoFeedback');
+  if(!fb) return;
   fb.textContent = txt;
   fb.classList.add('mostra');
   setTimeout(() => fb.classList.remove('mostra'), 280);

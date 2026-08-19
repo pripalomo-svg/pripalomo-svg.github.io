@@ -4,6 +4,9 @@ Olá, Priscila! Tudo é feito pelo site do GitHub, no navegador — sem instalar
 
 > Endereço do projeto: https://github.com/pripalomo-svg/pripalomo-svg.github.io
 
+**Seu painel (atualizar cursos e materiais):** https://www.priscilapalomo.com/painel.html  
+*(Se ainda não estiver no ar, use o link que aparece no rodapé do site ou na seção de boas-vindas da home.)*
+
 Sempre que você salvar ("Commit changes"), o site atualiza em 1 a 2 minutos.
 
 ---
