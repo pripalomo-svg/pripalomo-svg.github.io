@@ -7,4 +7,4 @@ preco: R$ 97
 arquivo: ""
 link: escada-segura.html
 ---
-Book completo de 200+ páginas: cada capítulo com uma história lúdica e um arquétipo na casa, unindo DSM-5, TCC, modelo de Barlow, aprendizado inibitório e plano de 21 dias.
+Romance em 24 capítulos: a jornada de Íris Valente contra o Senhor do Nunca. A cada capítulo, a história e o Grimório da Ciência (DSM-5, TCC e Barlow), mais as 21 Provações e os apêndices clínicos.
