@@ -8,6 +8,34 @@ Sempre que você salvar ("Commit changes"), o site atualiza em 1 a 2 minutos.
 
 ---
 
+## Atualizar cursos e materiais (o jeito fácil: painel)
+
+Abra **www.priscilapalomo.com/painel.html** no navegador. Lá você consegue:
+
+- Mudar título, descrição, preço e link de compra de cada curso/material;
+- Ocultar ou mostrar um item no site (caixinha "Visível no site");
+- Adicionar ou remover projetos;
+- Ver atalhos para editar os artigos do blog.
+
+Quando terminar, clique em **"Publicar no site"** — o site atualiza sozinho
+em 1 a 2 minutos.
+
+> **Primeira vez?** O botão "Publicar no site" precisa de um código de acesso
+> do GitHub (token). O passo a passo para criar está dentro do próprio painel,
+> em "Publicação com um clique". Você faz isso uma vez só; o código fica
+> guardado no seu navegador.
+
+Se preferir não usar o código, clique em **"Baixar projetos.json"** e suba o
+arquivo baixado no GitHub, na pasta `dados`, substituindo o `projetos.json`.
+
+Os produtos aparecem na página **Materiais** (`produtos.html`) e os cursos na
+página **Cursos** (`cursos.html`). Nos itens **sem** link de compra, o botão
+"Comprar agora" abre as opções de pagamento direto no site: WhatsApp, cartão
+e Pix. Nos itens **com** link (Hotmart, Mercado Pago…), o botão leva o cliente
+direto para o checkout.
+
+---
+
 ## Escrever um novo artigo no blog
 
 São **dois passos**: criar o arquivo do artigo e registrá-lo no índice.
