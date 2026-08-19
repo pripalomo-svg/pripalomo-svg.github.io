@@ -22,7 +22,9 @@ consegue baixar). Por isso:
 
 ### Programa Escada Segura
 
-O arquivo `programa-escada-segura.pdf` é o book premium (~200 páginas).
+O arquivo `programa-escada-segura.pdf` é o livro premium: o romance
+*A Escada Segura — a jornada de Íris Valente* (203 páginas), gerado por
+`tools/gerar-escada-segura.py`.
 **Não** coloque o link dele na ficha do produto da loja (`arquivo` deve ficar vazio) —
 entregue pelo WhatsApp depois do Pix/cartão.
 

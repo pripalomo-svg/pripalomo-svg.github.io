@@ -26,13 +26,15 @@ Sem estrutura, a exposição vira improviso: ou você salta degraus demais e des
 
 ## O Programa Escada Segura
 
-Criei o **[Programa Escada Segura](escada-segura.html)** — um book digital de **200+ páginas** — para quem quer esse método organizado em casa, no próprio ritmo:
+Criei o **[Programa Escada Segura](escada-segura.html)** — um livro digital de **203 páginas** — para quem quer esse método organizado em casa, no próprio ritmo. E escolhi contá-lo como um **romance**, porque informação clínica sozinha raramente muda comportamento: quem tem fobia normalmente já sabe que a situação é segura, e isso nunca foi suficiente. História cria imagem, imagem cria memória, e memória é o que aparece na hora do aperto.
 
-- O que é fobia segundo o DSM-5 e o mapa completo de sintomas
-- Quando tratar e os passos da TCC para vencer o medo
-- Habituação, pensadores e estudos importantes (em linguagem didática)
-- Analogias japonesas (“coragem de um dragão”) e parábolas de templos
-- Plano dia a dia em três semanas + folhas de registro imprimíveis
+Você acompanha **Íris Valente**, arquiteta de 29 anos com medo de altura, na Academia Escada Segura, enfrentando o **Senhor do Nunca** — o vilão que nunca ataca, só oferece alívio, e que engorda a cada fuga.
+
+- 24 capítulos: de um lado a história, do outro o **Grimório da Ciência** (DSM-5, TCC e o modelo de David H. Barlow)
+- Um “feitiço” por capítulo: as técnicas reais — respiração 4-6, pergaminho da predição, tensão aplicada
+- Sua Escada de Prata: os 10 degraus personalizados
+- As 21 Provações: 21 dias de treino, cada um com folha de registro
+- Apêndices clínicos: fobia de agulhas, realidade virtual, manutenção, glossário e 105 folhas extras
 
 > Material psicoeducativo. Não substitui psicoterapia — e, se a ansiedade for intensa ou houver outros quadros, o ideal é combinar com acompanhamento profissional.
 
