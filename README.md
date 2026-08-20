@@ -1,8 +1,8 @@
 # Site da Dra. Priscila Palomo
 
 Site oficial da Dra. Priscila Palomo — Psicóloga (CRP 98007). Inclui um **blog**
-e a landing do produto **[Programa Escada Segura](escada-segura.html)**
-(romance em 24 capítulos + caderno clínico, 203 páginas, R$ 97).
+e a landing do livro **[Harry Potter e a Magia da Coragem](escada-segura.html)**
+(história infantil em 20 capítulos + romance fofo com Hermione, R$ 97).
 
 🔗 No ar em: https://www.priscilapalomo.com (e https://pripalomo-svg.github.io)
 

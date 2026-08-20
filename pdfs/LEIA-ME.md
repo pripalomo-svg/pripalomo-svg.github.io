@@ -20,10 +20,10 @@ consegue baixar). Por isso:
   pelo WhatsApp após o pagamento, ou use uma plataforma de checkout
   (Hotmart, Eduzz, Gumroad) que protege o download.
 
-### Programa Escada Segura
+### Livro: Harry Potter e a Magia da Coragem
 
-O arquivo `programa-escada-segura.pdf` é o livro premium: o romance
-*A Escada Segura — a jornada de Íris Valente* (203 páginas), gerado por
+O arquivo `programa-escada-segura.pdf` é o livro ilustrado:
+*Harry Potter e a Magia da Coragem* (24 páginas), gerado por
 `tools/gerar-escada-segura.py`.
 **Não** coloque o link dele na ficha do produto da loja (`arquivo` deve ficar vazio) —
 entregue pelo WhatsApp depois do Pix/cartão.

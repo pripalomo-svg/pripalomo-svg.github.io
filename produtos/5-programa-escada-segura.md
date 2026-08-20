@@ -1,10 +1,10 @@
 ---
-titulo: Programa Escada Segura
-tag: Premium
-paginas: 200+ páginas
+titulo: Harry Potter e a Magia da Coragem
+tag: Livro Ilustrado
+paginas: 24 páginas
 precoDe: R$ 197
 preco: R$ 97
 arquivo: ""
 link: escada-segura.html
 ---
-Romance em 24 capítulos: a jornada de Íris Valente contra o Senhor do Nunca. A cada capítulo, a história e o Grimório da Ciência (DSM-5, TCC e Barlow), mais as 21 Provações e os apêndices clínicos.
+Historinha infantil em 20 capítulos sobre um Harry Potter com muitas fobias, aprendendo segredos da Psicologia e TCC com Hermione, com um romance bobinho de frio na barriga e final Felizes Para Sempre.

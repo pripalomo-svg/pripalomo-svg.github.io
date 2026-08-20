@@ -24,17 +24,19 @@ Sem estrutura, a exposição vira improviso: ou você salta degraus demais e des
 3. **Treinar** regulação (respiração, ancoragem) para permanecer;
 4. **Repetir** e registrar o contraste entre o que o medo previa e o que aconteceu.
 
-## O Programa Escada Segura
+## O Livro: Harry Potter e a Magia da Coragem
 
-Criei o **[Programa Escada Segura](escada-segura.html)** — um livro digital de **203 páginas** — para quem quer esse método organizado em casa, no próprio ritmo. E escolhi contá-lo como um **romance**, porque informação clínica sozinha raramente muda comportamento: quem tem fobia normalmente já sabe que a situação é segura, e isso nunca foi suficiente. História cria imagem, imagem cria memória, e memória é o que aparece na hora do aperto.
+Criei o **[Harry Potter e a Magia da Coragem](escada-segura.html)** — um livro digital ilustrado — para quem quer aprender sobre o medo e a superação com a ternura de uma historinha mágica:
 
-Você acompanha **Íris Valente**, arquiteta de 29 anos com medo de altura, na Academia Escada Segura, enfrentando o **Senhor do Nunca** — o vilão que nunca ataca, só oferece alívio, e que engorda a cada fuga.
+Você acompanha um pequeno **Harry Potter** cheio de medos (escuro, altura, aranhas, agulhas, cães, trovões) aprendendo com **Hermione Granger** como a mente humana funciona e como vencer cada fobia com a Psicologia e a TCC.
 
-- 24 capítulos: de um lado a história, do outro o **Grimório da Ciência** (DSM-5, TCC e o modelo de David H. Barlow)
-- Um “feitiço” por capítulo: as técnicas reais — respiração 4-6, pergaminho da predição, tensão aplicada
-- Sua Escada de Prata: os 10 degraus personalizados
-- As 21 Provações: 21 dias de treino, cada um com folha de registro
-- Apêndices clínicos: fobia de agulhas, realidade virtual, manutenção, glossário e 105 folhas extras
+- 20 capítulos ilustrados contados em linguagem simples e afetuosa para crianças de 5 anos (e seus pais)
+- A cada capítulo: uma fobia de Harry e um **Segredo da Psicologia** (TCC, David H. Barlow, Pavlov, habituação, respiração)
+- Leitura pura e fluida: sem folhas de exercícios, focada na história
+- Um romance bobinho e apaixonado entre Harry e Hermione: bochechas vermelhas, frio na barriga, cerveja amanteigada e o primeiro beijinho de nariz
+- Final com casamento mágico e um "Felizes Para Sempre"
+
+> Material lúdico e psicoeducativo. Não substitui psicoterapia clínica quando o sofrimento for intenso.
 
 > Material psicoeducativo. Não substitui psicoterapia — e, se a ansiedade for intensa ou houver outros quadros, o ideal é combinar com acompanhamento profissional.
 
