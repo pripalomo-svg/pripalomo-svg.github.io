@@ -1,10 +1,10 @@
 ---
 titulo: Harry Potter e a Magia da Coragem
 tag: Livro Ilustrado
-paginas: 24 páginas
+paginas: 42 páginas
 precoDe: R$ 197
 preco: R$ 97
 arquivo: ""
 link: escada-segura.html
 ---
-Historinha infantil em 20 capítulos sobre um Harry Potter com muitas fobias, aprendendo segredos da Psicologia e TCC com Hermione, com um romance bobinho de frio na barriga e final Felizes Para Sempre.
+A batalha secreta de Harry Potter contra o Devorador de Coragem — e um amor por Hermione que ele jurava impossível. 21 capítulos ilustrados em estilo anime, com segredos reais da Psicologia e um final Felizes Para Sempre.

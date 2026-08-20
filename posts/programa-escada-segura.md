@@ -26,22 +26,20 @@ Sem estrutura, a exposição vira improviso: ou você salta degraus demais e des
 
 ## O Livro: Harry Potter e a Magia da Coragem
 
-Criei o **[Harry Potter e a Magia da Coragem](escada-segura.html)** — um livro digital ilustrado — para quem quer aprender sobre o medo e a superação com a ternura de uma historinha mágica:
+Criei o **[Harry Potter e a Magia da Coragem](escada-segura.html)** — um livro digital ilustrado em estilo anime — para quem quer aprender sobre o medo e a superação com a ternura de uma historinha mágica:
 
-Você acompanha um pequeno **Harry Potter** cheio de medos (escuro, altura, aranhas, agulhas, cães, trovões) aprendendo com **Hermione Granger** como a mente humana funciona e como vencer cada fobia com a Psicologia e a TCC.
+Harry Potter tem um inimigo secreto: uma sombra sussurrante chamada **Devorador de Coragem**, que cresce a cada medo evitado (escuro, altura, aranhas, agulhas, cães, trovões) e encolhe a cada medo enfrentado. Com a ajuda de **Hermione Granger**, ele aprende a domar essa sombra — enquanto esconde um segredo ainda maior: tem certeza de que o amor dele por ela é impossível.
 
-- 20 capítulos ilustrados contados em linguagem simples e afetuosa para crianças de 5 anos (e seus pais)
-- A cada capítulo: uma fobia de Harry e um **Segredo da Psicologia** (TCC, David H. Barlow, Pavlov, habituação, respiração)
-- Leitura pura e fluida: sem folhas de exercícios, focada na história
-- Um romance bobinho e apaixonado entre Harry e Hermione: bochechas vermelhas, frio na barriga, cerveja amanteigada e o primeiro beijinho de nariz
+- 21 capítulos ilustrados, cada um com um gancho de abertura e uma pista para o próximo capítulo
+- A cada fobia: **O Segredo Mágico da Mente**, explicando de forma simples TCC, David H. Barlow, Wolpe, Bandura, Beck e Öst
+- Leitura pura e fluida: sem folhas de exercícios, focada inteiramente na história
+- Um amor que parece não correspondido do início ao fim — até a confissão na ponte coberta de neve
 - Final com casamento mágico e um "Felizes Para Sempre"
 
 > Material lúdico e psicoeducativo. Não substitui psicoterapia clínica quando o sofrimento for intenso.
 
-> Material psicoeducativo. Não substitui psicoterapia — e, se a ansiedade for intensa ou houver outros quadros, o ideal é combinar com acompanhamento profissional.
-
 ## Próximo passo
 
-Se uma fobia específica está encolhendo sua rotina, o primeiro movimento não precisa ser o degrau mais alto. Pode ser abrir o workbook e escrever o degrau 1 — aquele tão fácil que quase parece “bobagem”.
+Se uma fobia específica está encolhendo sua rotina, o primeiro movimento não precisa ser o degrau mais alto. Pode ser simplesmente começar a ler — e descobrir, junto com Harry, que o Devorador de Coragem sempre foi menor do que parecia.
 
-[Conhecer o Programa Escada Segura](escada-segura.html) · investimento **R$ 97**.
+[Conhecer Harry Potter e a Magia da Coragem](escada-segura.html) · investimento **R$ 97**.
