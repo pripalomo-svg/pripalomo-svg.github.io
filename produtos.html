@@ -3,26 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cursos — Priscila Palomo</title>
-<meta name="description" content="Cursos online da Priscila Palomo, psicóloga (CRP 98007): Mecanismos Neurobiológicos do Mindfulness e Realidade Virtual Aplicada na Psicologia.">
+<title>Materiais — Priscila Palomo</title>
+<meta name="description" content="E-books, guias e programas da Priscila Palomo, psicóloga (CRP 98007): materiais práticos sobre ansiedade, fobias, TOC e autoconhecimento.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>P</text></svg>">
 <link rel="stylesheet" href="assets/style.css">
 <style>
-.cursos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px,100%),1fr)); gap: 0; border: 1px solid var(--borda); margin-top: 8px; }
-.curso {
-  padding: 30px 28px; border-right: 1px solid var(--borda); border-bottom: 1px solid var(--borda);
-  display: flex; flex-direction: column;
-}
-.curso .curso-tag {
-  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--dourado-escuro); font-weight: 700; margin-bottom: 12px;
-}
-.curso h3 { font-family: Arial, Helvetica, sans-serif; font-size: 21px; font-weight: 600; margin-bottom: 10px; line-height: 1.2; }
-.curso p { font-size: 13.5px; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: 18px; }
-.curso .curso-meta { font-size: 11px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 16px; }
-.curso .btn { width: 100%; justify-content: center; }
-.curso .curso-mini { font-size: 11px; color: var(--muted); margin-top: 10px; text-align: center; }
 .loja-vazia { padding: 32px; font-size: 14px; color: var(--muted); }
+.product .post-tag { margin-bottom: 8px; }
 </style>
 </head>
 <body>
@@ -39,8 +26,8 @@
   <ul class="nav-links">
     <li><a href="index.html">Início</a></li>
     <li><a href="blog.html">Blog</a></li>
-    <li><a href="cursos.html" class="active">Cursos</a></li>
-    <li><a href="produtos.html">Materiais</a></li>
+    <li><a href="cursos.html">Cursos</a></li>
+    <li><a href="produtos.html" class="active">Materiais</a></li>
     <li><a href="jogo-avaliacao.html">Jogo</a></li>
     <li><a href="apresentacao.html">Minha história</a></li>
     <li><a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!" target="_blank" class="nav-cta">Falar comigo</a></li>
@@ -48,29 +35,30 @@
 </nav>
 
 <main class="wrap">
-  <div class="page-head" style="padding:44px 0 8px">
-    <span style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--dourado-escuro);font-weight:700;display:block;margin-bottom:12px">Cursos online</span>
-    <h1>Aprenda comigo</h1>
-    <p>Cursos práticos, com base científica, para profissionais e para quem quer entender melhor a mente. Inscrição e pagamento seguros pela Hotmart.</p>
+  <div class="page-head" style="padding:44px 0 8px;border-bottom:none">
+    <span style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--dourado-escuro);font-weight:700;display:block;margin-bottom:12px">Materiais</span>
+    <h1>E-books, guias e programas</h1>
+    <p>Materiais práticos, com base científica, para você cuidar da sua mente no seu ritmo. Compre direto por aqui — Pix, cartão ou WhatsApp.</p>
   </div>
 
   <section style="padding:24px 0 8px">
-    <div class="cursos-grid" id="cursosGrid">
-      <p class="loja-vazia">Carregando cursos…</p>
+    <div class="shop-grid" id="lojaGrid">
+      <p class="loja-vazia">Carregando materiais…</p>
     </div>
   </section>
 
   <section style="padding:36px 0 8px">
     <p style="font-size:13px;color:var(--muted);max-width:56ch">
-      Ficou com alguma dúvida sobre os cursos?
-      <a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Tenho%20uma%20d%C3%BAvida%20sobre%20os%20cursos." target="_blank" style="color:var(--dourado-escuro);text-decoration:underline">Fale comigo no WhatsApp</a>.
+      Procurando os cursos? Estão em <a href="cursos.html" style="color:var(--dourado-escuro);text-decoration:underline">Cursos</a>.
+      Ficou com alguma dúvida?
+      <a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Tenho%20uma%20d%C3%BAvida%20sobre%20os%20materiais." target="_blank" style="color:var(--dourado-escuro);text-decoration:underline">Fale comigo no WhatsApp</a>.
     </p>
   </section>
 
   <!-- NEWSLETTER NEURONEWS -->
   <section class="news" id="neuronews">
     <span class="news-kicker">NeuroNews</span>
-    <h2>Receba avisos de novos cursos e conteúdos</h2>
+    <h2>Receba avisos de novos materiais e conteúdos</h2>
     <p>Assine a NeuroNews e fique por dentro dos lançamentos, além das minhas historinhas e ideias sobre a mente.</p>
     <form onsubmit="subscribe(event)">
       <input type="email" placeholder="Seu melhor e-mail" required>
@@ -87,13 +75,14 @@
     <a href="blog.html">Blog</a>
     <a href="cursos.html">Cursos</a>
     <a href="produtos.html">Materiais</a>
+    <a href="jogo-avaliacao.html">Jogo</a>
     <a href="painel.html">Painel</a>
     <a href="https://wa.me/5511950690537" target="_blank">WhatsApp</a>
   </div>
   <span class="foot-info">© <span data-year></span> · CRP 98007</span>
 </footer>
 
-<!-- Modal pagamento (usado se um curso ficar sem link de checkout) -->
+<!-- Modal pagamento -->
 <div class="modal" id="payModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closePay()" aria-label="Fechar">×</button>
@@ -103,7 +92,7 @@
     <a class="pay-opt" data-wa href="#" target="_blank">
       <div>
         <strong>Comprar pelo WhatsApp</strong>
-        <small>Atendimento direto</small>
+        <small>Atendimento direto, recebe o PDF na hora</small>
       </div>
     </a>
 
@@ -128,7 +117,7 @@
         <button onclick="copyPix(this)">Copiar</button>
       </div>
       <small style="display:block;margin-top:10px;color:#999">
-        Depois do pagamento, envie o comprovante no WhatsApp.
+        Depois do pagamento, envie o comprovante no WhatsApp para receber o material.
       </small>
     </div>
   </div>
@@ -137,7 +126,7 @@
 <script src="assets/app.js"></script>
 <script src="assets/projetos.js"></script>
 <script>
-  montarCursos(document.getElementById('cursosGrid'));
+  montarLoja(document.getElementById('lojaGrid'));
 </script>
 </body>
 </html>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Painel — Priscila Palomo</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>⚙</text></svg>">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+body { padding-bottom: 96px; }
+.painel-head { padding: 40px 0 10px; }
+.painel-head h1 { font-size: clamp(28px,4.5vw,40px); margin-bottom: 6px; }
+.painel-head p { color: var(--muted); font-size: 14.5px; max-width: 62ch; }
+
+.painel-lista { display: flex; flex-direction: column; gap: 18px; margin: 18px 0 20px; }
+.proj-card {
+  background: var(--surface); border: 1px solid var(--borda);
+  padding: 22px 22px 18px; box-shadow: var(--sombra);
+}
+.proj-card.oculto { opacity: .55; }
+.proj-topo { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.proj-num {
+  font-size: 11px; font-weight: 700; color: var(--dourado-escuro);
+  letter-spacing: .14em; text-transform: uppercase;
+}
+.proj-nome { font-size: 17px; font-weight: 700; flex: 1; min-width: 160px; }
+.proj-topo .toggle { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--muted); cursor: pointer; user-select: none; }
+.proj-topo .toggle input { width: 17px; height: 17px; accent-color: var(--dourado); cursor: pointer; }
+.proj-remover {
+  background: none; border: 1px solid var(--borda); color: var(--muted);
+  font-size: 12px; padding: 6px 12px; cursor: pointer; font-family: inherit;
+  transition: all .2s;
+}
+.proj-remover:hover { border-color: #c0392b; color: #c0392b; }
+
+.proj-campos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+.campo { display: flex; flex-direction: column; gap: 4px; }
+.campo.full { grid-column: 1 / -1; }
+.campo label { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.campo input, .campo select, .campo textarea {
+  border: 1px solid var(--borda); background: #fff; color: var(--preto);
+  padding: 10px 12px; font-size: 14px; font-family: inherit; width: 100%;
+}
+.campo input:focus, .campo select:focus, .campo textarea:focus { outline: 2px solid var(--dourado); outline-offset: -1px; }
+.campo textarea { resize: vertical; min-height: 64px; line-height: 1.5; }
+@media (max-width: 640px) { .proj-campos { grid-template-columns: 1fr; } }
+
+.painel-bar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 500;
+  background: var(--preto); color: #fff;
+  padding: 14px clamp(16px,5vw,52px);
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+}
+.painel-bar .status { flex: 1; font-size: 13px; min-width: 180px; }
+.painel-bar .status.ok { color: #8fe3a8; }
+.painel-bar .status.erro { color: #ffb0a0; }
+.painel-bar .btn { padding: 10px 18px; font-size: 12px; }
+.painel-bar .btn-claro { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.5); }
+.painel-bar .btn-claro:hover { border-color: #fff; }
+
+.bloco {
+  background: var(--surface); border: 1px solid var(--borda);
+  padding: 24px; margin: 18px 0;
+}
+.bloco h3 { font-size: 18px; margin-bottom: 6px; }
+.bloco > p { font-size: 13.5px; color: var(--muted); margin-bottom: 14px; max-width: 70ch; line-height: 1.6; }
+.token-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.token-row input { flex: 1; min-width: 220px; border: 1px solid var(--borda); padding: 10px 12px; font-size: 13px; font-family: inherit; }
+.token-ok { font-size: 13px; color: #1e7e34; font-weight: 600; }
+details.ajuda { margin-top: 14px; font-size: 13.5px; }
+details.ajuda summary { cursor: pointer; color: var(--dourado-escuro); font-weight: 600; }
+details.ajuda ol { margin: 12px 0 0 20px; display: flex; flex-direction: column; gap: 8px; color: #333; }
+details.ajuda a { color: var(--dourado-escuro); text-decoration: underline; }
+
+.blog-lista { display: flex; flex-direction: column; }
+.blog-item {
+  display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+  padding: 12px 0; border-bottom: 1px solid var(--borda-suave); font-size: 14px;
+}
+.blog-item strong { flex: 1; min-width: 200px; font-weight: 600; }
+.blog-item .data { font-size: 12px; color: var(--muted); }
+.blog-item a { font-size: 12.5px; color: var(--dourado-escuro); text-decoration: underline; }
+.blog-acoes { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="assets/logo.svg" alt="Priscila Palomo Psicologia">
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Priscila Palomo</span>
+      <span class="nav-logo-sub">Painel · uso pessoal</span>
+    </div>
+  </a>
+  <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
+  <ul class="nav-links">
+    <li><a href="index.html" target="_blank">Ver o site</a></li>
+    <li><a href="produtos.html" target="_blank">Ver a loja</a></li>
+    <li><a href="cursos.html" target="_blank">Ver os cursos</a></li>
+    <li><a href="jogo-avaliacao.html" target="_blank">Ver o jogo</a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+  <div class="painel-head">
+    <span style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--dourado-escuro);font-weight:700;display:block;margin-bottom:10px">Painel</span>
+    <h1>Meus projetos</h1>
+    <p>Edite aqui seus cursos e materiais — título, descrição, preço, link de compra — e clique em <strong>Publicar no site</strong>. O site atualiza sozinho em 1 a 2 minutos.</p>
+  </div>
+
+  <!-- PROJETOS -->
+  <section>
+    <span class="section-title">Cursos e materiais</span>
+    <div class="painel-lista" id="listaProjetos">
+      <p style="padding:24px;font-size:14px;color:var(--muted)">Carregando projetos…</p>
+    </div>
+    <button class="btn btn-outline" type="button" onclick="adicionarProjeto()">+ Adicionar projeto</button>
+  </section>
+
+  <!-- CONEXÃO COM O GITHUB -->
+  <section>
+    <span class="section-title">Conexão com o site</span>
+    <div class="bloco" id="blocoToken">
+      <h3>Publicação com um clique</h3>
+      <p>Para o botão <strong>Publicar no site</strong> funcionar, cole aqui (uma única vez) o seu código de acesso do GitHub. Ele fica guardado só neste navegador. Sem o código, use o botão <strong>Baixar projetos.json</strong> e suba o arquivo manualmente no GitHub.</p>
+      <div class="token-row" id="tokenForm">
+        <input type="password" id="tokenInput" placeholder="Cole aqui o código (token) do GitHub" autocomplete="off">
+        <button class="btn btn-gold" type="button" onclick="salvarToken()">Salvar código</button>
+      </div>
+      <p class="token-ok" id="tokenStatus" style="display:none">✓ Código salvo neste navegador. <a href="#" onclick="removerToken();return false" style="color:var(--muted);font-weight:400">Remover</a></p>
+      <details class="ajuda">
+        <summary>Como criar o código de acesso (passo a passo, faz uma vez só)</summary>
+        <ol>
+          <li>Entre no GitHub e abra <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a>.</li>
+          <li>Em <strong>Token name</strong>, escreva: <em>Painel do site</em>. Em <strong>Expiration</strong>, escolha 1 ano.</li>
+          <li>Em <strong>Repository access</strong>, marque <strong>Only select repositories</strong> e escolha <strong>pripalomo-svg.github.io</strong>.</li>
+          <li>Em <strong>Permissions → Repository permissions</strong>, encontre <strong>Contents</strong> e mude para <strong>Read and write</strong>.</li>
+          <li>Clique em <strong>Generate token</strong>, copie o código gerado e cole no campo acima.</li>
+        </ol>
+      </details>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section>
+    <span class="section-title">Artigos do blog</span>
+    <div class="bloco">
+      <h3>Atalhos para editar o blog</h3>
+      <p>Os artigos são editados direto no GitHub (abre em nova aba). Depois de salvar lá ("Commit changes"), o site atualiza sozinho.</p>
+      <div class="blog-lista" id="listaBlog">
+        <p style="font-size:13px;color:var(--muted)">Carregando artigos…</p>
+      </div>
+      <div class="blog-acoes">
+        <a class="btn btn-outline" href="https://github.com/pripalomo-svg/pripalomo-svg.github.io/new/main/posts" target="_blank" rel="noopener">+ Escrever novo artigo</a>
+        <a class="btn btn-outline" href="https://github.com/pripalomo-svg/pripalomo-svg.github.io/edit/main/posts/index.json" target="_blank" rel="noopener">Editar índice do blog</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- BARRA DE PUBLICAÇÃO -->
+<div class="painel-bar">
+  <span class="status" id="statusBar">Nenhuma alteração ainda.</span>
+  <button class="btn btn-claro" type="button" onclick="baixarJson()">Baixar projetos.json</button>
+  <button class="btn btn-gold" type="button" id="btnPublicar" onclick="publicar()">Publicar no site</button>
+</div>
+
+<script src="assets/app.js"></script>
+<script src="assets/projetos.js"></script>
+<script>
+/* ====== Configuração do repositório ====== */
+const GH_OWNER  = 'pripalomo-svg';
+const GH_REPO   = 'pripalomo-svg.github.io';
+const GH_BRANCH = 'main';
+const GH_ARQUIVO = 'dados/projetos.json';
+const TOKEN_KEY = 'pp_gh_token';
+
+let projetos = [];
+let alterado = false;
+
+/* ====== Campos do formulário de cada projeto ====== */
+const CAMPOS = [
+  { k:'titulo',      label:'Título',                                        tipo:'text', full:true },
+  { k:'tipo',        label:'Tipo',                                          tipo:'select',
+    opcoes:[['curso','Curso'],['ebook','E-book'],['programa','Programa'],['gratuito','Material gratuito']] },
+  { k:'tag',         label:'Etiqueta do card (ex.: E-book, Curso online)',  tipo:'text' },
+  { k:'meta',        label:'Detalhe (ex.: 48 páginas · certificado)',       tipo:'text' },
+  { k:'preco',       label:'Preço (ex.: R$ 29 — deixe vazio se grátis)',    tipo:'text' },
+  { k:'precoDe',     label:'Preço antigo riscado (opcional, ex.: R$ 49)',   tipo:'text' },
+  { k:'descricao',   label:'Descrição',                                     tipo:'textarea', full:true },
+  { k:'linkCheckout',label:'Link de compra (Hotmart, Mercado Pago…) — se vazio, abre Pix/WhatsApp', tipo:'text', full:true },
+  { k:'arquivo',     label:'PDF gratuito (ex.: pdfs/nome.pdf)',             tipo:'text', full:true },
+  { k:'linkPagina',  label:'Página própria no site (ex.: escada-segura.html)', tipo:'text', full:true }
+];
+
+const TIPO_NOMES = { curso:'Curso', ebook:'E-book', programa:'Programa', gratuito:'Gratuito' };
+
+function setStatus(txt, classe){
+  const s = document.getElementById('statusBar');
+  s.textContent = txt;
+  s.className = 'status' + (classe ? ' ' + classe : '');
+}
+
+function marcarAlterado(){
+  alterado = true;
+  setStatus('Alterações não publicadas — clique em "Publicar no site" quando terminar.');
+}
+
+window.addEventListener('beforeunload', (e) => {
+  if(alterado){ e.preventDefault(); e.returnValue = ''; }
+});
+
+/* ====== Renderização da lista ====== */
+function renderProjetos(){
+  const lista = document.getElementById('listaProjetos');
+  lista.innerHTML = '';
+  projetos.forEach((p, i) => lista.appendChild(cardEditor(p, i)));
+  if(!projetos.length){
+    lista.appendChild(_el('p', 'loja-vazia', 'Nenhum projeto ainda. Clique em "+ Adicionar projeto".'));
+  }
+}
+
+function cardEditor(p, i){
+  const card = _el('div', 'proj-card' + (p.visivel === false ? ' oculto' : ''));
+
+  const topo = _el('div', 'proj-topo');
+  topo.appendChild(_el('span', 'proj-num', (TIPO_NOMES[p.tipo] || 'Projeto') + ' ' + (i + 1)));
+  const nome = _el('span', 'proj-nome', p.titulo || '(sem título)');
+  topo.appendChild(nome);
+
+  const toggle = _el('label', 'toggle');
+  const chk = document.createElement('input');
+  chk.type = 'checkbox';
+  chk.checked = p.visivel !== false;
+  chk.addEventListener('change', () => {
+    p.visivel = chk.checked;
+    card.classList.toggle('oculto', !chk.checked);
+    marcarAlterado();
+  });
+  toggle.appendChild(chk);
+  toggle.appendChild(document.createTextNode('Visível no site'));
+  topo.appendChild(toggle);
+
+  const remover = _el('button', 'proj-remover', 'Remover');
+  remover.type = 'button';
+  remover.addEventListener('click', () => {
+    if(confirm('Remover "' + (p.titulo || 'este projeto') + '" da lista?\n(Só entra em vigor quando você publicar.)')){
+      projetos.splice(i, 1);
+      marcarAlterado();
+      renderProjetos();
+    }
+  });
+  topo.appendChild(remover);
+  card.appendChild(topo);
+
+  const grid = _el('div', 'proj-campos');
+  CAMPOS.forEach(c => {
+    const box = _el('div', 'campo' + (c.full ? ' full' : ''));
+    const id = 'f-' + i + '-' + c.k;
+    const lab = _el('label', '', c.label);
+    lab.htmlFor = id;
+    box.appendChild(lab);
+
+    let input;
+    if(c.tipo === 'select'){
+      input = document.createElement('select');
+      c.opcoes.forEach(([v, nomeOp]) => {
+        const o = document.createElement('option');
+        o.value = v; o.textContent = nomeOp;
+        input.appendChild(o);
+      });
+      input.value = p[c.k] || c.opcoes[0][0];
+    }else if(c.tipo === 'textarea'){
+      input = document.createElement('textarea');
+      input.value = p[c.k] || '';
+    }else{
+      input = document.createElement('input');
+      input.type = 'text';
+      input.value = p[c.k] || '';
+    }
+    input.id = id;
+    input.addEventListener('input', () => {
+      p[c.k] = input.value;
+      if(c.k === 'titulo') nome.textContent = input.value || '(sem título)';
+      marcarAlterado();
+    });
+    box.appendChild(input);
+    grid.appendChild(box);
+  });
+  card.appendChild(grid);
+  return card;
+}
+
+function adicionarProjeto(){
+  projetos.push({
+    id: 'projeto-' + Date.now(),
+    tipo: 'ebook', titulo: '', descricao: '', tag: '', meta: '',
+    preco: '', precoDe: '', linkCheckout: '', arquivo: '', linkPagina: '',
+    visivel: true
+  });
+  marcarAlterado();
+  renderProjetos();
+  const cards = document.querySelectorAll('.proj-card');
+  cards[cards.length - 1]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+/* ====== Baixar o arquivo (opção manual) ====== */
+function jsonAtual(){
+  return JSON.stringify(projetos, null, 2) + '\n';
+}
+
+function baixarJson(){
+  const blob = new Blob([jsonAtual()], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'projetos.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  setStatus('Arquivo baixado. Suba-o no GitHub em dados/projetos.json para publicar.', 'ok');
+}
+
+/* ====== Token do GitHub ====== */
+function atualizarTokenUI(){
+  const tem = !!localStorage.getItem(TOKEN_KEY);
+  document.getElementById('tokenForm').style.display = tem ? 'none' : 'flex';
+  document.getElementById('tokenStatus').style.display = tem ? 'block' : 'none';
+}
+function salvarToken(){
+  const v = document.getElementById('tokenInput').value.trim();
+  if(!v){ alert('Cole o código do GitHub no campo antes de salvar.'); return; }
+  localStorage.setItem(TOKEN_KEY, v);
+  document.getElementById('tokenInput').value = '';
+  atualizarTokenUI();
+  setStatus('Código salvo! Agora o botão "Publicar no site" está pronto.', 'ok');
+}
+function removerToken(){
+  localStorage.removeItem(TOKEN_KEY);
+  atualizarTokenUI();
+}
+
+/* ====== Publicar via API do GitHub ====== */
+function b64utf8(str){
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin);
+}
+
+async function publicar(){
+  const token = localStorage.getItem(TOKEN_KEY);
+  if(!token){
+    setStatus('Falta o código de acesso do GitHub — veja "Publicação com um clique" logo abaixo da lista.', 'erro');
+    document.getElementById('blocoToken').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  const btn = document.getElementById('btnPublicar');
+  btn.disabled = true;
+  setStatus('Publicando…');
+  try{
+    const api = 'https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/' + GH_ARQUIVO;
+    const headers = {
+      'Authorization': 'Bearer ' + token,
+      'Accept': 'application/vnd.github+json'
+    };
+
+    let sha;
+    const atual = await fetch(api + '?ref=' + GH_BRANCH, { headers });
+    if(atual.ok){
+      sha = (await atual.json()).sha;
+    }else if(atual.status === 401 || atual.status === 403){
+      throw new Error('O GitHub não aceitou o código de acesso. Confira se ele não expirou e se tem a permissão "Contents: read and write".');
+    }
+
+    const corpo = { message: 'Atualiza projetos pelo painel', content: b64utf8(jsonAtual()), branch: GH_BRANCH };
+    if(sha) corpo.sha = sha;
+
+    const resp = await fetch(api, { method: 'PUT', headers, body: JSON.stringify(corpo) });
+    if(!resp.ok){
+      const erro = await resp.json().catch(() => ({}));
+      throw new Error('O GitHub recusou a publicação (' + resp.status + '). ' + (erro.message || ''));
+    }
+    alterado = false;
+    setStatus('Publicado! O site atualiza em 1 a 2 minutos. ✓', 'ok');
+  }catch(e){
+    setStatus('Não deu certo: ' + e.message, 'erro');
+  }finally{
+    btn.disabled = false;
+  }
+}
+
+/* ====== Blog: atalhos de edição ====== */
+async function montarBlog(){
+  const lista = document.getElementById('listaBlog');
+  try{
+    const res = await fetch('posts/index.json?v=' + Date.now());
+    const slugs = await res.json();
+    const itens = await Promise.all(slugs.map(async slug => {
+      let titulo = slug, data = '';
+      try{
+        const md = await (await fetch('posts/' + slug + '.md?v=' + Date.now())).text();
+        const t = md.match(/^titulo:\s*(.+)$/m);
+        const d = md.match(/^data:\s*(.+)$/m);
+        if(t) titulo = t[1].trim();
+        if(d) data = d[1].trim();
+      }catch(e){}
+      return { slug, titulo, data };
+    }));
+    lista.innerHTML = '';
+    itens.forEach(({ slug, titulo, data }) => {
+      const row = _el('div', 'blog-item');
+      row.appendChild(_el('strong', '', titulo));
+      if(data) row.appendChild(_el('span', 'data', data));
+      const ver = _el('a', '', 'Ver no site');
+      ver.href = 'post.html?p=' + encodeURIComponent(slug);
+      ver.target = '_blank';
+      row.appendChild(ver);
+      const editar = _el('a', '', 'Editar no GitHub');
+      editar.href = 'https://github.com/' + GH_OWNER + '/' + GH_REPO + '/edit/' + GH_BRANCH + '/posts/' + slug + '.md';
+      editar.target = '_blank';
+      editar.rel = 'noopener';
+      row.appendChild(editar);
+      lista.appendChild(row);
+    });
+  }catch(e){
+    lista.innerHTML = '<p style="font-size:13px;color:var(--muted)">Não foi possível carregar a lista de artigos.</p>';
+  }
+}
+
+/* ====== Início ====== */
+(async function iniciar(){
+  atualizarTokenUI();
+  try{
+    projetos = await carregarProjetos();
+  }catch(e){
+    projetos = [];
+    setStatus('Não foi possível carregar dados/projetos.json.', 'erro');
+  }
+  renderProjetos();
+  montarBlog();
+})();
+</script>
+</body>
+</html>

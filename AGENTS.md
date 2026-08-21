@@ -26,10 +26,13 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
 - `index.html` — **home**: landing de psicoeducação sobre fobias (desenhos animados) + seção de boas-vindas e newsletter.
 - `blog.html` — **blog**: lista os artigos de `posts/*.md`.
 - `post.html?p=<slug>` — renderiza um artigo de `posts/<slug>.md`.
-- `cursos.html` — **cursos** (checkout na Hotmart; cards fixos no HTML).
+- `cursos.html` — **cursos**: cards montados em runtime a partir de `dados/projetos.json` (itens `tipo: "curso"`; checkout na Hotmart).
+- `produtos.html` — **loja "Materiais"**: cards montados a partir de `dados/projetos.json` (itens que não são curso). Botão de compra: `linkPagina` > `arquivo` (PDF grátis) > `linkCheckout` > modal `openPay` (WhatsApp/cartão/Pix).
+- `painel.html` — **painel admin** (noindex, fora do menu público): edita `dados/projetos.json` e publica com um clique via GitHub Contents API (token fine-grained no `localStorage`, chave `pp_gh_token`); fallback "Baixar projetos.json". Também lista atalhos de edição do blog.
 - `apresentacao.html` — bio + vídeos "draw my life".
 - `escada-segura.html` — landing do produto "Programa Escada Segura".
 - `catalogo-videos.html` — catálogo interno de vídeos.
+- `jogo-avaliacao.html` — **jogo de autoavaliação** (tiro ao alvo + blocos estilo Tetris) para observar padrões de ansiedade e impulsividade; resultados lúdicos, não diagnósticos. Lógica em `assets/jogo-avaliacao.js`.
 
 ## Conteúdo em Markdown (blog)
 
@@ -39,9 +42,20 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
   `titulo`, `data`, `tag`, `cor`, `resumo`) **e** adicione `"<slug>"` em
   `posts/index.json`. Veja `COMO-USAR.md`.
 - Markdown é renderizado no navegador com `marked` (CDN jsDelivr); há fallback
-  simples se a CDN falhar.
-- Obs.: a pasta `produtos/*.md` é um resquício da antiga loja (removida); os
-  cursos hoje ficam fixos em `cursos.html`.
+ simples se a CDN falhar.
+- Obs.: a pasta `produtos/*.md` é um resquício da antiga loja e não é mais
+ lida por nenhuma página.
+
+## Cursos e produtos (dados/projetos.json)
+
+- **Fonte única**: `dados/projetos.json` — lista de projetos com `id`, `tipo`
+ (`curso` | `ebook` | `programa` | `gratuito`), `titulo`, `descricao`, `tag`,
+ `meta`, `preco`, `precoDe`, `linkCheckout`, `arquivo`, `linkPagina`, `visivel`.
+- `assets/projetos.js` — `carregarProjetos()`, `montarLoja()` (produtos.html)
+ e `montarCursos()` (cursos.html). Cards construídos via DOM (sem innerHTML
+ com dados).
+- Edição recomendada pelo `painel.html` (dashboard); publicação = commit de
+ `dados/projetos.json` na `main` via GitHub Contents API.
 
 ## Identidade visual
 
