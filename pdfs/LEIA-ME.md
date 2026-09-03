@@ -22,7 +22,8 @@ consegue baixar). Por isso:
 
 ### Programa Escada Segura
 
-O arquivo `programa-escada-segura.pdf` é o workbook premium (pago).
+O arquivo `programa-escada-segura.pdf` é o livro ilustrado *Harry Potter e as Magias da Coragem*
+(um capítulo por fobia, ~35 páginas).
 **Não** coloque o link dele na ficha do produto da loja (`arquivo` deve ficar vazio) —
 entregue pelo WhatsApp depois do Pix/cartão.
 

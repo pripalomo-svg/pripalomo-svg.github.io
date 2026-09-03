@@ -1,43 +1,40 @@
 ---
-titulo: Escada Segura — o método de 21 dias para fobias específicas
-data: 2026-07-15
+titulo: Escada Segura — um capítulo (e uma magia) para cada fobia
+data: 2026-09-03
 tag: Fobias
-resumo: Como a exposição gradual funciona na prática e como o Programa Escada Segura organiza esse caminho em três semanas.
+resumo: O novo livro Harry Potter e as Magias da Coragem organiza 14 tipos de fobia em historinhas de determinação, com psicoeducação de Freud e Magalhães Coelho.
 ---
 
-Fobia específica não é “frescura” nem falta de força de vontade. É um sistema de alarme que dispara com intensidade demais diante de um gatilho — avião, altura, dentista, falar em público, animais, agulhas — e que se mantém vivo pela **evitação**.
+Cada fobia tem nome. E, neste livro, cada uma também tem **história** e **magia**.
 
-Cada vez que você foge, o alívio é imediato. E o cérebro grava a lição errada: “fugir funcionou”. No dia seguinte, o monstro está um pouco maior.
+Reescrevi o **Programa Escada Segura** como *Harry Potter e as Magias da Coragem*: 16 capítulos (prólogo, 14 fobias e epílogo), com ilustrações estilo anime em preto, branco e dourado.
 
-## O que a ciência mostra
+## Um capítulo por tipo de fobia
 
-O tratamento com melhor evidência para fobias específicas é a **Terapia Cognitivo-Comportamental** com **exposição gradual**: enfrentar o medo em degraus pequenos, planejados e repetidos — do mais fácil ao mais difícil — até a ansiedade baixar *dentro* da situação e o cérebro atualizar a previsão de perigo.
+- Aracnofobia, ofidiofobia, cinofobia, acrofobia, claustrofobia  
+- Aerofobia, hematofobia, tripanofobia, astrafobia, nictofobia  
+- Odontofobia, talassofobia, glossofobia, agorafobia  
 
-Não é se jogar no pior medo de uma vez. É subir uma escada.
+Em cada capítulo, Harry enfrenta o **Devorador de Coragem** em três atos:
 
-## Por que um plano de 21 dias
+1. **O começo** — o medo aparece em uma cena de Hogwarts  
+2. **O meio** — a sombra sussurra; Hermione explica a ciência  
+3. **A superação** — Harry usa a magia do capítulo e dá um passo de determinação  
 
-Sem estrutura, a exposição vira improviso: ou você salta degraus demais e desiste, ou fica só no “vou fazer amanhã”. Um programa curto e claro ajuda a:
+## As magias (e a ciência por trás)
 
-1. **Mapear** o medo com precisão;
-2. **Montar** uma escada pessoal (8 a 12 degraus);
-3. **Treinar** regulação (respiração, ancoragem) para permanecer;
-4. **Repetir** e registrar o contraste entre o que o medo previa e o que aconteceu.
+Cada fobia ganha um feitiço simbólico — por exemplo, *Revelio Tela!* para aracnofobia, *Altum Firmum!* para acrofobia, *Verbum Fortis!* para glossofobia.
 
-## O Programa Escada Segura
+Nas caixinhas **O Segredo da Mente**, o livro dialoga com:
 
-Criei o **[Programa Escada Segura](escada-segura.html)** — um workbook digital de cerca de 40 páginas — para quem quer esse método organizado em casa, no próprio ritmo:
+- **Freud** — caso Pequeno Hans, angústia sem objeto, medo que se fixa em algo  
+- **Magalhães Coelho** (*Medos, Fobias e Ansiedades*) — resposta defensiva, evitamento que alimenta a ansiedade, habituação  
+- **TCC** — exposição gradual em degraus, como Harry sobe torre, vassoura e plateia  
 
-- Psicoeducação sobre o ciclo do medo
-- Como montar sua escada (com exemplos: avião, altura, dentista, falar em público)
-- Plano dia a dia em três semanas
-- Folhas de registro imprimíveis
-- Regras de ouro e cuidados com comportamentos de segurança
+## Para quem é
 
-> Material psicoeducativo. Não substitui psicoterapia — e, se a ansiedade for intensa ou houver outros quadros, o ideal é combinar com acompanhamento profissional.
+Para leitores (e famílias) que aprendem melhor com narrativa — e para quem quer ver, nas aventuras de Harry, um modelo de **determinação**: não ausência de medo, mas passos repetidos com coragem.
 
-## Próximo passo
-
-Se uma fobia específica está encolhendo sua rotina, o primeiro movimento não precisa ser o degrau mais alto. Pode ser abrir o workbook e escrever o degrau 1 — aquele tão fácil que quase parece “bobagem”.
+> Material lúdico e psicoeducativo. Não substitui psicoterapia. Personagens inspirados em histórias conhecidas; uso comercial de franquias exige avaliação jurídica.
 
 [Conhecer o Programa Escada Segura](escada-segura.html) · investimento **R$ 97**.

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Programa Escada Segura — Dra. Priscila Palomo</title>
-<meta name="description" content="Workbook digital de 21 dias para vencer fobias específicas com exposição gradual. Programa Escada Segura — Dra. Priscila Palomo (CRP 98007).">
+<meta name="description" content="Livro ilustrado Harry Potter e as Magias da Coragem — um capítulo para cada fobia, com historinhas lúdicas e magias de superação. Dra. Priscila Palomo (CRP 98007).">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>P</text></svg>">
 <link rel="stylesheet" href="assets/style.css">
 <style>
@@ -68,12 +68,40 @@
   font-weight: 700; color: var(--fb-navy); font-size: 13px;
 }
 
-.es-steps {
+.es-gallery {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+  margin-top: 22px;
+}
+.es-gallery img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border: 2px solid var(--fb-ink);
+  display: block;
+}
+.es-magia {
+  display: grid;
   gap: 0;
   border: 2px solid var(--fb-ink);
-  margin-top: 22px;
+  margin-top: 20px;
+}
+.es-magia-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.4fr;
+  gap: 0;
+  border-bottom: 1px solid var(--fb-line);
+  font-size: 13px;
+}
+.es-magia-row:last-child { border-bottom: none; }
+.es-magia-row span { padding: 12px 14px; }
+.es-magia-row .fobia { font-weight: 700; color: var(--fb-navy); }
+.es-magia-row .spell { color: #B8790A; font-weight: 700; }
+@media (max-width: 700px) {
+  .es-magia-row { grid-template-columns: 1fr; }
+  .es-magia-row span { border-bottom: 1px solid var(--fb-line); }
+  .es-magia-row span:last-child { border-bottom: none; }
 }
 .es-step {
   padding: 22px 18px;
@@ -153,13 +181,16 @@
   <header class="es-hero">
     <div class="wrap">
       <span class="es-kicker">Programa Escada Segura</span>
-      <h1>Vença sua fobia <em>degrau a degrau</em></h1>
+      <h1>Uma <em>magia</em> para cada fobia</h1>
       <p class="es-lead">
-        Workbook digital de 21 dias com psicoeducação e exposição gradual —
-        o método com melhor evidência para fobias específicas, no seu ritmo.
+        Livro ilustrado <strong>Harry Potter e as Magias da Coragem</strong> —
+        16 capítulos (prólogo + 14 fobias + epílogo), cada um com historinha
+        lúdica de começo, meio e superação, inspirada em Hogwarts e na
+        determinação de Harry.
       </p>
       <div class="es-hero-actions">
-        <a href="#comprar" class="btn btn-navy">Quero o programa — R$&nbsp;97</a>
+        <a href="#comprar" class="btn btn-navy">Quero o livro — R$&nbsp;97</a>
+        <a href="pdfs/programa-escada-segura.pdf" class="btn" target="_blank" rel="noopener">Ver amostra (PDF)</a>
         <span class="es-price-inline"><span class="old">R$&nbsp;197</span><span class="now">R$&nbsp;97</span></span>
       </div>
     </div>
@@ -169,14 +200,16 @@
   <section class="es-section">
     <div class="wrap">
       <span class="es-label">Para quem é</span>
-      <h2>Se uma fobia específica está encolhendo sua vida</h2>
+      <h2>Para quem quer entender o medo com história — e com ciência</h2>
       <p>
-        Feito para quem evita avião, altura, dentista, falar em público, animais,
-        agulhas ou outro gatilho claro — e quer um plano concreto, sem “só ter coragem”.
+        Cada capítulo trata de um tipo de fobia: aranha, cobra, cão, altura,
+        lugares fechados, voo, sangue, agulha, trovão, escuro, dentista,
+        água profunda, falar em público e agorafobia.
       </p>
       <p>
-        Ideal se você já entende o medo, mas trava na hora de agir; ou se quer
-        chegar na terapia (ou complementar) com um método organizado.
+        Harry enfrenta o <strong>Devorador de Coragem</strong> com ajuda de
+        Hermione. Ao final de cada história, uma <strong>magia</strong> e uma
+        caixinha <em>O Segredo da Mente</em> (Freud, Magalhães Coelho e TCC).
       </p>
     </div>
   </section>
@@ -185,16 +218,23 @@
   <section class="es-section">
     <div class="wrap">
       <span class="es-label">O que você recebe</span>
-      <h2>Um workbook completo, pronto para usar</h2>
+      <h2>O que você recebe no PDF (~35 páginas)</h2>
       <ul class="es-list">
-        <li><span class="n">01</span><span>Como o medo funciona e por que a evitação o alimenta</span></li>
-        <li><span class="n">02</span><span>Como montar sua Escada Segura personalizada (8–12 degraus)</span></li>
-        <li><span class="n">03</span><span>Plano dia a dia de 21 dias (fundação → consolidação → expansão)</span></li>
-        <li><span class="n">04</span><span>Técnicas de regulação: respiração, ancoragem e frase de enfrentamento</span></li>
-        <li><span class="n">05</span><span>Folhas de registro imprimíveis (antes / pico / depois)</span></li>
-        <li><span class="n">06</span><span>Exemplos de escadas (avião, altura, dentista, falar em público)</span></li>
-        <li><span class="n">07</span><span>~40 páginas em PDF — entrega pelo WhatsApp após o pagamento</span></li>
+        <li><span class="n">01</span><span>Prólogo: Harry, a cicatriz e o Devorador de Coragem</span></li>
+        <li><span class="n">02</span><span>14 capítulos — um para cada tipo de fobia</span></li>
+        <li><span class="n">03</span><span>Em cada capítulo: começo, meio, superação + feitiço</span></li>
+        <li><span class="n">04</span><span>Ilustrações estilo anime (preto, branco e dourado)</span></li>
+        <li><span class="n">05</span><span>Psicoeducação: Freud (Pequeno Hans), Magalhães Coelho, TCC</span></li>
+        <li><span class="n">06</span><span>Epílogo com final feliz — determinação como magia diária</span></li>
+        <li><span class="n">07</span><span>Entrega pelo WhatsApp após o pagamento</span></li>
       </ul>
+      <div class="es-gallery" aria-label="Ilustrações do livro">
+        <img src="assets/img/hp/hp_cover.jpg" alt="Capa do livro">
+        <img src="assets/img/hp/hp_forest_spider.jpg" alt="Cena da floresta">
+        <img src="assets/img/hp/hp_broom_sky.jpg" alt="Voo na vassoura">
+        <img src="assets/img/hp/hp_great_hall_crowd.jpg" alt="Salão principal">
+        <img src="assets/img/hp/hp_wedding_final.jpg" alt="Final feliz">
+      </div>
     </div>
   </section>
 
@@ -202,25 +242,18 @@
   <section class="es-section">
     <div class="wrap">
       <span class="es-label">Como funciona</span>
-      <h2>A escada da exposição gradual</h2>
+      <h2>As magias de cada capítulo</h2>
       <p>
-        Em vez de enfrentar o pior medo de uma vez, você sobe degraus pequenos,
-        planejados e repetidos — até o cérebro aprender, na prática, que o alarme
-        estava exagerado. É o coração da TCC para fobias específicas.
+        Cada fobia ganha um feitiço simbólico — uma atitude treinável, não varinha de verdade.
+        Exemplos:
       </p>
-      <div class="es-steps">
-        <div class="es-step">
-          <strong>Semana 1</strong>
-          <p>Mapear o medo, montar a escada e vencer os primeiros degraus fáceis.</p>
-        </div>
-        <div class="es-step">
-          <strong>Semana 2</strong>
-          <p>Repetir degraus intermediários até a ansiedade ficar manejável.</p>
-        </div>
-        <div class="es-step">
-          <strong>Semana 3</strong>
-          <p>Aproximar-se da meta e criar um plano de manutenção.</p>
-        </div>
+      <div class="es-magia" role="table" aria-label="Fobias e magias do livro">
+        <div class="es-magia-row" role="row"><span class="fobia" role="columnheader">Fobia</span><span class="spell" role="columnheader">Magia</span><span role="columnheader">Ideia</span></div>
+        <div class="es-magia-row"><span class="fobia">Aracnofobia</span><span class="spell">Revelio Tela!</span><span>Nomear o medo quebra a ilusão</span></div>
+        <div class="es-magia-row"><span class="fobia">Acrofobia</span><span class="spell">Altum Firmum!</span><span>Os pés firmes no chão</span></div>
+        <div class="es-magia-row"><span class="fobia">Aerofobia</span><span class="spell">Nubes Custodiant!</span><span>Imaginar sustentação, não queda</span></div>
+        <div class="es-magia-row"><span class="fobia">Glossofobia</span><span class="spell">Verbum Fortis!</span><span>Falar com o coração acelerado</span></div>
+        <div class="es-magia-row"><span class="fobia">Agorafobia</span><span class="spell">Via Aperta!</span><span>Planejar a saída antes de entrar</span></div>
       </div>
     </div>
   </section>
@@ -232,7 +265,7 @@
         <span class="es-label">Investimento</span>
         <h2>Programa Escada Segura</h2>
         <p style="font-size:14px;color:#333;max-width:48ch">
-          Workbook PDF de 21 dias · entrega após confirmação do pagamento ·
+          Livro PDF ilustrado · ~35 páginas · entrega após confirmação do pagamento ·
           suporte de dúvidas pelo WhatsApp.
         </p>
         <div class="es-price">

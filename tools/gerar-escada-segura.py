@@ -1,258 +1,146 @@
 #!/usr/bin/env python3
-"""Gera o workbook PDF do Programa Escada Segura."""
+"""Gera o livro ilustrado:
+'Harry Potter e as Magias da Coragem — Um Capítulo para Cada Fobia'
+
+Cada capítulo = um tipo de fobia + uma magia + historinha lúdica (início, meio, fim).
+Inspirado nas aventuras de Harry Potter como modelo de determinação.
+Psicoeducação baseada em Freud (caso Pequeno Hans, angústia × medo) e
+Magalhães Coelho (resposta defensiva, evitamento, habituação).
+"""
 
 from pathlib import Path
 
-from reportlab.lib.colors import HexColor, white, black
+from reportlab.lib.colors import HexColor, white
 from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
-from reportlab.lib.units import cm, mm
+from reportlab.lib.units import cm
 from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle,
-    PageBreak, KeepTogether, HRFlowable, ListFlowable, ListItem,
+    PageBreak, KeepTogether, HRFlowable, Image,
 )
 
-NAVY = HexColor("#14324B")
+NAVY = HexColor("#0E4A57")
+GOLD = HexColor("#C8940A")
+ORANGE = HexColor("#B8790A")
 INK = HexColor("#111111")
 MUTED = HexColor("#555555")
-LINE = HexColor("#CCCCCC")
-PALE = HexColor("#F2F5F8")
-ACCENT = HexColor("#2E8B57")
+LINE = HexColor("#E4D9BE")
+PALE = HexColor("#FBF7EE")
+WARM_BOX = HexColor("#F6EFDD")
+MAGIC_BOX = HexColor("#FFF8E6")
+SHADOW = HexColor("#33302A")
 
-OUT = Path(__file__).resolve().parents[1] / "pdfs" / "programa-escada-segura.pdf"
+ROOT_DIR = Path(__file__).resolve().parents[1]
+IMG = ROOT_DIR / "assets" / "img" / "hp"
+OUT = ROOT_DIR / "pdfs" / "programa-escada-segura.pdf"
 
 
 def styles():
     base = getSampleStyleSheet()
     s = {}
     s["cover_brand"] = ParagraphStyle(
-        "cover_brand", parent=base["Normal"],
-        fontName="Helvetica-Bold", fontSize=11, textColor=NAVY,
-        alignment=TA_CENTER, letterSpacing=2, spaceAfter=8,
+        "cover_brand", parent=base["Normal"], fontName="Helvetica-Bold",
+        fontSize=11, textColor=NAVY, alignment=TA_CENTER, spaceAfter=6,
     )
     s["cover_title"] = ParagraphStyle(
-        "cover_title", parent=base["Normal"],
-        fontName="Helvetica-Bold", fontSize=28, textColor=INK,
-        alignment=TA_CENTER, leading=34, spaceAfter=14,
+        "cover_title", parent=base["Normal"], fontName="Helvetica-Bold",
+        fontSize=23, textColor=INK, alignment=TA_CENTER, leading=28, spaceAfter=10,
     )
     s["cover_sub"] = ParagraphStyle(
-        "cover_sub", parent=base["Normal"],
-        fontName="Helvetica", fontSize=12, textColor=MUTED,
-        alignment=TA_CENTER, leading=18, spaceAfter=8,
+        "cover_sub", parent=base["Normal"], fontName="Helvetica",
+        fontSize=11.5, textColor=MUTED, alignment=TA_CENTER, leading=16, spaceAfter=6,
+    )
+    s["part"] = ParagraphStyle(
+        "part", parent=base["Normal"], fontName="Helvetica-Bold",
+        fontSize=10, textColor=ORANGE, alignment=TA_LEFT, spaceBefore=0, spaceAfter=2,
     )
     s["h1"] = ParagraphStyle(
-        "h1", parent=base["Normal"],
-        fontName="Helvetica-Bold", fontSize=18, textColor=NAVY,
-        spaceBefore=6, spaceAfter=12, leading=22,
+        "h1", parent=base["Normal"], fontName="Helvetica-Bold",
+        fontSize=16.5, textColor=NAVY, spaceBefore=0, spaceAfter=6, leading=20,
     )
     s["h2"] = ParagraphStyle(
-        "h2", parent=base["Normal"],
-        fontName="Helvetica-Bold", fontSize=13, textColor=INK,
-        spaceBefore=14, spaceAfter=8, leading=17,
+        "h2", parent=base["Normal"], fontName="Helvetica-Bold",
+        fontSize=11.5, textColor=INK, spaceBefore=8, spaceAfter=4, leading=14,
     )
-    s["h3"] = ParagraphStyle(
-        "h3", parent=base["Normal"],
-        fontName="Helvetica-Bold", fontSize=11, textColor=NAVY,
-        spaceBefore=10, spaceAfter=6, leading=14,
+    s["prosa"] = ParagraphStyle(
+        "prosa", parent=base["Normal"], fontName="Helvetica",
+        fontSize=9.8, textColor=INK, alignment=TA_JUSTIFY, leading=14.8,
+        spaceAfter=6, firstLineIndent=12,
     )
-    s["body"] = ParagraphStyle(
-        "body", parent=base["Normal"],
-        fontName="Helvetica", fontSize=10, textColor=INK,
-        alignment=TA_JUSTIFY, leading=15, spaceAfter=8,
+    s["prosa_first"] = ParagraphStyle(
+        "prosa_first", parent=s["prosa"], firstLineIndent=0,
     )
-    s["body_left"] = ParagraphStyle(
-        "body_left", parent=s["body"], alignment=TA_LEFT,
+    s["gancho_abertura"] = ParagraphStyle(
+        "gancho_abertura", parent=base["Normal"], fontName="Helvetica-BoldOblique",
+        fontSize=10.2, textColor=NAVY, alignment=TA_LEFT, leading=14.8,
+        spaceAfter=8, firstLineIndent=0,
+    )
+    s["gancho_final"] = ParagraphStyle(
+        "gancho_final", parent=base["Normal"], fontName="Helvetica-BoldOblique",
+        fontSize=9.8, textColor=SHADOW, alignment=TA_LEFT, leading=14,
+        spaceBefore=4, spaceAfter=2, leftIndent=10, rightIndent=10,
+    )
+    s["vilao_fala"] = ParagraphStyle(
+        "vilao_fala", parent=base["Normal"], fontName="Helvetica-Oblique",
+        fontSize=9.8, textColor=SHADOW, alignment=TA_CENTER, leading=14,
+        spaceBefore=6, spaceAfter=6, leftIndent=16, rightIndent=16,
+    )
+    s["box_title"] = ParagraphStyle(
+        "box_title", parent=base["Normal"], fontName="Helvetica-Bold",
+        fontSize=10.2, textColor=NAVY, alignment=TA_LEFT, leading=13,
+    )
+    s["box_body"] = ParagraphStyle(
+        "box_body", parent=base["Normal"], fontName="Helvetica",
+        fontSize=9, textColor=INK, alignment=TA_JUSTIFY, leading=13.2,
+    )
+    s["magia_spell"] = ParagraphStyle(
+        "magia_spell", parent=base["Normal"], fontName="Helvetica-Bold",
+        fontSize=12, textColor=GOLD, alignment=TA_CENTER, leading=15,
+        spaceBefore=4, spaceAfter=4,
     )
     s["small"] = ParagraphStyle(
-        "small", parent=base["Normal"],
-        fontName="Helvetica", fontSize=8.5, textColor=MUTED,
-        leading=12, spaceAfter=6,
-    )
-    s["quote"] = ParagraphStyle(
-        "quote", parent=base["Normal"],
-        fontName="Helvetica-Oblique", fontSize=11, textColor=NAVY,
-        alignment=TA_CENTER, leading=16, spaceBefore=10, spaceAfter=10,
-        leftIndent=20, rightIndent=20,
-    )
-    s["disclaimer"] = ParagraphStyle(
-        "disclaimer", parent=base["Normal"],
-        fontName="Helvetica", fontSize=8.5, textColor=MUTED,
-        alignment=TA_JUSTIFY, leading=12, spaceBefore=8, spaceAfter=8,
-        backColor=PALE, borderPadding=8,
-    )
-    s["day_title"] = ParagraphStyle(
-        "day_title", parent=base["Normal"],
-        fontName="Helvetica-Bold", fontSize=12, textColor=white,
-        alignment=TA_LEFT, leading=15,
-    )
-    s["label"] = ParagraphStyle(
-        "label", parent=base["Normal"],
-        fontName="Helvetica-Bold", fontSize=9, textColor=NAVY,
-        spaceBefore=6, spaceAfter=3,
-    )
-    s["field"] = ParagraphStyle(
-        "field", parent=base["Normal"],
-        fontName="Helvetica", fontSize=9, textColor=MUTED,
-        leading=13, spaceAfter=4,
+        "small", parent=base["Normal"], fontName="Helvetica",
+        fontSize=8.3, textColor=MUTED, leading=11.5, spaceAfter=4,
     )
     s["toc"] = ParagraphStyle(
-        "toc", parent=base["Normal"],
-        fontName="Helvetica", fontSize=11, textColor=INK,
-        leading=20, spaceAfter=2,
-    )
-    s["footer"] = ParagraphStyle(
-        "footer", parent=base["Normal"],
-        fontName="Helvetica", fontSize=8, textColor=MUTED,
-        alignment=TA_CENTER,
+        "toc", parent=base["Normal"], fontName="Helvetica",
+        fontSize=8.8, textColor=INK, leading=13.5, spaceAfter=2,
     )
     return s
 
 
 def hr():
-    return HRFlowable(width="100%", thickness=1, color=LINE, spaceBefore=4, spaceAfter=10)
+    return HRFlowable(width="100%", thickness=1, color=LINE, spaceBefore=2, spaceAfter=8)
 
 
-def bullet_list(items, style):
-    return ListFlowable(
-        [ListItem(Paragraph(i, style), leftIndent=8, bulletColor=NAVY) for i in items],
-        bulletType="bullet",
-        start="•",
-        leftIndent=16,
-        spaceBefore=2,
-        spaceAfter=8,
-    )
+def ilustra(nome, largura=11.2 * cm):
+    for ext in (".jpg", ".png"):
+        img_path = IMG / (nome + ext)
+        if img_path.exists():
+            img = Image(str(img_path))
+            ratio = img.imageHeight / float(img.imageWidth)
+            img.drawWidth = largura
+            img.drawHeight = largura * ratio
+            img.hAlign = "CENTER"
+            return img
+    return Spacer(1, 1)
 
 
-def day_box(title, content_paras, s):
-    header = Table(
-        [[Paragraph(title, s["day_title"])]],
-        colWidths=[16.5 * cm],
-    )
-    header.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, -1), NAVY),
-        ("LEFTPADDING", (0, 0), (-1, -1), 10),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 10),
-        ("TOPPADDING", (0, 0), (-1, -1), 8),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
-    ]))
-    body_cells = [[p] for p in content_paras]
-    body = Table(body_cells, colWidths=[16.5 * cm])
-    body.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, -1), PALE),
-        ("LEFTPADDING", (0, 0), (-1, -1), 10),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 10),
-        ("TOPPADDING", (0, 0), (0, 0), 8),
-        ("BOTTOMPADDING", (0, -1), (-1, -1), 10),
-        ("BOX", (0, 0), (-1, -1), 0.5, LINE),
-    ]))
-    return KeepTogether([header, body, Spacer(1, 10)])
-
-
-def blank_lines(n=3):
-    rows = [["_" * 78] for _ in range(n)]
-    t = Table(rows, colWidths=[16.5 * cm])
+def caixa(titulo, texto, s, bg=WARM_BOX, border=GOLD, prefix="✨"):
+    header = [Paragraph(f"{prefix} <b>{titulo}</b>", s["box_title"])]
+    body = [Paragraph(texto, s["box_body"])]
+    conteudo = header + [Spacer(1, 3)] + body
+    t = Table([[c] for c in conteudo], colWidths=[16.5 * cm])
     t.setStyle(TableStyle([
-        ("TEXTCOLOR", (0, 0), (-1, -1), LINE),
-        ("FONTSIZE", (0, 0), (-1, -1), 9),
-        ("TOPPADDING", (0, 0), (-1, -1), 6),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
-    ]))
-    return t
-
-
-def scale_table(s):
-    data = [
-        [Paragraph("<b>Nível</b>", s["field"]),
-         Paragraph("<b>Sensação no corpo</b>", s["field"]),
-         Paragraph("<b>O que fazer</b>", s["field"])],
-        [Paragraph("0–2", s["field"]),
-         Paragraph("Tranquilo / leve tensão", s["field"]),
-         Paragraph("Bom ponto para treinar", s["field"])],
-        [Paragraph("3–4", s["field"]),
-         Paragraph("Desconforto manejável", s["field"]),
-         Paragraph("Zona ideal de aprendizado", s["field"])],
-        [Paragraph("5–6", s["field"]),
-         Paragraph("Ansiedade alta, mas possível", s["field"]),
-         Paragraph("Use técnicas e continue se seguro", s["field"])],
-        [Paragraph("7–10", s["field"]),
-         Paragraph("Muito intenso / panico", s["field"]),
-         Paragraph("Desça 1–2 degraus e estabilize", s["field"])],
-    ]
-    t = Table(data, colWidths=[2.2 * cm, 6.5 * cm, 7.8 * cm])
-    t.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, 0), NAVY),
-        ("TEXTCOLOR", (0, 0), (-1, 0), white),
-        ("BACKGROUND", (0, 1), (-1, -1), PALE),
-        ("GRID", (0, 0), (-1, -1), 0.4, LINE),
-        ("VALIGN", (0, 0), (-1, -1), "TOP"),
-        ("LEFTPADDING", (0, 0), (-1, -1), 6),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 6),
+        ("BACKGROUND", (0, 0), (-1, -1), bg),
+        ("BOX", (0, 0), (-1, -1), 1, border),
+        ("LEFTPADDING", (0, 0), (-1, -1), 8),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 8),
         ("TOPPADDING", (0, 0), (-1, -1), 6),
         ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
     ]))
-    # Fix header text color for Paragraphs
-    data[0] = [
-        Paragraph("<font color='white'><b>Nível</b></font>", s["field"]),
-        Paragraph("<font color='white'><b>Sensação no corpo</b></font>", s["field"]),
-        Paragraph("<font color='white'><b>O que fazer</b></font>", s["field"]),
-    ]
-    t = Table(data, colWidths=[2.2 * cm, 6.5 * cm, 7.8 * cm])
-    t.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, 0), NAVY),
-        ("BACKGROUND", (0, 1), (-1, -1), PALE),
-        ("GRID", (0, 0), (-1, -1), 0.4, LINE),
-        ("VALIGN", (0, 0), (-1, -1), "TOP"),
-        ("LEFTPADDING", (0, 0), (-1, -1), 6),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 6),
-        ("TOPPADDING", (0, 0), (-1, -1), 6),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
-    ]))
-    return t
-
-
-def ladder_template(s):
-    header = [
-        Paragraph("<font color='white'><b>#</b></font>", s["field"]),
-        Paragraph("<font color='white'><b>Degrau (situação)</b></font>", s["field"]),
-        Paragraph("<font color='white'><b>Ansiedade esperada (0–10)</b></font>", s["field"]),
-    ]
-    rows = [header]
-    for i in range(1, 11):
-        rows.append([
-            Paragraph(str(i), s["field"]),
-            Paragraph("_" * 42, s["field"]),
-            Paragraph("_" * 12, s["field"]),
-        ])
-    t = Table(rows, colWidths=[1.2 * cm, 10.5 * cm, 4.8 * cm])
-    t.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, 0), NAVY),
-        ("BACKGROUND", (0, 1), (-1, -1), white),
-        ("GRID", (0, 0), (-1, -1), 0.4, LINE),
-        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-        ("LEFTPADDING", (0, 0), (-1, -1), 5),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 5),
-        ("TOPPADDING", (0, 0), (-1, -1), 7),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
-    ]))
-    return t
-
-
-def exposure_log(s, day_label):
-    paras = [
-        Paragraph(f"<b>{day_label}</b>", s["label"]),
-        Paragraph("Degrau trabalhado hoje: ________________________________", s["field"]),
-        Paragraph("Ansiedade antes (0–10): ____ &nbsp;&nbsp; no pico: ____ &nbsp;&nbsp; depois: ____", s["field"]),
-        Paragraph("O que fiz exatamente:", s["label"]),
-        blank_lines(2),
-        Paragraph("O que o medo previa que aconteceria?", s["label"]),
-        blank_lines(2),
-        Paragraph("O que de fato aconteceu?", s["label"]),
-        blank_lines(2),
-        Paragraph("Aprendizado de hoje:", s["label"]),
-        blank_lines(2),
-    ]
-    return day_box(day_label, paras, s)
+    return KeepTogether([t, Spacer(1, 4)])
 
 
 def add_page_number(canvas, doc):
@@ -263,505 +151,845 @@ def add_page_number(canvas, doc):
         canvas.setFillColor(MUTED)
         canvas.drawCentredString(
             A4[0] / 2, 1.2 * cm,
-            f"Programa Escada Segura  ·  Dra. Priscila Palomo  ·  p. {page}"
+            f"Harry Potter e as Magias da Coragem  ·  Dra. Priscila Palomo  ·  p. {page}"
         )
         canvas.setStrokeColor(LINE)
         canvas.setLineWidth(0.4)
-        canvas.line(2 * cm, 1.7 * cm, A4[0] - 2 * cm, 1.7 * cm)
+        canvas.line(2 * cm, 1.5 * cm, A4[0] - 2 * cm, 1.5 * cm)
     canvas.restoreState()
+
+
+def p(story, text, style):
+    story.append(Paragraph(text, style))
+
+
+def capitulo(story, c, s):
+    p(story, f"CAPÍTULO {c['num']:02d} · {c['fobia'].upper()}", s["part"])
+    p(story, c["titulo"], s["h1"])
+    story.append(hr())
+    if c.get("gancho_abertura"):
+        p(story, c["gancho_abertura"], s["gancho_abertura"])
+    if c.get("img"):
+        story.append(ilustra(c["img"]))
+        story.append(Spacer(1, 5))
+
+    p(story, "O Começo", s["h2"])
+    for i, texto in enumerate(c["inicio"]):
+        p(story, texto, s["prosa_first"] if i == 0 else s["prosa"])
+
+    p(story, "O Meio", s["h2"])
+    for texto in c["meio"]:
+        p(story, texto, s["prosa"])
+
+    if c.get("fala_vilao"):
+        p(story, f"🌑 <i>{c['fala_vilao']}</i>", s["vilao_fala"])
+
+    p(story, "A Superação", s["h2"])
+    for texto in c["fim"]:
+        p(story, texto, s["prosa"])
+
+    magia = c["magia"]
+    magia_rows = [
+        Paragraph(f"🪄 <b>A Magia deste Capítulo: {magia['nome']}</b>", s["box_title"]),
+        Spacer(1, 4),
+        Paragraph(f"<font color='#C8940A'><b>{magia['feitiço']}</b></font>", s["magia_spell"]),
+        Paragraph(f"<i>{magia['gesto']}</i>", s["box_body"]),
+        Spacer(1, 4),
+        Paragraph(magia["significado"], s["box_body"]),
+    ]
+    t_magia = Table([[r] for r in magia_rows], colWidths=[16.5 * cm])
+    t_magia.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), MAGIC_BOX),
+        ("BOX", (0, 0), (-1, -1), 1, GOLD),
+        ("LEFTPADDING", (0, 0), (-1, -1), 8),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+        ("TOPPADDING", (0, 0), (-1, -1), 6),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+    ]))
+    story.append(KeepTogether([t_magia, Spacer(1, 4)]))
+
+    story.append(caixa(
+        f"O Segredo da Mente: {c['psico_titulo']}",
+        c["psico_texto"], s,
+    ))
+
+    if c.get("gancho_final"):
+        story.append(Spacer(1, 2))
+        p(story, f"➜ {c['gancho_final']}", s["gancho_final"])
+    story.append(PageBreak())
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+CAPITULOS = [
+    dict(
+        num=0, fobia="Prólogo",
+        titulo="O Menino da Cicatriz e o Devorador de Coragem",
+        gancho_abertura="Antes de aprender qualquer feitiço, você precisa conhecer o verdadeiro "
+                        "inimigo de Harry Potter — e descobrir que ele não morava em nenhuma masmorra "
+                        "do castelo.",
+        img="hp_closet_dark",
+        inicio=[
+            "Harry Potter vivia no armário debaixo da escada, com óculos redondos, cabelo "
+            "desgrenhado e uma cicatriz de raio na testa que todos achavam sinal de herói. "
+            "Mas, sozinho à noite, Harry sabia outra coisa: tinha medo de quase tudo — do escuro, "
+            "dos barulhos, das sombras que se mexiam no canto.",
+            "Aquela sombra fina, com olhinhos de brasa, era o <b>Devorador de Coragem</b>. Ele "
+            "não mordia de verdade; sussurrava. E cada vez que Harry fugia de um medo, a sombra "
+            "engordava um pouquinho.",
+        ],
+        meio=[
+            "Quando a carta de Hogwarts chegou, Harry achou que a magia resolveria tudo. "
+            "Mas no primeiro dia de aula, descobriu que até bruxos famosos tremiam diante de "
+            "aranhas, alturas, multidões, trovões e muitas outras coisas.",
+            "Foi então que Hermione Granger — a menina dos livros grossos e do coração enorme — "
+            "disse a frase que mudaria tudo: <i>“Harry, coragem não é não sentir medo. É sentir "
+            "medo e dar um passinho mesmo assim.”</i>",
+            "Ela explicou que, na Psicologia, cada medo tem nome. Quando damos nome ao medo, "
+            "ele encolhe. E para cada tipo de medo existe uma <b>magia</b> — não de varinha, mas "
+            "de atitude, respiração e prática repetida.",
+        ],
+        fala_vilao="Fica quietinho, Harry… Se você nunca arriscar, eu nunca vou embora.",
+        fim=[
+            "Harry olhou para a cicatriz no espelho embaçado do banheiro e decidiu: se ia ser "
+            "herói de alguma história, seria o herói que aprende. Capítulo por capítulo, fobia "
+            "por fobia, magia por magia.",
+            "Nos capítulos seguintes, você vai acompanhar Harry enfrentando cada tipo de medo "
+            "com início, meio e fim de superação — como nas grandes aventuras de Hogwarts, onde "
+            "a determinação vale mais do que qualquer poção pronta.",
+        ],
+        magia=dict(
+            nome="Lumos Interior",
+            feitiço="Lumos Interior!",
+            gesto="Mão no peito, respiração lenta, três vezes.",
+            significado="Acende a luz que já existe dentro de você. Antes de enfrentar qualquer "
+                        "medo lá fora, acenda a calma aqui dentro.",
+        ),
+        psico_titulo="Medo, Angústia e o Ciclo do Evitamento (Freud e Magalhães Coelho)",
+        psico_texto="Freud observou, no caso do Pequeno Hans, que a angústia pode começar sem "
+                    "objeto claro — só depois o medo se fixa em algo (como um cavalo). Magalhães "
+                    "Coelho acrescenta: primeiro vem a resposta defensiva do corpo; depois, a emoção "
+                    "de medo. E quando evitamos o que tememos, alimentamos a “besta” da ansiedade. "
+                    "Superar não é eliminar o medo de uma vez — é deixar de obedecer a ele.",
+        gancho_final="A primeira fobia que Harry enfrentaria de verdade tinha oito patas e morava "
+                     "na Floresta Proibida — e ela estava esperando por ele na próxima aula de "
+                     "Herbologia.",
+    ),
+
+    dict(
+        num=1, fobia="Aracnofobia",
+        titulo="A Teia que Parecia uma Prisão",
+        gancho_abertura="Na Floresta Proibida, onde até as árvores sussurram segredos, Harry viu "
+                        "algo se mover entre os galhos — e o coração dele disparou antes da cabeça "
+                        "conseguir pensar.",
+        img="hp_forest_spider",
+        inicio=[
+            "A turma ia colher raízes para a aula de Herbologia quando Ron gritou: “Olha o tamanho "
+            "daquela aranha!” Era uma aranha enorme, pendurada numa teia prateada entre dois "
+            "carvalhos. Harry sentiu o estômago gelar. Lembrava-se de ter visto aranhas no armário "
+            "da Rua dos Alfeneiros e de ter passado a noite inteira acordado.",
+            "Hermione notou o rosto pálido do amigo. — É aracnofobia, Harry. Medo de aranhas. "
+            "Uma das fobias de animais mais comuns do mundo.",
+        ],
+        meio=[
+            "O Devorador de Coragem sussurrou no ouvido de Harry: <i>“Corre. Nunca mais volte à "
+            "floresta. Nunca.”</i> Harry recuou dois passos. Ron e Hermione foram em frente; Harry "
+            "ficou parado, os pés colados no chão úmido.",
+            "Hermione voltou sozinha. — No caso do Pequeno Hans, Freud mostrou que o medo pode "
+            "se deslocar de um lugar para outro — da angústia sem nome para o cavalo, ou para a "
+            "aranha. O importante é que o medo <b>tem nome</b> e pode ser treinado.",
+            "Ela pediu que Harry olhasse a teia de longe: — Veja as linhas. É engenharia, não "
+            "armadilha para você. A aranha não está vindo. Você está seguro aqui.",
+        ],
+        fala_vilao="Se você olhar, ela vai pular! Melhor fechar os olhos para sempre.",
+        fim=[
+            "Harry respirou fundo, pôs a mão no peito e murmurou o feitiço que Hermione ensinou. "
+            "Deu um passo. Depois outro. Parou a três metros da teia, contou até dez, e viu: a "
+            "aranha nem se mexeu para ele.",
+            "— Eu senti medo — disse Harry, a voz ainda tremendo — mas não corri. A teia é só "
+            "teia. Eu sou mais do que o meu medo.",
+            "O Devorador encolheu um tiquinho na sombra das raízes. Era o primeiro degrau.",
+        ],
+        magia=dict(
+            nome="Revelio Tela",
+            feitiço="Revelio Tela!",
+            gesto="Aponte a varinha (ou o dedo) para o medo e diga o nome da fobia em voz baixa.",
+            significado="Revela que a teia do medo é feita de pensamentos, não de ferro. "
+                        "Nomear a aracnofobia já quebra metade da ilusão.",
+        ),
+        psico_titulo="Fobia de Animais e Deslocamento do Medo (Freud)",
+        psico_texto="No DSM-5, fobias de animais (aranhas, cobras, cães) formam uma família à "
+                    "parte. Freud viu que o medo pode se fixar num objeto simbólico quando a "
+                    "angústia original não encontra palavras. A TCC ensina exposição gradual: "
+                    "foto → vídeo → distância segura → aproximação. Repetição ensina o cérebro "
+                    "que o alarme estava exagerado.",
+        gancho_final="Na semana seguinte, um sussurro diferente ecoaria nas paredes de pedra "
+                     "do castelo — e Harry descobriria que nem todo medo de animal anda em oito patas.",
+    ),
+
+    dict(
+        num=2, fobia="Ofidiofobia",
+        titulo="O Sussurro na Língua das Cobras",
+        gancho_abertura="Nas masmorras de Hogwarts, Harry ouviu um som que ninguém mais ouvia — "
+                        "e isso quase o fez desistir de ser quem era.",
+        img="hp_dungeon_tight",
+        inicio=[
+            "Durante a aula de Defesa Contra as Artes das Trevas, o professor mostrou um vídeo "
+            "de cobras. Vários alunos acharam fascinante. Harry sentiu náusea. Não era só o bicho "
+            "escamoso — era a memória de sons sibilantes em corredores escuros, de se sentir "
+            "diferente por entender uma língua que os outros não entendiam.",
+            "— Ofidiofobia — disse Hermione, sem drama. — Medo de cobras. Muito antigo no cérebro "
+            "humano; nosso ancestral que fugia viveu para contar a história.",
+        ],
+        meio=[
+            "O Devorador aproveitou: <i>“Você é estranho, Harry. Até as cobras gostam de você. "
+            "Fique longe de todo mundo.”</i> Harry quis faltar à aula seguinte.",
+            "Mas Hermione lembrou o caso de Hans: o medo do cavalo não era só do cavalo — era "
+            "medo de coisas grandes que não se controlam. Com cobras, muitas vezes o medo mistura "
+            "perigo real e fantasia.",
+            "Ela propôs um plano: primeiro, desenhar uma cobra no papel. Depois, ver foto. Depois, "
+            "vídeo com pausa. Um degrau por vez — como Harry subiu a escada do armário quando "
+            "soube que Hogwarts existia.",
+        ],
+        fala_vilao="Uma cobra vai te morder. Você sabe que vai.",
+        fim=[
+            "Harry desenhou uma cobra pequena, verde, com olhos de botão. Riu do próprio desenho. "
+            "No dia seguinte, assistiu a trinta segundos de vídeo e fechou o livro antes que o "
+            "pânico chegasse a dez.",
+            "— Parei quando precisava — disse a Hermione. — Mas voltei. Isso é determinação.",
+            "Na terceira tentativa, ficou um minuto inteiro. O Devorador sibilou, mas Harry não "
+            "obedeceu.",
+        ],
+        magia=dict(
+            nome="Serpens Quieta",
+            feitiço="Serpens Quieta!",
+            gesto="Pés firmes no chão, ombros para baixo, olhar no horizonte — nunca fixo na boca.",
+            significado="Acalma o corpo para que a mente possa pensar. A cobra no vídeo não está "
+                        "aqui; o perigo real está distante.",
+        ),
+        psico_titulo="Medo Biológico e Exposição em Degraus (Magalhães Coelho)",
+        psico_texto="Medos de cobras e aranhas têm componente evolutivo — o cérebro aprendeu a "
+                    "reagir rápido. Mas fobia é quando a resposta defensiva dispara sem perigo "
+                    "proporcional. Magalhães Coelho descreve a habituação: repetir encontros "
+                    "seguros até o corpo parar de entrar em pânico. Evitar só alimenta a besta.",
+        gancho_final="O próximo medo de Harry latia alto, tinha três cabeças e guardava um segredo "
+                     "atrás da porta que Ron jurava não abrir.",
+    ),
+
+    dict(
+        num=3, fobia="Cinofobia",
+        titulo="Três Cabeças e Um Coração Acelerado",
+        gancho_abertura="Diziam que, atrás da porta no terceiro andar, algo enorme roncava — e "
+                        "Harry precisava passar por ali para salvar o que mais importava.",
+        img="hp_three_headed_dog",
+        inicio=[
+            "Fluffy, o cachorro de três cabeças, guardava a passagem para a Pedra Filosofal. "
+            "Harry tinha pavor de cães desde pequeno: um latido na rua, uma corrida na infância, "
+            "a sensação de dentes perto demais.",
+            "— Cinofobia — explicou Hermione. — Medo de cães. Muitas vezes começa com um susto "
+            "que o corpo nunca esqueceu.",
+        ],
+        meio=[
+            "Ron tremia também. O Devorador sussurrou para os dois: <i>“Voltem. Ninguém precisa "
+            "disso.”</i> Mas Harry lembrava do relato de Magalhães Coelho: primeiro o corpo "
+            "congela, depois vem o medo, depois a vontade de fugir.",
+            "Hermione trouxe uma flauta. — Música acalma o cão. Nós não vamos lutar — vamos "
+            "planejar. Determinação não é barulho; é estratégia.",
+            "Harry tocou a flauta com mãos trêmulas. As três cabeças foram adormecendo, uma "
+            "por uma. O coração dele ainda disparava — mas os pés não correram.",
+        ],
+        fala_vilao="Ele vai te morder. Cães sempre mordem.",
+        fim=[
+            "Passaram por Fluffy devagar, sem correr, sem gritar. Do outro lado, Harry encostou "
+            "na parede e chorou de alívio — e de orgulho.",
+            "— Eu tinha medo — disse. — E mesmo assim fui. Como quando enfrentei Quirrell. "
+            "Como quando enfrento qualquer coisa.",
+            "Hermione sorriu: — Isso se chama mestria. Quando você pratica, o medo não some "
+            "de uma vez — mas deixa de mandar.",
+        ],
+        magia=dict(
+            nome="Fidelis Amicus",
+            feitiço="Fidelis Amicus!",
+            gesto="Mão aberta, palma para fora, voz baixa e constante.",
+            significado="Lembra o cérebro de que não todo cão é o mesmo cão do susto. Separa "
+                        "memória antiga de momento presente.",
+        ),
+        psico_titulo="Memória do Susto e Generalização (Coelho)",
+        psico_texto="Um episódio com cão agressivo pode generalizar para todos os cães. O corpo "
+                    "grava cheiro, latido, velocidade. A terapia reescreve essa memória com "
+                    "experiências novas e seguras — distância, controle, repetição. Como Harry "
+                    "aprendeu: o cão da história não é todo cão do mundo.",
+        gancho_final="Mais tarde, no topo da torre mais alta de Hogwarts, Harry olharia para baixo "
+                     "e sentiria o chão sumir debaixo dos pés — mesmo estando firmemente em pé.",
+    ),
+
+    dict(
+        num=4, fobia="Acrofobia",
+        titulo="O Topo da Torre e o Chão que Sumiu",
+        gancho_abertura="Da torre de astronomia, as estrelas pareciam ao alcance da mão — mas "
+                        "para Harry, o abismo abaixo era mais real do que o céu.",
+        img="hp_tower_moon",
+        inicio=[
+            "Harry subiu os degraus da torre para devolver um telescópio a um colega. Na última "
+            "escada, a visão da quadra minúscula lá embaixo fez as pernas virarem gelo.",
+            "— Acrofobia — disse Hermione, que tinha subido atrás dele. — Medo de altura. O "
+            "corpo perde referência postural e o alarme dispara.",
+        ],
+        meio=[
+            "Harry agachou, agarrado ao corrimão. O Devorador rugiu: <i>“Você vai cair. Sempre "
+            "vai cair.”</i>",
+            "Hermione citou Magalhães Coelho: medo de altura envolve postura e sensação de "
+            "instabilidade — não só “pensamento errado”. Por isso a magia combina corpo e mente.",
+            "Ela ensinou: olhar para um ponto fixo à frente, não para baixo; sentir os pés "
+            "apertando o chão; contar quatro tempos na respiração.",
+        ],
+        fala_vilao="Não levante. Se levantar, morre.",
+        fim=[
+            "Harry ficou agachado até o pico da ansiedade baixar de oito para cinco. Aí levantou "
+            "só até a altura do joelho. No dia seguinte, até a cintura. Na terceira visita, "
+            "entregou o telescópio sem desmaiar.",
+            "— Determinação — disse ele, olhando a cicatriz no reflexo do vidro — é subir um "
+            "degrau por dia, não a torre inteira de uma vez.",
+        ],
+        magia=dict(
+            nome="Altum Firmum",
+            feitiço="Altum Firmum!",
+            gesto="Pés bem abertos, pressione o chão, diga em voz firme: “O chão me segura.”",
+            significado="Reconecta o corpo à superfície real. A altura existe; o perigo imaginado "
+                        "encolhe quando os pés voltam a sentir apoio.",
+        ),
+        psico_titulo="Postura, Altura e Alarme Corporal",
+        psico_texto="Em acrofobia, o sistema postural interpreta altura como queda iminente. "
+                    "Exposição gradual em alturas protegidas, com repetição, recalibra o "
+                    "equilíbrio entre perigo real e resposta defensiva — conceito central no "
+                    "trabalho de Magalhães Coelho sobre medo de alturas.",
+        gancho_final="Mas nem todo medo acontece no alto — alguns apertam por todos os lados, "
+                     "como as paredes de um corredor sem janela.",
+    ),
+
+    dict(
+        num=5, fobia="Claustrofobia",
+        titulo="O Armário, o Elevador e a Porta que Não Abria",
+        gancho_abertura="Harry conhecia lugares apertados melhor do que ninguém — afinal, tinha "
+                        "morado num armário. Mas conhecer não significava gostar.",
+        img="hp_dungeon_tight",
+        inicio=[
+            "O grupo precisava descer num elevador mágico estreito para chegar às aulas de Poções. "
+            "As portas fecharam com um clique. Harry sentiu o ar sumir.",
+            "— Claustrofobia — murmurou Hermione, segurando a mão dele. — Medo de espaços "
+            "fechados. Elevador, túnel, ressonância magnética, avião.",
+        ],
+        meio=[
+            "O Devorador sussurrou: <i>“Você vai ficar preso para sempre, como na Rua dos "
+            "Alfeneiros.”</i> Harry bateu no botão de emergência com o joelho tremendo.",
+            "Hermione lembrou Freud: a angústia sem objeto pode se colar a lugares onde a pessoa "
+            "se sentiu sem saída. O armário da infância virava elevador na imaginação.",
+            "— Conte comigo — disse ela. — Trinta segundos. Só trinta. Respira comigo.",
+        ],
+        fala_vilao="As paredes vão te esmagar. Não há saída.",
+        fim=[
+            "Harry contou até trinta. O elevador parou. As portas abriram. Ele saiu cambaleando "
+            "— mas saiu.",
+            "Na semana seguinte, entrou de novo voluntariamente por vinte segundos. Depois quarenta. "
+            "O armário debaixo da escada ficou pequeno na memória, não no poder.",
+            "— Eu determinei — disse Harry — que nenhum espaço fechado ia decidir minha vida.",
+        ],
+        magia=dict(
+            nome="Aer Liberum",
+            feitiço="Aer Liberum!",
+            gesto="Inspire pelo nariz contando 4, segure 2, solte pela boca contando 6.",
+            significado="Convence o corpo de que há ar e saída. A claustrofobia mente sobre "
+                        "o tempo; a respiração devolve o relógio.",
+        ),
+        psico_titulo="Fobias Situacionais e Memória do Enclausuramento",
+        psico_texto="Claustrofobia pertence às fobias situacionais do DSM-5. Experiências de "
+                    "aprisionamento simbólico ou real alimentam o medo. A exposição interoceptiva "
+                    "e situacional, em doses curtas e repetidas, ensina que a ansiedade sobe e "
+                    "desce sem catástrofe.",
+        gancho_final="Quando as portas se abriram para o céu aberto, Harry pensou que nada poderia "
+                     "ser pior — até ver o voo de uma vassoura esperando por ele.",
+    ),
+
+    dict(
+        num=6, fobia="Aerofobia",
+        titulo="Vassoura, Nuvens e Coração na Garganta",
+        gancho_abertura="Todo aluno de Hogwarts sonhava em voar. Harry sonhava em não cair.",
+        img="hp_broom_sky",
+        inicio=[
+            "Na primeira aula de voo, Madam Hooch ordenou: “Mãos na vassoura!” Harry sentiu o "
+            "estômago subir antes da vassoura. Não era só altura — era perder o chão, confiar "
+            "no ar, depender de um pedaço de madeira.",
+            "— Aerofobia — disse Hermione depois, na biblioteca. — Medo de voar. Mesmo sabendo "
+            "que aviões e vassouras são seguros, o corpo não escuta o manual.",
+        ],
+        meio=[
+            "O Devorador listou acidentes imaginários. Harry quis pedir dispensa médica.",
+            "Hermione comparou com o Pequeno Hans: o medo parece irracional, mas tem lógica "
+            "emocional — perder controle, depender de outros, não poder descer.",
+            "Plano: sentar na vassoura sem decolar. No dia seguinte, hover de um palmo. Depois "
+            "um metro. Harry assistiu outros alunos antes de tentar.",
+        ],
+        fala_vilao="Você vai despencar. O céu não perdoa.",
+        fim=[
+            "No terceiro dia, Harry flutuou até a altura dos ombros de Hermione. As mãos "
+            "tremiam, mas ele segurou a vassoura.",
+            "— Eu voei — disse, quase sem acreditar. — Pouco. Com medo. Mas voei.",
+            "Madam Hooch assentiu: — Potter, coragem não é ausência de medo. É disciplina com "
+            "o coração acelerado.",
+        ],
+        magia=dict(
+            nome="Nubes Custodiant",
+            feitiço="Nubes Custodiant!",
+            gesto="Olhe para o horizonte, não para o vazio abaixo; diga: “As nuvens me carregam.”",
+            significado="Troca a imagem mental de queda pela imagem de sustentação. O voo seguro "
+                        "começa na imaginação treinada.",
+        ),
+        psico_titulo="Perda de Controle e Exposição Imaginativa",
+        psico_texto="Aerofobia mistura altura, confinamento e falta de controle. A TCC combina "
+                    "psicoeducação, relaxamento e exposição gradual — às vezes começando no "
+                    "simulador ou na imaginação, como Harry no chão antes do ar.",
+        gancho_final="De volta à terra, Harry enfrentaria algo que deixava muita gente pálida "
+                     "sem precisar subir um centímetro.",
+    ),
+
+    dict(
+        num=7, fobia="Hematofobia",
+        titulo="A Poção Vermelha e o Chão que Rodou",
+        gancho_abertura="Na aula de Poções, uma gota de corante vermelho caiu na bancada — e "
+                        "o mundo de Harry inclinou de lado.",
+        img="hp_hospital_needle",
+        inicio=[
+            "Harry viu o vermelho e lembrou do corte no joelho na infância, do cheiro de ferro, "
+            "da visão turva. As pernas falharam.",
+            "— Hematofobia — explicou Madam Pomfrey na enfermaria. — Medo de sangue e ferimentos. "
+            "Pode vir com queda de pressão e desmaio — resposta vasovagal.",
+        ],
+        meio=[
+            "O Devorador zombou: <i>“Você desmaia, Potter. Fraco.”</i>",
+            "Hermione trouxe um livro de Magalhães Coelho: fobias de sangue-injeção-ferimentos "
+            "são diferentes — o corpo pode baixar a pressão em vez de só acelerar o coração.",
+            "Plano especial: deitar ao treinar; tensionar pernas e braços antes de ver imagens; "
+            "subir devagar da posição horizontal.",
+        ],
+        fala_vilao="Sangue significa morte. Você não aguenta ver.",
+        fim=[
+            "Harry olhou fotos de gotas em cartão, deitado no sofá da sala comunal, pernas "
+            "tensionadas. Depois um vídeo de cinco segundos. Não desmaiou.",
+            "— Determinação também é conhecer o próprio corpo — disse. — E respeitar o ritmo.",
+        ],
+        magia=dict(
+            nome="Vita Fluit",
+            feitiço="Vita Fluit!",
+            gesto="Deitado ou sentado, tensione músculos por 15 segundos, solte devagar.",
+            significado="Mantém a pressão estável enquanto o olho aprende que ver sangue em "
+                        "imagem não é estar ferido.",
+        ),
+        psico_titulo="Fobia Sangue-Injeção-Ferimentos e Resposta Vasovagal",
+        psico_texto="No DSM-5, fobias BIF incluem sangue, injeção e ferimento. A resposta "
+                    "vasovagal explica o desmaio. A exposição usa técnica aplicada de tensão "
+                    "para evitar queda de pressão — como treinar um feitiço com gesto correto.",
+        gancho_final="Na enfermaria, no dia seguinte, uma agulha reluzente esperava por ele — "
+                     "e o medo era outro, ainda mais pontiagudo.",
+    ),
+
+    dict(
+        num=8, fobia="Tripanofobia",
+        titulo="A Agulha e o Coragem de um Segundo",
+        gancho_abertura="Uma vacina mágica contra o resfriado do castelo deveria levar um segundo. "
+                        "Para Harry, parecia uma eternidade.",
+        img="hp_hospital_needle",
+        inicio=[
+            "Harry evitava a enfermaria há meses. Agulhas significavam dor, perda de controle, "
+            "memória de hospital na infância muggle.",
+            "— Tripanofobia — disse Hermione. — Medo de agulhas e injeções. Atrapalha vacinas "
+            "e exames — mas tem tratamento.",
+        ],
+        meio=[
+            "O Devorador sussurrou catástrofes médicas. Harry suou frio só de ver o algodão.",
+            "Hermione propôs escada: algodão na pele → álcool no braço → agulha sem líquido "
+            "encostando → vacina de verdade.",
+            "Freud diria que o medo ganhou objeto claro — a agulha — para dar forma à angústia "
+            "mais antiga de ser vulnerável.",
+        ],
+        fala_vilao="Vai doer horrores. Você não aguenta.",
+        fim=[
+            "Harry encostou a agulha fria no braço sem perfurar. Respirou. No dia seguinte, "
+            "recebeu a vacina olhando para um adesivo de estrela que Hermione colou na blusa "
+            "dele como ponto focal.",
+            "— Um segundo — disse Madam Pomfrey. — Você aguentou a vida inteira até aqui.",
+            "Harry riu nervoso e não desmaiou.",
+        ],
+        magia=dict(
+            nome="Dolorem Brevis",
+            feitiço="Dolorem Brevis!",
+            gesto="Antes da agulha, conte até três; na perfuração, solte o ar devagar.",
+            significado="O cérebro exagera a duração da dor. Contar e soltar o ar encurta a "
+                        "experiência real.",
+        ),
+        psico_titulo="Dor Anticipada × Dor Real",
+        psico_texto="A tripanofobia alimenta-se da antecipação. Exposição gradual e informação "
+                    "correta reduzem a catastrofização. Como Harry: um degrau por vez, sempre "
+                    "com plano de saída seguro — isso não é fuga, é estratégia.",
+        gancho_final="Naquela noite, um trovão rasgou o céu sobre Hogwarts — e Harry sentiu o "
+                     "medo antigo correr pelos corredores mais rápido que qualquer fantasma.",
+    ),
+
+    dict(
+        num=9, fobia="Astrafobia",
+        titulo="Quando o Céu Grita",
+        gancho_abertura="CABUM! O trovão fez as janelas tremer e Harry se enfiou debaixo da "
+                        "cama como quando tinha cinco anos.",
+        img="hp_storm_window",
+        inicio=[
+            "Tempestades em Hogwarts eram espetaculares e assustadoras. Raios desenhavam "
+            "veias douradas no céu. Harry cobria os ouvidos.",
+            "— Astrafobia — disse Hermione, sentando no chão ao lado da cama. — Medo de trovões "
+            "e tempestades. Muito comum em crianças — e em heróis cansados.",
+        ],
+        meio=[
+            "O Devorador repetia cada estrondo como prova de perigo.",
+            "Hermione lembrou: primeiro a resposta defensiva (pulo, coração), depois o medo "
+            "interpretado. Harry podia treinar a segunda parte.",
+            "Elas ouviram a tempestade juntas com chocolate quente — sem exigir que Harry "
+            "ficasse na janela. Só que ficasse na sala, não debaixo da cama.",
+        ],
+        fala_vilao="O próximo raio vai acertar você. O céu está com raiva.",
+        fim=[
+            "No terceiro temporal, Harry ficou na cadeira ao lado da janela, coberto com um "
+            "casaco, contando os segundos entre raio e trovão para saber a distância.",
+            "— Está longe — disse. — Estou com medo. Mas estou aqui.",
+            "O Devorador encolheu no canto, menor que a cicatriz na testa de Harry.",
+        ],
+        magia=dict(
+            nome="Tonitru Protego",
+            feitiço="Tonitru Protego!",
+            gesto="Mãos nos ouvidos suavemente, depois abra; diga: “O castelo me protege.”",
+            significado="Cria barreira simbólica entre estímulo e pânico. O trovão é barulho; "
+                        "não é sentença.",
+        ),
+        psico_titulo="Medo de Estímulos Súbitos e Barulho",
+        psico_texto="Astrafobia envolve saliência do estímulo — barulho imprevisível. A "
+                    "habituação gradual a sons gravados e à presença segura durante temporais "
+                    "reconecta o corpo ao presente. Evitar temporais inteiros mantém o medo.",
+        gancho_final="Quando a tempestade passou, a escuridão ficou — e era nela que o medo de "
+                     "Harry mais gostava de esconder-se.",
+    ),
+
+    dict(
+        num=10, fobia="Nictofobia",
+        titulo="A Noite sem Vela",
+        gancho_abertura="Apagaram as velas do dormitório por um exercício de coragem — e Harry "
+                        "sentiu o armário da infância voltar a respirar ao lado da cama.",
+        img="hp_closet_dark",
+        inicio=[
+            "No escuro, cada rangido virava monstro. Harry acendia a varinha no meio da noite "
+            "só para confirmar que não havia nada.",
+            "— Nictofobia — murmurou Hermione. — Medo do escuro. Crianças e adultos. O escuro "
+            "esconde o desconhecido — e o cérebro odeia desconhecido.",
+        ],
+        meio=[
+            "O Devorador amava a noite: <i>“Aqui sou eu quem manda.”</i>",
+            "Hermione citou Freud: angústia sem forma vira medo de algo — sombras, armários, "
+            "corredores. Dar forma permite combater.",
+            "Plano: luz baixa → penumbra → escuro com varinha na mão → escuro com Lumos "
+            "Interior no peito, não na varinha.",
+        ],
+        fala_vilao="No escuro ninguém te acha. Fique pequenininho.",
+        fim=[
+            "Na quinta noite do treino, Harry dormiu dez minutos no escuro total antes de "
+            "acordar e rir de si mesmo.",
+            "— Ainda assustei — disse. — Mas dormi. Isso é vitória.",
+            "A cicatriz na testa brilhou na escuridão como uma pequena estrela.",
+        ],
+        magia=dict(
+            nome="Lumos Noctis",
+            feitiço="Lumos Noctis!",
+            gesto="Feche os olhos, imagine uma vela no peito, abra devagar.",
+            significado="A luz que importa pode ser interna. O escuro deixa de ser armário "
+                        "quando você carrega sua própria chama.",
+        ),
+        psico_titulo="Medo do Desconhecido e Angústia sem Objeto",
+        psico_texto="Freud distingue angústia (sem objeto claro) de medo (com objeto). A "
+                    "nictofobia fixa o medo no escuro. Exposição gradual à penumbra, com "
+                    "previsibilidade e segurança, ensina que a ausência de luz não é ausência "
+                    "de controle.",
+        gancho_final="Na manhã seguinte, uma carta da clínica odontológica de Hogsmeade "
+                     "esperava Harry na mesa do café — e ele engoliu seco.",
+    ),
+
+    dict(
+        num=11, fobia="Odontofobia",
+        titulo="A Cadeira que Parecia um Trono de Medo",
+        gancho_abertura="Todo mundo ia ao dentista mágico para encantar os dentes. Harry ia "
+                        "tremendo, como se fosse enfrentar um dragão sem varinha.",
+        img="hp_hospital_needle",
+        inicio=[
+            "O consultório cheirava a menta e metal. A cadeira reclinava. Harry sentiu "
+            "vulnerabilidade total — boca aberta, alguém com instrumentos perto do rosto.",
+            "— Odontofobia — disse Hermione na sala de espera. — Medo do dentista. Muitas "
+            "vezes é medo de dor, mas também de perder controle e de postura submissa.",
+        ],
+        meio=[
+            "O Devorador sussurrou vergonha: <i>“Adulto com medo de dentista.”</i>",
+            "Magalhães Coelho descreve medos ligados a postura e vulnerabilidade — deitar, "
+            "abrir a boca, confiar em outro.",
+            "O dentista, gentil, combinou sinal de mão para pausar. Harry entrou só para "
+            "conhecer a sala. Na segunda visita, sentou na cadeira sem reclinar.",
+        ],
+        fala_vilao="Vai doer. Sempre dói. Você vai gritar.",
+        fim=[
+            "Na quarta visita, reclinou dez graus, depois trinta. Na quinta, limpeza simples "
+            "com pausas.",
+            "— Eu determinei o ritmo — disse Harry ao espelho. — Não o medo.",
+            "Hermione bateu palmas na recepção. O Devorador ficou do tamanho de um bicho-de-pé.",
+        ],
+        magia=dict(
+            nome="Curatio Dulcis",
+            feitiço="Curatio Dulcis!",
+            gesto="Mão no coração, depois sinal combinado com o profissional se precisar parar.",
+            significado="Transforma a cadeira em parceria, não tortura. Você tem voz, mesmo "
+                        "de boca aberta.",
+        ),
+        psico_titulo="Vulnerabilidade, Postura e Controle Compartilhado",
+        psico_texto="Odontofobia mistura medo de dor e de submissão. Exposição com controle "
+                    "retornado ao paciente (pausas, informação, degraus) quebra a catastrofização. "
+                    "Determinação aqui é negociar — como Harry negociou com cada professor.",
+        gancho_final="No fim da semana, o passeio até o Lago Negro faria o chão de Harry balançar "
+                     "como navio em tempestade.",
+    ),
+
+    dict(
+        num=12, fobia="Talassofobia",
+        titulo="O Lago Negro e o Abraço Gelado",
+        gancho_abertura="O Lago Negro era bonito de longe — e terrível de perto, como se a "
+                        "profundidade puxasse Harry para baixo só de olhar.",
+        img="hp_lake_cold",
+        inicio=[
+            "Na margem, Harry viu ondas escuras e imaginou o que havia embaixo. Grindylows, "
+            "sereias, o desconhecido.",
+            "— Talassofobia — disse Hermione. — Medo de água profunda, de afogamento, de não "
+            "ver o fundo.",
+        ],
+        meio=[
+            "O Devorador pintou imagens de afogamento. Harry recuou da beira.",
+            "Hermione lembrou o Triwizard Tournament: Harry mergulhou antes — com magia e "
+            "preparo. Medo não apaga história de coragem; só tenta apagar.",
+            "Plano: sentar na margem → molhar os pés → caminhar até o joelho com corda na "
+            "cintura e Ron segurando.",
+        ],
+        fala_vilao="A água vai te engolir. Profundo é morte.",
+        fim=[
+            "Harry entrou até o joelho, sentiu o frio, respirou Serpens Quieta adaptado para "
+            "água — pés firmes na areia.",
+            "— Não nadei — disse. — Mas entrei. E amanhã entro de novo.",
+            "O lago continuou escuro. Harry continuou maior que o medo.",
+        ],
+        magia=dict(
+            nome="Aqua Amica",
+            feitiço="Aqua Amica!",
+            gesto="Molhe as mãos, esfregue suavemente, diga: “A água me toca; não me leva.”",
+            significado="Separa toque da imaginação de afogamento. Profundidade se enfrenta "
+                        "em degraus, não de um salto.",
+        ),
+        psico_titulo="Medo de Ambiente Natural (Água)",
+        psico_texto="Talassofobia entra nas fobias de ambiente natural. O medo mistura "
+                    "profundidade, escuridão e perda de suporte. Exposição com segurança "
+                    "física (corda, companhia, margem) permite habituação sem retraumatizar.",
+        gancho_final="Mais tarde, no Salão Principal, mil olhos se voltariam para Harry — e "
+                     "nenhum deles seria mais assustador que o próprio julgamento dele.",
+    ),
+
+    dict(
+        num=13, fobia="Glossofobia",
+        titulo="Mil Olhos no Salão Principal",
+        gancho_abertura="O professor anunciou: cada aluno falaria sobre um feitiço na frente de "
+                        "toda Hogwarts. Harry sentiu o café da manhã subir.",
+        img="hp_great_hall_crowd",
+        inicio=[
+            "Glossofobia — medo de falar em público — não era exclusividade de Harry, mas "
+            "parecia. O coração batia na garganta. As mãos suavam.",
+            "Hermione, curiosamente, também tremia. Até a sabe-tudo tinha medo de errar na "
+            "frente dos outros.",
+        ],
+        meio=[
+            "O Devorador sussurrou: <i>“Vão rir da cicatriz. Vão rir do menino do armário.”</i>",
+            "Freud diria que o medo do olhar do outro mistura vergonha e desejo de aprovação. "
+            "Magalhães Coelho acrescenta: evitar falar alimenta a fobia social.",
+            "Treino: falar para o espelho → para Hermione → para Ron e Hermione → para a "
+            "torre vazia → para a turma pequena.",
+        ],
+        fala_vilao="Você vai gaguejar. Vai passar vergonha. Melhor ficar invisível.",
+        fim=[
+            "No dia da apresentação, Harry entrou com notas na mão, olhou para Hermione na "
+            "primeira fila, e começou.",
+            "A voz tremeu no meio — mas continuou. No final, não era o discurso perfeito. "
+            "Era honesto.",
+            "Aplausos. Harry sorriu: — Determinação é falar com o coração acelerado.",
+        ],
+        magia=dict(
+            nome="Verbum Fortis",
+            feitiço="Verbum Fortis!",
+            gesto="Pés firmes, olhar em um amigo, primeira frase decorada devagar.",
+            significado="A palavra forte não é sem medo — é dita mesmo assim. Um ouvinte "
+                        "amigo basta para ancorar.",
+        ),
+        psico_titulo="Medo do Julgamento e Fobia Social",
+        psico_texto="Glossofobia é forma específica de medo de avaliação negativa. A TCC "
+                    "usa exposição a situações sociais temidas, ensaio e reestruturação de "
+                    "pensamentos catastróficos. Como Harry: a plateia não é um monstro — "
+                    "são pessoas que também tremem.",
+        gancho_final="Depois de falar para mil, Harry achou que podia qualquer coisa — até "
+                     "precisar sair sozinho pela vila cheia de ruas sem saída aparente.",
+    ),
+
+    dict(
+        num=14, fobia="Agorafobia",
+        titulo="A Vila que Parecia um Labirinto",
+        gancho_abertura="Em Hogsmeade, as ruas iam de todos os lados — bonitas, movimentadas, "
+                        "e para Harry, de repente, sem saída.",
+        img="hp_hogsmeade_date",
+        inicio=[
+            "Multidão, becos, lojas cheias. Harry sentiu falta de ar — não de altura, não de "
+            "animal: era medo de não conseguir escapar se algo der errado.",
+            "— Agorafobia — disse Hermione, guiando-o para um banco. — Medo de situações onde "
+            "achamos difícil sair ou pedir ajuda. Não é só “medo de rua”.",
+        ],
+        meio=[
+            "O Devorador repetia: <i>“Fique no castelo. Lá você controla.”</i> Evitar virava prisão dourada.",
+            "Hermione explicou o ciclo de Coelho: medo → evitação → alívio → medo maior amanhã.",
+            "Plano: caminhar até a primeira loja com ela → esperar cinco minutos → voltar → "
+            "no dia seguinte, duas lojas → depois, cinco minutos sozinho no beco perto da escola.",
+        ],
+        fala_vilao="Se você sair, vai entrar em pânico e ninguém vai te salvar.",
+        fim=[
+            "Harry ficou cinco minutos sozinho no beco ensolarado, costas no muro, respirando "
+            "Aer Liberum. Nada aconteceu de ruim.",
+            "— O mundo é grande — disse. — Mas eu também cresci.",
+            "O Devorador, pela primeira vez, parecia com fome.",
+        ],
+        magia=dict(
+            nome="Via Aperta",
+            feitiço="Via Aperta!",
+            gesto="Identifique uma saída antes de entrar; aponte mentalmente: “Se precisar, vou por ali.”",
+            significado="Devolve o mapa ao cérebro. Agorafobia rouba a sensação de rota; "
+                        "planejar a saída segura é coragem prática.",
+        ),
+        psico_titulo="Medo de Não Escapar e Evitamento que Prende",
+        psico_texto="Agorafobia envolve medo de sintomas de pânico em lugares onde escapar "
+                    "parece difícil. O tratamento combina exposição gradual a contextos temidos "
+                    "e redução de comportamentos de segurança. Determinação é sair com plano — "
+                    "não sem medo.",
+        gancho_final="Com quase todas as magias aprendidas, faltava apenas uma coisa: Harry "
+                     "precisava encarar o Devorador de Coragem face a face — no espelho.",
+    ),
+
+    dict(
+        num=15, fobia="Epílogo",
+        titulo="O Espelho, o Abraço e o Final Feliz",
+        gancho_abertura="No Espelho de Ojesed, Harry não viu ouro nem família perdida — viu "
+                        "a si mesmo de costas, encarando o Devorador sem fugir.",
+        img="hp_mirror_erised",
+        inicio=[
+            "Todas as fobias tinham nome. Todas tinham magia. Harry tinha uma lista no diário: "
+            "aranha, cobra, cão, altura, espaço fechado, voo, sangue, agulha, trovão, escuro, "
+            "dentista, água profunda, plateia, rua sem saída.",
+            "Não estava “curado” — às vezes ainda tremia. Mas tinha deixado de organizar a vida "
+            "só para fugir.",
+        ],
+        meio=[
+            "Hermione encontrou Harry na frente do espelho. — O Devorador é alimentado por "
+            "evitação — disse. — Freud viu que o medo pode mudar de forma; Magalhães Coelho "
+            "viu que evitar alimenta a besta. Você escolheu enfrentar. Isso é determinação de "
+            "verdade.",
+            "O Devorador sussurrou fraco: <i>“Ainda posso voltar…”</i>",
+            "Harry respondeu em voz alta: — Pode. Mas eu também volto. Com magia. Com passos. "
+            "Com amigos.",
+        ],
+        fala_vilao="Você nunca vai ser de verdade sem medo…",
+        fim=[
+            "Harry virou-se do espelho, abraçou Hermione (que corou e abraçou de volta), e "
+            "sentiu o coração acelerado — não de pânico, de alegria.",
+            "Anos depois, contariam que Harry Potter venceu trolls, basiliscos e bruxos das "
+            "trevas. Mas ele sabia o segredo: tinha vencido, degrau a degrau, o medo de viver.",
+            "E viveram felizes, com coragem ensaiada todo dia — porque determinação, como "
+            "qualquer magia, precisa de prática.",
+            "<b>FIM.</b>",
+        ],
+        magia=dict(
+            nome="Coragem Perpetua",
+            feitiço="Coragem Perpetua!",
+            gesto="Mão no peito, mão na cicatriz, sorriso pequeno: “Um passo hoje.”",
+            significado="A magia final não elimina o medo — ensina a dançar com ele. "
+                        "Repita sempre que precisar.",
+        ),
+        psico_titulo="Determinação, Habituação e Vida Plena",
+        psico_texto="Superar fobias é recalibrar o alarme interno com experiências repetidas "
+                    "de segurança. Freud nos ensina a escutar o simbólico do medo; Magalhães "
+                    "Coelho nos lembra que evitar alimenta a ansiedade. Harry mostra que "
+                    "determinação é prática — uma fobia, uma magia, um capítulo de cada vez.",
+        gancho_final=None,
+    ),
+]
 
 
 def build():
     s = styles()
     doc = SimpleDocTemplate(
-        str(OUT),
-        pagesize=A4,
-        leftMargin=2 * cm,
-        rightMargin=2 * cm,
-        topMargin=2 * cm,
-        bottomMargin=2.2 * cm,
-        title="Programa Escada Segura",
+        str(OUT), pagesize=A4,
+        leftMargin=2 * cm, rightMargin=2 * cm,
+        topMargin=2 * cm, bottomMargin=2.0 * cm,
+        title="Harry Potter e as Magias da Coragem",
         author="Dra. Priscila Palomo",
     )
     story = []
 
-    # ── CAPA ──
-    story.append(Spacer(1, 3.5 * cm))
-    story.append(Paragraph("DRA. PRISCILA PALOMO  ·  CRP 98007", s["cover_brand"]))
-    story.append(Spacer(1, 0.6 * cm))
-    story.append(HRFlowable(width="40%", thickness=2, color=NAVY, spaceBefore=0, spaceAfter=16))
-    story.append(Paragraph("Programa Escada Segura", s["cover_title"]))
-    story.append(Paragraph(
-        "Workbook de 21 dias para vencer fobias específicas<br/>com exposição gradual — passo a passo, no seu ritmo.",
-        s["cover_sub"],
-    ))
-    story.append(Spacer(1, 1.2 * cm))
-    story.append(Paragraph(
-        "Material psicoeducativo baseado em Terapia Cognitivo-Comportamental (TCC).",
-        s["cover_sub"],
-    ))
-    story.append(Spacer(1, 3 * cm))
-    story.append(Paragraph("www.priscilapalomo.com", s["cover_brand"]))
+    story.append(Spacer(1, 0.5 * cm))
+    p(story, "DRA. PRISCILA PALOMO  ·  CRP 98007", s["cover_brand"])
+    story.append(Spacer(1, 0.2 * cm))
+    story.append(HRFlowable(width="40%", thickness=2, color=NAVY, spaceBefore=0, spaceAfter=8))
+    p(story, "Harry Potter e as Magias da Coragem", s["cover_title"])
+    p(story, "Um capítulo para cada fobia · Uma magia para cada medo<br/>"
+             "Historinhas de determinação inspiradas em Hogwarts", s["cover_sub"])
+    story.append(Spacer(1, 0.3 * cm))
+    story.append(ilustra("hp_cover", 13 * cm))
+    story.append(Spacer(1, 0.25 * cm))
+    p(story, "“Determinação não é não sentir medo.<br/>"
+             "É aprender a magia certa para cada medo — e usar.”", s["gancho_abertura"])
+    story.append(Spacer(1, 0.2 * cm))
+    p(story, "www.priscilapalomo.com", s["cover_brand"])
     story.append(PageBreak())
 
-    # ── AVISO ÉTICO ──
-    story.append(Paragraph("Antes de começar", s["h1"]))
+    p(story, "Carta aos Leitores Corajosos", s["h1"])
     story.append(hr())
-    story.append(Paragraph(
-        "Este workbook é um <b>material psicoeducativo</b>. Ele ensina princípios "
-        "científicos da exposição gradual para fobias específicas e oferece um "
-        "plano estruturado de 21 dias para você praticar com segurança e consciência.",
-        s["body"],
-    ))
-    story.append(Paragraph(
-        "<b>Importante:</b> este programa <b>não substitui psicoterapia</b>, avaliação "
-        "clínica nem tratamento médico. Se você tem crise de pânico intensa, ideação "
-        "suicida, transtorno alimentar ativo, trauma recente sem acompanhamento, ou "
-        "usa substâncias para enfrentar o medo, procure ajuda profissional antes de "
-        "iniciar exposições sozinho(a).",
-        s["body"],
-    ))
-    story.append(Paragraph(
-        "Se em qualquer momento a ansiedade ficar incontrolável, <b>pare</b>, use as "
-        "técnicas de regulação deste material e, se necessário, contate um profissional "
-        "de saúde mental ou o CVV (188).",
-        s["body"],
-    ))
-    story.append(Paragraph(
-        "A Dra. Priscila Palomo (CRP 98007) atende online e presencialmente. "
-        "WhatsApp: (11) 95069-0537 · www.priscilapalomo.com",
-        s["small"],
-    ))
+    p(story, "Querido(a) leitor(a),", s["prosa_first"])
+    p(story, "Este livro organiza <b>um capítulo para cada tipo de fobia</b> — aranha, cobra, "
+      "cão, altura, lugares fechados, voo, sangue, agulha, trovão, escuro, dentista, água "
+      "profunda, falar em público e medo de não conseguir escapar. Em cada um, Harry Potter "
+      "vive uma <b>historinha com começo, meio e fim de superação</b>, aprende uma <b>magia</b> "
+      "e descobre, como nos livros de aventura, que <b>determinação</b> vale mais do que sorte.",
+      s["prosa"])
+    p(story, "As caixinhas <b>O Segredo da Mente</b> trazem ideias de Freud (caso Pequeno Hans, "
+      "angústia e medo), de Magalhães Coelho (<i>Medos, Fobias e Ansiedades</i>: resposta "
+      "defensiva, evitamento, habituação) e da TCC com exposição gradual.",
+      s["prosa"])
+    p(story, "<b>Aviso:</b> obra lúdica e psicoeducativa. Não substitui psicoterapia. "
+      "Personagens inspirados em histórias conhecidas; produto independente de fins "
+      "comerciais vinculados a franquias. Medo intenso pede ajuda profissional.",
+      s["small"])
+    story.append(Spacer(1, 4))
+    p(story, "Com carinho,<br/><b>Dra. Priscila Palomo</b> — CRP 98007<br/>"
+             "Especialista em Fobias e TCC · www.priscilapalomo.com", s["small"])
     story.append(PageBreak())
 
-    # ── SUMÁRIO ──
-    story.append(Paragraph("Sumário", s["h1"]))
+    p(story, "Índice — Uma Magia para Cada Medo", s["h1"])
     story.append(hr())
-    toc_items = [
-        "1. Como o medo funciona",
-        "2. O que é exposição gradual",
-        "3. Sua Escada Segura — como montar",
-        "4. Escala de ansiedade (0–10)",
-        "5. Técnicas de regulação",
-        "6. Regras de ouro do programa",
-        "6b. Comportamentos de segurança",
-        "7. Plano de 21 dias",
-        "8. Folhas de registro diário",
-        "9. Revisão final e próximos passos",
-        "10. Modelos extras (imprimíveis)",
-    ]
-    for item in toc_items:
-        story.append(Paragraph(item, s["toc"]))
+    for c in CAPITULOS:
+        magia = c["magia"]["nome"]
+        p(story, f"<b>Cap. {c['num']:02d}:</b> {c['fobia']} — <i>{c['titulo']}</i> "
+             f"· magia: <font color='#C8940A'>{magia}</font>", s["toc"])
     story.append(PageBreak())
 
-    # ── 1. COMO O MEDO FUNCIONA ──
-    story.append(Paragraph("1. Como o medo funciona", s["h1"]))
-    story.append(hr())
-    story.append(Paragraph(
-        "O medo é um sistema de alarme do corpo. Ele existe para nos proteger. "
-        "Em uma fobia específica, esse alarme dispara com força diante de algo que, "
-        "na maior parte das vezes, <b>não representa perigo real proporcional</b> "
-        "à reação que sentimos.",
-        s["body"],
-    ))
-    story.append(Paragraph(
-        "Quando o alarme toca, o sistema nervoso ativa a resposta de luta/fuga: "
-        "coração acelerado, respiração curta, suor, tremor, vontade de fugir. "
-        "Isso é fisiologia — não é “fraqueza” nem “falta de vontade”.",
-        s["body"],
-    ))
-    story.append(Paragraph("O ciclo que mantém a fobia", s["h2"]))
-    story.append(bullet_list([
-        "<b>Gatilho</b> — situação, imagem, pensamento ou sensação ligada ao medo.",
-        "<b>Alarme</b> — ansiedade sobe rápido.",
-        "<b>Evitação</b> — você foge, adia ou pede “segurança” (alguém junto, remédio “por precaução”, checagens).",
-        "<b>Alívio imediato</b> — a ansiedade cai… e o cérebro aprende: “fugir funcionou”.",
-        "<b>Medo maior amanhã</b> — o monstro cresce porque nunca foi testado de verdade.",
-    ], s["body_left"]))
-    story.append(Paragraph(
-        "A boa notícia: fobias específicas estão entre os quadros com <b>melhor resposta</b> "
-        "à terapia baseada em evidência — especialmente a exposição gradual.",
-        s["body"],
-    ))
-    story.append(Paragraph("Medo útil × medo desproporcional", s["h2"]))
-    story.append(Paragraph(
-        "Medo útil: você está em uma rua escura e acelera o passo. "
-        "Medo desproporcional: a ideia de uma aranha pequena, um elevador ou falar em público "
-        "dispara o mesmo nível de alarme de um perigo de vida — e você organiza a rotina "
-        "inteira para não encontrar esse gatilho.",
-        s["body"],
-    ))
-    story.append(Paragraph(
-        "Fobia específica costuma ser <b>circunscrita</b>: há um alvo claro (altura, avião, "
-        "agulha, animal, dentista, etc.). Quanto mais claro o alvo, mais fácil montar a escada.",
-        s["body"],
-    ))
-    story.append(Paragraph("Por que “só esperar passar” raramente resolve", s["h2"]))
-    story.append(Paragraph(
-        "Sem novas experiências de segurança, o cérebro mantém o arquivo antigo: "
-        "“isso é perigoso → fuja”. O tempo sozinho não reescreve esse arquivo. "
-        "A exposição repetida e processada (com registro) reescreve.",
-        s["body"],
-    ))
-    story.append(Paragraph(
-        "“Você não precisa eliminar o medo de uma vez. Precisa ensinar o cérebro, "
-        "degrau a degrau, que o alarme estava exagerado.”",
-        s["quote"],
-    ))
-    story.append(PageBreak())
-
-    # ── 2. EXPOSIÇÃO GRADUAL ──
-    story.append(Paragraph("2. O que é exposição gradual", s["h1"]))
-    story.append(hr())
-    story.append(Paragraph(
-        "Exposição gradual (também chamada de dessensibilização sistemática / exposição "
-        "hierárquica) significa <b>enfrentar o medo em doses pequenas, planejadas e "
-        "repetidas</b> — do mais fácil ao mais difícil — até a ansiedade baixar "
-        "<i>dentro</i> da situação (habituação) e o cérebro atualizar a previsão de perigo "
-        "(aprendizado inibitório).",
-        s["body"],
-    ))
-    story.append(Paragraph("Exemplo clássico (medo de avião)", s["h2"]))
-    story.append(bullet_list([
-        "Ver fotos de aviões",
-        "Assistir a um vídeo de decolagem",
-        "Ir ao aeroporto só para observar",
-        "Entrar em um avião parado (quando possível) ou simulador",
-        "Voo curto com apoio planejado",
-    ], s["body_left"]))
-    story.append(Paragraph(
-        "Cada degrau vencido “encolhe o monstro”. O segredo não é coragem cega — "
-        "é <b>consistência + dose certa + reflexão depois</b>.",
-        s["body"],
-    ))
-    story.append(Paragraph("O que este programa NÃO é", s["h2"]))
-    story.append(bullet_list([
-        "Não é “mergulhar de uma vez” no pior medo (flooding sem preparo).",
-        "Não é se torturar até passar mal.",
-        "Não é substituir acompanhamento profissional quando você precisa dele.",
-    ], s["body_left"]))
-    story.append(Paragraph("Exemplos de escadas (inspire-se, depois personalize)", s["h2"]))
-    story.append(Paragraph("<b>Aerofobia (medo de voar)</b>", s["h3"]))
-    story.append(bullet_list([
-        "Ver fotos de cabine → vídeo de decolagem → ir ao aeroporto só para observar → "
-        "passar pela segurança sem voar → sentar na área de embarque → voo curto.",
-    ], s["body_left"]))
-    story.append(Paragraph("<b>Acrofobia (medo de altura)</b>", s["h3"]))
-    story.append(bullet_list([
-        "Olhar fotos de varandas → vídeo em mirante → ficar perto de janela no 2º andar → "
-        "3º andar → mirante com grade → caminhar próximo à borda protegida.",
-    ], s["body_left"]))
-    story.append(Paragraph("<b>Odontofobia (medo de dentista)</b>", s["h3"]))
-    story.append(bullet_list([
-        "Ver fotos da clínica → ligar e só marcar horário → visitar a recepção → "
-        "sentar na cadeira sem procedimento → profilaxia simples → procedimento planejado.",
-    ], s["body_left"]))
-    story.append(Paragraph("<b>Glossofobia (medo de falar em público)</b>", s["h3"]))
-    story.append(bullet_list([
-        "Ler um texto em voz alta sozinho → gravar áudio → falar para 1 pessoa → "
-        "para 3 pessoas → reunião curta → apresentação formal.",
-    ], s["body_left"]))
-    story.append(Paragraph(
-        "Se a sua fobia for outra, use a mesma lógica: <b>símbolo → distância → proximidade → contato</b>.",
-        s["body"],
-    ))
-    story.append(PageBreak())
-
-    # ── 3. MONTAR A ESCADA ──
-    story.append(Paragraph("3. Sua Escada Segura — como montar", s["h1"]))
-    story.append(hr())
-    story.append(Paragraph(
-        "Antes dos 21 dias, você vai construir sua escada pessoal. "
-        "Sem escada clara, a exposição vira improviso — e improviso aumenta o risco "
-        "de abandono ou de saltos perigosos demais.",
-        s["body"],
-    ))
-    story.append(Paragraph("Passo A — Defina o medo-alvo", s["h2"]))
-    story.append(Paragraph(
-        "Escreva com precisão. Em vez de “tenho medo de altura”, prefira: "
-        "“medo de ficar perto da janela no 10º andar” ou “medo de subir escadas rolantes”.",
-        s["body"],
-    ))
-    story.append(Paragraph("Minha fobia / medo-alvo:", s["label"]))
-    story.append(blank_lines(3))
-    story.append(Paragraph("O que eu evito por causa disso:", s["label"]))
-    story.append(blank_lines(3))
-    story.append(Paragraph("O que eu gostaria de conseguir em 21 dias (meta realista):", s["label"]))
-    story.append(blank_lines(3))
-    story.append(Paragraph("Passo B — Liste 8 a 12 situações", s["h2"]))
-    story.append(Paragraph(
-        "Do mais fácil (ansiedade ~2–3) ao mais difícil (ansiedade ~8–9). "
-        "Inclua versões com foto, vídeo, observação à distância, aproximação e contato.",
-        s["body"],
-    ))
-    story.append(Spacer(1, 6))
-    story.append(ladder_template(s))
-    story.append(Spacer(1, 10))
-    story.append(Paragraph(
-        "Dica: o primeiro degrau deve ser tão fácil que você quase ache “bobagem”. "
-        "Isso cria impulso e confiança.",
-        s["small"],
-    ))
-    story.append(PageBreak())
-
-    # ── 4. ESCALA ──
-    story.append(Paragraph("4. Escala de ansiedade (0–10)", s["h1"]))
-    story.append(hr())
-    story.append(Paragraph(
-        "Durante cada exposição, registre três números: <b>antes</b>, <b>pico</b> e "
-        "<b>depois</b>. O objetivo não é zerar a ansiedade — é ver que ela sobe e "
-        "<b>desce sem você fugir</b>.",
-        s["body"],
-    ))
-    story.append(scale_table(s))
-    story.append(Spacer(1, 12))
-    story.append(Paragraph(
-        "Regra prática: trabalhe preferencialmente nos degraus em que o pico fica "
-        "entre <b>3 e 6</b>. Se passar de 7 com frequência, desça um ou dois degraus.",
-        s["body"],
-    ))
-    story.append(PageBreak())
-
-    # ── 5. TÉCNICAS ──
-    story.append(Paragraph("5. Técnicas de regulação", s["h1"]))
-    story.append(hr())
-    story.append(Paragraph(
-        "Use estas ferramentas <b>para permanecer</b> na exposição — não para evitar "
-        "sentir. Sentir ansiedade (em dose tolerável) faz parte do aprendizado.",
-        s["body"],
-    ))
-    story.append(Paragraph("5.1 Respiração diafragmática (4-6-8)", s["h2"]))
-    story.append(bullet_list([
-        "Inspire pelo nariz contando até 4 (barriga expandindo).",
-        "Segure suavemente até 6 (se confortável; senão, pule a pausa).",
-        "Solte pela boca contando até 8.",
-        "Repita 4 ciclos. Ombros baixos, mandíbula solta.",
-    ], s["body_left"]))
-    story.append(Paragraph("5.2 Ancoragem 5-4-3-2-1", s["h2"]))
-    story.append(Paragraph(
-        "Nomeie: 5 coisas que vê · 4 que toca · 3 que ouve · 2 que cheira · 1 que "
-        "pode saborear (ou um sabor na memória). Isso traz o cérebro de volta ao presente.",
-        s["body"],
-    ))
-    story.append(Paragraph("5.3 Frase de enfrentamento", s["h2"]))
-    story.append(Paragraph(
-        "Escolha uma frase curta e verdadeira. Exemplos: “É ansiedade, não perigo.” · "
-        "“Posso sentir e continuar.” · “Já passei por isso antes.”",
-        s["body"],
-    ))
-    story.append(Paragraph("Minha frase de enfrentamento:", s["label"]))
-    story.append(blank_lines(2))
-    story.append(Paragraph("5.4 Após a exposição — consolidar o aprendizado", s["h2"]))
-    story.append(Paragraph(
-        "Sempre escreva: o que o medo previa × o que aconteceu de fato. "
-        "Esse contraste é o “remédio” cognitivo da exposição.",
-        s["body"],
-    ))
-    story.append(PageBreak())
-
-    # ── 6. REGRAS DE OURO ──
-    story.append(Paragraph("6. Regras de ouro do programa", s["h1"]))
-    story.append(hr())
-    story.append(bullet_list([
-        "<b>Pequeno e frequente</b> vence grande e raro.",
-        "<b>Não fuja no pico</b> — espere a curva baixar alguns pontos (mesmo que 10–20 minutos).",
-        "<b>Repita o mesmo degrau</b> até a ansiedade cair ~50% em relação ao primeiro pico, depois suba.",
-        "<b>Evite “muletas mágicas”</b> (álcool, checagens excessivas, só fazer se alguém “garantir” que está seguro) — elas sabotam o aprendizado.",
-        "<b>Durma, coma e hidrate</b> — exposição com corpo exausto é mais difícil.",
-        "<b>Celebre o processo</b>, não só o degrau final.",
-        "<b>Peça ajuda profissional</b> se travar, se o medo for muito amplo (agorafobia/pânico) ou se houver trauma.",
-    ], s["body_left"]))
-    story.append(Paragraph(
-        "Compromisso comigo mesmo(a): vou praticar ____ minutos, ____ dias por semana, "
-        "nos próximos 21 dias.",
-        s["body"],
-    ))
-    story.append(blank_lines(2))
-    story.append(PageBreak())
-
-    # ── Comportamentos de segurança ──
-    story.append(Paragraph("6b. Comportamentos de segurança (e como soltá-los)", s["h1"]))
-    story.append(hr())
-    story.append(Paragraph(
-        "Comportamentos de segurança são atalhos que <b>reduzem a ansiedade na hora</b>, "
-        "mas impedem o cérebro de aprender que a situação era tolerável sozinha. "
-        "Exemplos: só entrar no elevador com alguém, checar o coração toda hora, "
-        "ensaiar mentalmente catástrofes, levar remédio “por precaução” sem indicação, "
-        "distrair-se o tempo todo para “não sentir”.",
-        s["body"],
-    ))
-    story.append(Paragraph(
-        "Não precisa eliminar tudo no dia 1. O objetivo é <b>reduzir aos poucos</b> "
-        "enquanto sobe a escada. Anote os seus:",
-        s["body"],
-    ))
-    story.append(Paragraph("Meus comportamentos de segurança atuais:", s["label"]))
-    story.append(blank_lines(4))
-    story.append(Paragraph("Quais posso soltar nesta semana (1 ou 2):", s["label"]))
-    story.append(blank_lines(3))
-    story.append(Paragraph("Erros comuns (e correção)", s["h2"]))
-    story.append(bullet_list([
-        "<b>Subir degraus demais cedo</b> → volte 1–2 níveis e repita até estabilizar.",
-        "<b>Fazer uma vez e parar</b> → o aprendizado pede repetição.",
-        "<b>Interpretar ansiedade alta como fracasso</b> → ansiedade é o material de treino.",
-        "<b>Comparar-se com outras pessoas</b> → sua escada é sua biografia.",
-        "<b>Usar o workbook como único recurso em crise grave</b> → busque ajuda profissional.",
-    ], s["body_left"]))
-    story.append(PageBreak())
-
-    # ── 7. PLANO 21 DIAS ──
-    story.append(Paragraph("7. Plano de 21 dias", s["h1"]))
-    story.append(hr())
-    story.append(Paragraph(
-        "O programa está dividido em três semanas. Ajuste os degraus à <b>sua</b> escada — "
-        "os exemplos abaixo são um guia de ritmo, não uma receita rígida.",
-        s["body"],
-    ))
-
-    # Semana 1
-    story.append(Paragraph("Semana 1 — Fundação (dias 1–7)", s["h2"]))
-    story.append(Paragraph(
-        "Objetivo: psicoeducação aplicada, montar a escada, treinar regulação e "
-        "vencer os primeiros degraus fáceis.",
-        s["body"],
-    ))
-    week1 = [
-        ("Dia 1 — Mapa do medo",
-         "Leia as seções 1–2. Preencha medo-alvo, evitacoes e meta. Escreva 3 situações "
-         "em que a fobia limitou sua vida no último mês."),
-        ("Dia 2 — Escada rascunho",
-         "Liste 10 degraus. Ordene do mais fácil ao mais difícil. Peça a alguém de confiança "
-         "(ou a si mesmo com calma) para revisar se algum salto está grande demais."),
-        ("Dia 3 — Treino de regulação",
-         "Pratique respiração 4-6-8 e 5-4-3-2-1 três vezes no dia, sem exposição. "
-         "Anote qual técnica funciona melhor para você."),
-        ("Dia 4 — Degrau 1",
-         "Exposição curta (5–15 min) no degrau mais fácil. Registre antes/pico/depois. "
-         "Permaneça até a ansiedade cair pelo menos 2 pontos."),
-        ("Dia 5 — Repetir Degrau 1",
-         "Mesma situação. Observe se o pico já é menor. Se sim, prepare o Degrau 2."),
-        ("Dia 6 — Degrau 2",
-         "Suba um nível. Se o pico passar de 7, volte ao Degrau 1 e fortaleça."),
-        ("Dia 7 — Revisão da semana",
-         "O que funcionou? O que atrapalhou? Ajuste a escada. Descanse ou faça só "
-         "uma exposição leve se estiver cansado(a)."),
-    ]
-    for title, text in week1:
-        story.append(Paragraph(f"<b>{title}</b>", s["h3"]))
-        story.append(Paragraph(text, s["body"]))
-
-    story.append(PageBreak())
-    story.append(Paragraph("Semana 2 — Consolidação (dias 8–14)", s["h2"]))
-    story.append(Paragraph(
-        "Objetivo: repetir degraus intermediários até a ansiedade ficar previsível e manejável.",
-        s["body"],
-    ))
-    week2 = [
-        ("Dia 8 — Degrau 3", "Exposição com registro completo. Use a frase de enfrentamento."),
-        ("Dia 9 — Degrau 3 de novo", "Foque no contraste: previsão do medo × realidade."),
-        ("Dia 10 — Degrau 4", "Aumente um pouco a dificuldade (tempo, proximidade ou duração)."),
-        ("Dia 11 — Variar o contexto", "Mesmo degrau, outro horário/lugar/roupa/acompanhamento mínimo — generaliza o aprendizado."),
-        ("Dia 12 — Degrau 5", "Se necessário, divida este degrau em dois microdegraus."),
-        ("Dia 13 — Sessão dupla leve", "Duas exposições curtas no mesmo dia (manhã e fim de tarde), se o corpo aguentar."),
-        ("Dia 14 — Revisão", "Liste 5 evidências de que você é capaz de sentir ansiedade e continuar."),
-    ]
-    for title, text in week2:
-        story.append(Paragraph(f"<b>{title}</b>", s["h3"]))
-        story.append(Paragraph(text, s["body"]))
-
-    story.append(Paragraph("Semana 3 — Expansão (dias 15–21)", s["h2"]))
-    story.append(Paragraph(
-        "Objetivo: aproximar-se dos degraus altos com segurança e planejar manutenção.",
-        s["body"],
-    ))
-    week3 = [
-        ("Dia 15 — Degrau 6", "Exposição padrão + registro."),
-        ("Dia 16 — Degrau 6/7", "Avance só se o pico da sessão anterior tiver caído de forma consistente."),
-        ("Dia 17 — Ensaio da meta", "Monte um ensaio próximo da meta de 21 dias (ainda com rede de segurança se precisar)."),
-        ("Dia 18 — Degrau alto (dose controlada)", "Tempo limitado, plano claro de saída segura (sair ≠ fugir no pico sem plano)."),
-        ("Dia 19 — Integração", "Combine exposição com uma atividade valorizada (encontro, trabalho, lazer)."),
-        ("Dia 20 — Ensaio final", "Faça o melhor ensaio possível da meta. Celebre o processo."),
-        ("Dia 21 — Plano de manutenção", "Escreva como manter 1–2 exposições por semana nas próximas 4 semanas para não voltar à evitação."),
-    ]
-    for title, text in week3:
-        story.append(Paragraph(f"<b>{title}</b>", s["h3"]))
-        story.append(Paragraph(text, s["body"]))
-    story.append(PageBreak())
-
-    # ── 8. REGISTROS ──
-    story.append(Paragraph("8. Folhas de registro diário", s["h1"]))
-    story.append(hr())
-    story.append(Paragraph(
-        "Use uma folha por dia de exposição. Imprima ou copie à mão. "
-        "Quanto mais concreto o registro, mais forte o aprendizado.",
-        s["body"],
-    ))
-
-    # Generate enough log pages (~14 exposure days worth, 2 per page roughly)
-    days_for_logs = [
-        "Dia 4 — Registro", "Dia 5 — Registro", "Dia 6 — Registro",
-        "Dia 8 — Registro", "Dia 9 — Registro", "Dia 10 — Registro",
-        "Dia 11 — Registro", "Dia 12 — Registro", "Dia 13 — Registro",
-        "Dia 15 — Registro", "Dia 16 — Registro", "Dia 17 — Registro",
-        "Dia 18 — Registro", "Dia 19 — Registro", "Dia 20 — Registro",
-        "Registro extra 1", "Registro extra 2", "Registro extra 3",
-        "Registro extra 4", "Registro extra 5", "Registro extra 6",
-        "Registro extra 7", "Registro extra 8",
-    ]
-    for i, d in enumerate(days_for_logs):
-        story.append(exposure_log(s, d))
-        if (i + 1) % 2 == 0 and i < len(days_for_logs) - 1:
-            story.append(PageBreak())
-    story.append(PageBreak())
-
-    # ── 9. REVISÃO FINAL ──
-    story.append(Paragraph("9. Revisão final e próximos passos", s["h1"]))
-    story.append(hr())
-    story.append(Paragraph("O que eu conquistei em 21 dias:", s["label"]))
-    story.append(blank_lines(4))
-    story.append(Paragraph("Degraus que ainda quero treinar:", s["label"]))
-    story.append(blank_lines(3))
-    story.append(Paragraph("Sinais de que estou voltando à evitação:", s["label"]))
-    story.append(blank_lines(3))
-    story.append(Paragraph("Meu plano de manutenção (próximas 4 semanas):", s["label"]))
-    story.append(blank_lines(4))
-    story.append(Paragraph(
-        "Se quiser aprofundar com acompanhamento profissional — inclusive com "
-        "exposição gradual e, quando indicado, recursos de realidade virtual — "
-        "fale comigo pelo WhatsApp ou pelo site.",
-        s["body"],
-    ))
-    story.append(Paragraph(
-        "WhatsApp: (11) 95069-0537 · www.priscilapalomo.com · CRP 98007",
-        s["small"],
-    ))
-    story.append(PageBreak())
-
-    # ── 10. MODELOS EXTRAS ──
-    story.append(Paragraph("10. Modelos extras (imprimíveis)", s["h1"]))
-    story.append(hr())
-    story.append(Paragraph("Escada em branco (versão 2)", s["h2"]))
-    story.append(ladder_template(s))
-    story.append(Spacer(1, 14))
-    story.append(Paragraph("Checklist rápido antes de cada exposição", s["h2"]))
-    story.append(bullet_list([
-        "□ Sei qual degrau vou fazer (específico e mensurável)",
-        "□ Defini tempo mínimo de permanência (ex.: 10 minutos)",
-        "□ Tenho minha frase de enfrentamento",
-        "□ Sei como medir ansiedade (0–10) antes / pico / depois",
-        "□ Combinei comigo: não abandonar no pico sem plano",
-        "□ Depois vou escrever previsão × realidade",
-    ], s["body_left"]))
-    story.append(Spacer(1, 12))
-    story.append(Paragraph("Registro livre", s["h2"]))
-    story.append(exposure_log(s, "Registro livre"))
-    story.append(Spacer(1, 16))
-    story.append(HRFlowable(width="100%", thickness=1.5, color=NAVY, spaceBefore=8, spaceAfter=12))
-    story.append(Paragraph(
-        "Programa Escada Segura · Material psicoeducativo · Não substitui psicoterapia · "
-        "Dra. Priscila Palomo · CRP 98007 · www.priscilapalomo.com",
-        s["footer"],
-    ))
+    for c in CAPITULOS:
+        capitulo(story, c, s)
 
     doc.build(story, onFirstPage=add_page_number, onLaterPages=add_page_number)
     print(f"OK: {OUT} ({OUT.stat().st_size} bytes)")
