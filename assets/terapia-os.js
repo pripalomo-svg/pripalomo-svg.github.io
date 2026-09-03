@@ -69,16 +69,25 @@
     const endH = String((hh + 1) % 24).padStart(2, '0');
     const end = ev.date.replace(/-/g, '') + 'T' + endH + String(mm).padStart(2, '0') + '00';
     const q = new URLSearchParams({
-      action: 'TEMPLATE',
       text: 'Consulta · ' + ev.who,
       dates: start + '/' + end,
       details: ev.note || 'Consulta — Terap-ia OS',
       location: ev.place || 'Consultório / online'
     });
-    return 'https://calendar.google.com/calendar/render?' + q.toString();
+    return 'https://calendar.google.com/calendar/u/0/r/eventedit?' + q.toString();
   }
 
-  const S = { view: 'login', flash: '', err: '', pay: '', draft: {} };
+  function openTab(url) {
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
+  const S = { view: 'login', flash: '', err: '', pay: '', draft: {}, lastLinks: null };
 
   function currentUser() {
     const login = session();
@@ -147,7 +156,7 @@
           </button>
         </div>
         ${pix ? `<div class="pix"><span>${PIX}</span><button type="button" class="btn ghost" id="copy-pix">Copiar</button></div>` : ''}
-        <form id="f-criar">
+        <form id="f-criar" novalidate>
           <label class="fl" for="nlogin">Crie o usuário</label>
           <input class="inp" id="nlogin" required minlength="3" autocomplete="username" placeholder="ex.: clinica.silva">
           <label class="fl" for="nsenha">Crie a senha</label>
@@ -229,7 +238,7 @@
       <h2 style="margin-top:16px">Agenda</h2>
       <p class="sub">Ao marcar, abre o Google Agenda e o WhatsApp do paciente com a mensagem pronta.</p>
       <div class="panel">
-        <form id="f-age">
+        <form id="f-age" novalidate>
           <label class="fl" for="apaci">Paciente</label>
           <select class="inp" id="apaci" required>${opts || '<option value="">Cadastre um paciente primeiro</option>'}</select>
           <label class="fl" for="adata">Data</label>
@@ -239,9 +248,13 @@
           <label class="fl" for="alocal">Local</label>
           <input class="inp" id="alocal" placeholder="Online ou endereço">
           ${flashBox()}
+          ${S.lastLinks ? `<div class="btnrow">
+            <a class="btn orange" href="${esc(S.lastLinks.wa)}" target="_blank" rel="noopener">Enviar WhatsApp</a>
+            <a class="btn" href="${esc(S.lastLinks.cal)}" target="_blank" rel="noopener">Abrir no Google Agenda</a>
+          </div>` : ''}
           <div class="btnrow">
             <button class="btn orange" type="submit"${data.patients.length ? '' : ' disabled'}>Marcar e avisar</button>
-            <a class="btn ghost" href="https://calendar.google.com/" target="_blank" rel="noopener">Abrir Google Agenda</a>
+            <a class="btn ghost" href="https://calendar.google.com/calendar/u/0/r" target="_blank" rel="noopener">Abrir Google Agenda</a>
           </div>
         </form>
       </div>
@@ -347,8 +360,10 @@
     ev.preventDefault();
     const u = currentUser(); if (!u) return;
     const data = db(u.login);
+    if (!data.patients.length) { S.err = 'Cadastre um paciente antes.'; render(); return; }
     const p = data.patients[+$('apaci').value];
-    if (!p) { S.err = 'Cadastre um paciente antes.'; render(); return; }
+    if (!p) { S.err = 'Escolha um paciente.'; render(); return; }
+    if (!$('adata').value || !$('ahora').value) { S.err = 'Informe data e hora.'; render(); return; }
     const evn = {
       who: p.nome,
       fone: p.fone,
@@ -363,9 +378,12 @@
     const [y, m, d] = evn.date.split('-');
     const dataBr = d + '/' + m + '/' + y;
     const texto = `Olá, ${p.nome}! Sua consulta está marcada para ${dataBr} às ${evn.time}${evn.place ? ' · ' + evn.place : ''}. Qualquer dúvida, responda esta mensagem.`;
-    window.open(gcalLink(evn), '_blank', 'noopener');
-    setTimeout(() => window.open(waLink(p.fone, texto), '_blank', 'noopener'), 500);
-    S.flash = 'Consulta salva. Google Agenda e WhatsApp abertos.';
+    const wa = waLink(p.fone, texto);
+    const cal = gcalLink(evn);
+    openTab(wa);
+    openTab(cal);
+    S.flash = 'Consulta salva. WhatsApp do paciente e Google Agenda abertos — se o navegador bloquear, use os links abaixo.';
+    S.lastLinks = { wa, cal };
     S.view = 'agenda';
     render();
   }
