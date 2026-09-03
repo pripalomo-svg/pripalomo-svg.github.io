@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terap-ia Pro — Priscila Palomo</title>
+<meta name="description" content="Instrumento clínico Terap-ia Pro da psicóloga Priscila Palomo (CRP 98007): transcrição, supervisão, DSM-5, TCC e relatórios ao paciente.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>P</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E4A57;
+  --n900:#0E4A57;
+  --n700:#165A68;
+  --n500:#3D8A96;
+  --warn:#E27A2E;
+  --warn2:#C0641C;
+  --soft:#B8D4D8;
+  --paper:#F3F6F4;
+  --surface:#FFFFFF;
+  --line:#D4E0E2;
+  --line-soft:#E8F0F1;
+  --rail:248px;
+  --ribbon:64px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  font-size:15px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+
+/* ───────── shell ───────── */
+.app{display:grid;grid-template-columns:var(--rail) 1fr;height:100vh;overflow:hidden}
+
+/* ───────── rail ───────── */
+.rail{
+  background:var(--n900);
+  color:#fff;
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+}
+.brand{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,.12)}
+.brand h1{
+  font-family:'Syne',sans-serif;font-weight:800;font-size:1.18rem;
+  letter-spacing:-.02em;line-height:1.1;
+}
+.brand h1 em{font-style:normal;color:var(--soft)}
+.brand .sig{
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;
+  text-transform:uppercase;letter-spacing:.16em;
+  color:rgba(255,255,255,.45);margin-top:7px;display:block;
+}
+.rail nav{padding:10px 0;flex:1}
+.mod{
+  display:grid;grid-template-columns:42px 1fr;align-items:baseline;
+  width:100%;text-align:left;background:none;border:0;cursor:pointer;
+  padding:9px 18px;color:rgba(255,255,255,.72);
+  font-family:'DM Sans',sans-serif;font-size:.9rem;
+  border-left:3px solid transparent;transition:background .12s,color .12s;
+}
+.mod code{
+  font-family:'IBM Plex Mono',monospace;font-size:.64rem;font-weight:500;
+  letter-spacing:.1em;color:rgba(255,255,255,.34);
+}
+.mod:hover{background:rgba(255,255,255,.05);color:#fff}
+.mod:hover code{color:var(--soft)}
+.mod[aria-current="true"]{
+  background:rgba(255,255,255,.09);color:#fff;border-left-color:var(--warn);
+}
+.mod[aria-current="true"] code{color:var(--warn2)}
+.rail-foot{padding:14px 18px 18px;border-top:1px solid rgba(255,255,255,.12);font-size:.76rem}
+.keystate{display:flex;align-items:center;gap:7px;color:rgba(255,255,255,.6)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--warn);flex:0 0 auto}
+.dot.ok{background:var(--n500)}
+.rail-foot select{
+  width:100%;margin-top:10px;background:rgba(255,255,255,.08);
+  color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:5px;
+  padding:6px 7px;font-family:'IBM Plex Mono',monospace;font-size:.7rem;
+}
+.rail-foot select option{color:#000}
+.licline{margin-top:9px;font-family:'IBM Plex Mono',monospace;font-size:.58rem;
+  letter-spacing:.08em;color:rgba(255,255,255,.35);text-transform:uppercase}
+
+
+/* ───────── main ───────── */
+.stage{display:flex;flex-direction:column;overflow:hidden;background:var(--paper)}
+.stage-scroll{flex:1;overflow-y:auto;padding:0 0 40px}
+.mhead{
+  background:var(--surface);border-bottom:1px solid var(--line);
+  padding:24px 34px 20px;position:sticky;top:0;z-index:5;
+}
+.mhead .kicker{
+  font-family:'IBM Plex Mono',monospace;font-size:.66rem;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--n500);
+}
+.mhead h2{
+  font-family:'Syne',sans-serif;font-weight:700;font-size:1.7rem;
+  letter-spacing:-.025em;color:var(--n900);margin-top:6px;line-height:1.15;
+}
+.mhead p{color:#5A6B6B;font-size:.92rem;margin-top:5px;max-width:62ch}
+
+.pane{padding:26px 34px 0;max-width:1000px}
+.card{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;padding:24px;margin-bottom:20px;
+}
+.card h3{
+  font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--n700);
+  margin-bottom:14px;padding-bottom:9px;border-bottom:1px solid var(--line-soft);
+}
+label.fl{
+  display:block;font-size:.78rem;font-weight:500;color:var(--n700);
+  margin-bottom:5px;
+}
+input[type=text],input[type=password],textarea,select.inp{
+  width:100%;font-family:'DM Sans',sans-serif;font-size:.92rem;
+  padding:9px 11px;border:1px solid var(--line);border-radius:8px;
+  background:#FCFDFD;color:var(--ink);
+}
+textarea{resize:vertical;min-height:120px;line-height:1.6}
+input:focus,textarea:focus,select:focus{
+  outline:2px solid var(--soft);outline-offset:1px;border-color:var(--n500);
+}
+.row{display:grid;gap:14px;margin-bottom:14px}
+.row.two{grid-template-columns:1fr 1fr}
+.hint{font-size:.76rem;color:#7A8888;margin-top:5px}
+
+.btn{
+  font-family:'DM Sans',sans-serif;font-weight:500;font-size:.9rem;
+  padding:10px 20px;border-radius:8px;border:0;cursor:pointer;
+  background:var(--n900);color:#fff;transition:background .14s;
+}
+.btn:hover{background:var(--n700)}
+.btn:disabled{background:#A9B7B7;cursor:not-allowed}
+.btn.accent{background:var(--warn)}
+.btn.accent:hover{background:var(--warn2)}
+.btn.ghost{background:none;color:var(--n700);border:1px solid var(--line)}
+.btn.ghost:hover{background:var(--paper)}
+.btn.sm{padding:7px 13px;font-size:.8rem}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* privacy strip */
+.privacy{
+  background:#F6F2E9;border:1px solid #E4DCC9;border-left:4px solid var(--warn);
+  border-radius:8px;padding:13px 16px;margin-bottom:20px;font-size:.83rem;color:#57503F;
+}
+.privacy strong{color:#7A4326}
+
+/* output */
+.out{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:26px 28px}
+.out .empty{
+  font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:#93A2A2;
+  text-align:center;padding:34px 0;letter-spacing:.03em;
+}
+.doc h3{
+  font-family:'Syne',sans-serif;font-weight:700;font-size:1.02rem;letter-spacing:-.01em;
+  color:var(--n900);margin:22px 0 8px;text-transform:none;border:0;padding:0;
+}
+.doc h3:first-child{margin-top:0}
+.doc p{margin-bottom:10px;font-size:.93rem}
+.doc ul,.doc ol{margin:0 0 12px 20px}
+.doc li{margin-bottom:5px;font-size:.93rem}
+.doc strong{color:var(--n900);font-weight:500}
+.doc hr{border:0;border-top:1px solid var(--line-soft);margin:18px 0}
+
+.badge{
+  display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.64rem;
+  letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  background:var(--paper);color:var(--n700);border:1px solid var(--line);
+}
+.badge.hi{background:#F6E8E0;color:#8A3D1F;border-color:#D8A88E}
+.badge.mid{background:#F3EDDE;color:#7A5E20;border-color:#D5C28F}
+.badge.lo{background:#EAF1EB;color:#2F5A42;border-color:#A8C4B0}
+
+.spin{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.35);
+  border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;vertical-align:-2px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.err{background:#F7EDE8;border:1px solid var(--warn);border-radius:8px;
+  padding:13px 15px;font-size:.86rem;color:#8A2A00;margin-bottom:16px}
+
+/* history */
+.hitem{border:1px solid var(--line);border-radius:10px;padding:15px 17px;margin-bottom:11px;background:var(--surface)}
+.hitem header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:7px}
+.hitem .who{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--n700);letter-spacing:.06em}
+.hitem .when{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:#93A2A2}
+.hitem .prev{font-size:.85rem;color:#5A6B6B;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ───────── SIGNATURE: faixa de sessão ───────── */
+.ribbon{
+  height:var(--ribbon);flex:0 0 auto;background:var(--n900);
+  border-top:1px solid rgba(255,255,255,.14);
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;
+  gap:18px;padding:0 20px;color:#fff;
+}
+.rb-state{display:flex;align-items:center;gap:9px;white-space:nowrap}
+.rb-led{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.25)}
+.rb-led.live{background:var(--warn);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(180,85,45,.55)}50%{opacity:.65;box-shadow:0 0 0 6px rgba(180,85,45,0)}}
+.rb-clock{font-family:'IBM Plex Mono',monospace;font-size:.9rem;letter-spacing:.05em}
+.rb-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;text-transform:uppercase;
+  letter-spacing:.18em;color:rgba(255,255,255,.42);display:block;margin-top:1px}
+.rb-track{position:relative;height:38px;overflow:hidden;border-left:1px solid rgba(255,255,255,.14);
+  border-right:1px solid rgba(255,255,255,.14);padding:0 14px}
+.rb-flow{
+  position:absolute;bottom:8px;left:14px;right:14px;
+  font-family:'IBM Plex Mono',monospace;font-size:.74rem;color:rgba(255,255,255,.78);
+  white-space:nowrap;overflow:hidden;text-overflow:clip;direction:rtl;text-align:left;
+}
+.rb-axis{position:absolute;top:19px;left:14px;right:14px;height:1px;background:rgba(255,255,255,.16)}
+.rb-ticks{position:absolute;top:6px;left:14px;right:14px;height:13px}
+.rb-tick{position:absolute;bottom:0;width:2px;height:13px;background:var(--warn);border-radius:1px}
+.rb-tick::after{content:'';position:absolute;top:-4px;left:-2px;width:6px;height:6px;
+  border-radius:50%;background:var(--warn)}
+.rb-count{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--soft);white-space:nowrap}
+
+.hidden{display:none !important}
+
+/* mapa de sofrimento */
+.sod-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 22px}
+@media(max-width:700px){.sod-grid{grid-template-columns:1fr}}
+.sod-input{display:flex;align-items:center;gap:12px}
+.sod-input input[type=range]{flex:1;accent-color:var(--n500)}
+.sod-val{font-size:.82rem;color:var(--n900);min-width:18px;text-align:right}
+.sod-entry{border:1px solid var(--line);border-radius:10px;padding:13px 15px;margin-bottom:10px;background:var(--surface)}
+.sod-entry header{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+.sod-entry .when{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:#98A099}
+.sod-line{display:grid;grid-template-columns:150px 1fr 24px auto;gap:10px;align-items:center;padding:4px 0;font-size:.85rem}
+.sod-dom{color:#555B54;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sod-bar{height:8px;background:var(--line-soft);border-radius:5px;overflow:hidden}
+.sod-bar span{display:block;height:100%;background:var(--n500);border-radius:5px}
+.delta{font-family:'IBM Plex Mono',monospace;font-size:.68rem;padding:1px 6px;border-radius:5px}
+.delta.down{color:#2F5A42;background:#EAF1EB}
+.delta.up{color:#8A3D1F;background:#F6E8E0}
+.delta.eq{color:#98A099}
+@media(max-width:700px){.sod-line{grid-template-columns:100px 1fr 24px auto}}
+
+/* envio whatsapp */
+.wa-box{margin-top:18px;padding-top:16px;border-top:1px solid var(--line-soft)}
+
+
+/* licença */
+.card.lic{border-left:4px solid var(--n500)}
+.lic-price{font-family:'Syne',sans-serif;font-weight:700;font-size:1.5rem;
+  color:var(--n900);margin:14px 0 !important;letter-spacing:-.02em}
+.lic-price .mono{color:var(--n500)}
+
+
+/* paciente ativo */
+.mhead-top{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.pchip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);
+  background:var(--surface);border-radius:20px;padding:5px 12px 5px 6px;cursor:pointer;
+  font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.05em;color:var(--n700)}
+.pchip:hover{border-color:var(--n500)}
+.pchip.off{padding:6px 12px;color:#98A099}
+.ava{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;
+  border-radius:50%;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.68rem;
+  font-weight:500;letter-spacing:.02em;flex:0 0 auto}
+.ava.sm{width:22px;height:22px;font-size:.52rem}
+
+/* fichas */
+.pac{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;
+  border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;
+  background:var(--surface)}
+.pac.on{border-color:var(--n500);box-shadow:0 0 0 1px var(--n500)}
+.pac-meta{display:flex;flex-direction:column;gap:2px;min-width:0}
+.pac-meta strong{color:var(--n900);font-size:.95rem}
+.pac-meta span{font-size:.82rem;color:#6E7770}
+.pac-meta .cnt{font-size:.66rem;color:#98A099;letter-spacing:.05em}
+.pac-act{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+@media(max-width:700px){.pac{grid-template-columns:auto 1fr}.pac-act{grid-column:1/-1;justify-content:flex-start}}
+
+/* medidor */
+.meter{height:8px;background:var(--line-soft);border-radius:6px;overflow:hidden;margin-bottom:8px}
+.meter-bar{height:100%;background:var(--n500);border-radius:6px;min-width:2px}
+
+/* tour */
+.tour-wrap{position:fixed;inset:0;background:rgba(38,41,43,.55);backdrop-filter:blur(2px);
+  display:flex;align-items:center;justify-content:center;z-index:60;padding:20px}
+.tour-card{background:var(--surface);border-radius:16px;max-width:480px;width:100%;
+  padding:30px 32px;box-shadow:0 24px 60px rgba(38,41,43,.28)}
+.tour-card .kicker{font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--n500)}
+.tour-card h3{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;
+  color:var(--n900);margin:8px 0 10px;letter-spacing:-.02em}
+.tour-card p{font-size:.93rem;color:#4C5A52;line-height:1.65}
+.tour-dots{display:flex;gap:6px;margin-top:16px}
+.tour-dots span{width:7px;height:7px;border-radius:50%;background:var(--line)}
+.tour-dots span.on{background:var(--n500)}
+
+
+/* catálogo de instrumentos */
+.ins-area{font-family:'IBM Plex Mono',monospace;font-size:.66rem;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--n500);
+  margin:18px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--line-soft)}
+details.ins{border:1px solid var(--line);border-radius:10px;padding:11px 14px;
+  margin-bottom:8px;background:var(--surface)}
+details.ins summary{cursor:pointer;font-size:.9rem;color:var(--ink);
+  display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-weight:500}
+details.ins summary .sig{font-size:.72rem;color:var(--n500);min-width:74px}
+details.ins p{font-size:.87rem;color:#555B5F;margin:11px 0 10px;line-height:1.6}
+details.ins summary::marker{color:var(--n500)}
+
+
+/* supervisão ao vivo */
+.momento{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:15px}
+.momento p{font-size:.9rem;margin-top:7px;color:#4A5A5A}
+.momento .nxt{color:var(--n900)}
+.supcard{border:1px solid var(--line);border-left:3px solid var(--n500);
+  border-radius:10px;padding:14px 16px;margin-bottom:10px;background:var(--surface)}
+.supcard.u-hi{border-left-color:var(--warn)}
+.supcard.u-mid{border-left-color:var(--soft)}
+.supcard header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px}
+.supcard .when{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:#93A2A2}
+.supcard blockquote{font-style:italic;font-size:.92rem;color:var(--n900);
+  border-left:2px solid var(--line);padding-left:11px;margin-bottom:9px}
+.supcard .read{font-size:.87rem;color:#5A6B6B;margin-bottom:9px}
+.supcard .say{font-size:.9rem;background:#F1F5F1;border:1px solid #D5E1D6;
+  border-radius:5px;padding:9px 11px}
+
+/* atalhos */
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.chip{font-family:'IBM Plex Mono',monospace;font-size:.7rem;padding:5px 10px;
+  border-radius:20px;border:1px solid var(--line);background:var(--surface);
+  color:var(--n700);cursor:pointer}
+.chip:hover{border-color:var(--n500);background:var(--paper)}
+
+/* alert list */
+.alerts{margin-top:14px}
+.alert-row{display:grid;grid-template-columns:58px 1fr;gap:12px;padding:9px 0;border-top:1px solid var(--line-soft);font-size:.88rem}
+.alert-row .t{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--warn)}
+
+.mobar{display:none}
+.scrim{display:none}
+.rail-back{
+  display:block;margin-top:10px;color:rgba(255,255,255,.55);
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;
+  letter-spacing:.12em;text-transform:uppercase;text-decoration:none;
+}
+.rail-back:hover{color:#fff}
+
+@media (max-width:860px){
+  body{display:flex;flex-direction:column}
+  .app{grid-template-columns:1fr;height:calc(100dvh - 52px)}
+  .rail{
+    display:flex;position:fixed;inset:0 auto 0 0;width:min(280px,86vw);
+    z-index:45;transform:translateX(-105%);transition:transform .2s ease;
+  }
+  .rail.open{transform:translateX(0)}
+  .scrim{display:block;position:fixed;inset:0;background:rgba(38,41,43,.45);z-index:40}
+  .scrim.hidden{display:none}
+  .mobar{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    height:52px;padding:0 14px;background:var(--n900);color:#fff;
+  }
+  .mobar button{
+    background:none;border:0;color:#fff;font-size:1.2rem;cursor:pointer;padding:6px 8px;
+  }
+  .mobar .brand-mini{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem}
+  .mobar a{color:rgba(255,255,255,.7);font-size:.78rem;text-decoration:none}
+  .pane,.mhead{padding-left:18px;padding-right:18px}
+  .row.two{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+</style>
+</head>
+<body>
+
+<div class="mobar">
+  <button type="button" id="momenu" aria-label="Abrir módulos">☰</button>
+  <span class="brand-mini">Terap-ia Pro</span>
+  <a href="index.html">Site</a>
+</div>
+<div class="scrim hidden" id="scrim"></div>
+
+<div class="app">
+
+  <!-- ═════ RAIL ═════ -->
+  <aside class="rail" id="rail">
+    <div class="brand">
+      <h1>Terap-ia <em>Pro</em></h1>
+      <span class="sig">Priscila Palomo · CRP 06/98007</span>
+    </div>
+    <nav id="nav"></nav>
+    <div class="rail-foot">
+      <div class="keystate"><span class="dot" id="keydot"></span><span id="keytxt">Chave não configurada</span></div>
+      <div class="licline">Licença de uso profissional individual · R$ 249</div>
+      <a class="rail-back" href="index.html">← priscilapalomo.com</a>
+      <select id="model" aria-label="Modelo">
+        <option value="claude-sonnet-5">claude-sonnet-5</option>
+        <option value="claude-opus-5">claude-opus-5</option>
+      </select>
+    </div>
+  </aside>
+
+  <!-- ═════ STAGE ═════ -->
+  <div class="stage">
+    <div class="stage-scroll">
+      <div class="mhead">
+        <div class="mhead-top"><span class="kicker" id="mcode">SES</span><span id="pacchip"></span></div>
+        <h2 id="mtitle">Sessão ao vivo</h2>
+        <p id="mdesc"></p>
+      </div>
+      <div class="pane" id="pane"></div>
+    </div>
+
+    <!-- SIGNATURE -->
+    <div class="ribbon">
+      <div class="rb-state">
+        <span class="rb-led" id="led"></span>
+        <div>
+          <span class="rb-clock" id="clock">00:00:00</span>
+          <span class="rb-label" id="rbstate">sem sessão</span>
+        </div>
+      </div>
+      <div class="rb-track">
+        <div class="rb-axis"></div>
+        <div class="rb-ticks" id="ticks"></div>
+        <div class="rb-flow" id="flow"></div>
+      </div>
+      <div class="rb-count" id="rbcount">0 palavras</div>
+    </div>
+  </div>
+</div>
+
+<!-- tour guiado -->
+<div id="tour" class="tour-wrap hidden" role="dialog" aria-modal="true">
+  <div class="tour-card" id="tourbody"></div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   TERAP-IA PRO — arquivo único, sem build, sem servidor.
+   Requer: chave de API da Anthropic (console.anthropic.com)
+   Transcrição ao vivo: Chrome ou Edge (Web Speech API)
+   ══════════════════════════════════════════════════════════════ */
+
+/* ---------- armazenamento tolerante (localStorage OU memória) ---------- */
+const mem = {};
+const store = {
+  get(k){ try{ const v = localStorage.getItem(k); return v===null ? (k in mem ? mem[k] : null) : v; }catch(e){ return k in mem ? mem[k] : null; } },
+  set(k,v){ mem[k]=v; try{ localStorage.setItem(k,v); }catch(e){} },
+  del(k){ delete mem[k]; try{ localStorage.removeItem(k); }catch(e){} }
+};
+
+/* ---------- estado ---------- */
+const S = {
+  mod:'INI',
+  key: store.get('tp_key') || '',
+  model: store.get('tp_model') || 'claude-sonnet-5',
+  transcript:'',
+  alerts:[],
+  recording:false,
+  t0:null,
+  timer:null,
+  rec:null,
+  history: JSON.parse(store.get('tp_hist') || '[]'),
+  pacs: JSON.parse(store.get('tp_pacs') || '[]'),
+  activePac: store.get('tp_active') || null,
+  busy:false,
+  /* supervisão ao vivo */
+  supOn: store.get('tp_sup')==='1',
+  sup:[],
+  supBuf:[],
+  supTimer:null,
+  supBusy:false,
+  momento:null
+};
+
+/* ---------- módulos ---------- */
+const MODULES = {
+  INI:{ name:'Início e ética', desc:'O que este instrumento é, como usar, e os compromissos de sigilo e tratamento de dados que valem para todo o conteúdo gerado aqui.' },
+  PAC:{ name:'Pacientes', desc:'Fichas de trabalho por paciente, identificadas apenas por iniciais. Cada análise gerada fica vinculada ao paciente ativo. Tudo permanece nesta máquina.' },
+  REL:{ name:'Relatórios ao paciente', desc:'Mapa de pontos de sofrimento com escala 0–10 por domínio, relatório de acompanhamento e relatório de evolução do sofrimento — em linguagem para o paciente, com envio direto pelo WhatsApp.' },
+  SES:{ name:'Sessão ao vivo', desc:'Transcrição contínua com marcação automática de trechos que pedem atenção clínica. O áudio não sai do navegador — só o texto é enviado quando você pedir uma análise.' },
+  DSM:{ name:'Rastreio DSM-5', desc:'Levanta hipóteses diagnósticas a partir do relato, com critérios correspondentes, nível de sustentação e diagnósticos diferenciais a descartar.' },
+  TCC:{ name:'Plano de intervenção', desc:'Protocolo em TCC por hipótese diagnóstica: técnicas, evidência, sequência de sessões e critérios de progressão.' },
+  MBS:{ name:'Mindfulness (MBSR)', desc:'Práticas do protocolo de Kabat-Zinn indicadas para o quadro, com roteiro de condução e integração ao plano de TCC.' },
+  SOA:{ name:'Nota SOAP', desc:'Converte o registro da sessão em nota estruturada: subjetivo, objetivo, avaliação e conduta.' },
+  PSE:{ name:'Psicoeducação', desc:'Material para o paciente levar da sessão, em linguagem acessível e sem jargão.' },
+  RSK:{ name:'Avaliação de risco', desc:'Inventário estruturado de fatores de risco e de proteção, com conduta e critérios de encaminhamento. Instrumento de apoio — a decisão é clínica.' },
+  MET:{ name:'Metáforas clínicas', desc:'Metáforas e analogias sob medida para o repertório do paciente, com a fala pronta, o limite de cada metáfora e o que evitar.' },
+  PSD:{ name:'Formulação psicodinâmica', desc:'Formulação do caso em duas lentes — psicanalítica e cognitivo-comportamental — com convergências, divergências e implicações de manejo.' },
+  INS:{ name:'Instrumentos de avaliação', desc:'Catálogo por área do DSM-5 com licenciamento, pontos de corte e correção dos instrumentos de acesso livre. Gera guia de aplicação completo sob demanda.' },
+  HIS:{ name:'Histórico', desc:'Tudo que foi gerado nesta máquina. Fica no seu navegador; nada é enviado para servidor.' },
+  CFG:{ name:'Configuração', desc:'Chave de API, modelo e limpeza de dados.' }
+};
+
+/* ---------- termos de atenção clínica (sinalizadores, não métodos) ---------- */
+const FLAGS = [
+  {re:/n[ãa]o quero mais viver|n[ãa]o aguento mais viver|cansei de viver/i, tag:'ideação suicida'},
+  {re:/desistir de tudo|sem sa[íi]da|nada faz sentido|perdi o sentido/i, tag:'desesperança'},
+  {re:/me machucar|me ferir|me punir fisicamente/i, tag:'autolesão'},
+  {re:/ningu[ée]m sentiria falta|seria melhor sem mim|peso para todos/i, tag:'fardo percebido'},
+  {re:/me bateu|me agrediu|apanhei|me amea[çc]ou/i, tag:'violência'},
+  {re:/n[ãa]o durmo|sem dormir h[áa]|insônia/i, tag:'insônia'},
+  {re:/bebi muito|usei droga|encho a cara|us[ei]* toda noite/i, tag:'uso de substância'},
+  {re:/ataque de p[âa]nico|falta de ar|cora[çc][ãa]o disparado|achei que ia morrer/i, tag:'pânico'},
+  {re:/n[ãa]o consigo sair de casa|evito|deixei de ir/i, tag:'esquiva'},
+  {re:/verifico|checo v[áa]rias vezes|ritual|contamina/i, tag:'compulsão'},
+  {re:/parei de comer|vomito|purgar/i, tag:'alimentação'}
+];
+
+/* ---------- prompts ---------- */
+const BASE = `Você é um assistente de documentação clínica para uma psicóloga clínica registrada (CRP), doutora em psicologia, especialista em fobias, TOC e transtornos de ansiedade. Registro técnico, direto, sem floreio e sem tranquilizar a profissional.
+
+Regras invioláveis:
+- Você NÃO fecha diagnóstico e NÃO prescreve. Você organiza hipóteses e sustentação para julgamento clínico humano.
+- Nunca descreva métodos, meios ou procedimentos de autolesão ou suicídio, em nenhuma circunstância.
+- Se o material for insuficiente para alguma seção, escreva "Dados insuficientes" e diga exatamente qual informação falta.
+- Não invente conteúdo de sessão que não esteja no material fornecido.
+
+Formato de saída: markdown simples. Use apenas ### para títulos de seção, **negrito**, listas com - e listas numeradas. Não use tabelas, não use blocos de código, não escreva preâmbulo nem conclusão sobre si mesmo.`;
+
+const PROMPTS = {
+  DSM:(d)=>`${BASE}
+
+Tarefa: rastreio diagnóstico segundo DSM-5-TR.
+
+Material clínico:
+"""${d.text}"""
+Contexto adicional: ${d.ctx||'não informado'}
+
+Estruture assim:
+
+### Hipóteses diagnósticas
+Para cada hipótese (máximo 4, ordenadas por sustentação): nome e código DSM-5, nível de sustentação (ALTA / MODERADA / BAIXA), critérios atendidos com a evidência textual correspondente, e critérios que ainda precisam ser verificados.
+
+### Diferenciais a descartar
+Quais quadros competem com a hipótese principal e qual pergunta ou instrumento separa um do outro.
+
+### Especificadores aplicáveis
+Especificadores DSM-5 pertinentes à hipótese principal (gravidade, curso, insight, subtipo), com o que sustenta cada um.
+
+### Comorbidades a rastrear
+Com justificativa clínica.
+
+### Traços de personalidade observáveis
+Apenas o que o material sustenta. Traço não é diagnóstico de transtorno da personalidade — deixe isso explícito.
+
+### Instrumentos a aplicar
+Escalas e inventários com nome, o que medem neste caso, e por que este e não outro.
+
+### Lacunas na anamnese
+Perguntas específicas que faltam ser feitas, em ordem de prioridade.`,
+
+  TCC:(d)=>`${BASE}
+
+Tarefa: plano de intervenção em TCC.
+
+Hipótese diagnóstica: ${d.dx}
+Perfil do caso: ${d.text}
+Frequência de atendimento: ${d.freq||'semanal'}
+
+Estruture assim:
+
+### Formulação do caso
+Modelo cognitivo-comportamental do quadro: gatilhos, crenças centrais, comportamentos de manutenção e ganhos secundários.
+
+### Técnicas indicadas
+Para cada técnica: nome, nível de evidência para este quadro, o que ela ataca no modelo acima, e como conduzir de forma operacional.
+
+### Sequência de sessões
+Três fases (inicial, intermediária, finalização), com objetivo de cada fase, número estimado de sessões e critério objetivo para avançar.
+
+### Medidas de desfecho
+Instrumentos psicométricos com nome e intervalo de reaplicação.
+
+### Riscos do protocolo
+O que pode dar errado nesta intervenção e como conduzir.`,
+
+  MBS:(d)=>`${BASE}
+
+Tarefa: práticas de mindfulness do protocolo MBSR (Kabat-Zinn) para este caso. Use exclusivamente o MBSR — não misture com outras tradições.
+
+Quadro clínico: ${d.dx}
+Contexto: ${d.text}
+
+Estruture assim:
+
+### Indicação e contraindicação
+Por que MBSR serve para este quadro, e em que situação clínica não usar.
+
+### Práticas selecionadas
+Para cada prática (máximo 4): nome no protocolo original, de qual livro ou programa de Kabat-Zinn vem, duração, frequência, fase da terapia em que entra, o que ela treina neste quadro, evidência científica que sustenta o uso para este quadro específico, e contraindicação ou adaptação necessária.
+
+### Roteiro de condução
+Roteiro literal para a psicóloga ler ou adaptar na sessão, para a prática principal. Inclua antes dele uma frase de introdução da prática ao paciente.
+
+### Programa de 8 semanas
+Foco de cada bloco: semanas 1–2, 3–4, 5–6, 7–8, no formato original do MBSR, ajustado a este caso.
+
+### Prática entre sessões
+O que o paciente faz em casa, com frequência e forma de registro.
+
+### Integração com a TCC
+Como a prática se articula com exposição e reestruturação cognitiva. Aponte explicitamente o risco de a prática ser usada como esquiva encoberta e como evitar isso.`,
+
+  SOA:(d)=>`${BASE}
+
+Tarefa: nota de sessão em formato SOAP a partir do registro bruto.
+
+Registro da sessão:
+"""${d.text}"""
+Sessão nº: ${d.n||'não informado'}
+
+Estruture assim:
+
+### S — Subjetivo
+Relato do paciente, com aspas curtas nas falas relevantes.
+
+### O — Objetivo
+Observações comportamentais, afeto, apresentação, adesão à tarefa.
+
+### A — Avaliação
+Formulação da sessão, progresso frente ao plano, obstáculos.
+
+### P — Conduta
+Intervenção aplicada, tarefa prescrita, foco da próxima sessão.
+
+### Pendências
+O que ficou em aberto e precisa ser retomado.`,
+
+  PSE:(d)=>`${BASE}
+
+Tarefa: material de psicoeducação para o paciente.
+
+Tema: ${d.dx}
+Ajustes de linguagem: ${d.text||'adulto, escolaridade média'}
+
+Escreva PARA O PACIENTE, em segunda pessoa, sem jargão técnico e sem citar critérios diagnósticos. Não use a palavra "transtorno" no título.
+
+Estruture assim:
+
+### O que está acontecendo com você
+### Por que o seu corpo reage assim
+### Mitos e verdades
+Quatro pares. Em cada um: a crença errada que a pessoa provavelmente tem, e o que de fato acontece.
+### O que costuma piorar
+### O que a terapia vai fazer
+### O que você pode fazer esta semana
+Instruções concretas e executáveis.
+### Quando pedir ajuda antes da próxima sessão`,
+
+  RSK:(d)=>`${BASE}
+
+Tarefa: organização estruturada de fatores de risco e de proteção, como apoio à avaliação clínica.
+
+Material:
+"""${d.text}"""
+
+Restrição adicional absoluta: não mencione, descreva ou nomeie qualquer meio, método ou procedimento de autolesão ou suicídio, mesmo se o material os contiver. Refira-se apenas à presença de risco e ao seu nível.
+
+Estruture assim:
+
+### Nível de atenção
+ALTO / MODERADO / BAIXO, com a justificativa em uma frase.
+
+### Fatores de risco identificados
+Cada um com a evidência textual que o sustenta.
+
+### Fatores de proteção identificados
+### O que precisa ser investigado na sessão
+Perguntas de avaliação a fazer, em ordem.
+### Conduta clínica sugerida
+Incluindo plano de segurança, rede de apoio e frequência de contato.
+### Critérios de encaminhamento
+Quando envolver psiquiatria, serviço de emergência ou rede familiar.
+
+Encerre com: **A responsabilidade da avaliação e da conduta é da profissional. Este material é apoio à documentação, não substitui julgamento clínico.**`,
+
+  SES:(d)=>`${BASE}
+
+Tarefa: leitura clínica de uma transcrição de sessão em andamento.
+
+Transcrição:
+"""${d.text}"""
+
+Estruture assim:
+
+### Temas dominantes
+### Trechos que pedem exploração
+Cite o trecho e diga qual pergunta fazer a partir dele.
+### Padrões cognitivos e comportamentais observáveis
+### Sinais de atenção
+Sem descrever meios ou métodos de autolesão.
+### Onde levar a sessão agora
+Duas ou três direções concretas.`,
+
+  /* Supervisão ao vivo. Formato delimitado em vez de JSON: se uma linha vier
+     malformada, ela é descartada e o resto continua funcionando. */
+  SUP:(d)=>`Você é supervisora clínica em TCC acompanhando uma sessão em andamento. Recebe um trecho recém-transcrito da fala e devolve apenas o que a terapeuta pode usar nos próximos minutos.
+
+Trecho:
+"""${d.text}"""
+
+Devolva de 1 a 4 linhas, uma por achado clínico relevante. Se o trecho não tiver nada de relevante, devolva apenas a linha final.
+
+Formato de cada linha, com barras verticais e nada mais — sem numeração, sem markdown, sem texto fora do formato:
+CATEGORIA|URGENCIA|trecho literal da fala|o que isso revela clinicamente, em uma frase|o que a terapeuta pode dizer agora, frase pronta
+
+CATEGORIA deve ser exatamente uma destas: PENSAMENTO AUTOMATICO, CRENCA CENTRAL, ESQUIVA, RISCO, RECURSO, INSIGHT, RESISTENCIA, EMOCAO INTENSA
+URGENCIA deve ser exatamente: ALTA, MEDIA ou BAIXA
+
+Depois das linhas, acrescente uma única linha final começando com >>> assim:
+>>>tom predominante|síntese do momento da sessão em uma frase|técnica sugerida para os próximos minutos
+
+Restrições: não invente fala que não esteja no trecho. Na categoria RISCO, sinalize a presença do risco sem nomear meio, método ou procedimento de autolesão. Não escreva nada além das linhas no formato pedido.`,
+
+  MET:(d)=>`${BASE}
+
+Tarefa: metáforas e analogias clínicas sob medida.
+
+Conceito ou conteúdo a explicar: ${d.dx}
+Repertório do paciente (profissão, interesses, idade, mundo): ${d.text||'adulto, repertório não informado'}
+
+Estruture assim:
+
+### Metáforas
+Três metáforas construídas a partir do repertório informado. Para cada uma: a fala pronta em segunda pessoa, do jeito que a terapeuta diria; por que ela funciona para este repertório específico; onde a metáfora quebra — o ponto em que ela deixa de corresponder ao fenômeno clínico — e como corrigir se o paciente a levar longe demais; e uma pergunta curta para verificar se o paciente entendeu.
+
+### Analogia de bolso
+Uma frase só, para usar no meio da sessão sem interromper o fluxo.
+
+### O que evitar
+Metáforas comuns para este tema que costumam sair pela culatra com este perfil de paciente, e por quê.`,
+
+  PSD:(d)=>`${BASE}
+
+Tarefa: formulação psicodinâmica do caso.
+
+Material clínico:
+"""${d.text}"""
+Lente solicitada: ${d.lens}
+
+Se a lente for "integrada", produza as duas leituras e o confronto entre elas. Se for uma lente única, produza apenas a leitura pedida e as implicações de manejo.
+
+Estrutura completa:
+
+### Leitura psicanalítica
+Queixa manifesta e conflito latente hipotetizado; mecanismos de defesa predominantes, cada um com a evidência textual que o sugere; padrão relacional que tende a se repetir na relação terapêutica; função do sintoma na economia psíquica.
+
+### Leitura cognitivo-comportamental
+Crenças centrais e intermediárias inferíveis; estratégias compensatórias; modelo de manutenção no formato gatilho → interpretação → resposta → consequência que reforça.
+
+### Convergências e divergências
+Onde as duas leituras apontam para o mesmo núcleo, com nomes diferentes; e onde elas discordam de verdade sobre o que sustenta o quadro.
+
+### Implicações de manejo
+O que cada leitura muda na condução prática das próximas sessões.
+
+Encerre com: **Formulação é hipótese de trabalho para planejamento e supervisão — não é laudo, não é diagnóstico estrutural fechado e não substitui a avaliação continuada.**`,
+
+  INSG:(d)=>`${BASE}
+
+Tarefa: guia de aplicação e correção de instrumento de avaliação.
+
+Instrumento: ${d.dx}
+Contexto de uso: ${d.text||'não informado'}
+
+Regra de licenciamento, inviolável: se o instrumento for proprietário ou de uso comercial restrito (por exemplo BDI-II, escalas Wechsler, ISI em uso comercial), NÃO reproduza itens, gabarito nem chave de correção; explique quem licencia, o que a licença cobre e qual alternativa de acesso livre mede construto próximo. Para instrumentos de acesso livre, descreva a correção publicada normalmente.
+
+Considere o contexto brasileiro: diga se o instrumento se enquadra como teste psicológico de uso privativo (exigindo parecer favorável no SATEPSI) ou como escala de rastreio, e o que isso implica para a prática e para o registro em prontuário.
+
+Estruture assim:
+
+### O que mede e quando usar
+### Situação de licenciamento e SATEPSI
+### Aplicação
+Instruções ao paciente, tempo, formato.
+### Pontuação e interpretação
+Faixas de corte publicadas, com a ressalva sobre validação brasileira quando existir ou faltar.
+### Erros comuns de correção
+### Reaplicação e sensibilidade à mudança
+### Como registrar no prontuário`,
+
+  RPT:(d)=>`${BASE}
+
+Tarefa: relatório de acompanhamento escrito PARA O PACIENTE.
+
+Ficha: ${d.code}
+O que foi trabalhado no período, nas palavras da profissional: """${d.text}"""
+Medições de sofrimento em escala 0–10, da mais antiga para a mais recente: ${d.sods||'não registradas'}
+
+Instruções que se sobrepõem ao registro técnico: escreva em segunda pessoa, diretamente ao paciente, em linguagem acessível e respeitosa. Proibido: jargão, códigos ou rótulos diagnósticos, promessas de resultado, e qualquer menção a risco, autolesão ou conteúdo sensível — se o material contiver algo assim, esse tema pertence à sessão, não a uma mensagem.
+
+Estruture assim:
+
+### O que trabalhamos neste período
+Concreto, com base apenas no que a profissional relatou.
+
+### O que os seus números mostram
+Somente se houver medições: leia a evolução com os números reais. Se não houver, omita a seção inteira.
+
+### O que você já consegue fazer
+Conquistas observáveis, sem inflar.
+
+### Seu foco até a próxima sessão
+Tarefas específicas e executáveis.
+
+### Um lembrete
+Uma frase final sóbria, sem clichê e sem tom de autoajuda.`,
+
+  RSF:(d)=>`${BASE}
+
+Tarefa: relatório de evolução dos pontos de sofrimento, escrito PARA O PACIENTE.
+
+Ficha: ${d.code}
+Série de medições em escala 0–10 (0 = nenhum sofrimento, 10 = sofrimento máximo), da mais antiga para a mais recente:
+"""${d.sods}"""
+Contexto da profissional: ${d.text||'não informado'}
+
+Instruções que se sobrepõem ao registro técnico: escreva em segunda pessoa, ao paciente, em linguagem acessível. Proibido: jargão, rótulos diagnósticos, promessas, e qualquer conteúdo de risco ou autolesão.
+
+Estruture assim:
+
+### Como ler estes números
+Explique a escala em duas frases.
+
+### Domínio por domínio
+Para cada domínio medido: os valores ao longo do tempo, e se melhorou, piorou ou está estável — sem atribuir causa além do que o contexto da profissional sustenta.
+
+### O quadro geral
+Uma leitura honesta do conjunto. Se piorou, diga com respeito e sem alarme; oscilação faz parte de processo terapêutico e isso pode ser dito.
+
+### O que observar até a próxima medição
+Duas ou três coisas concretas para o paciente notar no dia a dia.`
+};
+
+/* ══════════════ API ══════════════ */
+async function ask(prompt){
+  if(!S.key) throw new Error('NOKEY');
+  const r = await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{
+      'content-type':'application/json',
+      'x-api-key':S.key,
+      'anthropic-version':'2023-06-01',
+      'anthropic-dangerous-direct-browser-access':'true'
+    },
+    body:JSON.stringify({
+      model:S.model,
+      max_tokens:4000,
+      messages:[{role:'user',content:prompt}]
+    })
+  });
+  if(!r.ok){
+    let detail='';
+    try{ const j=await r.json(); detail=j.error?.message||''; }catch(e){}
+    if(r.status===401) throw new Error('Chave rejeitada. Verifique em Configuração se ela foi colada por inteiro.');
+    if(r.status===429) throw new Error('Limite de uso atingido no momento. Aguarde alguns instantes.');
+    if(r.status===400) throw new Error('Requisição inválida'+(detail?': '+detail:'')+'. Se você trocou de modelo, confirme se o nome está correto.');
+    throw new Error('Erro '+r.status+(detail?': '+detail:''));
+  }
+  const j = await r.json();
+  return (j.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n').trim();
+}
+
+/* ══════════════ markdown mínimo ══════════════ */
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function md(src){
+  const lines = esc(src).split('\n');
+  let html='', list=null;
+  const close=()=>{ if(list){html+=`</${list}>`;list=null;} };
+  for(let raw of lines){
+    const l = raw.trim();
+    if(!l){ close(); continue; }
+    if(/^###\s+/.test(l)){ close(); html+='<h3>'+inline(l.replace(/^###\s+/,''))+'</h3>'; continue; }
+    if(/^##\s+/.test(l)){ close(); html+='<h3>'+inline(l.replace(/^##\s+/,''))+'</h3>'; continue; }
+    if(/^(-{3,}|\*{3,})$/.test(l)){ close(); html+='<hr>'; continue; }
+    if(/^[-*]\s+/.test(l)){ if(list!=='ul'){close();html+='<ul>';list='ul';} html+='<li>'+inline(l.replace(/^[-*]\s+/,''))+'</li>'; continue; }
+    if(/^\d+[.)]\s+/.test(l)){ if(list!=='ol'){close();html+='<ol>';list='ol';} html+='<li>'+inline(l.replace(/^\d+[.)]\s+/,''))+'</li>'; continue; }
+    close(); html+='<p>'+inline(l)+'</p>';
+  }
+  close();
+  return html;
+}
+function inline(t){
+  return t
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\b(ALTA|ALTO)\b/g,'<span class="badge hi">$1</span>')
+    .replace(/\b(MODERADA|MODERADO)\b/g,'<span class="badge mid">$1</span>')
+    .replace(/\b(BAIXA|BAIXO)\b/g,'<span class="badge lo">$1</span>');
+}
+
+/* ══════════════ histórico ══════════════ */
+function saveHist(mod,text){
+  S.history.unshift({mod,text,at:new Date().toISOString(),pac:S.activePac||null});
+  S.history = S.history.slice(0,60);
+  store.set('tp_hist',JSON.stringify(S.history));
+}
+function pacById(id){ return S.pacs.find(p=>p.id===id)||null; }
+function pacColor(code){ /* matiz determinístico sálvia↔ferrugem por iniciais */
+  let n=0; for(const c of code) n=(n*31+c.charCodeAt(0))%360;
+  return `hsl(${100+ (n%120)},26%,38%)`;
+}
+
+/* ══════════════ transcrição ══════════════ */
+function speechOK(){ return 'webkitSpeechRecognition' in window || 'SpeechRecognition' in window; }
+
+function startRec(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ alert('A transcrição ao vivo funciona no Chrome ou no Edge. Neste navegador, cole o texto da sessão manualmente.'); return; }
+  S.rec = new SR();
+  S.rec.lang='pt-BR'; S.rec.continuous=true; S.rec.interimResults=true;
+  let settled='';
+  S.rec.onresult = (e)=>{
+    let interim='';
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      const t = e.results[i][0].transcript;
+      if(e.results[i].isFinal){ settled += t+' '; scanFlags(t); S.supBuf.push(t); scheduleSup(); } else interim += t;
+    }
+    S.transcript = settled;
+    paintRibbon(settled+interim);
+    const box = document.getElementById('tx');
+    if(box) box.value = settled;
+  };
+  S.rec.onerror = (e)=>{ if(e.error==='not-allowed') alert('Permissão de microfone negada. Libere o microfone para este arquivo no navegador.'); };
+  S.rec.onend = ()=>{ if(S.recording){ try{S.rec.start();}catch(e){} } };
+  try{ S.rec.start(); }catch(e){ return; }
+  S.recording=true; S.t0=Date.now()-( +(store.get('tp_elapsed')||0) );
+  S.timer=setInterval(tick,500);
+  document.getElementById('led').classList.add('live');
+  document.getElementById('rbstate').textContent='gravando';
+  render();
+}
+function stopRec(){
+  S.recording=false;
+  if(S.rec){ try{S.rec.stop();}catch(e){} }
+  clearInterval(S.timer);
+  clearTimeout(S.supTimer);
+  if(S.supOn && S.supBuf.join(' ').trim().length>=60) runSup();
+  document.getElementById('led').classList.remove('live');
+  document.getElementById('rbstate').textContent='pausada';
+  render();
+}
+function tick(){
+  const s = Math.floor((Date.now()-S.t0)/1000);
+  const p = n=>String(n).padStart(2,'0');
+  document.getElementById('clock').textContent = p(Math.floor(s/3600))+':'+p(Math.floor(s/60)%60)+':'+p(s%60);
+}
+function scanFlags(chunk){
+  const s = Math.max(0,Math.floor((Date.now()-(S.t0||Date.now()))/1000));
+  FLAGS.forEach(f=>{
+    if(f.re.test(chunk) && !S.alerts.some(a=>a.tag===f.tag && s-a.s<45)){
+      S.alerts.push({tag:f.tag,s,quote:chunk.trim().slice(0,150)});
+    }
+  });
+  paintTicks();
+  if(S.mod==='SES') renderAlerts();
+}
+function paintRibbon(txt){
+  const words = txt.trim() ? txt.trim().split(/\s+/).length : 0;
+  document.getElementById('rbcount').textContent = words+' palavra'+(words===1?'':'s');
+  document.getElementById('flow').textContent = txt.slice(-260) || '';
+}
+function paintTicks(){
+  const el = document.getElementById('ticks');
+  const total = Math.max(60, Math.floor((Date.now()-(S.t0||Date.now()))/1000));
+  el.innerHTML = S.alerts.map(a=>{
+    const pct = Math.min(99,(a.s/total)*100);
+    return `<span class="rb-tick" style="left:${pct}%" title="${esc(a.tag)}"></span>`;
+  }).join('');
+}
+function renderAlerts(){
+  const box = document.getElementById('alertbox');
+  if(!box) return;
+  if(!S.alerts.length){ box.innerHTML = '<p class="hint">Nenhum marcador ainda. Os marcadores aparecem sozinhos conforme a fala é transcrita.</p>'; return; }
+  const p = n=>String(n).padStart(2,'0');
+  box.innerHTML = S.alerts.slice().reverse().map(a=>{
+    const t = p(Math.floor(a.s/60))+':'+p(a.s%60);
+    return `<div class="alert-row"><span class="t">${t}</span><span><strong>${esc(a.tag)}</strong><br><span style="color:#6B7A7A">${esc(a.quote)}</span></span></div>`;
+  }).join('');
+}
+
+/* ══════════════ SUPERVISÃO AO VIVO ══════════════
+   Analisa o trecho recém-falado a cada 20s de silêncio de digitação/fala.
+   Parser por linha: linha malformada é descartada, o resto sobrevive.       */
+const URG_RANK = {ALTA:0,MEDIA:1,BAIXA:2};
+
+function scheduleSup(){
+  if(!S.supOn || !S.key) return;
+  clearTimeout(S.supTimer);
+  S.supTimer = setTimeout(runSup, 20000);
+}
+
+async function runSup(){
+  if(S.supBusy || !S.supOn || !S.key) return;
+  const chunk = S.supBuf.join(' ').trim();
+  if(chunk.length < 60) return;
+  S.supBuf = [];
+  S.supBusy = true;
+  paintSupState();
+  try{
+    const raw = await ask(PROMPTS.SUP({text:chunk}));
+    const {found,momento} = parseSup(raw);
+    if(momento) S.momento = momento;
+    if(found.length){
+      const s = Math.max(0,Math.floor((Date.now()-(S.t0||Date.now()))/1000));
+      found.forEach(f=>{ f.s=s; });
+      S.sup = found.concat(S.sup).slice(0,40);
+    }
+  }catch(e){
+    S.momento = {tom:'—',resumo:'Supervisão interrompida: '+e.message,proxima:'—'};
+  }finally{
+    S.supBusy = false;
+    paintSupState();
+    if(S.mod==='SES') renderSup();
+  }
+}
+
+function parseSup(raw){
+  const found=[]; let momento=null;
+  (raw||'').split('\n').forEach(line=>{
+    const l = line.trim();
+    if(!l) return;
+    if(l.startsWith('>>>')){
+      const p = l.slice(3).split('|').map(x=>x.trim());
+      if(p.length>=2) momento={tom:p[0]||'—',resumo:p[1]||'',proxima:p[2]||''};
+      return;
+    }
+    const p = l.split('|').map(x=>x.trim());
+    if(p.length < 5) return;                       // descarta linha incompleta
+    const urg = (p[1]||'').toUpperCase().replace('É','E');
+    if(!(urg in URG_RANK)) return;                 // descarta urgência inválida
+    found.push({cat:p[0].toUpperCase(),urg,quote:p[2],read:p[3],say:p.slice(4).join(' | ')});
+  });
+  return {found,momento};
+}
+
+function paintSupState(){
+  const el = document.getElementById('supstate');
+  if(el) el.textContent = S.supBusy ? 'analisando…' : (S.supOn ? 'supervisão ativa' : 'supervisão desligada');
+  const led = document.getElementById('rbstate');
+  if(led && S.supBusy && S.recording) led.textContent = 'analisando';
+  else if(led && S.recording) led.textContent = 'gravando';
+}
+
+function toggleSup(){
+  S.supOn = !S.supOn;
+  store.set('tp_sup', S.supOn?'1':'0');
+  if(!S.supOn) clearTimeout(S.supTimer);
+  render();
+}
+
+function renderSup(){
+  const box = document.getElementById('supbox');
+  if(!box) return;
+  const m = S.momento;
+  const head = m ? `<div class="momento">
+      <span class="badge lo">${esc(m.tom)}</span>
+      <p>${esc(m.resumo)}</p>
+      ${m.proxima?`<p class="nxt"><strong>Agora:</strong> ${esc(m.proxima)}</p>`:''}
+    </div>` : '';
+  if(!S.sup.length){
+    box.innerHTML = head + `<p class="hint">${S.supOn
+      ? 'Aguardando fala suficiente. A leitura roda sozinha cerca de 20 segundos depois de uma pausa.'
+      : 'Supervisão desligada. Ligue para receber leitura clínica e frases prontas durante a sessão.'}</p>`;
+    return;
+  }
+  const p = n=>String(n).padStart(2,'0');
+  const cards = S.sup.slice().sort((a,b)=>URG_RANK[a.urg]-URG_RANK[b.urg]).map(a=>{
+    const cls = a.urg==='ALTA'?'hi':a.urg==='MEDIA'?'mid':'lo';
+    const t = p(Math.floor(a.s/60))+':'+p(a.s%60);
+    return `<div class="supcard u-${cls}">
+      <header><span class="badge ${cls}">${esc(a.cat)}</span><span class="when">${t}</span></header>
+      <blockquote>${esc(a.quote)}</blockquote>
+      <p class="read">${esc(a.read)}</p>
+      <p class="say"><strong>Dizer agora:</strong> ${esc(a.say)}</p>
+    </div>`;
+  }).join('');
+  box.innerHTML = head + cards;
+}
+
+/* ══════════════ PACIENTES ══════════════ */
+function savePacs(){ store.set('tp_pacs',JSON.stringify(S.pacs)); }
+
+function addPac(){
+  const code = val('pc_code').trim();
+  if(!code){ alert('Informe as iniciais.'); return; }
+  if(/\s[A-ZÀ-Ü][a-zà-ü]{2,}/.test(' '+code) && code.replace(/[^a-zA-ZÀ-ü]/g,'').length>6){
+    if(!confirm('Isso parece um nome, não iniciais. A regra de sigilo deste instrumento é identificar por iniciais ou código. Salvar mesmo assim?')) return;
+  }
+  S.pacs.unshift({id:'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,7),code,age:val('pc_age').trim(),hx:val('pc_hx').trim(),notes:val('pc_notes').trim(),created:new Date().toISOString()});
+  savePacs();
+  if(!S.activePac){ S.activePac=S.pacs[0].id; store.set('tp_active',S.activePac); }
+  render();
+}
+function setActive(id){
+  S.activePac = (S.activePac===id) ? null : id;
+  if(S.activePac) store.set('tp_active',S.activePac); else store.del('tp_active');
+  render();
+}
+function delPac(id){
+  const p=pacById(id); if(!p) return;
+  const linked=S.history.filter(h=>h.pac===id).length;
+  if(!confirm(`Excluir a ficha ${p.code}${linked?` e desvincular ${linked} registro(s)`:''}? A exclusão é permanente.`)) return;
+  S.pacs=S.pacs.filter(x=>x.id!==id);
+  S.history.forEach(h=>{ if(h.pac===id) h.pac=null; });
+  if(S.activePac===id){ S.activePac=null; store.del('tp_active'); }
+  savePacs(); store.set('tp_hist',JSON.stringify(S.history));
+  render();
+}
+function viewPac(id){
+  const p=pacById(id); if(!p) return;
+  const items=S.history.filter(h=>h.pac===id);
+  const body = items.length
+    ? items.map(h=>`<div class="hitem"><header><span class="who">${h.mod} · ${MODULES[h.mod]?MODULES[h.mod].name:h.mod}</span><span class="when">${new Date(h.at).toLocaleString('pt-BR')}</span></header><div class="doc">${md(h.text)}</div></div>`).join('')
+    : '<div class="empty">nenhum registro vinculado a esta ficha ainda</div>';
+  document.getElementById('out').innerHTML = `<div class="out"><div class="doc"><h3>Ficha ${esc(p.code)}</h3>
+    <p>${p.age?'Idade: '+esc(p.age)+' · ':''}${p.hx?'Hipótese de trabalho: '+esc(p.hx):''}</p>
+    ${p.notes?'<p>'+esc(p.notes)+'</p>':''}</div></div>`+body;
+  document.getElementById('out').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function exportPac(id){
+  const p=pacById(id); if(!p) return;
+  const items=S.history.filter(h=>h.pac===id);
+  const body = `FICHA DE TRABALHO — ${p.code}\nCriada em: ${new Date(p.created).toLocaleDateString('pt-BR')}\n`+
+    `${p.age?'Idade: '+p.age+'\n':''}${p.hx?'Hipótese: '+p.hx+'\n':''}${p.notes?'Notas: '+p.notes+'\n':''}`+
+    (p.sods&&p.sods.length?`\nMAPA DE SOFRIMENTO (0-10)\n${sodsText(p)}\n`:'')+
+    `\nMaterial gerado por IA — revisar antes de incorporar ao prontuário oficial.\n\n`+
+    (items.map(h=>`===== ${h.mod} · ${new Date(h.at).toLocaleString('pt-BR')} =====\n\n${h.text}\n`).join('\n')||'(sem registros)');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([body],{type:'text/plain;charset=utf-8'}));
+  a.download='ficha-'+p.code.replace(/[^a-zA-Z0-9]/g,'')+'.txt'; a.click();
+}
+function storageMeter(){
+  let bytes=0;
+  ['tp_hist','tp_pacs','tp_key','tp_active'].forEach(k=>{ const v=store.get(k); if(v) bytes+=v.length*2; });
+  const cap=5*1024*1024, pct=Math.min(100,(bytes/cap)*100);
+  return `<div class="meter"><div class="meter-bar" style="width:${pct.toFixed(1)}%"></div></div>
+    <p class="hint">${(bytes/1024).toFixed(1)} KB usados de ~5 MB disponíveis neste navegador. Este é o limite real de um arquivo local — exporte fichas antigas e mantenha o prontuário oficial no seu sistema clínico.</p>`;
+}
+
+/* ══════════════ TOUR GUIADO ══════════════ */
+const TOUR=[
+ {t:'Bem-vinda ao Terap-ia Pro',b:'Instrumento de apoio clínico da Priscila Palomo. Roda inteiro nesta máquina: nada é enviado a servidor próprio — o que dá a você controle total sobre os dados. Este tour mostra o essencial em um minuto.'},
+ {t:'Comece pela ética',b:'A página inicial traz os seis compromissos de sigilo: despersonalização, consentimento, onde os dados ficam e o que sai da máquina. Leia antes do primeiro atendimento — é o contrato de uso responsável.'},
+ {t:'Fichas de pacientes',b:'No módulo Pacientes você cria fichas identificadas por iniciais. Com uma ficha ativa, toda análise gerada fica vinculada a ela — e pode ser exportada em arquivo único quando você quiser.'},
+ {t:'Durante a sessão',b:'Sessão ao vivo transcreve a fala em tempo real (Chrome ou Edge) e marca trechos de atenção clínica sem custo. Se quiser, ligue a supervisão ao vivo: leitura clínica e frases prontas enquanto a sessão acontece.'},
+ {t:'Depois da sessão',b:'Leve a transcrição para a Nota SOAP, o Rastreio DSM-5 ou a Formulação psicodinâmica. O resultado revisado por você vai para o prontuário oficial, no seu sistema clínico.'},
+ {t:'Preparação de caso',b:'Plano de intervenção, práticas MBSR, metáforas sob medida para o repertório do paciente e um catálogo de 27 instrumentos de avaliação com pontos de corte — este funciona até sem chave de API.'},
+ {t:'Relatórios ao paciente',b:'Com uma ficha ativa, o módulo Relatórios registra o mapa de sofrimento (0–10) e gera textos em linguagem para o paciente — acompanhamento e evolução — com envio pelo WhatsApp depois da sua revisão.'},
+ {t:'Uma chave, tudo liberado',b:'Cole sua chave da Anthropic em Configuração e todos os módulos ficam ativos. A chave fica salva só neste navegador. Pronto — o resto você descobre usando.'}
+];
+let tourIdx=0;
+function openTour(i){ tourIdx=i||0; paintTour(); document.getElementById('tour').classList.remove('hidden'); }
+function closeTour(){ document.getElementById('tour').classList.add('hidden'); store.set('tp_tour','1'); }
+function paintTour(){
+  const s=TOUR[tourIdx];
+  document.getElementById('tourbody').innerHTML =
+    `<span class="kicker">passo ${tourIdx+1} de ${TOUR.length}</span>
+     <h3>${esc(s.t)}</h3><p>${esc(s.b)}</p>
+     <div class="tour-dots">${TOUR.map((_,i)=>`<span class="${i===tourIdx?'on':''}"></span>`).join('')}</div>
+     <div class="btnrow" style="margin-top:18px">
+       ${tourIdx>0?'<button class="btn ghost sm" onclick="tourIdx--;paintTour()">Anterior</button>':''}
+       ${tourIdx<TOUR.length-1
+         ? '<button class="btn sm" onclick="tourIdx++;paintTour()">Próximo</button>'
+         : '<button class="btn accent sm" onclick="closeTour()">Começar a usar</button>'}
+       <button class="btn ghost sm" onclick="closeTour()">Pular</button>
+     </div>`;
+}
+
+/* ══════════════ MAPA DE SOFRIMENTO + WHATSAPP ══════════════ */
+const SOD_DOMS=['Sintoma principal','Ansiedade geral','Sono','Trabalho ou estudo','Relações','Evitação'];
+
+function registerSod(){
+  const p=pacById(S.activePac); if(!p) return;
+  const items=[];
+  SOD_DOMS.forEach((d,i)=>{ items.push({d,v:+val('sd'+i)}); });
+  const cn=val('sdc_name').trim();
+  if(cn) items.push({d:cn,v:+val('sdc_val')});
+  p.sods=p.sods||[];
+  p.sods.unshift({at:new Date().toISOString(),items});
+  p.sods=p.sods.slice(0,24);
+  savePacs(); render();
+}
+function delSod(i){
+  const p=pacById(S.activePac); if(!p||!p.sods) return;
+  if(!confirm('Excluir esta medição?')) return;
+  p.sods.splice(i,1); savePacs(); render();
+}
+function sodsText(p){
+  if(!p.sods||!p.sods.length) return '';
+  return p.sods.slice().reverse().map(e=>
+    new Date(e.at).toLocaleDateString('pt-BR')+': '+e.items.map(i=>`${i.d}=${i.v}`).join(', ')
+  ).join('\n');
+}
+function sodHist(p){
+  if(!p.sods||!p.sods.length) return '<p class="hint">Nenhuma medição registrada. A primeira vira a linha de base — as próximas mostram evolução.</p>';
+  return p.sods.slice(0,6).map((e,idx)=>{
+    const prev=p.sods[idx+1];
+    const rows=e.items.map(i=>{
+      let delta='';
+      if(prev){ const pv=prev.items.find(x=>x.d===i.d);
+        if(pv&&pv.v!==i.v) delta=`<span class="delta ${i.v<pv.v?'down':'up'}">${i.v<pv.v?'▾':'▴'} ${Math.abs(i.v-pv.v)}</span>`;
+        else if(pv) delta='<span class="delta eq">=</span>'; }
+      return `<div class="sod-line"><span class="sod-dom">${esc(i.d)}</span>
+        <span class="sod-bar"><span style="width:${i.v*10}%"></span></span>
+        <span class="mono sod-val">${i.v}</span>${delta}</div>`;
+    }).join('');
+    return `<div class="sod-entry"><header><span class="when">${new Date(e.at).toLocaleString('pt-BR')}</span>
+      <button class="btn ghost sm" onclick="delSod(${idx})">Excluir</button></header>${rows}</div>`;
+  }).join('');
+}
+function waFormat(t){
+  return t.replace(/^###\s+(.+)$/gm,'*$1*').replace(/\*\*(.+?)\*\*/g,'*$1*');
+}
+function sendWA(){
+  const raw=val('wanum').replace(/\D/g,'');
+  if(raw.length<10||raw.length>13){ alert('Número inválido. Use DDD + número, ex.: 11912345678.'); return; }
+  if(!S.lastReport){ alert('Gere um relatório antes de enviar.'); return; }
+  const full=raw.startsWith('55')?raw:'55'+raw;
+  let t=waFormat(S.lastReport);
+  if(t.length>3800){ t=t.slice(0,3800)+'\n[…]'; alert('O relatório é longo — o WhatsApp abrirá com o texto reduzido. Revise antes de enviar.'); }
+  if(!confirm('Confira o número: +'+full+'\n\nMensagem clínica enviada ao número errado é quebra de sigilo. Abrir o WhatsApp com o relatório?')) return;
+  window.open('https://wa.me/'+full+'?text='+encodeURIComponent(t),'_blank');
+}
+function waBox(){
+  return `<div class="wa-box">
+    <label class="fl" for="wanum">WhatsApp do paciente</label>
+    <div class="btnrow">
+      <input type="text" id="wanum" placeholder="DDD + número — não fica salvo" style="max-width:260px">
+      <button class="btn accent" onclick="sendWA()">Enviar pelo WhatsApp</button>
+    </div>
+    <p class="hint">O número é usado apenas para abrir a conversa e não é armazenado. A mensagem abre no seu WhatsApp para você revisar antes do envio — nada sai sem o seu clique final.</p>
+  </div>`;
+}
+
+/* ══════════════ execução dos módulos ══════════════ */
+function show(m){ S.mod=m; closeRail(); render(); }
+function closeRail(){
+  document.getElementById('rail')?.classList.remove('open');
+  document.getElementById('scrim')?.classList.add('hidden');
+}
+function openRail(){
+  document.getElementById('rail')?.classList.add('open');
+  document.getElementById('scrim')?.classList.remove('hidden');
+}
+
+async function run(mod,payload){
+  const btn = document.getElementById('go');
+  const out = document.getElementById('out');
+  if(!S.key){ show('CFG'); return; }
+  S.busy=true;
+  if(btn){ btn.disabled=true; btn.innerHTML='<span class="spin"></span> Processando'; }
+  out.innerHTML='<div class="empty">Gerando…</div>';
+  try{
+    const text = await ask(PROMPTS[mod](payload));
+    out.innerHTML = '<div class="doc">'+md(text)+'</div>';
+    saveHist(mod,text);
+    if(mod==='RPT'||mod==='RSF'){ S.lastReport=text; out.insertAdjacentHTML('beforeend', waBox()); }
+  }catch(e){
+    out.innerHTML = '<div class="err"><strong>Não foi possível gerar.</strong><br>'+esc(e.message)+'</div>';
+  }finally{
+    S.busy=false;
+    if(btn){ btn.disabled=false; btn.textContent='Gerar'; }
+  }
+}
+const val = id => (document.getElementById(id)||{}).value || '';
+
+/* atalhos de quadro — alinhados à especialidade: fobias, TOC, ansiedade */
+const QUICK_DX = ['fobia específica (voo)','fobia social','emetofobia','TOC verificação',
+  'TOC contaminação','pânico com agorafobia','TAG','ansiedade de saúde','TEPT'];
+const QUICK_MBS = ['TAG com ruminação','TOC','pânico','burnout','insônia',
+  'dor crônica','depressão maior','ansiedade antecipatória'];
+function chips(target,arr){
+  return `<div class="chips">${arr.map(x=>
+    `<button type="button" class="chip" onclick="document.getElementById('${target}').value='${x.replace(/'/g,"\\'")}'">${x}</button>`
+  ).join('')}</div>`;
+}
+
+/* ══════════════ CATÁLOGO DE INSTRUMENTOS ══════════════
+   lic: livre = domínio público ou licença aberta para uso clínico
+        verificar = amplamente usado, mas confirme a licença antes de uso comercial
+        proprietario = requer compra/licença — correção não reproduzida aqui       */
+const INSTRUMENTS = [
+ {area:'Depressão', sigla:'PHQ-9', nome:'Patient Health Questionnaire-9', lic:'livre',
+  pts:'9 itens, 0–3 cada, total 0–27. Cortes: 5 leve · 10 moderada · 15 moderadamente grave · 20 grave. Item 9 rastreia risco — positivo exige avaliação clínica imediata, independentemente do total.'},
+ {area:'Depressão', sigla:'BDI-II', nome:'Inventário de Depressão de Beck II', lic:'proprietario',
+  pts:'Licenciado pela Pearson Clinical Brasil. Itens e chave de correção não podem ser reproduzidos. Alternativa livre: PHQ-9.'},
+ {area:'Depressão (idoso)', sigla:'GDS-15', nome:'Escala de Depressão Geriátrica', lic:'livre',
+  pts:'15 itens sim/não, total 0–15. Corte: ≥5 sugere depressão, ≥11 quadro grave. Validada em português.'},
+ {area:'Ansiedade generalizada', sigla:'GAD-7', nome:'Generalized Anxiety Disorder-7', lic:'livre',
+  pts:'7 itens, 0–3 cada, total 0–21. Cortes: 5 leve · 10 moderada · 15 grave. ≥10 indica avaliação diagnóstica. Bom rastreio também para pânico e fobia social.'},
+ {area:'Ansiedade generalizada', sigla:'PSWQ', nome:'Penn State Worry Questionnaire', lic:'verificar',
+  pts:'16 itens, 1–5, total 16–80 (5 itens invertidos: 1,3,8,10,11). ≥60 sugere preocupação patológica típica de TAG.'},
+ {area:'Pânico', sigla:'PDSS', nome:'Panic Disorder Severity Scale', lic:'livre',
+  pts:'7 itens, 0–4, total 0–28. Cortes: ≥8 clinicamente significativo; ≥14 grave. Sensível à mudança — reaplicar a cada 4 sessões.'},
+ {area:'Fobia social', sigla:'LSAS', nome:'Escala de Ansiedade Social de Liebowitz', lic:'verificar',
+  pts:'24 situações × (medo 0–3 + esquiva 0–3), total 0–144. Cortes usuais: ≥30 provável TAS · ≥60 subtipo generalizado · ≥90 muito grave.'},
+ {area:'Fobia social', sigla:'SPIN', nome:'Social Phobia Inventory', lic:'verificar',
+  pts:'17 itens, 0–4, total 0–68. Corte: ≥19 rastreio positivo. Versão breve Mini-SPIN (3 itens, corte ≥6).'},
+ {area:'Fobia específica', sigla:'FSQ', nome:'Fear of Spiders Questionnaire e congêneres por estímulo', lic:'verificar',
+  pts:'Questionários por estímulo (aranha, voo, sangue-injeção, dentista). Para prática, hierarquia SUDS 0–100 construída com o paciente costuma ser mais útil que escore normativo.'},
+ {area:'TOC', sigla:'OCI-R', nome:'Obsessive-Compulsive Inventory — Revised', lic:'livre',
+  pts:'18 itens, 0–4, total 0–72. Corte: ≥21 rastreio positivo. Seis subescalas de 3 itens: lavagem, verificação, ordenação, obsessão, acumulação, neutralização.'},
+ {area:'TOC', sigla:'Y-BOCS', nome:'Yale-Brown Obsessive Compulsive Scale', lic:'verificar',
+  pts:'10 itens clinician-rated, 0–4, total 0–40. Faixas: 8–15 leve · 16–23 moderado · 24–31 grave · 32–40 extremo. Padrão-ouro de gravidade; aplicar a lista de sintomas antes da escala.'},
+ {area:'TEPT', sigla:'PCL-5', nome:'PTSD Checklist for DSM-5', lic:'livre',
+  pts:'20 itens, 0–4, total 0–80. Corte provisório: 31–33. Correção por critério: item ≥2 conta como sintoma presente (B≥1, C≥1, D≥2, E≥2). Distribuído livremente pelo National Center for PTSD.'},
+ {area:'Estresse agudo/trauma', sigla:'IES-R', nome:'Impact of Event Scale — Revised', lic:'verificar',
+  pts:'22 itens, 0–4. Subescalas: intrusão, esquiva, hiperestimulação. ≥33 sugere TEPT provável.'},
+ {area:'Transdiagnóstico', sigla:'DASS-21', nome:'Depression Anxiety Stress Scales', lic:'livre',
+  pts:'21 itens, 0–3, três subescalas de 7. Multiplicar cada subescala por 2. Cortes depressão: 10/14/21/28 · ansiedade: 8/10/15/20 · estresse: 15/19/26/34 (leve/mod/grave/extrem.). Validada em português.'},
+ {area:'Transdiagnóstico', sigla:'Nível 1 DSM-5', nome:'Medida Transversal de Sintomas Nível 1 (APA)', lic:'livre',
+  pts:'23 itens, 13 domínios, 0–4. Qualquer domínio ≥2 (≥1 para uso de substâncias, ideação e memória) dispara a medida de Nível 2 do domínio. Disponibilizada gratuitamente pela APA para uso clínico.'},
+ {area:'Personalidade', sigla:'PID-5-BF', nome:'Personality Inventory for DSM-5 — Brief Form', lic:'livre',
+  pts:'25 itens, 0–3. Cinco domínios de 5 itens: afetividade negativa, desapego, antagonismo, desinibição, psicoticismo. Média por domínio; sem corte — perfil dimensional. Gratuito pela APA.'},
+ {area:'Insônia', sigla:'ISI', nome:'Índice de Gravidade de Insônia', lic:'verificar',
+  pts:'7 itens, 0–4, total 0–28. Faixas: 0–7 ausente · 8–14 subclínica · 15–21 moderada · 22–28 grave. Livre para clínica; uso comercial exige licença (Morin).'},
+ {area:'TDAH adulto', sigla:'ASRS-18', nome:'Adult ADHD Self-Report Scale (OMS)', lic:'livre',
+  pts:'18 itens. Parte A (6 itens) é o rastreio: ≥4 respostas nas células sombreadas indica investigação. Parte B aprofunda. Rastreio, não diagnóstico.'},
+ {area:'Bipolaridade', sigla:'MDQ', nome:'Mood Disorder Questionnaire', lic:'livre',
+  pts:'Positivo exige três condições simultâneas: ≥7 sim nos 13 itens + sintomas no mesmo período + prejuízo moderado ou grave. Rastreio de hipomania antes de fechar depressão unipolar.'},
+ {area:'Álcool', sigla:'AUDIT', nome:'Alcohol Use Disorders Identification Test (OMS)', lic:'livre',
+  pts:'10 itens, total 0–40. Zonas: 0–7 baixo risco · 8–15 uso de risco · 16–19 uso nocivo · ≥20 provável dependência. AUDIT-C (3 primeiros itens): ≥4 homens, ≥3 mulheres.'},
+ {area:'Substâncias', sigla:'ASSIST', nome:'Alcohol, Smoking and Substance Involvement Screening Test (OMS)', lic:'livre',
+  pts:'8 questões por substância. Escore de envolvimento: 0–3 baixo · 4–26 moderado (intervenção breve) · ≥27 alto (encaminhar). Para tabaco, moderado é 4–26 também.'},
+ {area:'Alimentares', sigla:'EAT-26', nome:'Eating Attitudes Test', lic:'livre',
+  pts:'26 itens. Corte: ≥20 rastreio positivo — encaminhar para avaliação especializada. Rastreio de comportamento alimentar de risco, não diagnóstico.'},
+ {area:'Ansiedade de saúde', sigla:'PHQ-15', nome:'Patient Health Questionnaire — sintomas somáticos', lic:'livre',
+  pts:'15 sintomas, 0–2, total 0–30. Cortes: 5 leve · 10 moderada · 15 grave carga somática.'},
+ {area:'Sensibilidade à ansiedade', sigla:'ASI-3', nome:'Anxiety Sensitivity Index-3', lic:'verificar',
+  pts:'18 itens, 0–4, total 0–72. Três subescalas: física, cognitiva, social. Preditor de resposta a exposição interoceptiva no pânico.'},
+ {area:'Risco', sigla:'C-SSRS', nome:'Columbia Suicide Severity Rating Scale', lic:'livre',
+  pts:'Entrevista estruturada de rastreio, gratuita mediante treinamento breve (columbiapsychiatry). A triagem orienta o nível de resposta clínica — não substitui avaliação e plano de segurança conduzidos pela profissional.'},
+ {area:'Funcionamento', sigla:'WHODAS 2.0', nome:'WHO Disability Assessment Schedule', lic:'livre',
+  pts:'Versão 12 itens, 1–5. Escore simples: soma convertida em 0–100 (maior = mais incapacidade). Substitui o eixo V/GAF no DSM-5.'},
+ {area:'Qualidade de vida', sigla:'WHOQOL-BREF', nome:'Qualidade de Vida — OMS, versão breve', lic:'livre',
+  pts:'26 itens, quatro domínios (físico, psicológico, relações, ambiente). Escores transformados 0–100 por domínio; sem corte único — acompanhar evolução.'}
+];
+const LIC_LABEL={livre:'acesso livre',verificar:'verificar licença',proprietario:'proprietário'};
+const LIC_CLS={livre:'lo',verificar:'mid',proprietario:'hi'};
+
+function paintIns(){
+  const q=(val('q')||'').toLowerCase();
+  const box=document.getElementById('insbox'); if(!box) return;
+  const hit=INSTRUMENTS.filter(i=>!q||(i.area+i.sigla+i.nome).toLowerCase().includes(q));
+  if(!hit.length){box.innerHTML='<p class="hint">Nenhum instrumento com esse termo.</p>';return;}
+  let cur='',html='';
+  hit.forEach(i=>{
+    if(i.area!==cur){cur=i.area;html+=`<div class="ins-area">${esc(cur)}</div>`;}
+    html+=`<details class="ins"><summary><span class="mono sig">${esc(i.sigla)}</span> ${esc(i.nome)} <span class="badge ${LIC_CLS[i.lic]}">${LIC_LABEL[i.lic]}</span></summary>
+      <p>${esc(i.pts)}</p>
+      <button class="btn ghost sm" onclick="document.getElementById('dx').value='${i.sigla}';document.getElementById('dx').scrollIntoView({behavior:'smooth',block:'center'})">Gerar guia completo</button>
+    </details>`;
+  });
+  box.innerHTML=html;
+}
+
+/* ══════════════ render ══════════════ */
+const PRIVACY = `<div class="privacy"><strong>Antes de colar qualquer coisa:</strong> use iniciais, nunca nome completo, e remova endereço, telefone e CPF. O texto que você enviar sai desta máquina para a API da Anthropic para ser processado. Prontuário e identificação do paciente ficam no seu sistema, não aqui.</div>`;
+
+function pane(html){ document.getElementById('pane').innerHTML = html; }
+function outBlock(){ return `<div class="out" id="out"><div class="empty">nenhum resultado ainda</div></div>`; }
+
+function render(){
+  const m = MODULES[S.mod];
+  document.getElementById('mcode').textContent = S.mod;
+  document.getElementById('mtitle').textContent = m.name;
+  document.getElementById('mdesc').textContent = m.desc;
+  document.querySelectorAll('.mod').forEach(b=>b.setAttribute('aria-current', b.dataset.m===S.mod ? 'true':'false'));
+  const ap = pacById(S.activePac);
+  document.getElementById('pacchip').innerHTML = ap
+    ? `<button class="pchip" onclick="S.mod='PAC';render()" title="Trocar paciente ativo"><span class="ava sm" style="background:${pacColor(ap.code)}">${esc(ap.code.replace(/[^A-Za-zÀ-ü.]/g,'').slice(0,4))}</span> ficha ativa: ${esc(ap.code)}</button>`
+    : `<button class="pchip off" onclick="S.mod='PAC';render()">nenhuma ficha ativa</button>`;
+
+  if(S.mod==='INI'){
+    pane(`
+      <div class="card">
+        <h3>O que é</h3>
+        <div class="doc">
+          <p>Instrumento de apoio clínico com IA para uso durante e depois da sessão: transcrição ao vivo com supervisão em tempo real, rastreio diagnóstico, planos de intervenção, formulação de caso, metáforas sob medida, catálogo de instrumentos de avaliação e documentação estruturada.</p>
+          <p><strong>O que ele não é:</strong> não diagnostica, não decide conduta e não substitui julgamento clínico. Todo conteúdo gerado é rascunho de trabalho sob responsabilidade da profissional que o revisa.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Ética e sigilo — leia antes do primeiro uso</h3>
+        <div class="doc">
+          <p><strong>1. Onde os dados ficam.</strong> A chave de API, o histórico e a transcrição ficam apenas neste navegador, nesta máquina. Nada é enviado a servidor próprio deste instrumento, porque ele não tem servidor.</p>
+          <p><strong>2. O que sai da máquina.</strong> Ao gerar uma análise, o texto que você escreveu ou transcreveu é enviado à API da Anthropic para processamento. É por isso que a regra seguinte existe.</p>
+          <p><strong>3. Despersonalização obrigatória.</strong> Use iniciais, nunca nome completo. Remova endereço, telefone, CPF e qualquer identificador antes de enviar. Dado de saúde é dado sensível na LGPD (art. 5º, II) — a despersonalização é o que mantém o uso dentro do razoável.</p>
+          <p><strong>4. O prontuário oficial não mora aqui.</strong> Este instrumento gera rascunhos. O prontuário, com guarda mínima de 5 anos exigida pelo CFP, permanece no seu sistema clínico. Copie o que servir; não trate o histórico local como registro oficial.</p>
+          <p><strong>5. Consentimento.</strong> Transcrever a fala do paciente exige consentimento informado, por escrito, específico para gravação e para o uso de ferramenta de apoio com IA. Sem esse documento, o módulo de sessão ao vivo não deve ser usado.</p>
+          <p><strong>6. Atendimento online.</strong> A prestação de serviços psicológicos por meios digitais segue a regulamentação do CFP, incluindo o cadastro e-Psi. A videochamada acontece na sua plataforma de atendimento — este instrumento trabalha ao lado dela, não no lugar dela.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Como usar em seis passos</h3>
+        <div class="doc"><ol>
+          <li>Abra <strong>Configuração</strong> e cole a sua chave da Anthropic (console.anthropic.com). Ela fica salva neste navegador.</li>
+          <li>No primeiro atendimento, colha o <strong>consentimento por escrito</strong> do paciente para transcrição e apoio de IA.</li>
+          <li>Durante a sessão, abra <strong>Sessão ao vivo</strong> no Chrome ou Edge e inicie a transcrição. Em atendimento online, use caixas de som em vez de fone — assim o microfone capta também a fala do paciente.</li>
+          <li>Ligue a <strong>supervisão ao vivo</strong> quando quiser leitura clínica e frases prontas durante a sessão; desligue quando não precisar, porque cada análise consome API.</li>
+          <li>Ao encerrar, leve a transcrição para <strong>Nota SOAP</strong> e copie o resultado revisado para o seu prontuário oficial.</li>
+          <li>Entre sessões, use <strong>Rastreio DSM-5</strong>, <strong>Formulação</strong>, <strong>Plano de intervenção</strong> e <strong>Instrumentos</strong> para preparar o caso.</li>
+        </ol></div>
+      </div>
+      <div class="card lic">
+        <h3>Licença de uso</h3>
+        <div class="doc">
+          <p><strong>Recebeu este arquivo de uma colega?</strong> Ele é licenciado individualmente — uma licença por profissional, pagamento único, válida permanentemente para esta versão.</p>
+          <p class="lic-price"><span class="mono">R$ 249</span> · licença individual</p>
+          <p><strong>Como adquirir:</strong></p>
+          <ol>
+            <li>Pague por <strong>Pix</strong> — chave <span class="mono">11 95069-0537</span> (Priscila da Silva Herbas Palomo) — ou por transferência: <strong>Itaú · agência 3767 · conta corrente 29709-0</strong>, mesma titular. Para TED, o CPF da titular é fornecido no WhatsApp.</li>
+            <li>Envie o comprovante pelo WhatsApp <span class="mono">11 95069-0537</span> com seu nome e CRP.</li>
+            <li>Você recebe a sua cópia licenciada e as instruções de primeiro uso.</li>
+          </ol>
+          <p class="hint">A licença cobre uso profissional individual. Redistribuir o arquivo não transfere a licença — a colega que o receber adquire a dela por aqui. O custo da API da Anthropic é pago por cada profissional diretamente à Anthropic, na própria chave.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Biblioteca essencial — o que sustenta os módulos</h3>
+        <div class="doc">
+          <ul>
+            <li><strong>Öst (1989), Behaviour Research and Therapy</strong> — tratamento de sessão única para fobia específica: exposição massiva bem conduzida pode remitir o quadro em uma sessão prolongada.</li>
+            <li><strong>Craske et al. (2014), Behaviour Research and Therapy</strong> — aprendizagem inibitória: o alvo da exposição é violar a expectativa catastrófica, não esperar a ansiedade baixar.</li>
+            <li><strong>Foa &amp; Kozak (1986), Psychological Bulletin</strong> — processamento emocional do medo: a base teórica de por que exposição funciona.</li>
+            <li><strong>Clark (1986), Behaviour Research and Therapy</strong> — modelo cognitivo do pânico: o círculo interpretação catastrófica → sensação → medo.</li>
+            <li><strong>Salkovskis (1985), Behaviour Research and Therapy</strong> — responsabilidade inflada como núcleo cognitivo do TOC.</li>
+            <li><strong>Barlow et al., Protocolo Unificado</strong> — tratamento transdiagnóstico dos transtornos emocionais.</li>
+            <li><strong>Hofmann et al. (2012), Cognitive Therapy and Research</strong> — revisão de meta-análises sobre a eficácia da TCC.</li>
+            <li><strong>Kabat-Zinn (1982), General Hospital Psychiatry</strong> — o artigo que origina o MBSR.</li>
+            <li><strong>Norcross &amp; Lambert (2018), Psychotherapy</strong> — relações terapêuticas baseadas em evidência: o que na relação prediz desfecho.</li>
+          </ul>
+          <p>Referências para localizar nas bases (PubMed, PsycINFO). Os textos completos não são distribuídos aqui por direito autoral.</p>
+        </div>
+      </div>`);
+  }
+
+  else if(S.mod==='SES'){
+    pane(`${PRIVACY}
+      <div class="card">
+        <h3>Captura</h3>
+        <div class="btnrow" style="margin-bottom:14px">
+          ${S.recording
+            ? `<button class="btn accent" onclick="stopRec()">Pausar transcrição</button>`
+            : `<button class="btn" onclick="startRec()">${S.transcript?'Retomar transcrição':'Iniciar transcrição'}</button>`}
+          <button class="btn ghost sm" onclick="clearSession()">Limpar sessão</button>
+          ${!speechOK()?'<span class="hint">Transcrição automática indisponível neste navegador — digite ou cole abaixo.</span>':''}
+        </div>
+        <label class="fl" for="tx">Registro da sessão</label>
+        <textarea id="tx" style="min-height:200px" placeholder="A transcrição aparece aqui automaticamente. Você também pode digitar ou colar." oninput="S.transcript=this.value;paintRibbon(this.value)">${esc(S.transcript)}</textarea>
+        <div class="btnrow" style="margin-top:14px">
+          <button class="btn" id="go" onclick="run('SES',{text:val('tx')})">Gerar</button>
+          <button class="btn ghost" onclick="S.mod='SOA';render()">Levar para nota SOAP</button>
+          <button class="btn ghost" onclick="S.mod='DSM';render()">Levar para rastreio DSM-5</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Supervisão ao vivo · <span id="supstate" style="text-transform:none;letter-spacing:0;color:#93A2A2">${S.supOn?'supervisão ativa':'supervisão desligada'}</span></h3>
+        <div class="btnrow" style="margin-bottom:16px">
+          <button class="btn ${S.supOn?'ghost':'accent'} sm" onclick="toggleSup()">${S.supOn?'Desligar supervisão':'Ligar supervisão'}</button>
+          <button class="btn ghost sm" onclick="runSup()">Analisar agora</button>
+          <span class="hint">Cada análise consome API. Desligue quando não precisar.</span>
+        </div>
+        <div id="supbox"></div>
+      </div>
+      <div class="card">
+        <h3>Marcadores automáticos · sem custo</h3>
+        <div id="alertbox"></div>
+      </div>
+      ${outBlock()}`);
+    renderAlerts(); renderSup();
+  }
+
+  else if(S.mod==='DSM'){
+    pane(`${PRIVACY}
+      <div class="card">
+        <h3>Entrada</h3>
+        <label class="fl" for="tx">Relato ou transcrição</label>
+        <textarea id="tx" placeholder="Cole o material clínico.">${esc(S.transcript)}</textarea>
+        <div class="row" style="margin-top:14px">
+          <div><label class="fl" for="ctx">Contexto (idade, tempo de queixa, histórico relevante)</label>
+          <input type="text" id="ctx" placeholder="Ex.: 34a, queixa há 8 meses, sem tratamento prévio"></div>
+        </div>
+        <button class="btn" id="go" onclick="run('DSM',{text:val('tx'),ctx:val('ctx')})">Gerar</button>
+      </div>
+      ${outBlock()}`);
+  }
+
+  else if(S.mod==='TCC'){
+    pane(`${PRIVACY}
+      <div class="card">
+        <h3>Entrada</h3>
+        ${chips('dx',QUICK_DX)}
+        <div class="row two">
+          <div><label class="fl" for="dx">Hipótese diagnóstica</label>
+          <input type="text" id="dx" placeholder="Ex.: fobia específica, tipo situacional (voo)"></div>
+          <div><label class="fl" for="freq">Frequência</label>
+          <select class="inp" id="freq"><option>semanal</option><option>quinzenal</option><option>duas vezes por semana</option></select></div>
+        </div>
+        <label class="fl" for="tx">Perfil do caso</label>
+        <textarea id="tx" placeholder="Funcionamento, gatilhos, esquivas, tentativas anteriores, recursos do paciente."></textarea>
+        <button class="btn" id="go" style="margin-top:14px" onclick="run('TCC',{dx:val('dx'),text:val('tx'),freq:val('freq')})">Gerar</button>
+      </div>
+      ${outBlock()}`);
+  }
+
+  else if(S.mod==='MBS'){
+    pane(`${PRIVACY}
+      <div class="card">
+        <h3>Entrada</h3>
+        ${chips('dx',QUICK_MBS)}
+        <label class="fl" for="dx">Quadro clínico</label>
+        <input type="text" id="dx" placeholder="Ex.: TAG com ruminação predominante">
+        <label class="fl" for="tx" style="margin-top:14px">Contexto do paciente</label>
+        <textarea id="tx" placeholder="Experiência prévia com prática contemplativa, disponibilidade de tempo, restrições."></textarea>
+        <button class="btn" id="go" style="margin-top:14px" onclick="run('MBS',{dx:val('dx'),text:val('tx')})">Gerar</button>
+      </div>
+      ${outBlock()}`);
+  }
+
+  else if(S.mod==='SOA'){
+    pane(`${PRIVACY}
+      <div class="card">
+        <h3>Entrada</h3>
+        <label class="fl" for="tx">Registro bruto da sessão</label>
+        <textarea id="tx" style="min-height:180px" placeholder="Transcrição, anotações soltas ou tópicos.">${esc(S.transcript)}</textarea>
+        <div class="row" style="margin-top:14px">
+          <div><label class="fl" for="n">Número da sessão</label>
+          <input type="text" id="n" placeholder="Ex.: 7"></div>
+        </div>
+        <button class="btn" id="go" onclick="run('SOA',{text:val('tx'),n:val('n')})">Gerar</button>
+      </div>
+      ${outBlock()}`);
+  }
+
+  else if(S.mod==='PSE'){
+    pane(`<div class="card">
+        <h3>Entrada</h3>
+        <label class="fl" for="dx">Tema</label>
+        <input type="text" id="dx" placeholder="Ex.: como funciona a exposição gradual">
+        <label class="fl" for="tx" style="margin-top:14px">Ajuste de linguagem</label>
+        <textarea id="tx" style="min-height:90px" placeholder="Ex.: adulto, ensino fundamental, muito ansioso com termos médicos."></textarea>
+        <button class="btn" id="go" style="margin-top:14px" onclick="run('PSE',{dx:val('dx'),text:val('tx')})">Gerar</button>
+      </div>
+      ${outBlock()}`);
+  }
+
+  else if(S.mod==='RSK'){
+    pane(`${PRIVACY}
+      <div class="card">
+        <h3>Entrada</h3>
+        <label class="fl" for="tx">Material clínico</label>
+        <textarea id="tx" style="min-height:170px" placeholder="Relato, transcrição ou anotações.">${esc(S.transcript)}</textarea>
+        <p class="hint">O resultado organiza fatores de risco e proteção para apoiar sua avaliação. Não é um instrumento validado e não substitui julgamento clínico.</p>
+        <button class="btn" id="go" style="margin-top:12px" onclick="run('RSK',{text:val('tx')})">Gerar</button>
+      </div>
+      ${outBlock()}`);
+  }
+
+  else if(S.mod==='MET'){
+    pane(`<div class="card">
+        <h3>Entrada</h3>
+        <label class="fl" for="dx">O que você precisa explicar ou trabalhar</label>
+        <input type="text" id="dx" placeholder="Ex.: por que evitar alimenta o medo; o que é aprendizagem inibitória; ruminação">
+        <label class="fl" for="tx" style="margin-top:14px">Repertório do paciente</label>
+        <textarea id="tx" style="min-height:90px" placeholder="Profissão, hobbies, idade, referências do mundo dele. Ex.: engenheiro, 38 anos, corre maratona, gosta de culinária."></textarea>
+        <p class="hint">Quanto mais concreto o repertório, mais a metáfora gruda. Não inclua dados identificáveis.</p>
+        <button class="btn" id="go" style="margin-top:12px" onclick="run('MET',{dx:val('dx'),text:val('tx')})">Gerar</button>
+      </div>
+      ${outBlock()}`);
+  }
+
+  else if(S.mod==='PSD'){
+    pane(`${PRIVACY}
+      <div class="card">
+        <h3>Entrada</h3>
+        <div class="row two">
+          <div><label class="fl" for="lens">Lente</label>
+          <select class="inp" id="lens">
+            <option value="integrada">Integrada — psicanalítica + TCC</option>
+            <option value="psicanalítica">Somente psicanalítica</option>
+            <option value="cognitivo-comportamental">Somente cognitivo-comportamental</option>
+          </select></div>
+        </div>
+        <label class="fl" for="tx">Material clínico</label>
+        <textarea id="tx" style="min-height:170px" placeholder="História, padrão de queixa, relações significativas, repetições que você observa.">${esc(S.transcript)}</textarea>
+        <button class="btn" id="go" style="margin-top:14px" onclick="run('PSD',{text:val('tx'),lens:val('lens')})">Gerar</button>
+      </div>
+      ${outBlock()}`);
+  }
+
+  else if(S.mod==='INS'){
+    pane(`<div class="card">
+        <h3>Catálogo por área</h3>
+        <input type="text" id="q" placeholder="Filtrar por transtorno, sigla ou nome — ex.: TOC, PHQ, pânico" oninput="paintIns()">
+        <p class="hint">Cortes e correção exibidos apenas para instrumentos de acesso livre. Escala de rastreio não é teste psicológico privativo — para testes de uso privativo, verifique o parecer no SATEPSI antes de usar.</p>
+        <div id="insbox" style="margin-top:6px"></div>
+      </div>
+      <div class="card">
+        <h3>Guia de aplicação e correção</h3>
+        <label class="fl" for="dx">Instrumento</label>
+        <input type="text" id="dx" placeholder="Ex.: PHQ-9, Y-BOCS, PCL-5">
+        <label class="fl" for="tx" style="margin-top:14px">Contexto (opcional)</label>
+        <textarea id="tx" style="min-height:80px" placeholder="Ex.: reaplicação na sessão 8; paciente com baixa escolaridade; comparar com baseline."></textarea>
+        <button class="btn" id="go" style="margin-top:14px" onclick="run('INSG',{dx:val('dx'),text:val('tx')})">Gerar guia</button>
+        <p class="hint">Para instrumentos proprietários, o guia orienta o licenciamento e indica alternativa livre — não reproduz itens nem gabarito.</p>
+      </div>
+      ${outBlock()}`);
+    paintIns();
+  }
+
+  else if(S.mod==='PAC'){
+    const cards = S.pacs.length ? S.pacs.map(p=>{
+      const linked=S.history.filter(h=>h.pac===p.id).length;
+      const on = S.activePac===p.id;
+      return `<div class="pac ${on?'on':''}">
+        <span class="ava" style="background:${pacColor(p.code)}">${esc(p.code.replace(/[^A-Za-zÀ-ü.]/g,'').slice(0,4))}</span>
+        <div class="pac-meta">
+          <strong>${esc(p.code)}</strong>
+          <span>${p.age?esc(p.age)+' anos · ':''}${p.hx?esc(p.hx):'sem hipótese registrada'}</span>
+          <span class="mono cnt">${linked} registro${linked===1?'':'s'} vinculado${linked===1?'':'s'}</span>
+        </div>
+        <div class="pac-act">
+          <button class="btn ${on?'':'ghost'} sm" onclick="setActive('${p.id}')">${on?'Ativa':'Ativar'}</button>
+          <button class="btn ghost sm" onclick="viewPac('${p.id}')">Ver</button>
+          <button class="btn ghost sm" onclick="exportPac('${p.id}')">Exportar</button>
+          <button class="btn ghost sm" onclick="delPac('${p.id}')">Excluir</button>
+        </div>
+      </div>`;
+    }).join('') : '<div class="out"><div class="empty">nenhuma ficha criada ainda</div></div>';
+    pane(`
+      <div class="privacy"><strong>Regra de identificação:</strong> iniciais ou código — nunca nome completo, nunca foto. O prontuário oficial com identificação civil mora no seu sistema clínico, não aqui. Estas fichas são material de trabalho local.</div>
+      <div class="card">
+        <h3>Nova ficha</h3>
+        <div class="row two">
+          <div><label class="fl" for="pc_code">Iniciais ou código</label>
+          <input type="text" id="pc_code" placeholder="Ex.: M.S. ou P-07"></div>
+          <div><label class="fl" for="pc_age">Idade</label>
+          <input type="text" id="pc_age" placeholder="Ex.: 34"></div>
+        </div>
+        <div class="row">
+          <div><label class="fl" for="pc_hx">Hipótese de trabalho</label>
+          <input type="text" id="pc_hx" placeholder="Ex.: fobia específica situacional — voo"></div>
+        </div>
+        <label class="fl" for="pc_notes">Notas de contexto</label>
+        <textarea id="pc_notes" style="min-height:70px" placeholder="Sem identificadores. Ex.: início após turbulência em 2024; esquiva total desde então."></textarea>
+        <button class="btn" style="margin-top:14px" onclick="addPac()">Criar ficha</button>
+      </div>
+      <div class="card">
+        <h3>Fichas</h3>
+        ${cards}
+      </div>
+      <div class="card">
+        <h3>Armazenamento local</h3>
+        ${storageMeter()}
+      </div>
+      <div id="out"></div>`);
+  }
+
+  else if(S.mod==='REL'){
+    const p = pacById(S.activePac);
+    if(!p){
+      pane(`<div class="card"><h3>Ficha necessária</h3>
+        <div class="doc"><p>Os relatórios são gerados por paciente. Ative uma ficha para continuar.</p></div>
+        <button class="btn" onclick="S.mod='PAC';render()">Ir para Pacientes</button></div>`);
+    } else {
+      const sliders = SOD_DOMS.map((d,i)=>`
+        <div class="sod-set">
+          <label class="fl" for="sd${i}">${esc(d)}</label>
+          <div class="sod-input">
+            <input type="range" id="sd${i}" min="0" max="10" value="5" oninput="document.getElementById('sv${i}').textContent=this.value">
+            <span class="mono sod-val" id="sv${i}">5</span>
+          </div>
+        </div>`).join('');
+      pane(`
+        <div class="card">
+          <h3>Mapa de sofrimento — ${esc(p.code)} · escala 0 a 10</h3>
+          <p class="hint" style="margin-bottom:14px">0 = nenhum sofrimento · 10 = sofrimento máximo. Registre na sessão, com o paciente. A série vira a medida de evolução do caso.</p>
+          <div class="sod-grid">${sliders}
+            <div class="sod-set">
+              <label class="fl" for="sdc_name">Domínio adicional (opcional)</label>
+              <input type="text" id="sdc_name" placeholder="Ex.: medo de voar" style="margin-bottom:7px">
+              <div class="sod-input">
+                <input type="range" id="sdc_val" min="0" max="10" value="5" oninput="document.getElementById('svc').textContent=this.value">
+                <span class="mono sod-val" id="svc">5</span>
+              </div>
+            </div>
+          </div>
+          <button class="btn" style="margin-top:16px" onclick="registerSod()">Registrar medição</button>
+        </div>
+        <div class="card">
+          <h3>Medições registradas</h3>
+          ${sodHist(p)}
+        </div>
+        <div class="card">
+          <h3>Gerar e enviar</h3>
+          <label class="fl" for="tx">O que foi trabalhado no período — suas palavras</label>
+          <textarea id="tx" style="min-height:100px" placeholder="Ex.: três sessões de exposição gradual; paciente entrou no elevador duas vezes sozinha; tarefa de registro cumprida."></textarea>
+          <div class="btnrow" style="margin-top:14px">
+            <button class="btn" id="go" onclick="run('RPT',{code:'${esc(p.code)}',text:val('tx'),sods:sodsText(pacById(S.activePac))})">Relatório de acompanhamento</button>
+            <button class="btn ghost" onclick="run('RSF',{code:'${esc(p.code)}',text:val('tx'),sods:sodsText(pacById(S.activePac))||'sem medições'})">Relatório de pontos de sofrimento</button>
+          </div>
+          <p class="hint">Os dois relatórios saem em linguagem para o paciente — sem jargão, sem rótulo diagnóstico. Depois de gerar, o botão de envio pelo WhatsApp aparece junto ao resultado.</p>
+        </div>
+        ${outBlock()}`);
+    }
+  }
+
+  else if(S.mod==='HIS'){
+    const items = S.history.length ? S.history.map((h,i)=>`
+      <div class="hitem">
+        <header>
+          <span class="who">${h.mod} · ${MODULES[h.mod]?MODULES[h.mod].name:''}${h.pac&&pacById(h.pac)?' · <strong>'+esc(pacById(h.pac).code)+'</strong>':''}</span>
+          <span class="when">${new Date(h.at).toLocaleString('pt-BR')}</span>
+        </header>
+        <div class="prev">${esc(h.text.replace(/[#*]/g,'').slice(0,220))}</div>
+        <div class="btnrow" style="margin-top:10px">
+          <button class="btn ghost sm" onclick="openHist(${i})">Abrir</button>
+          <button class="btn ghost sm" onclick="copyHist(${i})">Copiar</button>
+        </div>
+      </div>`).join('') : '<div class="out"><div class="empty">nada gerado nesta máquina ainda</div></div>';
+    pane(`<div class="card"><h3>Registros</h3>
+      <div class="btnrow"><button class="btn ghost sm" onclick="exportHist()">Baixar tudo (.txt)</button>
+      <button class="btn ghost sm" onclick="wipeHist()">Apagar histórico</button></div></div>
+      ${items}<div id="out"></div>`);
+  }
+
+  else if(S.mod==='CFG'){
+    pane(`<div class="card">
+        <h3>Chave de API</h3>
+        <p class="hint" style="margin-bottom:12px">Crie a chave em console.anthropic.com. Ela fica salva apenas neste navegador, nesta máquina. Não cole a chave em computador compartilhado: quem usar este mesmo navegador consegue lê-la.</p>
+        <label class="fl" for="k">Chave</label>
+        <input type="password" id="k" placeholder="sk-ant-..." value="${esc(S.key)}">
+        <div class="btnrow" style="margin-top:14px">
+          <button class="btn" onclick="saveKey()">Salvar chave</button>
+          <button class="btn ghost" onclick="dropKey()">Remover chave</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Uso responsável</h3>
+        <div class="doc">
+          <p>O conteúdo gerado é rascunho de documentação. A responsabilidade técnica, o diagnóstico e a conduta permanecem inteiramente com a profissional.</p>
+          <p>Dado de saúde é dado sensível na LGPD. Trabalhe com iniciais e material despersonalizado. O prontuário oficial permanece no sistema clínico.</p>
+          <p>Este arquivo é de uso próprio. Distribuí-lo a outros profissionais sem contrato de uso, termos e tratamento de dados definidos transfere a você um passivo que não é seu.</p>
+        </div>
+      </div>`);
+  }
+  paintTicks();
+}
+
+/* ══════════════ ações ══════════════ */
+function clearSession(){
+  if(!confirm('Apagar a transcrição e os marcadores desta sessão?')) return;
+  S.transcript=''; S.alerts=[]; S.sup=[]; S.supBuf=[]; S.momento=null; S.t0=Date.now();
+  clearTimeout(S.supTimer);
+  document.getElementById('clock').textContent='00:00:00';
+  paintRibbon(''); paintTicks(); render();
+}
+function saveKey(){
+  const v = val('k').trim();
+  if(!v){ alert('Cole a chave antes de salvar.'); return; }
+  S.key=v; store.set('tp_key',v); keyState();
+  alert('Chave salva. Os módulos estão liberados.');
+}
+function dropKey(){ S.key=''; store.del('tp_key'); keyState(); render(); }
+function keyState(){
+  const d=document.getElementById('keydot'), t=document.getElementById('keytxt');
+  if(S.key){ d.classList.add('ok'); t.textContent='Chave configurada'; }
+  else{ d.classList.remove('ok'); t.textContent='Chave não configurada'; }
+}
+function openHist(i){
+  const h=S.history[i];
+  document.getElementById('out').innerHTML='<div class="out"><div class="doc">'+md(h.text)+'</div></div>';
+  document.getElementById('out').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function copyHist(i){ navigator.clipboard.writeText(S.history[i].text).then(()=>alert('Copiado.')); }
+function exportHist(){
+  const body = S.history.map(h=>`===== ${h.mod} · ${new Date(h.at).toLocaleString('pt-BR')} =====\n\n${h.text}\n\n`).join('');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([body],{type:'text/plain;charset=utf-8'}));
+  a.download='terapia-pro-historico.txt'; a.click();
+}
+function wipeHist(){
+  if(!confirm('Apagar todo o histórico desta máquina?')) return;
+  S.history=[]; store.set('tp_hist','[]'); render();
+}
+
+/* ══════════════ boot ══════════════ */
+(function boot(){
+  const nav = document.getElementById('nav');
+  nav.innerHTML = Object.keys(MODULES).map(k=>
+    `<button class="mod" data-m="${k}"><code>${k}</code><span>${MODULES[k].name}</span></button>`
+  ).join('');
+  nav.querySelectorAll('.mod').forEach(b=>b.onclick=()=>{ S.mod=b.dataset.m; closeRail(); render(); });
+  document.getElementById('momenu')?.addEventListener('click', openRail);
+  document.getElementById('scrim')?.addEventListener('click', closeRail);
+
+  const sel = document.getElementById('model');
+  sel.value = S.model;
+  sel.onchange = ()=>{ S.model=sel.value; store.set('tp_model',sel.value); };
+
+  keyState();
+  S.mod = S.key ? 'INI' : 'CFG';
+  render();
+  if(!store.get('tp_tour')) openTour(0);
+})();
+</script>
+</body>
+</html>
