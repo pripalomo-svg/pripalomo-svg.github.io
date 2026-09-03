@@ -30,6 +30,11 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
 - `apresentacao.html` — bio + vídeos "draw my life".
 - `escada-segura.html` — landing do produto "Programa Escada Segura".
 - `catalogo-videos.html` — catálogo interno de vídeos.
+- `terapia-pro.html` — **Terap-ia Pro**: instrumento clínico (arquivo único, v4).
+  Transcrição, supervisão, DSM-5, TCC, relatórios ao paciente. Dados no
+  `localStorage` do navegador; análises vão à API da Anthropic com a chave
+  da profissional. Não entra no menu principal (é para uso profissional).
+  A versão 3 (sem o módulo Relatórios) ficou de fora de propósito.
 
 ## Conteúdo em Markdown (blog)
 
