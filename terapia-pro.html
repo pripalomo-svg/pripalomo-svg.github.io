@@ -453,6 +453,7 @@ const store = {
 
 /* ---------- estado ---------- */
 const S = {
+  /* history e pacs entram no boot, depois de loadJSON */
   mod:'INI',
   key: store.get('tp_key') || '',
   model: store.get('tp_model') || 'claude-sonnet-5',
@@ -462,8 +463,8 @@ const S = {
   t0:null,
   timer:null,
   rec:null,
-  history: JSON.parse(store.get('tp_hist') || '[]'),
-  pacs: JSON.parse(store.get('tp_pacs') || '[]'),
+  history: [],
+  pacs: [],
   activePac: store.get('tp_active') || null,
   busy:false,
   /* supervisão ao vivo */
@@ -861,11 +862,24 @@ async function ask(prompt){
     throw new Error('Erro '+r.status+(detail?': '+detail:''));
   }
   const j = await r.json();
-  return (j.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n').trim();
+  const text = (j.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n').trim();
+  if(!text) throw new Error('A API não devolveu texto. Tente de novo ou troque o modelo.');
+  return text;
 }
 
 /* ══════════════ markdown mínimo ══════════════ */
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function loadJSON(k, fb){
+  try{
+    const raw = store.get(k);
+    if(raw==null || raw==='') return fb;
+    const v = JSON.parse(raw);
+    return v==null ? fb : v;
+  }catch(e){ return fb; }
+}
+function esc(s){
+  s = s==null ? '' : String(s);
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
 function md(src){
   const lines = esc(src).split('\n');
   let html='', list=null;
@@ -1249,20 +1263,26 @@ function openRail(){
 async function run(mod,payload){
   const btn = document.getElementById('go');
   const out = document.getElementById('out');
+  const label = btn ? btn.textContent : 'Gerar';
   if(!S.key){ show('CFG'); return; }
+  if(typeof PROMPTS[mod] !== 'function'){
+    if(out) out.innerHTML = '<div class="err"><strong>Módulo indisponível.</strong></div>';
+    return;
+  }
   S.busy=true;
   if(btn){ btn.disabled=true; btn.innerHTML='<span class="spin"></span> Processando'; }
-  out.innerHTML='<div class="empty">Gerando…</div>';
+  if(out) out.innerHTML='<div class="empty">Gerando…</div>';
   try{
     const text = await ask(PROMPTS[mod](payload));
-    out.innerHTML = '<div class="doc">'+md(text)+'</div>';
+    if(out) out.innerHTML = '<div class="doc">'+md(text)+'</div>';
     saveHist(mod,text);
-    if(mod==='RPT'||mod==='RSF'){ S.lastReport=text; out.insertAdjacentHTML('beforeend', waBox()); }
+    if(out && (mod==='RPT'||mod==='RSF')){ S.lastReport=text; out.insertAdjacentHTML('beforeend', waBox()); }
   }catch(e){
-    out.innerHTML = '<div class="err"><strong>Não foi possível gerar.</strong><br>'+esc(e.message)+'</div>';
+    if(out) out.innerHTML = '<div class="err"><strong>Não foi possível gerar.</strong><br>'+esc(e.message)+'</div>';
+    else alert(e.message);
   }finally{
     S.busy=false;
-    if(btn){ btn.disabled=false; btn.textContent='Gerar'; }
+    if(btn){ btn.disabled=false; btn.textContent=label; }
   }
 }
 const val = id => (document.getElementById(id)||{}).value || '';
@@ -1364,6 +1384,7 @@ function pane(html){ document.getElementById('pane').innerHTML = html; }
 function outBlock(){ return `<div class="out" id="out"><div class="empty">nenhum resultado ainda</div></div>`; }
 
 function render(){
+  if(!MODULES[S.mod]) S.mod='INI';
   const m = MODULES[S.mod];
   document.getElementById('mcode').textContent = S.mod;
   document.getElementById('mtitle').textContent = m.name;
@@ -1772,9 +1793,10 @@ function keyState(){
   else{ d.classList.remove('ok'); t.textContent='Chave não configurada'; }
 }
 function openHist(i){
-  const h=S.history[i];
-  document.getElementById('out').innerHTML='<div class="out"><div class="doc">'+md(h.text)+'</div></div>';
-  document.getElementById('out').scrollIntoView({behavior:'smooth',block:'start'});
+  const h=S.history[i]; if(!h) return;
+  const out=document.getElementById('out'); if(!out) return;
+  out.innerHTML='<div class="out"><div class="doc">'+md(h.text)+'</div></div>';
+  out.scrollIntoView({behavior:'smooth',block:'start'});
 }
 function copyHist(i){ navigator.clipboard.writeText(S.history[i].text).then(()=>alert('Copiado.')); }
 function exportHist(){
@@ -1790,6 +1812,11 @@ function wipeHist(){
 
 /* ══════════════ boot ══════════════ */
 (function boot(){
+  S.history = loadJSON('tp_hist', []);
+  S.pacs = loadJSON('tp_pacs', []);
+  if(!Array.isArray(S.history)) S.history = [];
+  if(!Array.isArray(S.pacs)) S.pacs = [];
+
   const nav = document.getElementById('nav');
   nav.innerHTML = Object.keys(MODULES).map(k=>
     `<button class="mod" data-m="${k}"><code>${k}</code><span>${MODULES[k].name}</span></button>`
@@ -1799,11 +1826,13 @@ function wipeHist(){
   document.getElementById('scrim')?.addEventListener('click', closeRail);
 
   const sel = document.getElementById('model');
+  const allowed = [...sel.options].map(o=>o.value);
+  if(!allowed.includes(S.model)){ S.model = 'claude-sonnet-5'; store.set('tp_model', S.model); }
   sel.value = S.model;
   sel.onchange = ()=>{ S.model=sel.value; store.set('tp_model',sel.value); };
 
   keyState();
-  S.mod = S.key ? 'INI' : 'CFG';
+  S.mod = 'INI';
   render();
   if(!store.get('tp_tour')) openTour(0);
 })();
