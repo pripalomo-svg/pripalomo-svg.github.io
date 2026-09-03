@@ -78,7 +78,7 @@
     return 'https://calendar.google.com/calendar/render?' + q.toString();
   }
 
-  const S = { view: 'login', flash: '', err: '', pay: '' };
+  const S = { view: 'login', flash: '', err: '', pay: '', draft: {} };
 
   function currentUser() {
     const login = session();
@@ -113,7 +113,7 @@
         <div class="kicker">Terap-ia OS</div>
         <h1>Entrar</h1>
         <p class="lead">Banco de dados da sua clínica. Cada login enxerga só os próprios pacientes.</p>
-        <form id="f-login">
+        <form id="f-login" novalidate>
           <label class="fl" for="login">Usuário</label>
           <input class="inp" id="login" name="login" autocomplete="username" required>
           <label class="fl" for="senha">Senha</label>
@@ -202,13 +202,13 @@
       <h2 style="margin-top:16px">Pacientes</h2>
       <p class="sub">Só você vê esta lista.</p>
       <div class="panel">
-        <form id="f-pac">
+        <form id="f-pac" novalidate>
           <label class="fl" for="pnome">Nome ou iniciais</label>
-          <input class="inp" id="pnome" required placeholder="M.S.">
+          <input class="inp" id="pnome" name="pnome" placeholder="M.S." value="${esc(S.draft.nome || '')}">
           <label class="fl" for="pfone">WhatsApp do paciente</label>
-          <input class="inp" id="pfone" required placeholder="11999998888">
+          <input class="inp" id="pfone" name="pfone" type="tel" inputmode="numeric" placeholder="11999998888" value="${esc(S.draft.fone || '')}">
           <label class="fl" for="pnota">Nota (opcional)</label>
-          <input class="inp" id="pnota" placeholder="ex.: fobia de voo">
+          <input class="inp" id="pnota" name="pnota" placeholder="ex.: fobia de voo" value="${esc(S.draft.nota || '')}">
           ${flashBox()}
           <div class="btnrow"><button class="btn" type="submit">Salvar</button></div>
         </form>
@@ -321,13 +321,16 @@
   function onPac(ev) {
     ev.preventDefault();
     const u = currentUser(); if (!u) return;
+    const nome = ($('pnome').value || '').trim();
+    const fone = digits($('pfone').value);
+    const nota = ($('pnota').value || '').trim();
+    S.draft = { nome, fone, nota };
+    if (!nome) { S.err = 'Informe o nome ou as iniciais.'; render(); return; }
+    if (fone.length < 10) { S.err = 'Informe o WhatsApp com DDD (10 ou 11 números).'; render(); return; }
     const data = db(u.login);
-    data.patients.unshift({
-      nome: $('pnome').value.trim(),
-      fone: digits($('pfone').value),
-      nota: $('pnota').value.trim()
-    });
+    data.patients.unshift({ nome, fone, nota });
     saveDb(u.login, data);
+    S.draft = {};
     S.flash = 'Paciente salvo.';
     render();
   }
