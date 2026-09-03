@@ -30,10 +30,12 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
 - `apresentacao.html` — bio + vídeos "draw my life".
 - `escada-segura.html` — landing do produto "Programa Escada Segura".
 - `catalogo-videos.html` — catálogo interno de vídeos.
-- `terapia-pro.html` — **Terap-ia Pro**: instrumento clínico (arquivo único, v4).
-  Transcrição, supervisão, DSM-5, TCC, relatórios ao paciente. Dados no
-  `localStorage` do navegador; análises vão à API da Anthropic com a chave
-  da profissional. Link no menu e em `cursos.html`.
+- `terapia-pro.html` — **Terap-ia OS**: sistema de banco da clínica (login/senha,
+  pacientes, agenda Google + WhatsApp). Mensalidade R$ 100 (Pix `11950690537`
+  ou PagSeguro/cartão). Sem tour de boas-vindas. Dados isolados por usuário
+  no navegador; nuvem recomendada para 1000 clínicas: **Supabase** (auth +
+  Postgres com RLS) + **Cloudflare R2** (arquivos, muito espaço).
+  Estilos/JS em `assets/terapia-os.css` e `assets/terapia-os.js`.
 
 ## Conteúdo em Markdown (blog)
 
