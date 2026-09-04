@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kit da Semana · Medo, Fobia e Ansiedade — NeuroNews</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>P</text></svg>">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Fredoka:wght@400;500;600;700&family=Syne:wght@800&family=DM+Sans:wght@400;500;700&display=swap');
+:root{
+--marinho:#0A1E3C;--marinho2:#122F55;--petroleo:#0C4551;--petroleo2:#12707E;--petroleo3:#1A8A98;
+--gelo:#BCD6DD;--gelo2:#8FB6C0;--areia:#D8B981;--laranja:#FB5A09;--laranja2:#FC7C3D;--amarelo:#F2B705;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#dfe5ea;padding:22px 12px;color:#1c2833;}
+.page{max-width:520px;margin:0 auto;}
+.tip{background:#fff;border-radius:14px;padding:16px 18px;margin-bottom:22px;font-size:.9em;line-height:1.6;color:#33424d;box-shadow:0 2px 10px rgba(10,30,60,.08);}
+.tip b{color:var(--laranja);}
+.daylabel{font-family:'Syne',sans-serif;font-size:.82em;font-weight:800;letter-spacing:1.5px;color:var(--marinho);text-transform:uppercase;margin:6px 4px 10px;padding-top:8px;border-top:2px solid #c8d0d7;}
+
+/* CARD 1:1 */
+.card{width:100%;aspect-ratio:1/1;border-radius:18px;overflow:hidden;position:relative;
+  background:radial-gradient(120% 120% at 80% 0%, #143059 0%, #0A1E3C 55%, #08172e 100%);
+  color:#fff;box-shadow:0 8px 26px rgba(10,30,60,.22);margin-bottom:12px;
+  display:flex;flex-direction:column;padding:6% 6.4%;}
+.card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 12% 92%, rgba(18,112,126,.35), transparent 42%);pointer-events:none;}
+.c-top{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2;}
+.c-brand{display:flex;align-items:center;gap:8px;}
+.c-brand .lg{width:28px;height:28px;flex:0 0 28px;}
+.c-brand .nm{font-family:'Merriweather',serif;font-size:.8em;line-height:1;}
+.c-brand .nm .c{color:var(--laranja);}
+.c-brand .nm small{display:block;font-family:'Syne',sans-serif;font-size:.52em;letter-spacing:3px;color:var(--amarelo);margin-top:2px;}
+.av{width:46px;height:54px;position:relative;}
+.av svg{width:100%;height:100%;overflow:visible;}
+.avatar-bob{animation:bob 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%;}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-2.5deg)}50%{transform:translateY(-2px) rotate(2.5deg)}}
+.brows{animation:brows 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center;}
+@keyframes brows{0%,100%{transform:translateY(0)}30%,65%{transform:translateY(-1.6px)}}
+.mouthO{animation:talk .55s ease-in-out infinite;transform-box:fill-box;transform-origin:center;}
+@keyframes talk{0%,100%{transform:scaleY(.55)}50%{transform:scaleY(1.15)}}
+.spark{animation:spk 1.7s ease-in-out infinite;transform-box:fill-box;transform-origin:center;}
+@keyframes spk{0%,100%{opacity:0;transform:scale(.5)}50%{opacity:1;transform:scale(1.1)}}
+.c-tag{display:inline-block;align-self:flex-start;background:var(--laranja);color:#fff;font-family:'Syne',sans-serif;font-size:.6em;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:5px 11px;border-radius:20px;margin-top:4.5%;position:relative;z-index:2;}
+.c-title{font-family:'Fredoka',sans-serif;font-weight:600;font-size:1.6em;line-height:1.1;margin-top:3%;position:relative;z-index:2;}
+.c-hook{font-family:'Fredoka',sans-serif;font-size:.92em;color:var(--amarelo);font-weight:500;line-height:1.32;margin-top:3%;position:relative;z-index:2;}
+.c-sci{background:rgba(18,112,126,.28);border-left:3px solid var(--petroleo3);border-radius:0 10px 10px 0;padding:8px 11px;font-size:.76em;line-height:1.4;color:#eaf3f5;margin-top:3%;position:relative;z-index:2;}
+.c-sci b{color:#fff;}
+.c-case{display:flex;align-items:center;gap:11px;margin-top:auto;padding-top:3.5%;position:relative;z-index:2;}
+.c-case .cav{flex:0 0 50px;width:50px;height:50px;}
+.c-case .cn{font-family:'Fredoka',sans-serif;font-size:.8em;color:var(--gelo);line-height:1.3;}
+.c-case .cn b{color:#fff;}.c-case .cn i{font-style:normal;font-size:.86em;color:var(--gelo2);}
+.c-take{background:var(--laranja);color:#fff;border-radius:10px;padding:9px 12px;font-family:'Fredoka',sans-serif;font-size:.82em;line-height:1.32;margin-top:3.5%;position:relative;z-index:2;}
+.c-foot{display:flex;justify-content:space-between;align-items:center;margin-top:3.5%;font-size:.63em;color:var(--gelo2);position:relative;z-index:2;}
+.c-foot b{color:var(--areia);}
+
+/* CAPTIONS */
+.cap{background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:10px;box-shadow:0 2px 8px rgba(10,30,60,.07);}
+.cap h4{font-family:'Syne',sans-serif;font-size:.7em;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.cap.ig h4{color:var(--laranja);}
+.cap.li h4{color:var(--petroleo2);}
+.cap p{font-size:.86em;line-height:1.6;color:#2b3a45;white-space:pre-line;}
+.cap .tags{margin-top:8px;font-size:.8em;color:var(--petroleo2);line-height:1.5;}
+.spacer{height:14px;}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="tip">
+    📦 <b>Kit da semana — Medo, Fobia e Ansiedade.</b> Para cada dia: o <b>card 1:1</b> (baixe/print) + a <b>legenda do Instagram</b> e a <b>do LinkedIn</b> (toque e copie). Jogue tudo no Meta Business Suite (IG/Facebook) e no Buffer (LinkedIn) e agende a semana de uma vez.
+  </div>
+  <div id="kit"></div>
+</div>
+
+<script>
+const LOGO=`<svg class="lg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="22" fill="#E8B99C"/><path d="M30 26 L70 74" stroke="url(#cool)" stroke-width="20" stroke-linecap="round"/><path d="M70 26 L30 74" stroke="url(#warm)" stroke-width="20" stroke-linecap="round"/><path d="M36 68 L36 34 L64 66 L64 32" stroke="#0A1E3C" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="warm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2B705"/><stop offset=".5" stop-color="#FB5A09"/><stop offset="1" stop-color="#E23744"/></linearGradient><linearGradient id="cool" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#12707E"/><stop offset="1" stop-color="#2E8074"/></linearGradient></defs></svg>`;
+const AV=`<div class="av"><svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg"><g class="avatar-bob"><path d="M24 40 Q24 12 50 12 Q76 12 76 40 L76 60 Q80 78 72 96 Q70 70 66 58 L34 58 Q30 70 28 96 Q20 78 24 60 Z" fill="#241f26"/><rect x="42" y="82" width="16" height="14" fill="#E0A880"/><path d="M30 98 L50 90 L70 98 L70 116 L30 116 Z" fill="#fff"/><ellipse cx="50" cy="52" rx="25" ry="28" fill="#E8B98F"/><circle cx="74" cy="60" r="1.6" fill="#D8B981"/><g class="brows"><path d="M34 39 Q40 35 46 38" stroke="#241f26" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M54 38 Q60 35 66 39" stroke="#241f26" stroke-width="2.4" fill="none" stroke-linecap="round"/></g><circle cx="40" cy="50" r="10.5" fill="rgba(255,255,255,.35)" stroke="#6b4a2f" stroke-width="3"/><circle cx="60" cy="50" r="10.5" fill="rgba(255,255,255,.35)" stroke="#6b4a2f" stroke-width="3"/><path d="M51 50 Q50 47 49 50" stroke="#6b4a2f" stroke-width="2.5" fill="none"/><circle cx="40" cy="50" r="3.2" fill="#2b2b2b"/><circle cx="60" cy="50" r="3.2" fill="#2b2b2b"/><ellipse class="mouthO" cx="50" cy="66" rx="4" ry="5" fill="#7a3b34"/><path d="M20 70 Q26 62 32 66 Q30 74 24 76 Q18 76 20 70Z" fill="#E8B98F"/></g></svg></div>`;
+function fam(init,fill,emoji){return `<span class="cav"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="28" fill="${fill}" stroke="#FB5A09" stroke-width="3"/><text x="32" y="39" text-anchor="middle" font-family="Fredoka,sans-serif" font-weight="600" font-size="18" fill="#fff">${init}</text><circle cx="50" cy="50" r="12" fill="#0A1E3C" stroke="#fff" stroke-width="1.5"/><text x="50" y="54.5" text-anchor="middle" font-size="12">${emoji}</text></svg></span>`;}
+
+const dias=[
+{day:'SÁBADO · 08/08', tag:'Fobia',
+ t:'O medo de voar que prendeu uma estrela no chão',
+ h:'Ela enfrenta plateias gigantes, mas tinha pavor de entrar num avião. ✈️',
+ s:'<b>Fobia específica</b> é um alarme mal calibrado. A exposição gradual reeduca o cérebro — e é uma das condições que mais respondem a tratamento.',
+ av:fam('WG','#12707E','✈️'), cn:'<b>Whoopi Goldberg</b><br><i>fez um curso para vencer o medo de voar</i>',
+ k:'💡 Fobia não é frescura. É alarme — e alarme a gente reprograma.',
+ ig:`Ela enfrenta plateias gigantes… mas tinha pavor de entrar num avião. ✈️\n\nWhoopi Goldberg falou publicamente sobre seu medo de voar — e chegou a fazer um curso para conseguir enfrentar os aviões.\n\nFobia específica é um medo intenso e desproporcional de algo concreto: o cérebro trata o gatilho como ameaça de morte e manda fugir. A boa notícia? É das condições que MAIS respondem a tratamento. A exposição gradual "reeduca" o alarme, passo a passo.\n\nSe o medo te prende em algum lugar, saiba: dá pra destravar, com método. 💛\n\nSalva e compartilha com quem precisa ouvir isso hoje.`,
+ tags:'#fobia #medodevoar #ansiedade #psicologia #saudemental #exposicaogradual #TCC #cienciadamente #omedovaipassar',
+ li:`Fobia específica: o medo que parece maior que a vida — e que responde bem a tratamento.\nAo falar sobre seu medo de voar, Whoopi Goldberg ilustra um quadro frequentemente subestimado. Na fobia específica, o cérebro interpreta um gatilho concreto como ameaça extrema e aciona a fuga. É justamente uma das condições com melhor resposta à exposição gradual, que reeduca a resposta de medo de forma planejada.\nComo especialista em fobias, reforço: não é "frescura" — é um alarme mal calibrado, e há caminho de volta.\nDra. Priscila Palomo · CRP 06/98007`},
+
+{day:'DOMINGO · 09/08', tag:'Ansiedade',
+ t:'O galã mais divertido do cinema convive com ansiedade — sempre',
+ h:'O bom humor convive, o tempo todo, com muita ansiedade por dentro. 🎬',
+ s:'<b>Transtornos de ansiedade</b> estão entre os mais comuns do mundo — e não têm a ver com falta de força. A TCC tem forte base de evidência.',
+ av:fam('RR','#0C4551','🎬'), cn:'<b>Ryan Reynolds</b><br><i>fala abertamente que convive com ansiedade</i>',
+ k:'💡 A ansiedade pode vir junto — mas não precisa dirigir.',
+ ig:`O cara mais engraçado do cinema convive com ansiedade desde jovem. 🎬\n\nRyan Reynolds fala abertamente e com frequência sobre isso — e ajuda milhões a se sentirem menos sozinhos.\n\nOs transtornos de ansiedade estão entre as condições mais comuns do mundo. Não têm nada a ver com falta de força: é o cérebro tentando (demais) te proteger de perigos futuros. Terapia cognitivo-comportamental e, quando indicado, medicação, têm forte base de evidência.\n\nDá pra ter uma vida cheia e leve carregando a ansiedade junto. 💛\n\nComenta um 🙋 se você também convive com ela.`,
+ tags:'#ansiedade #saudemental #psicologia #autoconhecimento #TCC #cienciadamente #bemestar #terapia #omedovaipassar',
+ li:`Conviver com ansiedade e, ainda assim, prosperar.\nRyan Reynolds fala com naturalidade sobre a ansiedade que o acompanha desde jovem — contribuindo para normalizar um tema ainda cercado de estigma. Vale reforçar: transtornos de ansiedade estão entre os mais prevalentes globalmente e respondem bem a intervenções baseadas em evidência, como a TCC.\nNa prática clínica, o objetivo raramente é "eliminar" a ansiedade, e sim reduzir seu domínio para que a pessoa aja pelo que importa.\nDra. Priscila Palomo · CRP 06/98007`},
+
+{day:'SEGUNDA · 10/08', tag:'Medo',
+ t:'Uma das maiores vozes do mundo sente pânico antes do palco',
+ h:'Ter uma voz amada pelo planeta não impede o pânico nos bastidores. 🎤',
+ s:'A <b>ansiedade de desempenho</b> dispara a luta ou fuga. Não é despreparo: é o corpo levando a sério demais. Respiração e exposição reduzem.',
+ av:fam('AD','#12707E','🎤'), cn:'<b>Adele</b><br><i>já relatou pânico antes de shows</i>',
+ k:'💡 As mãos podem tremer enquanto entregam o presente — ele chega igual.',
+ ig:`Uma das vozes mais amadas do planeta… e pânico antes de subir ao palco. 🎤\n\nAdele já contou publicamente que sente forte ansiedade e chegou a ter episódios de pânico antes de shows.\n\nA ansiedade de desempenho dispara a resposta de luta ou fuga: coração acelera, mãos suam, a mente prevê o desastre. Não é sinal de despreparo — é o corpo levando a situação a sério demais. Técnicas de respiração, reestruturação e exposição repetida reduzem a intensidade.\n\nGuarda essa: as mãos podem tremer enquanto entregam o presente, e o presente chega igual. 💛`,
+ tags:'#ansiedadededesempenho #panico #medo #saudemental #psicologia #cienciadamente #falarempublico #terapia #omedovaipassar',
+ li:`Ansiedade de desempenho não é falta de preparo.\nMesmo artistas consagrados, como Adele, relatam pânico antes de se apresentar. O mecanismo é a resposta de luta ou fuga acionada diante de uma avaliação percebida como ameaça. Respiração, reestruturação cognitiva e exposição repetida reduzem a intensidade ao longo do tempo.\nA mensagem clínica: tremer não invalida a entrega. A ação pode conviver com o medo.\nDra. Priscila Palomo · CRP 06/98007`},
+
+{day:'TERÇA · 11/08', tag:'Fobia',
+ t:'Uma cena de filme despertou uma fobia real nela',
+ h:'Um espaço apertado numa gravação acordou um medo real. 😮',
+ s:'<b>Claustrofobia</b> é o medo intenso de lugares fechados. O corpo reage como se fosse sufocar — um alarme falso que cede à exposição gradual.',
+ av:fam('UT','#0C4551','🎬'), cn:'<b>Uma Thurman</b><br><i>relatou claustrofobia ao gravar em espaço confinado</i>',
+ k:'💡 O aperto é real; o sufoco que ele anuncia, não. Dá pra ensinar isso ao corpo.',
+ ig:`Uma cena dentro de um espaço apertado acordou uma fobia real. 😮\n\nUma Thurman relatou publicamente sua claustrofobia, que veio à tona ao gravar uma cena em um espaço extremamente confinado.\n\nA claustrofobia é o medo intenso de lugares fechados ou apertados. O corpo reage como se fosse sufocar, mesmo em total segurança. É um alarme falso — e, como toda fobia específica, cede à exposição gradual, feita com apoio e no seu ritmo.\n\nO aperto que você sente é real; o sufoco que ele anuncia, não. 💛\n\nMarca alguém que precisa entender isso.`,
+ tags:'#claustrofobia #fobia #ansiedade #psicologia #saudemental #exposicaogradual #cienciadamente #TCC #omedovaipassar',
+ li:`Claustrofobia: quando o corpo "avisa" um perigo que não existe.\nUma Thurman relatou sua claustrofobia despertada em um espaço confinado durante uma gravação. Na fobia específica, o sistema de ameaça dispara diante de um gatilho concreto — aqui, ambientes fechados — gerando a sensação de sufocamento mesmo em segurança.\nO tratamento de escolha é a exposição gradual, que recalibra a resposta de medo de forma estruturada e respeitosa ao ritmo da pessoa.\nDra. Priscila Palomo · CRP 06/98007`},
+
+{day:'QUARTA · 12/08', tag:'Ansiedade',
+ t:'Ataques de pânico desde criança — e uma vida linda depois',
+ h:'Pânico na infância não foi sentença — virou capítulo. 💛',
+ s:'Ansiedade e pânico podem começar cedo. Quanto mais cedo o cuidado, melhor o prognóstico. Nomear o medo é o primeiro remédio.',
+ av:fam('ES','#12707E','🎬'), cn:'<b>Emma Stone</b><br><i>teve pânico na infância; a terapia foi decisiva</i>',
+ k:'💡 Medo que aparece cedo não é sentença. Vira só um capítulo da história.',
+ ig:`Ataques de pânico desde a infância — e, hoje, uma carreira brilhante. 💛\n\nEmma Stone conta abertamente que teve pânico e ansiedade quando criança, e que a terapia foi decisiva para ela.\n\nAnsiedade e pânico podem começar cedo, na infância. Não é "manha": é um sistema de alarme sensível. Quanto mais cedo vem o cuidado (terapia, psicoeducação, às vezes recursos lúdicos), melhor o prognóstico. Criança que aprende a nomear o medo vira adulto que sabe atravessá-lo.\n\nSe tem uma criança ansiosa perto de você, compartilha isto. 🤍`,
+ tags:'#ansiedadeinfantil #panico #saudementalinfantil #psicologia #saudemental #cienciadamente #terapia #TCC #omedovaipassar',
+ li:`Ansiedade na infância: sensibilidade, não fraqueza.\nEmma Stone relata ter enfrentado ataques de pânico ainda criança, com a terapia como fator decisivo. Quadros de ansiedade e pânico de início precoce são reais e respondem bem ao cuidado adequado — quanto mais cedo, melhor o prognóstico.\nUm princípio que carrego: a criança que aprende a nomear o próprio medo tende a se tornar um adulto capaz de atravessá-lo.\nDra. Priscila Palomo · CRP 06/98007`},
+
+{day:'QUINTA · 13/08', tag:'Medo',
+ t:'O gênio dos bilhões tremia só de pensar em falar em público',
+ h:'Pavor de falar em público… num dos maiores investidores do mundo. 📈',
+ s:'O <b>medo de falar em público</b> é dos mais comuns — e dos que melhor respondem a treino e exposição. Habilidade, não talento mágico.',
+ av:fam('WB','#0C4551','📈'), cn:'<b>Warren Buffett</b><br><i>fez um curso para vencer o medo de falar</i>',
+ k:'💡 Cada vez que você foge do palco, ele cresce um andar. Cada vez que sobe, encolhe.',
+ ig:`Um dos maiores investidores do mundo tinha PAVOR de falar em público. 📈\n\nWarren Buffett conta que era aterrorizado por isso e fez um curso para enfrentar — hoje diz ter sido uma das melhores decisões da vida.\n\nO medo de falar em público é uma das ansiedades mais comuns que existem. E também uma das que melhor respondem a treino e exposição: quanto mais você fala (em doses crescentes, com técnica), mais o cérebro aprende que ali não há perigo real. É habilidade, não talento mágico.\n\nQual palco você anda evitando? 👇`,
+ tags:'#falarempublico #glossofobia #medo #ansiedade #psicologia #cienciadamente #exposicao #carreira #omedovaipassar',
+ li:`Falar em público: um medo comum — e treinável.\nWarren Buffett relata que era aterrorizado por falar em público e buscou treinamento formal para superá-lo, hoje considerado por ele uma decisão transformadora. A glossofobia responde particularmente bem à combinação de exposição gradual e desenvolvimento de habilidade.\nO ponto que reforço com meus pacientes: evitar amplia o medo; a aproximação estruturada o reduz.\nDra. Priscila Palomo · CRP 06/98007`},
+
+{day:'SEXTA · 14/08', tag:'Fobia',
+ t:'Ela sumiu dos palcos por anos por causa de um branco em público',
+ h:'Esqueceu a letra no show e o medo a manteve longe por anos. 🎤',
+ s:'A <b>esquiva</b> alivia na hora, mas engorda o medo no longo prazo. O caminho de volta é a exposição gradual: reaproximar-se aos poucos.',
+ av:fam('BS','#12707E','🎤'), cn:'<b>Barbra Streisand</b><br><i>afastou-se dos palcos por medo após esquecer a letra</i>',
+ k:'💡 Fugir é coçar a picada: alivia agora, espalha depois. Ficar um pouquinho mais, cada vez, é o remédio.',
+ ig:`Ela esqueceu a letra no meio de um show — e o medo a manteve longe dos palcos por anos. 🎤\n\nBarbra Streisand contou publicamente como um episódio assim a levou a evitar apresentações ao vivo por muito tempo.\n\nQuando a gente evita o que dá medo, sentimos alívio na hora — mas o medo cresce no longo prazo. É o combustível da ansiedade social e de desempenho. O caminho de volta é a exposição gradual: reaproximar-se aos poucos, até o cérebro reaprender que dá pra ficar.\n\nFugir alivia agora e espalha depois. Ficar um pouquinho mais, cada vez, é o remédio. 💛`,
+ tags:'#ansiedadesocial #fobia #esquiva #exposicaogradual #psicologia #saudemental #cienciadamente #TCC #omedovaipassar',
+ li:`Por que a fuga alimenta o medo.\nApós um lapso de memória em pleno palco, Barbra Streisand relatou anos de afastamento das apresentações ao vivo. É a ilustração perfeita de um mecanismo central: a esquiva traz alívio imediato, mas reforça e amplia a ansiedade no longo prazo.\nO tratamento baseado em evidência caminha na direção oposta — a exposição gradual, que devolve à pessoa o território que o medo havia tomado.\nDra. Priscila Palomo · CRP 06/98007`}
+];
+
+const kit=document.getElementById('kit');
+dias.forEach(d=>{
+  const w=document.createElement('div');
+  w.innerHTML=`
+  <div class="daylabel">${d.day} · ${d.tag}</div>
+  <div class="card">
+    <div class="c-top"><div class="c-brand">${LOGO}<div class="nm">Diário da <span class="c">Ciência</span><small>NEURONEWS</small></div></div>${AV}</div>
+    <span class="c-tag">${d.tag}</span>
+    <div class="c-title">${d.t}</div>
+    <div class="c-hook">${d.h}</div>
+    <div class="c-sci">${d.s}</div>
+    <div class="c-case">${d.av}<div class="cn">${d.cn}</div></div>
+    <div class="c-take">${d.k}</div>
+    <div class="c-foot"><span><b>@_priscilapalomo_</b></span><span>O medo vai passar</span></div>
+  </div>
+  <div class="cap ig"><h4>📸 Legenda Instagram</h4><p>${d.ig}</p><div class="tags">${d.tags}</div></div>
+  <div class="cap li"><h4>💼 Legenda LinkedIn</h4><p>${d.li}</p></div>
+  <div class="spacer"></div>`;
+  kit.appendChild(w);
+});
+</script>
+</body>
+</html>
