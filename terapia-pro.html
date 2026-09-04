@@ -1239,6 +1239,7 @@ function addAppt(){
     transcript:'', summary:'', plan:'', flags:[], hasAudio:false,
     created:new Date().toISOString(), updated:new Date().toISOString()
   });
+  S.activeSess=S.sessions[0].id;
   saveSess(); render();
 }
 function delAppt(id){
@@ -1248,6 +1249,23 @@ function delAppt(id){
   if(S.activeSess===id) S.activeSess=null;
   saveSess(); delAudio(id); render();
 }
+function quoteAround(text,re){
+  const i=text.search(re);
+  if(i<0) return text.slice(0,120);
+  return text.slice(Math.max(0,i-24), Math.min(text.length,i+90)).trim();
+}
+function scanTextFlags(text){
+  const found=[];
+  FLAGS.forEach(f=>{
+    if(f.re.test(text)) found.push({tag:f.tag,s:0,quote:quoteAround(text,f.re)});
+  });
+  return found;
+}
+function mergeFlags(a,b){
+  const out=(a||[]).slice();
+  (b||[]).forEach(x=>{ if(!out.some(y=>y.tag===x.tag)) out.push(x); });
+  return out;
+}
 function persistDraft(){
   const s=sessById(S.activeSess); if(!s) return;
   const box=document.getElementById('tx');
@@ -1255,7 +1273,7 @@ function persistDraft(){
   const plan=document.getElementById('plan');
   if(plan) s.plan=plan.value;
   s.transcript=S.transcript;
-  s.flags=S.alerts.slice();
+  s.flags=mergeFlags(S.alerts, scanTextFlags(S.transcript||''));
   s.updated=new Date().toISOString();
   if(S.recording) s.status='gravando';
   saveSess();
