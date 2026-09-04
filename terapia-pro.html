@@ -1294,8 +1294,10 @@ function localSummary(text, alerts, plan){
 }
 
 async function finishProntuario(s){
-  if(!s) return;
+  if(!s){ alert('Abra ou marque uma sessão primeiro.'); return; }
   persistDraft();
+  const btn=document.getElementById('go');
+  if(btn){ btn.disabled=true; btn.innerHTML='<span class="spin"></span> Salvando no prontuário'; }
   const flags=(s.flags||[]).map(a=>a.tag+' — '+a.quote).join('; ');
   const p=pacById(s.pac);
   const when=fmtAppt(s);
@@ -1314,6 +1316,7 @@ async function finishProntuario(s){
   s.status='registrada';
   s.updated=new Date().toISOString();
   saveSess();
+  if(btn){ btn.disabled=false; btn.textContent='Gerar resumo clínico agora'; }
 }
 
 async function startSessRec(id){
