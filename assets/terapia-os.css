@@ -22,31 +22,6 @@ body{
 button,input,select,textarea{font:inherit}
 .hidden{display:none !important}
 
-/* ── lock / login ── */
-.lock{
-  min-height:100%;
-  display:grid;
-  place-items:center;
-  padding:32px 18px;
-  background:
-    radial-gradient(1200px 500px at 50% -10%, #1a6b7a 0%, transparent 55%),
-    var(--ink);
-  color:#fff;
-}
-.lock-card{
-  width:min(420px,100%);
-  background:var(--card);
-  color:var(--ink);
-  border-radius:16px;
-  padding:32px 28px 26px;
-  box-shadow:0 20px 60px rgba(0,0,0,.25);
-}
-.lock-card .kicker{
-  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--orange-2);font-weight:700;margin-bottom:8px;
-}
-.lock-card h1{font-size:28px;font-weight:700;margin-bottom:6px}
-.lock-card .lead{color:var(--muted);font-size:14px;margin-bottom:22px}
 label.fl{display:block;font-size:13px;font-weight:700;margin:12px 0 6px}
 input.inp,select.inp,textarea.inp{
   width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:8px;
@@ -68,7 +43,6 @@ input.inp:focus,select.inp:focus,textarea.inp:focus{
 .btn.orange:hover{background:var(--orange-2)}
 .btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
 .btn.ghost:hover{background:var(--paper)}
-.btn.full{width:100%}
 .hint{font-size:13px;color:var(--muted);margin-top:12px}
 .err{background:#F7EDE8;border:1px solid var(--orange);border-radius:8px;padding:10px 12px;font-size:13px;margin-top:12px}
 .ok{background:#E8F4F0;border:1px solid #3D8A96;border-radius:8px;padding:10px 12px;font-size:13px;margin-top:12px}
@@ -111,25 +85,6 @@ input.inp:focus,select.inp:focus,textarea.inp:focus{
 .panel h3:first-child{margin-top:0}
 .pre{white-space:pre-wrap;font-size:14px;color:var(--ink)}
 textarea.inp{min-height:90px;resize:vertical;line-height:1.5}
-.pay-grid{display:grid;gap:10px}
-.pay-opt{
-  border:1px solid var(--line);border-radius:10px;padding:14px 16px;
-  background:#fff;cursor:pointer;text-align:left;width:100%;
-}
-.pay-opt:hover{border-color:var(--orange)}
-.pay-opt strong{display:block}
-.pay-opt small{color:var(--muted)}
-.pix{
-  margin-top:10px;padding:12px;border-radius:8px;background:var(--paper);
-  font-family:ui-monospace,monospace;letter-spacing:.04em;
-  display:flex;justify-content:space-between;align-items:center;gap:10px;
-}
-.cloud{
-  margin-top:18px;padding:14px 16px;border-left:4px solid var(--orange);
-  background:#fff;border-radius:0 10px 10px 0;font-size:13px;color:var(--muted);
-}
-.cloud b{color:var(--ink)}
 @media (max-width:640px){
-  .lock-card{padding:24px 18px}
   .rowitem{flex-direction:column;align-items:flex-start}
 }
