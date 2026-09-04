@@ -356,7 +356,7 @@
       <div class="bar">
         <strong>Terap-ia OS</strong>
         <span class="who">${esc(u.login)}</span>
-        <button class="btn ghost" type="button" id="btn-sair" style="padding:8px 12px">Sair</button>
+        <button class="btn ghost compact" type="button" id="btn-sair">Sair</button>
       </div>
       <div class="desk">${body}</div>
     </div>`;
@@ -395,9 +395,9 @@
       : '<p class="hint">Nenhum paciente ainda. Abra a ficha para cadastrar.</p>';
     return chrome(u, `
       <button class="btn ghost" type="button" id="btn-desk">← Início</button>
-      <h2 style="margin-top:16px">Pacientes</h2>
+      <h2 class="block-title">Pacientes</h2>
       <p class="sub">Fichas só desta clínica, cifradas neste aparelho.</p>
-      <div class="btnrow" style="margin:0 0 16px">
+      <div class="btnrow tight-bottom">
         <button class="btn orange" type="button" id="go-novo">Adicionar paciente</button>
       </div>
       ${flashBox()}
@@ -423,7 +423,7 @@
     const edit = !!(S.editId && data.patients.some((x) => x.id === S.editId));
     return chrome(u, `
       <button class="btn ghost" type="button" id="btn-pacs">← Pacientes</button>
-      <h2 style="margin-top:16px">${edit ? 'Editar paciente' : 'Adicionar paciente'}</h2>
+      <h2 class="block-title">${edit ? 'Editar paciente' : 'Adicionar paciente'}</h2>
       <p class="sub">Todos os dados da ficha, inclusive telefone. Obrigatórios: nome e telefone com DDD.</p>
       <form id="f-pac" class="panel" novalidate autocomplete="off">
         <div class="grid2">
@@ -483,7 +483,7 @@
 
     return chrome(u, `
       <button class="btn ghost" type="button" id="btn-desk">← Início</button>
-      <h2 style="margin-top:16px">Agenda</h2>
+      <h2 class="block-title">Agenda</h2>
       <p class="sub">Marque a consulta. Depois você escolhe se informa o paciente ou não — nada é enviado sozinho.</p>
       ${pending}
       <div class="panel">

@@ -70,6 +70,7 @@ input.inp:focus,select.inp:focus,textarea.inp:focus{
 .btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
 .btn.ghost:hover{background:var(--paper)}
 .btn.full{width:100%}
+.btn.compact{padding:8px 12px}
 .btn.danger{color:#8A2B12;border-color:#E8C4B8}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .hint{font-size:13px;color:var(--muted);margin-top:12px}
@@ -87,6 +88,8 @@ input.inp:focus,select.inp:focus,textarea.inp:focus{
 .bar .who{font-size:13px;opacity:.8}
 .desk{flex:1;padding:28px 18px 40px;width:min(920px,100%);margin:0 auto}
 .desk h2{font-size:22px;margin-bottom:6px}
+.desk h2.block-title{margin-top:16px}
+.btnrow.tight-bottom{margin:0 0 16px}
 .desk .sub{color:var(--muted);font-size:14px;margin-bottom:22px}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
 .tile{
