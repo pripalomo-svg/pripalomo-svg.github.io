@@ -30,15 +30,14 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
 - `apresentacao.html` — bio + vídeos "draw my life".
 - `escada-segura.html` — landing do produto "Programa Escada Segura".
 - `catalogo-videos.html` — catálogo interno de vídeos.
-- `terapia-pro.html` — **Terap-ia Pro**: instrumento clínico (arquivo único, v4).
-  Transcrição, supervisão, DSM-5, TCC, relatórios ao paciente. Dados no
-  `localStorage` do navegador; análises vão à API da Anthropic com a chave
-  da profissional. Não entra no menu principal (é para uso profissional).
-  Acesso com usuário e senha (hash no cliente — barreira, não cofre).
-  Agenda e prontuário: sessões em `localStorage` (`tp_sess`); áudio da
-  sessão em IndexedDB (`terapia-pro` / `audio`). No dia marcado, grava o
-  áudio do computador (aba da videochamada) e transcreve para a ficha.
-  A versão 3 (sem o módulo Relatórios) ficou de fora de propósito.
+- `terapia-pro.html` — **Terap-ia OS**: sistema de banco da clínica
+  (login/senha, pacientes, agenda Google + WhatsApp). Mensalidade R$ 100
+  (Pix `11950690537` ou PagSeguro/cartão). No dia da consulta, grava o
+  áudio do computador (aba da videochamada), transcreve e salva no
+  prontuário da ficha (texto integral, sintomas, emoções, choro, DSM-5 e
+  plano da próxima sessão). Áudio em IndexedDB (`terapia-os` / `audio`).
+  Dados isolados por usuário no navegador. Estilos/JS em
+  `assets/terapia-os.css` e `assets/terapia-os.js`.
 
 ## Conteúdo em Markdown (blog)
 

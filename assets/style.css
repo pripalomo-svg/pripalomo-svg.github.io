@@ -98,7 +98,7 @@ nav {
   display: none; background: none; border: none; cursor: pointer;
   font-size: 20px; color: var(--preto); padding: 4px;
 }
-@media (max-width: 680px) {
+@media (max-width: 960px) {
   .nav-toggle { display: block; }
   .nav-links {
     display: none; position: fixed; top: 64px; right: 0;
