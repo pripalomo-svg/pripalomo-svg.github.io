@@ -29,7 +29,7 @@ renderizado no navegador (biblioteca `marked`), sem nenhum passo de build.
 | `post.html` | Página que exibe um artigo (abre via `post.html?p=nome-do-arquivo`) |
 | `posts/` | Artigos do blog, **um arquivo `.md` por artigo** |
 | `escada-segura.html` | Landing do **Programa Escada Segura** (produto pago) |
-| `terapia-pro.html` | **Terap-ia OS** — login, pacientes, agenda Google + WhatsApp (R$ 100/mês) |
+| `terapia-pro.html` | **Terap-ia OS** — login, ficha de pacientes, agenda com aviso opcional (R$ 100/mês) |
 | `fobias.html` | Redireciona para a página inicial (`index.html`) |
 | `assets/style.css` | Estilos compartilhados |
 | `assets/app.js` | Scripts (menu, pagamento, newsletter) e dados de contato |

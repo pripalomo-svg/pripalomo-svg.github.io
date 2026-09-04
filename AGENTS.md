@@ -31,11 +31,11 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
 - `escada-segura.html` — landing do produto "Programa Escada Segura".
 - `catalogo-videos.html` — catálogo interno de vídeos.
 - `terapia-pro.html` — **Terap-ia OS**: sistema de banco da clínica (login/senha,
-  pacientes, agenda Google + WhatsApp). Mensalidade R$ 100 (Pix `11950690537`
-  ou PagSeguro/cartão). Sem tour de boas-vindas. Dados isolados por usuário
-  no navegador; nuvem recomendada para 1000 clínicas: **Supabase** (auth +
-  Postgres com RLS) + **Cloudflare R2** (arquivos, muito espaço).
-  Estilos/JS em `assets/terapia-os.css` e `assets/terapia-os.js`.
+  ficha completa de pacientes, agenda). Ao marcar consulta, o profissional
+  escolhe se informa o paciente no WhatsApp. Mensalidade R$ 100 (Pix
+  `11950690537` ou PagSeguro/cartão). Sem tour. Cofre AES-GCM no navegador;
+  nuvem para 1000 clínicas: **Supabase** (auth + Postgres RLS) +
+  **Cloudflare R2**. Estilos/JS em `assets/terapia-os.css` e `assets/terapia-os.js`.
 
 ## Conteúdo em Markdown (blog)
 
