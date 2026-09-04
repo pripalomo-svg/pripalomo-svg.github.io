@@ -119,7 +119,7 @@ label.fl{
   display:block;font-size:.78rem;font-weight:500;color:var(--n700);
   margin-bottom:5px;
 }
-input[type=text],input[type=password],textarea,select.inp{
+input[type=text],input[type=password],input[type=date],textarea,select.inp{
   width:100%;font-family:'DM Sans',sans-serif;font-size:.92rem;
   padding:9px 11px;border:1px solid var(--line);border-radius:8px;
   background:#FCFDFD;color:var(--ink);
@@ -275,6 +275,14 @@ input:focus,textarea:focus,select:focus{
 .pac-meta .cnt{font-size:.66rem;color:#98A099;letter-spacing:.05em}
 .pac-act{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 @media(max-width:700px){.pac{grid-template-columns:auto 1fr}.pac-act{grid-column:1/-1;justify-content:flex-start}}
+
+/* agenda / prontuário */
+.appt{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;background:var(--surface)}
+.appt.today{border-color:var(--warn);box-shadow:0 0 0 1px var(--warn)}
+.appt header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.appt .when{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--n700);letter-spacing:.04em}
+.appt .st{font-size:.85rem;color:#5A6B6B}
+.recbox{border:1px dashed var(--warn);border-radius:10px;padding:14px 16px;background:#FBF6F1;margin-top:12px}
 
 /* medidor */
 .meter{height:8px;background:var(--line-soft);border-radius:6px;overflow:hidden;margin-bottom:8px}
@@ -516,13 +524,22 @@ const S = {
   supBuf:[],
   supTimer:null,
   supBusy:false,
-  momento:null
+  momento:null,
+  sessions: JSON.parse(store.get('tp_sess') || '[]'),
+  activeSess:null,
+  mediaRec:null,
+  capDisplay:null,
+  capMic:null,
+  capCtx:null,
+  audioChunks:[],
+  saveTimer:null
 };
 
 /* ---------- módulos ---------- */
 const MODULES = {
   INI:{ name:'Início e ética', desc:'O que este instrumento é, como usar, e os compromissos de sigilo e tratamento de dados que valem para todo o conteúdo gerado aqui.' },
   PAC:{ name:'Pacientes', desc:'Fichas de trabalho por paciente, identificadas apenas por iniciais. Cada análise gerada fica vinculada ao paciente ativo. Tudo permanece nesta máquina.' },
+  AGN:{ name:'Agenda e prontuário', desc:'Marque a sessão no calendário. No dia, grave o áudio do computador (aba da videochamada), transcreva na hora e grave no prontuário da ficha: texto integral, resumo clínico e plano da próxima sessão.' },
   REL:{ name:'Relatórios ao paciente', desc:'Mapa de pontos de sofrimento com escala 0–10 por domínio, relatório de acompanhamento e relatório de evolução do sofrimento — em linguagem para o paciente, com envio direto pelo WhatsApp.' },
   SES:{ name:'Sessão ao vivo', desc:'Transcrição contínua com marcação automática de trechos que pedem atenção clínica. O áudio não sai do navegador — só o texto é enviado quando você pedir uma análise.' },
   DSM:{ name:'Rastreio DSM-5', desc:'Levanta hipóteses diagnósticas a partir do relato, com critérios correspondentes, nível de sustentação e diagnósticos diferenciais a descartar.' },
@@ -550,7 +567,10 @@ const FLAGS = [
   {re:/ataque de p[âa]nico|falta de ar|cora[çc][ãa]o disparado|achei que ia morrer/i, tag:'pânico'},
   {re:/n[ãa]o consigo sair de casa|evito|deixei de ir/i, tag:'esquiva'},
   {re:/verifico|checo v[áa]rias vezes|ritual|contamina/i, tag:'compulsão'},
-  {re:/parei de comer|vomito|purgar/i, tag:'alimentação'}
+  {re:/parei de comer|vomito|purgar/i, tag:'alimentação'},
+  {re:/chor(o|ando|ou|ar)|l[áa]grimas|solu[cç]o|me emocionei/i, tag:'choro'},
+  {re:/estou com raiva|fiquei brava|fiquei bravo|irritad/i, tag:'raiva'},
+  {re:/estou triste|me deu um vazio|vontade de chorar/i, tag:'tristeza'}
 ];
 
 /* ---------- prompts ---------- */
@@ -738,6 +758,36 @@ Cite o trecho e diga qual pergunta fazer a partir dele.
 Sem descrever meios ou métodos de autolesão.
 ### Onde levar a sessão agora
 Duas ou três direções concretas.`,
+
+  PRN:(d)=>`${BASE}
+
+Tarefa: prontuário de sessão a partir da transcrição integral. Organize o que a profissional vai reler depois. Não feche diagnóstico.
+
+Ficha: ${d.code||'não informada'}
+Data da sessão: ${d.when||'não informada'}
+Transcrição integral:
+"""${d.text}"""
+Marcadores automáticos observados: ${d.flags||'nenhum'}
+Planejamento que a profissional já anotou para a próxima sessão: ${d.plan||'ainda não anotado'}
+
+Estruture assim:
+
+### Sintomatologia
+Pontos principais da queixa e da manutenção do sofrimento, só com o que a transcrição sustenta.
+
+### Emoções observadas
+Afeto predominante e mudanças de tom ao longo da sessão, com trecho curto que sustenta cada uma.
+
+### Momentos de choro ou ruptura afetiva
+Se não houver, escreva "Não evidenciado na transcrição". Sem dramatizar.
+
+### Sugestões de rastreio DSM-5
+Hipóteses de trabalho (não diagnóstico), com código quando couber, nível de sustentação e o que ainda falta perguntar. Máximo 3.
+
+### Planejamento da próxima sessão
+Se a profissional já escreveu um plano, preserve-o e só complemente o que faltar. Se não escreveu, proponha um plano operacional em 3 a 5 itens (objetivo, tarefa, risco de esquiva).
+
+Encerre com: **Rascunho de prontuário — revisar antes de incorporar ao registro oficial.**`,
 
   /* Supervisão ao vivo. Formato delimitado em vez de JSON: se uma linha vier
      malformada, ela é descartada e o resto continua funcionando. */
@@ -1000,6 +1050,7 @@ function scanFlags(chunk){
   });
   paintTicks();
   if(S.mod==='SES') renderAlerts();
+  if(S.activeSess) persistDraft();
 }
 function paintRibbon(txt){
   const words = txt.trim() ? txt.trim().split(/\s+/).length : 0;
@@ -1126,6 +1177,253 @@ function renderSup(){
 
 /* ══════════════ PACIENTES ══════════════ */
 function savePacs(){ store.set('tp_pacs',JSON.stringify(S.pacs)); }
+function saveSess(){ store.set('tp_sess',JSON.stringify(S.sessions)); }
+
+function todayISO(){
+  const d=new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function sessById(id){ return S.sessions.find(s=>s.id===id)||null; }
+function sessForPac(id){ return S.sessions.filter(s=>s.pac===id).sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time)); }
+function isToday(s){ return s && s.date===todayISO(); }
+function fmtAppt(s){
+  const [y,m,d]=s.date.split('-');
+  return `${d}/${m}/${y}${s.time?' · '+s.time:''}`;
+}
+
+/* banco local: metadados no localStorage; áudio em IndexedDB */
+let _idb=null;
+function idbOpen(){
+  if(_idb) return Promise.resolve(_idb);
+  return new Promise((res,rej)=>{
+    const r=indexedDB.open('terapia-pro',1);
+    r.onupgradeneeded=()=>{ if(!r.result.objectStoreNames.contains('audio')) r.result.createObjectStore('audio'); };
+    r.onsuccess=()=>{ _idb=r.result; res(_idb); };
+    r.onerror=()=>rej(r.error);
+  });
+}
+async function putAudio(id,blob){
+  const db=await idbOpen();
+  return new Promise((res,rej)=>{
+    const t=db.transaction('audio','readwrite');
+    t.objectStore('audio').put(blob,id);
+    t.oncomplete=()=>res();
+    t.onerror=()=>rej(t.error);
+  });
+}
+async function getAudio(id){
+  try{
+    const db=await idbOpen();
+    return new Promise((res,rej)=>{
+      const q=db.transaction('audio').objectStore('audio').get(id);
+      q.onsuccess=()=>res(q.result||null);
+      q.onerror=()=>rej(q.error);
+    });
+  }catch(e){ return null; }
+}
+async function delAudio(id){
+  try{
+    const db=await idbOpen();
+    db.transaction('audio','readwrite').objectStore('audio').delete(id);
+  }catch(e){}
+}
+
+function addAppt(){
+  const p=pacById(S.activePac);
+  if(!p){ alert('Ative uma ficha em Pacientes antes de marcar a sessão.'); return; }
+  const date=val('ap_date')||todayISO();
+  const time=val('ap_time');
+  S.sessions.unshift({
+    id:'s'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),
+    pac:p.id, date, time, status:'marcada',
+    transcript:'', summary:'', plan:'', flags:[], hasAudio:false,
+    created:new Date().toISOString(), updated:new Date().toISOString()
+  });
+  saveSess(); render();
+}
+function delAppt(id){
+  const s=sessById(id); if(!s) return;
+  if(!confirm('Excluir esta sessão e o áudio gravado nela?')) return;
+  S.sessions=S.sessions.filter(x=>x.id!==id);
+  if(S.activeSess===id) S.activeSess=null;
+  saveSess(); delAudio(id); render();
+}
+function persistDraft(){
+  const s=sessById(S.activeSess); if(!s) return;
+  const box=document.getElementById('tx');
+  if(box) S.transcript=box.value;
+  const plan=document.getElementById('plan');
+  if(plan) s.plan=plan.value;
+  s.transcript=S.transcript;
+  s.flags=S.alerts.slice();
+  s.updated=new Date().toISOString();
+  if(S.recording) s.status='gravando';
+  saveSess();
+}
+
+function localSummary(text, alerts, plan){
+  const flags=alerts||[];
+  const cry=flags.filter(a=>a.tag==='choro');
+  const emo=flags.filter(a=>['choro','pânico','desesperança','raiva','tristeza'].includes(a.tag));
+  const sint=flags.filter(a=>!['choro','raiva','tristeza'].includes(a.tag));
+  const clip=t=>(t||'').trim() ? (t.trim().slice(0,900)+(t.trim().length>900?'…':'')) : 'Dados insuficientes.';
+  return `### Sintomatologia\n${sint.length?sint.map(a=>`- **${a.tag}**: "${a.quote}"`).join('\n'):clip(text)}\n\n`+
+    `### Emoções observadas\n${emo.length?emo.map(a=>`- **${a.tag}**: "${a.quote}"`).join('\n'):'Não evidenciado de forma automática na transcrição — revise o texto integral.'}\n\n`+
+    `### Momentos de choro ou ruptura afetiva\n${cry.length?cry.map(a=>`- "${a.quote}"`).join('\n'):'Não evidenciado na transcrição.'}\n\n`+
+    `### Sugestões de rastreio DSM-5\nDados insuficientes para pontuação automática. Com a chave de API, o resumo clínico completa esta seção. Sem ela, use o módulo Rastreio DSM-5 sobre a transcrição integral.\n\n`+
+    `### Planejamento da próxima sessão\n${plan&&plan.trim()?plan.trim():'Ainda não anotado pela profissional.'}\n\n`+
+    `**Rascunho de prontuário — revisar antes de incorporar ao registro oficial.**`;
+}
+
+async function finishProntuario(s){
+  if(!s) return;
+  persistDraft();
+  const flags=(s.flags||[]).map(a=>a.tag+' — '+a.quote).join('; ');
+  const p=pacById(s.pac);
+  const when=fmtAppt(s);
+  if(S.key && (s.transcript||'').trim().length>=40){
+    try{
+      s.summary = await ask(PROMPTS.PRN({
+        code:p?p.code:'', when, text:s.transcript, flags:flags||'nenhum', plan:s.plan||''
+      }));
+      saveHist('PRN', s.summary);
+    }catch(e){
+      s.summary = localSummary(s.transcript, s.flags, s.plan)+'\n\n_(Resumo automático local — a API não respondeu: '+e.message+'.)_';
+    }
+  }else{
+    s.summary = localSummary(s.transcript, s.flags, s.plan);
+  }
+  s.status='registrada';
+  s.updated=new Date().toISOString();
+  saveSess();
+}
+
+async function startSessRec(id){
+  const s=sessById(id); if(!s) return;
+  if(!confirm('A transcrição exige consentimento escrito do paciente. O Chrome vai pedir para compartilhar a aba da videochamada — marque "Compartilhar áudio da aba". Continuar?')) return;
+  S.activeSess=id;
+  S.activePac=s.pac; store.set('tp_active',s.pac);
+  S.transcript=s.transcript||'';
+  S.alerts=(s.flags||[]).slice();
+  S.audioChunks=[];
+
+  let gotSys=false;
+  try{
+    const display=await navigator.mediaDevices.getDisplayMedia({
+      video:{frameRate:1,width:32,height:32},
+      audio:true
+    });
+    display.getVideoTracks().forEach(t=>{ t.enabled=false; t.stop(); });
+    S.capDisplay=display;
+    gotSys=display.getAudioTracks().length>0;
+    if(!gotSys) alert('Nenhum áudio do computador chegou. Na próxima, escolha a aba da chamada e marque "Compartilhar áudio da aba". Vou gravar o microfone e transcrever mesmo assim.');
+  }catch(e){
+    S.capDisplay=null;
+    if(!confirm('Compartilhamento do áudio do computador cancelado. Gravar só o microfone e transcrever?')) return;
+  }
+  try{ S.capMic=await navigator.mediaDevices.getUserMedia({audio:true}); }catch(e){ S.capMic=null; }
+
+  const parts=[];
+  if(S.capDisplay) S.capDisplay.getAudioTracks().forEach(t=>parts.push(t));
+  if(S.capMic) S.capMic.getAudioTracks().forEach(t=>parts.push(t));
+  if(parts.length){
+    try{
+      S.capCtx=new AudioContext();
+      const dest=S.capCtx.createMediaStreamDestination();
+      if(S.capDisplay && S.capDisplay.getAudioTracks().length){
+        S.capCtx.createMediaStreamSource(new MediaStream(S.capDisplay.getAudioTracks())).connect(dest);
+      }
+      if(S.capMic) S.capCtx.createMediaStreamSource(S.capMic).connect(dest);
+      const mime=['audio/webm;codecs=opus','audio/webm','audio/mp4'].find(m=>window.MediaRecorder&&MediaRecorder.isTypeSupported(m))||'';
+      S.mediaRec=new MediaRecorder(dest.stream, mime?{mimeType:mime}:{});
+      S.mediaRec.ondataavailable=ev=>{ if(ev.data&&ev.data.size) S.audioChunks.push(ev.data); };
+      S.mediaRec.start(4000);
+    }catch(e){ S.mediaRec=null; }
+  }
+
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(SR){
+    S.rec=new SR();
+    S.rec.lang='pt-BR'; S.rec.continuous=true; S.rec.interimResults=true;
+    let settled=S.transcript?S.transcript+' ':'';
+    S.rec.onresult=e=>{
+      let interim='';
+      for(let i=e.resultIndex;i<e.results.length;i++){
+        const t=e.results[i][0].transcript;
+        if(e.results[i].isFinal){ settled+=t+' '; scanFlags(t); } else interim+=t;
+      }
+      S.transcript=settled;
+      paintRibbon(settled+interim);
+      const box=document.getElementById('tx');
+      if(box) box.value=settled;
+    };
+    S.rec.onend=()=>{ if(S.recording){ try{S.rec.start();}catch(e){} } };
+    try{ S.rec.start(); }catch(e){}
+  }
+
+  S.recording=true;
+  S.t0=Date.now();
+  S.timer=setInterval(tick,500);
+  S.saveTimer=setInterval(persistDraft,8000);
+  document.getElementById('led').classList.add('live');
+  document.getElementById('rbstate').textContent=gotSys?'gravando áudio do computador':'gravando microfone';
+  persistDraft();
+  render();
+}
+
+async function stopSessRec(){
+  persistDraft();
+  S.recording=false;
+  if(S.rec){ try{S.rec.stop();}catch(e){} }
+  clearInterval(S.timer);
+  clearInterval(S.saveTimer);
+  document.getElementById('led').classList.remove('live');
+  document.getElementById('rbstate').textContent='salvando prontuário';
+
+  if(S.mediaRec && S.mediaRec.state!=='inactive'){
+    await new Promise(res=>{
+      S.mediaRec.onstop=res;
+      try{ S.mediaRec.stop(); }catch(e){ res(); }
+    });
+  }
+  if(S.capDisplay) S.capDisplay.getTracks().forEach(t=>t.stop());
+  if(S.capMic) S.capMic.getTracks().forEach(t=>t.stop());
+  if(S.capCtx){ try{ S.capCtx.close(); }catch(e){} }
+  S.capDisplay=S.capMic=S.capCtx=S.mediaRec=null;
+
+  const s=sessById(S.activeSess);
+  if(s && S.audioChunks.length){
+    try{
+      const blob=new Blob(S.audioChunks,{type:S.audioChunks[0].type||'audio/webm'});
+      await putAudio(s.id,blob);
+      s.hasAudio=true;
+    }catch(e){ s.hasAudio=false; }
+  }
+  S.audioChunks=[];
+  if(s){
+    persistDraft();
+    await finishProntuario(s);
+  }
+  document.getElementById('rbstate').textContent='registrada';
+  render();
+}
+
+async function playSessAudio(id){
+  const blob=await getAudio(id);
+  if(!blob){ alert('Áudio não encontrado neste navegador.'); return; }
+  const url=URL.createObjectURL(blob);
+  const a=document.getElementById('aud');
+  if(!a){ window.open(url,'_blank'); return; }
+  a.src=url; a.classList.remove('hidden'); a.play().catch(()=>{});
+}
+
+function openSess(id){
+  const s=sessById(id); if(!s) return;
+  S.activeSess=id;
+  S.activePac=s.pac; store.set('tp_active',s.pac);
+  S.transcript=s.transcript||'';
+  S.mod='AGN'; render();
+}
 
 function addPac(){
   const code = val('pc_code').trim();
@@ -1149,19 +1447,29 @@ function delPac(id){
   if(!confirm(`Excluir a ficha ${p.code}${linked?` e desvincular ${linked} registro(s)`:''}? A exclusão é permanente.`)) return;
   S.pacs=S.pacs.filter(x=>x.id!==id);
   S.history.forEach(h=>{ if(h.pac===id) h.pac=null; });
+  const gone=S.sessions.filter(s=>s.pac===id);
+  S.sessions=S.sessions.filter(s=>s.pac!==id);
+  gone.forEach(s=>delAudio(s.id));
   if(S.activePac===id){ S.activePac=null; store.del('tp_active'); }
-  savePacs(); store.set('tp_hist',JSON.stringify(S.history));
+  savePacs(); saveSess(); store.set('tp_hist',JSON.stringify(S.history));
   render();
 }
 function viewPac(id){
   const p=pacById(id); if(!p) return;
   const items=S.history.filter(h=>h.pac===id);
+  const prn=sessForPac(id);
+  const sessHtml = prn.length
+    ? prn.map(s=>`<div class="hitem"><header><span class="who">Sessão ${fmtAppt(s)} · ${esc(s.status)}</span><span class="when">${s.updated?new Date(s.updated).toLocaleString('pt-BR'):''}</span></header>
+        ${s.summary?'<div class="doc">'+md(s.summary)+'</div>':''}
+        ${s.transcript?'<p class="hint" style="margin-top:8px">Transcrição integral (${s.transcript.trim().split(/\s+/).length} palavras)</p><div class="doc"><p>'+esc(s.transcript.slice(0,800))+(s.transcript.length>800?'…':'')+'</p></div>':''}
+      </div>`).join('')
+    : '<p class="hint">Nenhuma sessão no prontuário ainda.</p>';
   const body = items.length
     ? items.map(h=>`<div class="hitem"><header><span class="who">${h.mod} · ${MODULES[h.mod]?MODULES[h.mod].name:h.mod}</span><span class="when">${new Date(h.at).toLocaleString('pt-BR')}</span></header><div class="doc">${md(h.text)}</div></div>`).join('')
-    : '<div class="empty">nenhum registro vinculado a esta ficha ainda</div>';
-  document.getElementById('out').innerHTML = `<div class="out"><div class="doc"><h3>Ficha ${esc(p.code)}</h3>
+    : '<div class="empty">nenhuma análise de IA vinculada a esta ficha ainda</div>';
+  document.getElementById('out').innerHTML = `<div class="out"><div class="doc"><h3>Prontuário ${esc(p.code)}</h3>
     <p>${p.age?'Idade: '+esc(p.age)+' · ':''}${p.hx?'Hipótese de trabalho: '+esc(p.hx):''}</p>
-    ${p.notes?'<p>'+esc(p.notes)+'</p>':''}</div></div>`+body;
+    ${p.notes?'<p>'+esc(p.notes)+'</p>':''}</div></div>`+sessHtml+body;
   document.getElementById('out').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function exportPac(id){
@@ -1170,6 +1478,7 @@ function exportPac(id){
   const body = `FICHA DE TRABALHO — ${p.code}\nCriada em: ${new Date(p.created).toLocaleDateString('pt-BR')}\n`+
     `${p.age?'Idade: '+p.age+'\n':''}${p.hx?'Hipótese: '+p.hx+'\n':''}${p.notes?'Notas: '+p.notes+'\n':''}`+
     (p.sods&&p.sods.length?`\nMAPA DE SOFRIMENTO (0-10)\n${sodsText(p)}\n`:'')+
+    sessForPac(id).map(s=>`\n===== SESSÃO ${fmtAppt(s)} · ${s.status} =====\n\n${s.summary||'(sem resumo)'}\n\n--- Transcrição ---\n${s.transcript||'(vazia)'}\n`).join('')+
     `\nMaterial gerado por IA — revisar antes de incorporar ao prontuário oficial.\n\n`+
     (items.map(h=>`===== ${h.mod} · ${new Date(h.at).toLocaleString('pt-BR')} =====\n\n${h.text}\n`).join('\n')||'(sem registros)');
   const a=document.createElement('a');
@@ -1178,7 +1487,7 @@ function exportPac(id){
 }
 function storageMeter(){
   let bytes=0;
-  ['tp_hist','tp_pacs','tp_key','tp_active'].forEach(k=>{ const v=store.get(k); if(v) bytes+=v.length*2; });
+  ['tp_hist','tp_pacs','tp_key','tp_active','tp_sess'].forEach(k=>{ const v=store.get(k); if(v) bytes+=v.length*2; });
   const cap=5*1024*1024, pct=Math.min(100,(bytes/cap)*100);
   return `<div class="meter"><div class="meter-bar" style="width:${pct.toFixed(1)}%"></div></div>
     <p class="hint">${(bytes/1024).toFixed(1)} KB usados de ~5 MB disponíveis neste navegador. Este é o limite real de um arquivo local — exporte fichas antigas e mantenha o prontuário oficial no seu sistema clínico.</p>`;
@@ -1192,6 +1501,7 @@ const TOUR=[
  {t:'Durante a sessão',b:'Sessão ao vivo transcreve a fala em tempo real (Chrome ou Edge) e marca trechos de atenção clínica sem custo. Se quiser, ligue a supervisão ao vivo: leitura clínica e frases prontas enquanto a sessão acontece.'},
  {t:'Depois da sessão',b:'Leve a transcrição para a Nota SOAP, o Rastreio DSM-5 ou a Formulação psicodinâmica. O resultado revisado por você vai para o prontuário oficial, no seu sistema clínico.'},
  {t:'Preparação de caso',b:'Plano de intervenção, práticas MBSR, metáforas sob medida para o repertório do paciente e um catálogo de 27 instrumentos de avaliação com pontos de corte — este funciona até sem chave de API.'},
+ {t:'Agenda e prontuário',b:'Marque a sessão na Agenda. No dia, o botão de gravar captura o áudio do computador (aba da videochamada) e transcreve para o prontuário da ficha: texto integral, sintomas, emoções, choro, sugestões DSM-5 e o plano da próxima sessão.'},
  {t:'Relatórios ao paciente',b:'Com uma ficha ativa, o módulo Relatórios registra o mapa de sofrimento (0–10) e gera textos em linguagem para o paciente — acompanhamento e evolução — com envio pelo WhatsApp depois da sua revisão.'},
  {t:'Uma chave, tudo liberado',b:'Cole sua chave da Anthropic em Configuração e todos os módulos ficam ativos. A chave fica salva só neste navegador. Pronto — o resto você descobre usando.'}
 ];
@@ -1445,6 +1755,7 @@ function render(){
           <li>No primeiro atendimento, colha o <strong>consentimento por escrito</strong> do paciente para transcrição e apoio de IA.</li>
           <li>Durante a sessão, abra <strong>Sessão ao vivo</strong> no Chrome ou Edge e inicie a transcrição. Em atendimento online, use caixas de som em vez de fone — assim o microfone capta também a fala do paciente.</li>
           <li>Ligue a <strong>supervisão ao vivo</strong> quando quiser leitura clínica e frases prontas durante a sessão; desligue quando não precisar, porque cada análise consome API.</li>
+          <li>Marque a sessão em <strong>Agenda e prontuário</strong>. No dia, grave o áudio do computador (aba da videochamada) — a transcrição e o resumo clínico entram sozinhos no prontuário da ficha.</li>
           <li>Ao encerrar, leve a transcrição para <strong>Nota SOAP</strong> e copie o resultado revisado para o seu prontuário oficial.</li>
           <li>Entre sessões, use <strong>Rastreio DSM-5</strong>, <strong>Formulação</strong>, <strong>Plano de intervenção</strong> e <strong>Instrumentos</strong> para preparar o caso.</li>
         </ol></div>
@@ -1656,6 +1967,73 @@ function render(){
     paintIns();
   }
 
+  else if(S.mod==='AGN'){
+    const p=pacById(S.activePac);
+    if(!p){
+      pane(`<div class="card"><h3>Ficha necessária</h3>
+        <div class="doc"><p>A agenda e o prontuário são por paciente. Ative uma ficha para marcar e gravar a sessão.</p></div>
+        <button class="btn" onclick="S.mod='PAC';render()">Ir para Pacientes</button></div>`);
+    } else {
+      const list=sessForPac(p.id);
+      const rec=S.recording && S.activeSess;
+      const cards=list.length?list.map(s=>{
+        const today=isToday(s);
+        const live=S.recording && S.activeSess===s.id;
+        return `<div class="appt ${today?'today':''}">
+          <header>
+            <span class="when">${today?'HOJE · ':''}${esc(fmtAppt(s))}</span>
+            <span class="badge ${s.status==='registrada'?'lo':s.status==='gravando'?'hi':'mid'}">${esc(s.status)}</span>
+          </header>
+          <p class="st">${s.transcript?s.transcript.trim().split(/\s+/).length+' palavras transcritas':'ainda sem transcrição'}${s.hasAudio?' · áudio salvo':''}</p>
+          <div class="btnrow" style="margin-top:10px">
+            ${today && !S.recording ? `<button class="btn accent" onclick="startSessRec('${s.id}')">Gravar áudio do computador</button>`:''}
+            ${live ? `<button class="btn accent" onclick="stopSessRec()">Encerrar e salvar no prontuário</button>`:''}
+            ${s.hasAudio?`<button class="btn ghost sm" onclick="playSessAudio('${s.id}')">Ouvir áudio</button>`:''}
+            <button class="btn ghost sm" onclick="openSess('${s.id}')">Abrir</button>
+            <button class="btn ghost sm" onclick="delAppt('${s.id}')">Excluir</button>
+          </div>
+          ${s.summary?`<div class="doc" style="margin-top:12px">${md(s.summary)}</div>`:''}
+        </div>`;
+      }).join(''):'<div class="out"><div class="empty">nenhuma sessão marcada nesta ficha</div></div>';
+      const open=sessById(S.activeSess);
+      pane(`${PRIVACY}
+        <div class="card">
+          <h3>Marcar sessão — ${esc(p.code)}</h3>
+          <div class="row two">
+            <div><label class="fl" for="ap_date">Data</label>
+            <input type="date" id="ap_date" value="${todayISO()}"></div>
+            <div><label class="fl" for="ap_time">Horário</label>
+            <input type="text" id="ap_time" placeholder="Ex.: 14:00"></div>
+          </div>
+          <button class="btn" style="margin-top:12px" onclick="addAppt()">Marcar no prontuário</button>
+          <p class="hint">No dia da sessão aparece o botão para gravar o áudio do computador. Na janela do Chrome, escolha a aba da videochamada e marque <strong>Compartilhar áudio da aba</strong>.</p>
+        </div>
+        ${rec?`<div class="recbox">
+          <h3 style="margin-bottom:8px">Gravação em curso</h3>
+          <p class="hint" style="margin-bottom:10px">A transcrição é salva sozinha a cada poucos segundos. Encerrar grava o áudio, o texto integral e o resumo clínico no prontuário desta ficha.</p>
+        </div>`:''}
+        <div class="card">
+          <h3>Sessões</h3>
+          ${cards}
+          <audio id="aud" class="hidden" controls style="width:100%;margin-top:10px"></audio>
+        </div>
+        <div class="card">
+          <h3>Transcrição integral ${open?'· '+esc(fmtAppt(open)):''}</h3>
+          <label class="fl" for="tx">Texto da sessão — entra no prontuário</label>
+          <textarea id="tx" style="min-height:180px" placeholder="A transcrição aparece aqui. Você também pode digitar ou colar." oninput="S.transcript=this.value;paintRibbon(this.value);persistDraft()">${esc(S.transcript)}</textarea>
+          <label class="fl" for="plan" style="margin-top:14px">Planejamento da próxima sessão (sua escrita)</label>
+          <textarea id="plan" style="min-height:80px" placeholder="Objetivo, tarefa, o que retomar. Entra no resumo do prontuário." oninput="persistDraft()">${open?esc(open.plan||''):''}</textarea>
+          <div class="btnrow" style="margin-top:14px">
+            ${open?`<button class="btn" id="go" onclick="finishProntuario(sessById('${open.id}')).then(()=>render())">Gerar resumo clínico agora</button>`:''}
+            <button class="btn ghost" onclick="S.mod='DSM';render()">Levar para rastreio DSM-5</button>
+            <button class="btn ghost" onclick="S.mod='SOA';render()">Levar para nota SOAP</button>
+          </div>
+          <p class="hint">O resumo cobre sintomatologia, emoções, momentos de choro, sugestões DSM-5 e o plano da próxima sessão. Sem chave de API, o resumo usa os marcadores automáticos; com chave, a leitura clínica fica completa.</p>
+        </div>
+        ${open&&open.summary?`<div class="out"><div class="doc">${md(open.summary)}</div></div>`:outBlock()}`);
+    }
+  }
+
   else if(S.mod==='PAC'){
     const cards = S.pacs.length ? S.pacs.map(p=>{
       const linked=S.history.filter(h=>h.pac===p.id).length;
@@ -1670,6 +2048,7 @@ function render(){
         <div class="pac-act">
           <button class="btn ${on?'':'ghost'} sm" onclick="setActive('${p.id}')">${on?'Ativa':'Ativar'}</button>
           <button class="btn ghost sm" onclick="viewPac('${p.id}')">Ver</button>
+          <button class="btn ghost sm" onclick="setActive('${p.id}');S.mod='AGN';render()">Agenda</button>
           <button class="btn ghost sm" onclick="exportPac('${p.id}')">Exportar</button>
           <button class="btn ghost sm" onclick="delPac('${p.id}')">Excluir</button>
         </div>

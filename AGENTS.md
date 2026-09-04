@@ -35,6 +35,9 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
   `localStorage` do navegador; análises vão à API da Anthropic com a chave
   da profissional. Não entra no menu principal (é para uso profissional).
   Acesso com usuário e senha (hash no cliente — barreira, não cofre).
+  Agenda e prontuário: sessões em `localStorage` (`tp_sess`); áudio da
+  sessão em IndexedDB (`terapia-pro` / `audio`). No dia marcado, grava o
+  áudio do computador (aba da videochamada) e transcreve para a ficha.
   A versão 3 (sem o módulo Relatórios) ficou de fora de propósito.
 
 ## Conteúdo em Markdown (blog)
