@@ -69,12 +69,14 @@
     const endH = String((hh + 1) % 24).padStart(2, '0');
     const end = ev.date.replace(/-/g, '') + 'T' + endH + String(mm).padStart(2, '0') + '00';
     const q = new URLSearchParams({
+      action: 'TEMPLATE',
       text: 'Consulta · ' + ev.who,
       dates: start + '/' + end,
       details: ev.note || 'Consulta — Terap-ia OS',
-      location: ev.place || 'Consultório / online'
+      location: ev.place || 'Consultório / online',
+      ctz: 'America/Sao_Paulo'
     });
-    return 'https://calendar.google.com/calendar/u/0/r/eventedit?' + q.toString();
+    return 'https://www.google.com/calendar/render?' + q.toString();
   }
 
   function openTab(url) {
