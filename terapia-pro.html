@@ -344,6 +344,8 @@ details.ins summary::marker{color:var(--n500)}
   letter-spacing:.12em;text-transform:uppercase;text-decoration:none;
 }
 .rail-back:hover{color:#fff}
+.rail .btn.ghost{color:rgba(255,255,255,.78);border-color:rgba(255,255,255,.22)}
+.rail .btn.ghost:hover{background:rgba(255,255,255,.08);color:#fff}
 
 @media (max-width:860px){
   body{display:flex;flex-direction:column}
@@ -368,9 +370,52 @@ details.ins summary::marker{color:var(--n500)}
   .row.two{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+
+/* login */
+.gate{
+  min-height:100dvh;display:none;align-items:center;justify-content:center;
+  padding:28px 18px;background:var(--paper);
+}
+body.locked .gate{display:flex}
+body.locked .app,body.locked .mobar{display:none !important}
+.gate-card{
+  width:min(420px,100%);background:var(--surface);border:1px solid var(--line);
+  border-radius:16px;padding:32px 28px 28px;
+}
+.gate-card .kicker{
+  font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--n500);
+}
+.gate-card h1{
+  font-family:'Syne',sans-serif;font-weight:800;font-size:1.7rem;
+  letter-spacing:-.03em;color:var(--n900);margin:8px 0 6px;
+}
+.gate-card h1 em{font-style:normal;color:var(--n500)}
+.gate-card .lead{font-size:.9rem;color:#5A6B6B;margin-bottom:22px}
+.gate-err{display:none;margin:0 0 14px}
+.gate-err.show{display:block}
+.gate-foot{margin-top:16px;font-size:.76rem;color:#7A8888}
+.gate-foot a{color:var(--n700)}
 </style>
 </head>
-<body>
+<body class="locked">
+
+<div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+  <form class="gate-card" id="gateform" autocomplete="on">
+    <span class="kicker">Instrumento clínico · CRP 06/98007</span>
+    <h1 id="gate-title">Terap-ia <em>Pro</em></h1>
+    <p class="lead">Acesso restrito à profissional licenciada. Entre com o seu usuário e a senha.</p>
+    <div class="err gate-err" id="gateerr">Usuário ou senha incorretos.</div>
+    <label class="fl" for="u">Usuário</label>
+    <input type="text" id="u" name="username" autocomplete="username" autocapitalize="off" spellcheck="false" required>
+    <label class="fl" for="p" style="margin-top:14px">Senha</label>
+    <input type="password" id="p" name="password" autocomplete="current-password" required>
+    <div class="btnrow" style="margin-top:18px">
+      <button class="btn" type="submit" id="gatebtn">Entrar</button>
+    </div>
+    <p class="gate-foot"><a href="index.html">Voltar ao site</a></p>
+  </form>
+</div>
 
 <div class="mobar">
   <button type="button" id="momenu" aria-label="Abrir módulos">☰</button>
@@ -392,6 +437,7 @@ details.ins summary::marker{color:var(--n500)}
       <div class="keystate"><span class="dot" id="keydot"></span><span id="keytxt">Chave não configurada</span></div>
       <div class="licline">Licença de uso profissional individual · R$ 249</div>
       <a class="rail-back" href="index.html">← priscilapalomo.com</a>
+      <button type="button" class="btn ghost sm" style="margin-top:10px;width:100%" onclick="logout()">Sair</button>
       <select id="model" aria-label="Modelo">
         <option value="claude-sonnet-5">claude-sonnet-5</option>
         <option value="claude-opus-5">claude-opus-5</option>
@@ -1738,6 +1784,11 @@ function render(){
         </div>
       </div>
       <div class="card">
+        <h3>Sessão</h3>
+        <p class="hint" style="margin-bottom:12px">Você está autenticada neste navegador. Ao sair, o instrumento pede usuário e senha de novo. A chave de API e as fichas continuam salvas aqui.</p>
+        <button class="btn ghost" onclick="logout()">Sair</button>
+      </div>
+      <div class="card">
         <h3>Uso responsável</h3>
         <div class="doc">
           <p>O conteúdo gerado é rascunho de documentação. A responsabilidade técnica, o diagnóstico e a conduta permanecem inteiramente com a profissional.</p>
@@ -1786,6 +1837,55 @@ function wipeHist(){
   S.history=[]; store.set('tp_hist','[]'); render();
 }
 
+/* ══════════════ acesso ══════════════ */
+const AUTH_USER = 'priscila';
+const AUTH_HASH = '495837b222e960b005053d29362b5a3964816c0c85a41cf46af6096e652f6506';
+
+async function shaHex(s){
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+  return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+function isIn(){ return store.get('tp_in') === '1'; }
+function unlock(){
+  document.body.classList.remove('locked');
+  keyState();
+  S.mod = S.key ? 'INI' : 'CFG';
+  render();
+  if(!store.get('tp_tour')) openTour(0);
+}
+function logout(){
+  store.del('tp_in');
+  document.body.classList.add('locked');
+  const u=document.getElementById('u'), p=document.getElementById('p');
+  if(u) u.value='';
+  if(p) p.value='';
+  document.getElementById('gateerr')?.classList.remove('show');
+  closeRail();
+}
+async function tryLogin(ev){
+  ev.preventDefault();
+  const btn=document.getElementById('gatebtn');
+  const err=document.getElementById('gateerr');
+  err.classList.remove('show');
+  const user=val('u').trim().toLowerCase();
+  const pass=val('p');
+  if(btn){ btn.disabled=true; btn.innerHTML='<span class="spin"></span> Entrando'; }
+  try{
+    const hex = await shaHex('tp.v1.'+user+':'+pass);
+    if(user===AUTH_USER && hex===AUTH_HASH){
+      store.set('tp_in','1');
+      unlock();
+    }else{
+      err.classList.add('show');
+    }
+  }catch(e){
+    err.textContent='Não foi possível validar o acesso neste navegador.';
+    err.classList.add('show');
+  }finally{
+    if(btn){ btn.disabled=false; btn.textContent='Entrar'; }
+  }
+}
+
 /* ══════════════ boot ══════════════ */
 (function boot(){
   const nav = document.getElementById('nav');
@@ -1795,15 +1895,13 @@ function wipeHist(){
   nav.querySelectorAll('.mod').forEach(b=>b.onclick=()=>{ S.mod=b.dataset.m; closeRail(); render(); });
   document.getElementById('momenu')?.addEventListener('click', openRail);
   document.getElementById('scrim')?.addEventListener('click', closeRail);
+  document.getElementById('gateform')?.addEventListener('submit', tryLogin);
 
   const sel = document.getElementById('model');
   sel.value = S.model;
   sel.onchange = ()=>{ S.model=sel.value; store.set('tp_model',sel.value); };
 
-  keyState();
-  S.mod = S.key ? 'INI' : 'CFG';
-  render();
-  if(!store.get('tp_tour')) openTour(0);
+  if(isIn()) unlock();
 })();
 </script>
 </body>
