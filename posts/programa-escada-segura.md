@@ -35,6 +35,12 @@ Nas caixinhas **O Segredo da Mente**, o livro dialoga com:
 
 Para leitores (e famílias) que aprendem melhor com narrativa — e para quem quer ver, nas aventuras de Harry, um modelo de **determinação**: não ausência de medo, mas passos repetidos com coragem.
 
-> Material lúdico e psicoeducativo. Não substitui psicoterapia. Personagens inspirados em histórias conhecidas; uso comercial de franquias exige avaliação jurídica.
+## Nossa narrativa — não é cópia do livro original
+
+Este material **não reproduz** os romances de Harry Potter. É uma **historinha original** da Dra. Priscila Palomo, organizada por tipo de fobia, com linguagem simples e psicoeducação sobre como o medo funciona e como vencê-lo.
+
+Usamos a **jornada mundialmente conhecida** do bruxinho de óculos e cicatriz de raio como enredo ilustrativo: o leitor já conhece Harry, Hermione e Hogwarts — e isso torna mais fácil lembrar que **determinação** (não ausência de medo) é o que transforma a vida.
+
+> Material psicoeducativo. Não substitui psicoterapia. Medo intenso pede acompanhamento profissional.
 
 [Conhecer o Programa Escada Segura](escada-segura.html) · investimento **R$ 97**.

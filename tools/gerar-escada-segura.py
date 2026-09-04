@@ -947,8 +947,8 @@ def build():
     story.append(Spacer(1, 0.2 * cm))
     story.append(HRFlowable(width="40%", thickness=2, color=NAVY, spaceBefore=0, spaceAfter=8))
     p(story, "Harry Potter e as Magias da Coragem", s["cover_title"])
-    p(story, "Um capítulo para cada fobia · Uma magia para cada medo<br/>"
-             "Historinhas de determinação inspiradas em Hogwarts", s["cover_sub"])
+    p(story, "Nossa historinha original — usando a jornada de Harry Potter<br/>"
+             "para ilustrar cada fobia e como vencê-la", s["cover_sub"])
     story.append(Spacer(1, 0.3 * cm))
     story.append(ilustra("hp_cover", 13 * cm))
     story.append(Spacer(1, 0.25 * cm))
@@ -961,19 +961,25 @@ def build():
     p(story, "Carta aos Leitores Corajosos", s["h1"])
     story.append(hr())
     p(story, "Querido(a) leitor(a),", s["prosa_first"])
-    p(story, "Este livro organiza <b>um capítulo para cada tipo de fobia</b> — aranha, cobra, "
-      "cão, altura, lugares fechados, voo, sangue, agulha, trovão, escuro, dentista, água "
-      "profunda, falar em público e medo de não conseguir escapar. Em cada um, Harry Potter "
-      "vive uma <b>historinha com começo, meio e fim de superação</b>, aprende uma <b>magia</b> "
-      "e descobre, como nos livros de aventura, que <b>determinação</b> vale mais do que sorte.",
+    p(story, "Este <b>não é um resumo dos livros de Harry Potter</b>. É uma "
+      "<b>narrativa original</b> da Dra. Priscila Palomo — escrita para ser fácil "
+      "de entender, organizada por tipo de fobia, com psicoeducação sobre como o medo "
+      "funciona e como superá-lo.",
       s["prosa"])
-    p(story, "As caixinhas <b>O Segredo da Mente</b> trazem ideias de Freud (caso Pequeno Hans, "
-      "angústia e medo), de Magalhães Coelho (<i>Medos, Fobias e Ansiedades</i>: resposta "
-      "defensiva, evitamento, habituação) e da TCC com exposição gradual.",
+    p(story, "Usamos a história mundialmente conhecida do bruxinho de óculos e cicatriz "
+      "de raio como <b>enredo ilustrativo</b>: milhões de pessoas já sabem quem é Harry, "
+      "e isso ajuda a lembrar que até quem parece herói sente medo — e aprende a vencer, "
+      "passo a passo, com determinação.",
       s["prosa"])
-    p(story, "<b>Aviso:</b> obra lúdica e psicoeducativa. Não substitui psicoterapia. "
-      "Personagens inspirados em histórias conhecidas; produto independente de fins "
-      "comerciais vinculados a franquias. Medo intenso pede ajuda profissional.",
+    p(story, "Cada capítulo traz <b>começo, meio e fim de superação</b>, uma <b>magia</b> "
+      "para treinar no dia a dia e a caixinha <b>O Segredo da Mente</b>, com ideias de "
+      "Freud (caso Pequeno Hans, angústia e medo), de Magalhães Coelho "
+      "(<i>Medos, Fobias e Ansiedades</i>: resposta defensiva, evitamento, habituação) "
+      "e da TCC com exposição gradual.",
+      s["prosa"])
+    p(story, "<b>Nota:</b> material psicoeducativo. Não substitui psicoterapia. "
+      "Se o medo for muito intenso ou estiver atrapalhando sua vida, procure ajuda "
+      "profissional.",
       s["small"])
     story.append(Spacer(1, 4))
     p(story, "Com carinho,<br/><b>Dra. Priscila Palomo</b> — CRP 98007<br/>"

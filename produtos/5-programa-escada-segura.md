@@ -7,4 +7,4 @@ preco: R$ 97
 arquivo: ""
 link: escada-segura.html
 ---
-Livro ilustrado *Harry Potter e as Magias da Coragem* — um capítulo para cada fobia, com historinha lúdica (começo, meio, superação), feitiço simbólico e psicoeducação baseada em Freud e Magalhães Coelho.
+Livro ilustrado *Harry Potter e as Magias da Coragem* — narrativa original da Dra. Priscila Palomo, usando a jornada conhecida de Harry Potter para ilustrar cada fobia, com magia simbólica e psicoeducação (Freud, Magalhães Coelho, TCC).
