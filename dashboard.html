@@ -9,47 +9,100 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>P</text></svg>">
 <link rel="stylesheet" href="assets/style.css">
 <style>
-.dk-page { background: var(--creme); }
-.dk-hero { padding: 48px 0 28px; border-bottom: 2px solid var(--preto); }
+.dk-page {
+  --ink: #1A1C1E;
+  --slate: #3D4248;
+  --muted-ink: #5C6168;
+  --paper: #F4F3EF;
+  --card: #FFFFFF;
+  --line: #D5D3CC;
+  --line-strong: #1A1C1E;
+  --hover: #ECEAE4;
+  background: var(--paper);
+  color: var(--ink);
+}
+.dk-page h1, .dk-page h2, .dk-page h3 { color: var(--ink); }
+
+.dk-page nav {
+  background: rgba(244,243,239,.94);
+  border-bottom: 1px solid var(--line);
+}
+.dk-page .nav-logo-name { color: var(--ink); }
+.dk-page .nav-logo-sub,
+.dk-page .nav-links a { color: var(--muted-ink); }
+.dk-page .nav-links a:hover,
+.dk-page .nav-links a.active { color: var(--ink); }
+.dk-page .nav-cta {
+  border-color: var(--ink) !important;
+  color: var(--ink) !important;
+}
+.dk-page .nav-cta:hover {
+  background: var(--ink) !important;
+  color: #fff !important;
+}
+.dk-page .nav-toggle { color: var(--ink); }
+@media (max-width: 960px) {
+  .dk-page .nav-links { background: var(--paper); border-left-color: var(--line); }
+}
+
+.dk-page footer {
+  background: #E8E6DF;
+  border-top: 1px solid var(--line);
+}
+.dk-page .foot-links a:hover { color: var(--ink); }
+.dk-page ::-webkit-scrollbar-track { background: var(--paper); }
+.dk-page ::-webkit-scrollbar-thumb { background: var(--slate); }
+
+.dk-hero { padding: 48px 0 28px; border-bottom: 2px solid var(--line-strong); }
 .dk-kicker {
   font-size: 10px; letter-spacing: .24em; text-transform: uppercase;
-  color: var(--dourado-escuro); font-weight: 700; display: block; margin-bottom: 12px;
+  color: var(--slate); font-weight: 700; display: block; margin-bottom: 12px;
 }
 .dk-hero h1 { font-size: clamp(28px,4.8vw,44px); line-height: 1.08; margin-bottom: 12px; }
-.dk-hero p { font-size: 14px; line-height: 1.7; color: #333; max-width: 58ch; }
+.dk-hero p { font-size: 14px; line-height: 1.7; color: var(--slate); max-width: 58ch; }
 .dk-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.dk-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 12px 24px; font-size: 13px; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  cursor: pointer; font-family: inherit; border: 1.5px solid var(--ink);
+}
+.dk-btn-solid { background: var(--ink); color: #fff; }
+.dk-btn-solid:hover { background: #000; }
+.dk-btn-ghost { background: transparent; color: var(--ink); }
+.dk-btn-ghost:hover { background: var(--hover); }
 .dk-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(320px,100%), 1fr));
   gap: 0;
-  border: 2px solid var(--preto);
+  border: 2px solid var(--line-strong);
   margin: 36px 0 64px;
 }
 .dk-card {
   padding: 24px 22px 22px;
-  border-right: 1px solid var(--borda);
-  border-bottom: 1px solid var(--borda);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
   display: flex; flex-direction: column; gap: 10px;
-  background: #fff;
+  background: var(--card);
 }
-.dk-card:hover { background: #EAF2F2; }
+.dk-card:hover { background: var(--hover); }
 .dk-tag {
   font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--dourado-escuro); font-weight: 700;
+  color: var(--slate); font-weight: 700;
 }
 .dk-card h2 { font-size: 20px; line-height: 1.2; }
-.dk-card p { font-size: 13.5px; color: #444; line-height: 1.6; flex: 1; margin: 0; }
+.dk-card p { font-size: 13.5px; color: var(--slate); line-height: 1.6; flex: 1; margin: 0; }
 .dk-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
 .dk-links a {
-  font-size: 12px; padding: 8px 12px; border: 1.5px solid var(--preto);
-  text-decoration: none; color: var(--preto); background: #fff;
+  font-size: 12px; padding: 8px 12px; border: 1.5px solid var(--ink);
+  text-decoration: none; color: var(--ink); background: #fff;
 }
-.dk-links a:hover { background: var(--dourado-pale); }
-.dk-links a.primary { background: var(--preto); color: #fff; border-color: var(--preto); }
-.dk-links a.primary:hover { background: #111; }
-.dk-url { font-size: 11px; color: var(--muted); word-break: break-all; }
+.dk-links a:hover { background: var(--hover); }
+.dk-links a.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+.dk-links a.primary:hover { background: #000; }
+.dk-url { font-size: 11px; color: var(--muted-ink); word-break: break-all; }
 .dk-note {
-  font-size: 12.5px; color: #555; max-width: 62ch; margin: 0 0 48px;
+  font-size: 12.5px; color: var(--muted-ink); max-width: 62ch; margin: 0 0 48px;
 }
 </style>
 </head>
@@ -81,8 +134,8 @@
     <h1>Todos os projetos, um clique.</h1>
     <p>Aqui estão os links do site e dos produtos, cada um com uma frase do que está no ar hoje. Use o botão para salvar o atalho no Desktop.</p>
     <div class="dk-actions">
-      <button type="button" class="btn btn-gold" onclick="baixarAtalho()">Salvar no Desktop</button>
-      <button type="button" class="btn btn-outline" onclick="copiarLink()">Copiar link do Desk</button>
+      <button type="button" class="dk-btn dk-btn-solid" onclick="baixarAtalho()">Salvar no Desktop</button>
+      <button type="button" class="dk-btn dk-btn-ghost" onclick="copiarLink()">Copiar link do Desk</button>
     </div>
     <p class="dk-url" id="dk-status" style="margin-top:12px">https://www.priscilapalomo.com/dashboard.html</p>
   </header>
