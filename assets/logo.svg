@@ -1,7 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" width="320" height="220">
-  <rect width="320" height="220" fill="#FAFAFA"/>
-  <text x="28" y="72"  font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#111111" letter-spacing="-1">Priscila</text>
-  <text x="28" y="136" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#111111" letter-spacing="-1">Palomo</text>
-  <text x="28" y="186" font-family="Georgia, 'Times New Roman', serif" font-size="46" font-weight="700" fill="#111111" letter-spacing="-1">Psicologia</text>
-  <text x="118" y="214" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#111111" letter-spacing="2">LTDA</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Priscila Palomo">
+  <rect width="64" height="64" rx="16" fill="#0B2545"/>
+  <path d="M20 48V16h13.5c7.2 0 12 4.3 12 10.6S40.7 37.2 33.5 37.2H27V48h-7zm7-16.6h6c3.4 0 5.4-1.9 5.4-4.8s-2-4.8-5.4-4.8h-6v9.6z" fill="#FFFFFF"/>
+  <circle cx="47" cy="46" r="5" fill="#13A89E"/>
 </svg>

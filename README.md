@@ -1,8 +1,13 @@
 # Site da Dra. Priscila Palomo
 
-Site oficial da Dra. Priscila Palomo — Psicóloga (CRP 98007). Inclui um **blog**
-e a landing do livro **[Harry Potter e a Magia da Coragem](escada-segura.html)**
-(história infantil em 20 capítulos + romance fofo com Hermione, R$ 97).
+Site oficial da Dra. Priscila Palomo — Psicóloga (CRP 98007), doutora em
+Neurociência e Comportamento (USP). O site é posicionado em **saúde mental no
+trabalho com base em neurociência** (empresas: NR-1, burnout, lideranças,
+healthtechs) e mantém a **clínica de fobias e ansiedade** para pessoas, além do
+**blog** e da landing do **[Programa Escada Segura](escada-segura.html)**.
+
+> A análise de nicho que fundamenta esse posicionamento está em
+> [`ANALISE-NICHO.md`](ANALISE-NICHO.md).
 
 🔗 No ar em: https://www.priscilapalomo.com (e https://pripalomo-svg.github.io)
 
@@ -24,14 +29,17 @@ renderizado no navegador (biblioteca `marked`), sem nenhum passo de build.
 
 | Arquivo / pasta | O que é |
 | --- | --- |
-| `index.html` | **Página de abertura** — psicoeducação sobre fobias |
-| `blog.html` | Blog + apresentação (lista os artigos sozinha) |
+| `index.html` | **Página de abertura (empresas)** — saúde mental no trabalho, NR-1, soluções, calculadora |
+| `fobias.html` | **Clínica (pessoas)** — psicoeducação sobre fobias e ansiedade |
+| `pesquisa.html` | **Ciência** — pesquisa, publicações, laboratórios, consultoria para healthtechs |
+| `apresentacao.html` | Sobre — trajetória e vídeos "draw my life" |
+| `blog.html` | Blog (lista os artigos sozinha) |
 | `post.html` | Página que exibe um artigo (abre via `post.html?p=nome-do-arquivo`) |
 | `posts/` | Artigos do blog, **um arquivo `.md` por artigo** |
 | `escada-segura.html` | Landing do **Programa Escada Segura** (produto pago) |
 | `terapia-pro.html` | **Terap-ia OS** — login, pacientes, agenda Google + WhatsApp (R$ 100/mês) |
-| `fobias.html` | Redireciona para a página inicial (`index.html`) |
-| `assets/style.css` | Estilos compartilhados |
+| `assets/style.css` | Estilos compartilhados (paleta navy/teal/sand, fontes Sora + Inter) |
+| `assets/logo.svg` | Logo (monograma PP) |
 | `assets/app.js` | Scripts (menu, pagamento, newsletter) e dados de contato |
 | `assets/content.js` | Carregador dos arquivos Markdown (não precisa editar) |
 | `COMO-USAR.md` | **Guia simples** de como publicar artigos |
