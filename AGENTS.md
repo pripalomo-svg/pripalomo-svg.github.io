@@ -38,6 +38,11 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
   no navegador; nuvem recomendada para 1000 clínicas: **Supabase** (auth +
   Postgres com RLS) + **Cloudflare R2** (arquivos, muito espaço).
   Estilos/JS em `assets/terapia-os.css` e `assets/terapia-os.js`.
+- `livro-da-vida.html` — **Livro da Vida** (interno, `noindex`): caderno local de
+  pacientes e relatos. O app original em `https://livrovida-rzekdihb.manus.space/`
+  responde 404 (site Manus despublicado na mudança de serviço de agosto/2026).
+  Esta página explica a recuperação via backup Manus / localStorage e importa
+  JSON para `localStorage` deste domínio. Não commitar dados de pacientes.
 
 ## Conteúdo em Markdown (blog)
 
