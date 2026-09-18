@@ -74,3 +74,44 @@ function subscribe(ev){
   ev.target.reset();
   alert('Que bom te ter por aqui! 💛 Em breve você começa a receber a NeuroNews.');
 }
+
+// Força o salvamento de um arquivo (o atributo download do HTML
+// muitas vezes só abre a imagem no navegador).
+async function baixarArquivo(src, nome, statusId){
+  const status = statusId ? document.getElementById(statusId) : null;
+  const ios = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  if (ios) {
+    if (status) status.textContent = 'No iPhone, pressione a foto e toque em Salvar imagem.';
+    window.open(src, '_blank', 'noopener');
+    return;
+  }
+  try {
+    const res = await fetch(src);
+    if (!res.ok) throw new Error('http '+res.status);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = nome;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    if (status) status.textContent = 'Salvo na pasta Downloads: '+nome;
+  } catch (err) {
+    if (status) status.textContent = 'A foto vai abrir. Clique com o botão direito e escolha Salvar imagem.';
+    window.location.href = src;
+  }
+}
+
+function baixarFundoZoom(ev){
+  if (ev) ev.preventDefault();
+  const statusId = document.getElementById('fz-status')
+    ? 'fz-status'
+    : (document.getElementById('dk-status') ? 'dk-status' : null);
+  return baixarArquivo(
+    'assets/zoom-fundo-priscila-palomo.jpg',
+    'Priscila-Palomo-fundo-zoom.jpg',
+    statusId
+  );
+}
