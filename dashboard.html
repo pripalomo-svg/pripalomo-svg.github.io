@@ -10,114 +10,82 @@
 <link rel="stylesheet" href="assets/style.css">
 <style>
 .dk-page {
-  --ink: #000;
-  --slate: #000;
-  --muted-ink: #000;
-  --paper: #fff;
+  --ink: #0E4A57;
+  --paper: #F3F6F4;
   --card: #fff;
-  --line: #000;
-  --line-strong: #000;
-  --hover: #F2F2F2;
-  background: #fff;
-  color: #000;
-  font-size: 11px;
-}
-.dk-page input { accent-color: #000; }
-.dk-page,
-.dk-page h1, .dk-page h2, .dk-page h3, .dk-page p, .dk-page a,
-.dk-page button, .dk-page span, .dk-page strong,
-.dk-page .nav-logo-name, .dk-page .nav-logo-sub, .dk-page .nav-links a,
-.dk-page .dk-btn, .dk-page .foot-info, .dk-page .foot-links a {
-  font-size: 11px !important;
-  color: #000;
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
 }
 .dk-page h1, .dk-page h2, .dk-page h3 { color: var(--ink); }
-
-.dk-page nav {
-  background: #fff;
-  border-bottom: 1px solid #000;
-}
-.dk-page .nav-cta, .dk-page .nav-cta:hover {
-  border-color: #000 !important;
-  background: #000 !important;
-  color: #fff !important;
-}
-.dk-page .nav-logo-name { color: var(--ink); }
-.dk-page .nav-logo-sub,
-.dk-page .nav-links a { color: var(--muted-ink); }
-.dk-page .nav-links a:hover,
-.dk-page .nav-links a.active { color: var(--ink); }
-.dk-page .nav-cta {
-  border-color: var(--ink) !important;
-  color: var(--ink) !important;
-}
-.dk-page .nav-cta:hover {
-  background: var(--ink) !important;
-  color: #fff !important;
-}
-.dk-page .nav-toggle { color: var(--ink); }
-@media (max-width: 960px) {
-  .dk-page .nav-links { background: var(--paper); border-left-color: var(--line); }
-}
-
+.dk-page nav { background: rgba(243,246,244,.94); border-bottom: 1px solid rgba(14,74,87,.16); }
 .dk-page footer {
-  background: #fff;
-  border-top: 1px solid #000;
+  background: #0E4A57;
+  border-top: 0;
+  color: #F3F6F4;
 }
-.dk-page .foot-links a:hover { color: var(--ink); }
+.dk-page .foot-links a, .dk-page .foot-info { color: #F3F6F4; }
+.dk-page .foot-links a:hover { color: #E27A2E; }
 .dk-page ::-webkit-scrollbar-track { background: var(--paper); }
-.dk-page ::-webkit-scrollbar-thumb { background: var(--slate); }
+.dk-page ::-webkit-scrollbar-thumb { background: #E27A2E; }
 
-.dk-hero { padding: 48px 0 28px; border-bottom: 2px solid var(--line-strong); }
-.dk-kicker {
-  letter-spacing: .12em; text-transform: uppercase;
-  color: #000; font-weight: 700; display: block; margin-bottom: 8px;
+.dk-hero {
+  margin: 28px 0 8px;
+  padding: 36px 28px 28px;
+  background: #0E4A57;
+  color: #F3F6F4;
 }
-.dk-hero h1 { line-height: 1.3; margin-bottom: 8px; }
-.dk-hero p { line-height: 1.45; color: #000; max-width: 70ch; }
+.dk-hero h1, .dk-hero p { color: #F3F6F4; }
+.dk-kicker {
+  font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+  color: #E27A2E; font-weight: 700; display: block; margin-bottom: 10px;
+}
+.dk-hero h1 { font-size: clamp(28px, 4.8vw, 44px); line-height: 1.08; margin-bottom: 12px; }
+.dk-hero p { font-size: 15px; line-height: 1.6; max-width: 62ch; }
 .dk-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 .dk-btn {
   display: inline-flex; align-items: center; justify-content: center;
-  padding: 6px 10px; font-weight: 600;
-  letter-spacing: .06em; text-transform: uppercase;
-  cursor: pointer; font-family: inherit; border: 1.5px solid var(--ink);
+  padding: 12px 20px; font-size: 13px; font-weight: 700;
+  letter-spacing: .05em; text-transform: uppercase;
+  cursor: pointer; font-family: inherit; border: 1.5px solid transparent;
 }
-.dk-page .dk-btn-solid, .dk-page .dk-btn-solid:hover { background: #000; color: #fff !important; }
-.dk-btn-ghost { background: transparent; color: var(--ink); }
-.dk-btn-ghost:hover { background: var(--hover); }
+.dk-btn-solid { background: #E27A2E; color: #fff; }
+.dk-btn-solid:hover { background: #C0641C; }
+.dk-btn-ghost { background: transparent; color: #F3F6F4; border-color: rgba(243,246,244,.55); }
+.dk-btn-ghost:hover { border-color: #E27A2E; color: #E27A2E; }
+.dk-hero .dk-url { color: #F7C9A2; margin-top: 14px; }
+
 .dk-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(320px,100%), 1fr));
-  gap: 0;
-  border: 2px solid var(--line-strong);
-  margin: 36px 0 64px;
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+  gap: 14px;
+  margin: 22px 0 48px;
 }
 .dk-card {
-  padding: 24px 22px 22px;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  --tom: #0E4A57;
+  padding: 18px 18px 16px;
+  border: 0;
+  border-top: 6px solid var(--tom);
   display: flex; flex-direction: column; gap: 10px;
-  background: var(--card);
+  background: color-mix(in srgb, var(--tom) 10%, #fff);
 }
-.dk-card:hover { background: var(--hover); }
+.dk-card:hover { background: color-mix(in srgb, var(--tom) 16%, #fff); }
 .dk-tag {
-  letter-spacing: .12em; text-transform: uppercase;
-  color: #000; font-weight: 700;
+  font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--tom); font-weight: 700;
 }
-.dk-card h2 { line-height: 1.3; }
-.dk-card p { color: #000; line-height: 1.45; flex: 1; margin: 0; }
-.dk-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.dk-card h2 { font-size: 22px; line-height: 1.2; color: var(--tom); }
+.dk-card p { font-size: 14px; color: #24383d; line-height: 1.55; flex: 1; margin: 0; }
+.dk-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
 .dk-links a {
-  padding: 4px 8px; border: 1px solid #000;
-  text-decoration: none; color: var(--ink); background: #fff;
+  font-size: 13px; padding: 8px 12px; border: 1.5px solid var(--tom);
+  text-decoration: none; color: var(--tom); background: #fff;
 }
-.dk-links a:hover { background: var(--hover); }
-.dk-links a.primary, .dk-links a.primary:hover { background: #000; color: #fff !important; border-color: #000; }
-.dk-url { color: #000; word-break: break-all; }
-.dk-note {
-  color: #000; max-width: 70ch; margin: 0 0 48px;
+.dk-links a:hover { background: color-mix(in srgb, var(--tom) 12%, #fff); }
+.dk-links a.primary, .dk-links a.primary:hover {
+  background: var(--tom); color: #fff; border-color: var(--tom);
 }
+.dk-url { font-size: 12px; color: var(--tom); word-break: break-all; }
+.dk-note { font-size: 13px; color: #3D5A66; max-width: 68ch; margin: 0 0 48px; }
 </style>
 </head>
 <body class="dk-page">
@@ -156,7 +124,7 @@
 
   <section class="dk-grid" aria-label="Projetos">
 
-    <article class="dk-card">
+    <article class="dk-card" style="--tom:#0E4A57">
       <span class="dk-tag">Site</span>
       <h2>Home · fobias</h2>
       <p>A página inicial está no ar com psicoeducação animada sobre fobias, boas-vindas e a NeuroNews.</p>
@@ -166,7 +134,7 @@
       </div>
     </article>
 
-    <article class="dk-card">
+    <article class="dk-card" style="--tom:#1D6B45">
       <span class="dk-tag">Conteúdo</span>
       <h2>Blog</h2>
       <p>Nove artigos publicados — historinhas, fobias, TOC, ansiedade e o Programa Escada Segura.</p>
@@ -176,7 +144,7 @@
       </div>
     </article>
 
-    <article class="dk-card">
+    <article class="dk-card" style="--tom:#E27A2E">
       <span class="dk-tag">Cursos</span>
       <h2>Cursos Hotmart</h2>
       <p>Dois cursos online no ar: Mindfulness e Realidade Virtual aplicada às fobias, com checkout na Hotmart.</p>
@@ -187,7 +155,7 @@
       </div>
     </article>
 
-    <article class="dk-card">
+    <article class="dk-card" style="--tom:#6B4C9A">
       <span class="dk-tag">Sistema</span>
       <h2>Terap-ia OS</h2>
       <p>O banco da clínica está no ar: login por profissional, pacientes, agenda no Google e aviso no WhatsApp, por R$ 100/mês.</p>
@@ -197,7 +165,7 @@
       </div>
     </article>
 
-    <article class="dk-card">
+    <article class="dk-card" style="--tom:#C44536">
       <span class="dk-tag">Livro</span>
       <h2>Escada Segura</h2>
       <p>A landing do livro Harry Potter e a Magia da Coragem está pronta para venda a R$ 97 (Pix, WhatsApp ou cartão).</p>
@@ -207,7 +175,7 @@
       </div>
     </article>
 
-    <article class="dk-card">
+    <article class="dk-card" style="--tom:#C0641C">
       <span class="dk-tag">Bio</span>
       <h2>Minha história</h2>
       <p>A apresentação com a bio e os vídeos “draw my life” (Valencia e doutorado) já está publicada.</p>
@@ -217,7 +185,7 @@
       </div>
     </article>
 
-    <article class="dk-card">
+    <article class="dk-card" style="--tom:#2A9D8F">
       <span class="dk-tag">Pessoal</span>
       <h2>Dashboard do extrato 2026</h2>
       <p>De janeiro a 25/09 entrou R$ 351.074,35 e saiu R$ 384.738,21. O saldo em 25/09 ficou em R$ 592,57. O dashboard reúne totais, detalhe, assinaturas, animação, cartão Black e a tabela para anotar.</p>
@@ -228,7 +196,7 @@
       </div>
     </article>
 
-    <article class="dk-card">
+    <article class="dk-card" style="--tom:#3D5A80">
       <span class="dk-tag">Instagram</span>
       <h2>Catálogo de vídeos</h2>
       <p>O catálogo interno reúne as animações de fobias com narrativa e hashtag prontas para postar.</p>
@@ -238,7 +206,7 @@
       </div>
     </article>
 
-    <article class="dk-card">
+    <article class="dk-card" style="--tom:#2F6F4E">
       <span class="dk-tag">Newsletter</span>
       <h2>NeuroNews</h2>
       <p>A assinatura continua sem backend: o formulário abre o WhatsApp com o e-mail da pessoa.</p>
@@ -247,7 +215,7 @@
       </div>
     </article>
 
-    <article class="dk-card">
+    <article class="dk-card" style="--tom:#128C7E">
       <span class="dk-tag">Contato</span>
       <h2>WhatsApp e Pix</h2>
       <p>O canal oficial segue no 11 95069-0537, usado para agenda, newsletter e pagamentos.</p>
@@ -256,7 +224,7 @@
       </div>
     </article>
 
-    <article class="dk-card">
+    <article class="dk-card" style="--tom:#8C3A6E">
       <span class="dk-tag">Código</span>
       <h2>GitHub Pages</h2>
       <p>O site estático publica direto da branch main em priscilapalomo.com, sem build nem pacotes.</p>
