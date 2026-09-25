@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Extrato 2026 — Priscila Palomo</title>
+<title>Dashboard do extrato 2026 — Priscila Palomo</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Leitura pessoal do extrato de 2026: entradas, saídas, assinaturas e cartão Black.">
+<meta name="description" content="Dashboard pessoal do extrato de 2026: entradas, saídas, assinaturas, cartão Black e tabela editável.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>P</text></svg>">
 <link rel="stylesheet" href="assets/style.css">
 <style>
@@ -24,6 +24,17 @@
   margin-top: 18px; padding: 12px 14px; background: var(--dourado-pale);
   border-left: 3px solid var(--dourado); font-size: 13.5px; max-width: 78ch;
 }
+.dash-link {
+  margin-top: 18px; display: flex; justify-content: space-between; gap: 16px;
+  align-items: center; flex-wrap: wrap; background: #fff; border: 1px solid var(--borda);
+  padding: 14px 16px;
+}
+.dash-url {
+  display: block; margin-top: 4px; font-size: 15px; color: var(--preto);
+  word-break: break-all; text-decoration: underline; text-underline-offset: 3px;
+}
+.dash-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.dash-actions .btn { padding: 10px 16px; }
 .ex-sec { padding: 34px 0 40px; border-top: 1px solid var(--borda); }
 .ex-sec h2 { font-size: clamp(24px, 3vw, 32px); margin-bottom: 6px; }
 .ex-lead { color: var(--muted); font-size: 14.5px; max-width: 70ch; margin-bottom: 16px; }
@@ -133,7 +144,7 @@ table.sheet { width: 100%; border-collapse: collapse; font-size: 13.5px; min-wid
     <img src="assets/logo.svg" alt="Priscila Palomo Psicologia">
     <div class="nav-logo-text">
       <span class="nav-logo-name">Priscila Palomo</span>
-      <span class="nav-logo-sub">Extrato · uso pessoal</span>
+      <span class="nav-logo-sub">Dashboard · uso pessoal</span>
     </div>
   </a>
   <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
@@ -150,9 +161,20 @@ table.sheet { width: 100%; border-collapse: collapse; font-size: 13.5px; min-wid
 
 <main class="ex-wrap">
   <header class="ex-hero">
-    <span class="ex-kicker">Conta Itaú · 2026</span>
+    <span class="ex-kicker">Dashboard · Conta Itaú · 2026</span>
     <h1>O ano na conta, mês a mês.</h1>
     <p>De 1º de janeiro a 25 de setembro. Os dois extratos entram juntos, sem repetir junho. O salário da Priscila, os Pix em nome dela e os TED da McKinsey (salário da Luísa) ficam separados das outras entradas.</p>
+    <div class="dash-link">
+      <div>
+        <span class="ex-kicker">Link deste dashboard</span>
+        <a class="dash-url" id="dash-url" href="https://www.priscilapalomo.com/extrato-2026.html">https://www.priscilapalomo.com/extrato-2026.html</a>
+        <p class="ex-note" id="dash-status">Totais, detalhe, assinaturas, animação, cartão Black e a tabela editável estão nesta página.</p>
+      </div>
+      <div class="dash-actions">
+        <button type="button" class="btn btn-gold" id="btn-copiar-link">Copiar link</button>
+        <button type="button" class="btn btn-outline" id="btn-atalho">Salvar no Desktop</button>
+      </div>
+    </div>
     <p class="ex-aviso">Uso pessoal. A página não aparece no menu público nem no Google, mas o arquivo fica no ar se esta versão for publicada. Não compartilhe o link. CPF e número da conta não estão nesta leitura.</p>
   </header>
 
@@ -331,7 +353,7 @@ table.sheet { width: 100%; border-collapse: collapse; font-size: 13.5px; min-wid
     <a href="dashboard.html">Desk</a>
     <a href="#totais">Voltar ao topo</a>
   </div>
-  <span class="foot-info">Extrato 2026 · uso pessoal · © <span data-year></span></span>
+  <span class="foot-info">Dashboard do extrato 2026 · uso pessoal · © <span data-year></span></span>
 </footer>
 
 <script src="assets/app.js"></script>

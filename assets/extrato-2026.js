@@ -1009,6 +1009,26 @@
     }
     e.target.value = "";
   });
+  const DASH_URL = "https://www.priscilapalomo.com/extrato-2026.html";
+  const statusLink = document.getElementById("dash-status");
+  document.getElementById("btn-copiar-link").addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(DASH_URL);
+      statusLink.textContent = "Link copiado: " + DASH_URL;
+    } catch {
+      statusLink.textContent = DASH_URL;
+    }
+  });
+  document.getElementById("btn-atalho").addEventListener("click", () => {
+    const mac = /Macintosh|Mac OS X|iPhone|iPad/.test(navigator.userAgent);
+    const nome = mac ? "Dashboard Extrato 2026.webloc" : "Dashboard Extrato 2026.url";
+    const corpo = mac
+      ? `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n<plist version="1.0"><dict><key>URL</key><string>${DASH_URL}</string></dict></plist>`
+      : `[InternetShortcut]\r\nURL=${DASH_URL}\r\n`;
+    baixar(nome, corpo, "application/octet-stream");
+    statusLink.textContent = "Atalho baixado. Arraste o arquivo para o Desktop.";
+  });
+
   document.getElementById("btn-reset").addEventListener("click", () => {
     if (!confirm("Apagar categorias, apelidos e notas salvas neste navegador?")) return;
     edits = vazio();
