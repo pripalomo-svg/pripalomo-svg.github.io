@@ -42,47 +42,47 @@
   };
 
   const FAMILIAS = [
-    { id: "salario_priscila", nome: "Salário da Priscila", lado: "entrada", cor: "#000000" },
-    { id: "aporte_priscila", nome: "Transferências da Priscila", lado: "entrada", cor: "#4F4F4F" },
-    { id: "salario_luisa", nome: "Salário da Luísa (McKinsey)", lado: "entrada", cor: "#8A8A8A" },
-    { id: "outras_entradas", nome: "Outras entradas", lado: "entrada", cor: "#C8C8C8" },
-    { id: "cartao_black", nome: "Cartão Black", lado: "saida", cor: "#000000" },
-    { id: "moradia", nome: "Moradia", lado: "saida", cor: "#2B2B2B" },
-    { id: "educacao", nome: "Educação", lado: "saida", cor: "#454545" },
-    { id: "pessoas", nome: "Pessoas", lado: "saida", cor: "#5E5E5E" },
-    { id: "assinaturas", nome: "Assinaturas", lado: "saida", cor: "#777777" },
-    { id: "dia_a_dia", nome: "Dia a dia", lado: "saida", cor: "#909090" },
-    { id: "oficiais", nome: "Impostos e boletos", lado: "saida", cor: "#A8A8A8" },
-    { id: "investimentos", nome: "Investimentos e outros bancos", lado: "saida", cor: "#C0C0C0" },
-    { id: "outros", nome: "Outros", lado: "saida", cor: "#D8D8D8" }
+    { id: "salario_priscila", nome: "Salário da Priscila", lado: "entrada", cor: "#39FF14" },
+    { id: "aporte_priscila", nome: "Transferências da Priscila", lado: "entrada", cor: "#00F5FF" },
+    { id: "salario_luisa", nome: "Salário da Luísa (McKinsey)", lado: "entrada", cor: "#FFE600" },
+    { id: "outras_entradas", nome: "Outras entradas", lado: "entrada", cor: "#B44CFF" },
+    { id: "cartao_black", nome: "Cartão Black", lado: "saida", cor: "#FF2BD6" },
+    { id: "moradia", nome: "Moradia", lado: "saida", cor: "#FF6A00" },
+    { id: "educacao", nome: "Educação", lado: "saida", cor: "#FF3D8A" },
+    { id: "pessoas", nome: "Pessoas", lado: "saida", cor: "#4D7CFF" },
+    { id: "assinaturas", nome: "Assinaturas", lado: "saida", cor: "#CCFF00" },
+    { id: "dia_a_dia", nome: "Dia a dia", lado: "saida", cor: "#00FFA3" },
+    { id: "oficiais", nome: "Impostos e boletos", lado: "saida", cor: "#FF5C33" },
+    { id: "investimentos", nome: "Investimentos e outros bancos", lado: "saida", cor: "#7A5CFF" },
+    { id: "outros", nome: "Outros", lado: "saida", cor: "#FF9EE8" }
   ];
   const COR = Object.fromEntries(FAMILIAS.map((f) => [f.id, f.cor]));
 
   const RECORRENTES = [
-    { nome: "Porto Seguro Vida", papel: "assinatura", cor: "#000000" },
-    { nome: "VGBL", papel: "assinatura", cor: "#3A3A3A" },
-    { nome: "Claro", papel: "assinatura", cor: "#5C5C5C" },
-    { nome: "Vivo", papel: "assinatura", cor: "#7E7E7E" },
-    { nome: "Telefônica", papel: "assinatura", cor: "#A0A0A0" },
-    { nome: "Conselho profissional", papel: "assinatura", cor: "#C2C2C2" },
-    { nome: "Financiamento imobiliário", papel: "conta_fixa", cor: "#111111" },
-    { nome: "Ciranda", papel: "conta_fixa", cor: "#333333" },
-    { nome: "Condomínio Verana", papel: "conta_fixa", cor: "#555555" },
-    { nome: "Energia elétrica", papel: "conta_fixa", cor: "#777777" },
-    { nome: "Prefeitura / IPTU", papel: "conta_fixa", cor: "#999999" },
-    { nome: "Boleto recorrente", papel: "conta_fixa", cor: "#BBBBBB" },
-    { nome: "Compra de USDC", papel: "conta_fixa", cor: "#DDDDDD" }
+    { nome: "Porto Seguro Vida", papel: "assinatura", cor: "#39FF14" },
+    { nome: "VGBL", papel: "assinatura", cor: "#00F5FF" },
+    { nome: "Claro", papel: "assinatura", cor: "#FF2BD6" },
+    { nome: "Vivo", papel: "assinatura", cor: "#FFE600" },
+    { nome: "Telefônica", papel: "assinatura", cor: "#B44CFF" },
+    { nome: "Conselho profissional", papel: "assinatura", cor: "#FF6A00" },
+    { nome: "Financiamento imobiliário", papel: "conta_fixa", cor: "#FF3D8A" },
+    { nome: "Ciranda", papel: "conta_fixa", cor: "#4D7CFF" },
+    { nome: "Condomínio Verana", papel: "conta_fixa", cor: "#CCFF00" },
+    { nome: "Energia elétrica", papel: "conta_fixa", cor: "#00FFA3" },
+    { nome: "Prefeitura / IPTU", papel: "conta_fixa", cor: "#FF5C33" },
+    { nome: "Boleto recorrente", papel: "conta_fixa", cor: "#7A5CFF" },
+    { nome: "Compra de USDC", papel: "conta_fixa", cor: "#FF9EE8" }
   ];
 
   const ABERTURA = [
-    ["Alimentação", "#000000"],
-    ["Transporte", "#2A2A2A"],
-    ["Saúde", "#484848"],
-    ["Compras", "#666666"],
-    ["Lazer", "#848484"],
-    ["Viagem", "#A2A2A2"],
-    ["Educação", "#C0C0C0"],
-    ["Outros", "#DEDEDE"]
+    ["Alimentação", "#CCFF00"],
+    ["Transporte", "#00F5FF"],
+    ["Saúde", "#FF2BD6"],
+    ["Compras", "#FFE600"],
+    ["Lazer", "#FF6A00"],
+    ["Viagem", "#39FF14"],
+    ["Educação", "#B44CFF"],
+    ["Outros", "#FF9EE8"]
   ];
 
   const anim = { timer: 0, index: 0, playing: false };
@@ -251,27 +251,27 @@
       const x = pad.l + i * gw + gw / 2;
       const hE = (ent[i] / maxBar) * ih;
       const hS = (sai[i] / maxBar) * ih;
-      barras += `<rect x="${(x - gw * 0.32).toFixed(1)}" y="${yBar(ent[i]).toFixed(1)}" width="${(gw * 0.26).toFixed(1)}" height="${hE.toFixed(1)}" fill="#000000"><title>${esc(mesLongo(ym))}: entrou ${brl(ent[i])}</title></rect>`;
-      barras += `<rect x="${(x + gw * 0.04).toFixed(1)}" y="${yBar(sai[i]).toFixed(1)}" width="${(gw * 0.26).toFixed(1)}" height="${hS.toFixed(1)}" fill="#B0B0B0" stroke="#000" stroke-width="1"><title>${esc(mesLongo(ym))}: saiu ${brl(sai[i])}</title></rect>`;
+      barras += `<rect x="${(x - gw * 0.32).toFixed(1)}" y="${yBar(ent[i]).toFixed(1)}" width="${(gw * 0.26).toFixed(1)}" height="${hE.toFixed(1)}" fill="#39FF14"><title>${esc(mesLongo(ym))}: entrou ${brl(ent[i])}</title></rect>`;
+      barras += `<rect x="${(x + gw * 0.04).toFixed(1)}" y="${yBar(sai[i]).toFixed(1)}" width="${(gw * 0.26).toFixed(1)}" height="${hS.toFixed(1)}" fill="#FF2BD6"><title>${esc(mesLongo(ym))}: saiu ${brl(sai[i])}</title></rect>`;
       const px = x.toFixed(1), py = ySaldo(saldos[i]).toFixed(1);
       linha += (i ? "L" : "M") + px + " " + py + " ";
-      barras += `<circle cx="${px}" cy="${py}" r="3.5" fill="#000000"><title>Saldo ${brl(saldos[i])}</title></circle>`;
+      barras += `<circle cx="${px}" cy="${py}" r="3.5" fill="#00F5FF"><title>Saldo ${brl(saldos[i])}</title></circle>`;
       barras += `<text x="${px}" y="${H - 14}" text-anchor="middle" font-size="12" fill="#000000">${mesCurto(ym)}</text>`;
     });
     let grades = "";
     [0, 0.5, 1].forEach((p) => {
       const y = (pad.t + ih - p * ih).toFixed(1);
-      grades += `<line x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" stroke="#CCCCCC"/>`;
+      grades += `<line x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" stroke="#5A2080"/>`;
       grades += `<text x="${pad.l - 8}" y="${Number(y) + 4}" text-anchor="end" font-size="11" fill="#000000">${eixo(maxBar * p)}</text>`;
       const saldoTick = minS + (maxS - minS) * p;
       grades += `<text x="${W - pad.r + 8}" y="${Number(y) + 4}" font-size="11" fill="#000000">${eixo(saldoTick)}</text>`;
     });
     document.getElementById("chart-totais").innerHTML = svgAbrir(W, H, "Entradas e saídas por mês em 2026") +
-      grades + barras + `<path d="${linha}" fill="none" stroke="#000000" stroke-width="2"/>` + "</svg>";
+      grades + barras + `<path d="${linha}" fill="none" stroke="#00F5FF" stroke-width="2"/>` + "</svg>";
     legenda("legenda-totais", [
-      { cor: "#000000", nome: "Entradas" },
-      { cor: "#B0B0B0", nome: "Saídas" },
-      { cor: "#000000", nome: "Saldo no fim do mês (escala da direita)" }
+      { cor: "#39FF14", nome: "Entradas" },
+      { cor: "#FF2BD6", nome: "Saídas" },
+      { cor: "#00F5FF", nome: "Saldo no fim do mês (escala da direita)" }
     ]);
     const te = ent.reduce((a, b) => a + b, 0);
     const ts = sai.reduce((a, b) => a + b, 0);
@@ -296,11 +296,11 @@
     let grades = "";
     [1, 0.5, 0].forEach((p) => {
       const y = mid - (p * ih) / 2;
-      grades += `<line x1="${pad.l}" y1="${y.toFixed(1)}" x2="${W - pad.r}" y2="${y.toFixed(1)}" stroke="${p === 0 ? "#000000" : "#CCCCCC"}"/>`;
+      grades += `<line x1="${pad.l}" y1="${y.toFixed(1)}" x2="${W - pad.r}" y2="${y.toFixed(1)}" stroke="${p === 0 ? "#CCFF00" : "#5A2080"}"/>`;
       grades += `<text x="${pad.l - 8}" y="${y + 4}" text-anchor="end" font-size="11" fill="#000000">${eixo(max * p)}</text>`;
       if (p) {
         const y2 = mid + (p * ih) / 2;
-        grades += `<line x1="${pad.l}" y1="${y2.toFixed(1)}" x2="${W - pad.r}" y2="${y2.toFixed(1)}" stroke="#CCCCCC"/>`;
+        grades += `<line x1="${pad.l}" y1="${y2.toFixed(1)}" x2="${W - pad.r}" y2="${y2.toFixed(1)}" stroke="#5A2080"/>`;
         grades += `<text x="${pad.l - 8}" y="${y2 + 4}" text-anchor="end" font-size="11" fill="#000000">${eixo(max * p)}</text>`;
       }
     });
@@ -345,7 +345,7 @@
       const y = 18 + i * 36;
       const w = Math.max(2, (item.valor / max) * 620);
       body += `<text x="210" y="${y + 16}" text-anchor="end" font-size="13" fill="#000000">${esc(item.nome)}</text>`;
-      body += `<rect x="222" y="${y}" width="${w.toFixed(1)}" height="22" fill="#000000"><title>${esc(item.nome)}: ${brl(item.valor)}</title></rect>`;
+      body += `<rect x="222" y="${y}" width="${w.toFixed(1)}" height="22" fill="#FF6A00"><title>${esc(item.nome)}: ${brl(item.valor)}</title></rect>`;
       body += `<text x="${(230 + w).toFixed(1)}" y="${y + 16}" font-size="13" fill="#000000">${esc(brl(item.valor))}</text>`;
     });
     document.getElementById("chart-destinos").innerHTML = svgAbrir(W, H, "Maiores saídas por destino") + body + "</svg>";
@@ -363,7 +363,7 @@
     let grades = "", formas = "";
     [0, 0.5, 1].forEach((p) => {
       const y = pad.t + ih - p * ih;
-      grades += `<line x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" stroke="#CCCCCC"/>`;
+      grades += `<line x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" stroke="#5A2080"/>`;
       grades += `<text x="${pad.l - 8}" y="${y + 4}" text-anchor="end" font-size="11" fill="#000000">${eixo(max * p)}</text>`;
     });
     MESES.forEach((ym, i) => {
@@ -446,7 +446,7 @@
     let grades = "", formas = "";
     [0, 0.5, 1].forEach((p) => {
       const y = pad.t + ih - p * ih;
-      grades += `<line x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" stroke="#CCCCCC"/>`;
+      grades += `<line x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" stroke="#5A2080"/>`;
       grades += `<text x="${pad.l - 8}" y="${y + 4}" text-anchor="end" font-size="11" fill="#000000">${eixo(max * p)}</text>`;
     });
     const faturas = m.txs.filter((tx) => tx.origem === "fatura_black").sort((a, b) => a.data.localeCompare(b.data));
@@ -456,14 +456,14 @@
       const hF = (fat[i] / max) * ih;
       const hT = (tar[i] / max) * ih;
       const yF = pad.t + ih - hF - hT;
-      formas += `<rect x="${x.toFixed(1)}" y="${(yF + hT).toFixed(1)}" width="${bw.toFixed(1)}" height="${hF.toFixed(1)}" fill="#000000"><title>${esc(mesLongo(ym))}: fatura ${brl(fat[i])}</title></rect>`;
-      if (hT) formas += `<rect x="${x.toFixed(1)}" y="${yF.toFixed(1)}" width="${bw.toFixed(1)}" height="${hT.toFixed(1)}" fill="#B0B0B0"><title>Tarifa ${brl(tar[i])}</title></rect>`;
+      formas += `<rect x="${x.toFixed(1)}" y="${(yF + hT).toFixed(1)}" width="${bw.toFixed(1)}" height="${hF.toFixed(1)}" fill="#FF2BD6"><title>${esc(mesLongo(ym))}: fatura ${brl(fat[i])}</title></rect>`;
+      if (hT) formas += `<rect x="${x.toFixed(1)}" y="${yF.toFixed(1)}" width="${bw.toFixed(1)}" height="${hT.toFixed(1)}" fill="#00F5FF"><title>Tarifa ${brl(tar[i])}</title></rect>`;
       formas += `<text x="${(x + bw / 2).toFixed(1)}" y="${H - 14}" text-anchor="middle" font-size="12" fill="#000000">${mesCurto(ym)}</text>`;
     });
     document.getElementById("chart-black").innerHTML = svgAbrir(W, H, "Fatura do Cartão Black por mês") + grades + formas + "</svg>";
     legenda("legenda-black", [
-      { cor: "#000000", nome: "Fatura" },
-      { cor: "#B0B0B0", nome: "Tarifa Personnalité" }
+      { cor: "#FF2BD6", nome: "Fatura" },
+      { cor: "#00F5FF", nome: "Tarifa Personnalité" }
     ]);
     const freq = {};
     dias.forEach((d) => { freq[d] = (freq[d] || 0) + 1; });
@@ -486,8 +486,8 @@
     const fatura = m.mes[ym].fatura;
     const resto = fatura - soma;
     let plot = partes.filter((p) => p.valor > 0);
-    if (resto > 0.009) plot = plot.concat([{ nome: "Ainda não aberto", cor: "#000000", valor: resto }]);
-    if (!plot.length) plot = [{ nome: "Sem fatura neste mês", cor: "#E6E6E6", valor: 1 }];
+    if (resto > 0.009) plot = plot.concat([{ nome: "Ainda não aberto", cor: "#FF2BD6", valor: resto }]);
+    if (!plot.length) plot = [{ nome: "Sem fatura neste mês", cor: "#3A1858", valor: 1 }];
     document.getElementById("chart-black-split").innerHTML = donut(plot, MES_CURTO[mesIdx(ym)], "Abertura da fatura Black de " + mesLongo(ym));
     const box = document.getElementById("black-resto");
     if (resto < -0.009) {
@@ -549,7 +549,7 @@
     for (let dia = 1; dia <= 31; dia++) {
       const h = (uso.dias[dia] / max) * ih;
       const x = pad.l + (dia - 1) * gw;
-      body += `<rect x="${x.toFixed(1)}" y="${(pad.t + ih - h).toFixed(1)}" width="${Math.max(gw - 3, 1).toFixed(1)}" height="${h.toFixed(1)}" fill="#000000"><title>Dia ${dia}: ${brl(uso.dias[dia])}</title></rect>`;
+      body += `<rect x="${x.toFixed(1)}" y="${(pad.t + ih - h).toFixed(1)}" width="${Math.max(gw - 3, 1).toFixed(1)}" height="${h.toFixed(1)}" fill="#CCFF00"><title>Dia ${dia}: ${brl(uso.dias[dia])}</title></rect>`;
       body += `<text x="${(x + gw / 2).toFixed(1)}" y="${H - 10}" text-anchor="middle" font-size="10" fill="#000000">${dia}</text>`;
     }
     document.getElementById("chart-dias").innerHTML = svgAbrir(W, H, "Gasto por dia do mês") + body + "</svg>";
@@ -560,7 +560,7 @@
       const w = (uso.semana[item.d] / maxS) * 640;
       const y = 16 + i * 32;
       semSvg += `<text x="70" y="${y + 14}" text-anchor="end" font-size="13" fill="#000000">${item.nome}</text>`;
-      semSvg += `<rect x="82" y="${y}" width="${w.toFixed(1)}" height="18" fill="#000000"><title>${item.nome}: ${brl(uso.semana[item.d])}</title></rect>`;
+      semSvg += `<rect x="82" y="${y}" width="${w.toFixed(1)}" height="18" fill="#00F5FF"><title>${item.nome}: ${brl(uso.semana[item.d])}</title></rect>`;
     });
     document.getElementById("chart-semana").innerHTML = svgAbrir(760, 16 + SEMANA.length * 32, "Gasto por dia da semana") + semSvg + "</svg>";
 
@@ -622,11 +622,12 @@
   }
 
   function corCalor(v, max) {
-    if (v <= 0) return "#FFFFFF";
+    if (v <= 0) return "#14001C";
     const t = Math.min(1, Math.sqrt(v / max));
-    const g = Math.round(255 - t * 220);
-    const hex = g.toString(16).padStart(2, "0");
-    return "#" + hex + hex + hex;
+    const a = [255, 43, 214];
+    const b = [204, 255, 0];
+    const hex = a.map((c, i) => Math.round(c + (b[i] - c) * t).toString(16).padStart(2, "0"));
+    return "#" + hex.join("");
   }
 
   function escalaAnim(m) {
@@ -646,8 +647,8 @@
       if (d.data <= ate) forte += cmd;
     });
     document.getElementById("anim-linha").innerHTML = svgAbrir(W, H, "Saldo da conta ao longo de 2026") +
-      `<path d="${cheia}" fill="none" stroke="#CCCCCC" stroke-width="2"/>` +
-      `<path d="${forte}" fill="none" stroke="#000000" stroke-width="2.5"/>` + "</svg>";
+      `<path d="${cheia}" fill="none" stroke="#5A2080" stroke-width="2"/>` +
+      `<path d="${forte}" fill="none" stroke="#CCFF00" stroke-width="2.5"/>` + "</svg>";
   }
 
   function mostrarMes(indice, base) {
