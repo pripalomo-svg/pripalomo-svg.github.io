@@ -117,14 +117,20 @@
 
   function brl(n) {
     const v = Number(n) || 0;
-    return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    const negativo = v < 0;
+    const partes = Math.abs(v).toFixed(2).split(".");
+    const corpo = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return (negativo ? "-" : "") + "R$ " + corpo + "," + partes[1];
   }
 
   function eixo(n) {
     const abs = Math.abs(n);
     const sinal = n < 0 ? "−" : "";
-    if (abs >= 1000) return sinal + Math.round(abs / 1000).toLocaleString("pt-BR") + " mil";
-    return sinal + Math.round(abs).toLocaleString("pt-BR");
+    if (abs >= 1000) {
+      const mil = String(Math.round(abs / 1000)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return sinal + "R$ " + mil + " mil";
+    }
+    return sinal + "R$ " + String(Math.round(abs));
   }
 
   function mesIdx(ym) { return Number(ym.slice(5)) - 1; }
@@ -238,7 +244,7 @@
     const sai = MESES.map((ym) => m.mes[ym].saidas + (incluir ? m.mes[ym].internaSai : 0));
     const saldos = MESES.map((ym) => m.mes[ym].saldo);
     const W = 920, H = 390;
-    const pad = { l: 62, r: 62, t: 16, b: 36 };
+    const pad = { l: 108, r: 108, t: 16, b: 36 };
     const iw = W - pad.l - pad.r, ih = H - pad.t - pad.b;
     const maxBar = Math.max(1, ...ent, ...sai);
     const minS = Math.min(...saldos), maxS = Math.max(...saldos);
@@ -287,7 +293,7 @@
     const pilhaS = MESES.map((ym) => saidas.reduce((s, f) => s + (m.mes[ym].saidaFamilia[f.id] || 0), 0));
     const max = Math.max(1, ...pilhaE, ...pilhaS);
     const W = 920, H = 460;
-    const pad = { l: 62, r: 16, t: 16, b: 36 };
+    const pad = { l: 108, r: 16, t: 16, b: 36 };
     const iw = W - pad.l - pad.r, ih = H - pad.t - pad.b;
     const mid = pad.t + ih / 2;
     const gw = iw / MESES.length;
@@ -340,13 +346,16 @@
     const top = [...mapa.values()].sort((a, b) => b.valor - a.valor).slice(0, 8);
     const max = top[0] ? top[0].valor : 1;
     const W = 920, H = 36 + top.length * 36;
+    const barraX = 222;
+    const valorX = 760;
+    const barMax = valorX - barraX - 10;
     let body = "";
     top.forEach((item, i) => {
       const y = 18 + i * 36;
-      const w = Math.max(2, (item.valor / max) * 620);
+      const w = Math.max(2, (item.valor / max) * barMax);
       body += `<text x="210" y="${y + 16}" text-anchor="end" font-size="13" fill="#000000">${esc(item.nome)}</text>`;
-      body += `<rect x="222" y="${y}" width="${w.toFixed(1)}" height="22" fill="#FF6A00"><title>${esc(item.nome)}: ${brl(item.valor)}</title></rect>`;
-      body += `<text x="${(230 + w).toFixed(1)}" y="${y + 16}" font-size="13" fill="#000000">${esc(brl(item.valor))}</text>`;
+      body += `<rect x="${barraX}" y="${y}" width="${w.toFixed(1)}" height="22" fill="#FF6A00"><title>${esc(item.nome)}: ${brl(item.valor)}</title></rect>`;
+      body += `<text x="${valorX}" y="${y + 16}" font-size="13" fill="#000000">${esc(brl(item.valor))}</text>`;
     });
     document.getElementById("chart-destinos").innerHTML = svgAbrir(W, H, "Maiores saídas por destino") + body + "</svg>";
   }
@@ -357,7 +366,7 @@
     const totais = MESES.map((ym) => series.reduce((s, r) => s + (m.mes[ym].recorrentes[r.nome] || 0), 0));
     const max = Math.max(1, ...totais);
     const W = 920, H = 390;
-    const pad = { l: 62, r: 16, t: 16, b: 36 };
+    const pad = { l: 108, r: 16, t: 16, b: 36 };
     const iw = W - pad.l - pad.r, ih = H - pad.t - pad.b;
     const gw = iw / MESES.length, bw = gw * 0.62;
     let grades = "", formas = "";
@@ -440,7 +449,7 @@
     const tar = MESES.map((ym) => m.mes[ym].tarifa);
     const max = Math.max(1, ...MESES.map((_, i) => fat[i] + tar[i]));
     const W = 920, H = 320;
-    const pad = { l: 62, r: 16, t: 16, b: 36 };
+    const pad = { l: 108, r: 16, t: 16, b: 36 };
     const iw = W - pad.l - pad.r, ih = H - pad.t - pad.b;
     const gw = iw / MESES.length, bw = gw * 0.55;
     let grades = "", formas = "";
@@ -542,10 +551,15 @@
     const uso = semBlack ? sem : com;
     const max = Math.max(1, ...uso.dias);
     const W = 920, H = 250;
-    const pad = { l: 48, r: 10, t: 12, b: 28 };
+    const pad = { l: 108, r: 10, t: 12, b: 28 };
     const iw = W - pad.l - pad.r, ih = H - pad.t - pad.b;
     const gw = iw / 31;
     let body = "";
+    [0, 0.5, 1].forEach((p) => {
+      const y = pad.t + ih - p * ih;
+      body += `<line x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" stroke="#5A2080"/>`;
+      body += `<text x="${pad.l - 8}" y="${y + 4}" text-anchor="end" font-size="11" fill="#000000">${eixo(max * p)}</text>`;
+    });
     for (let dia = 1; dia <= 31; dia++) {
       const h = (uso.dias[dia] / max) * ih;
       const x = pad.l + (dia - 1) * gw;
@@ -556,13 +570,17 @@
 
     const maxS = Math.max(1, ...uso.semana);
     let semSvg = "";
+    const semBarraX = 92;
+    const semValorX = 620;
+    const semBarMax = semValorX - semBarraX - 10;
     SEMANA.forEach((item, i) => {
-      const w = (uso.semana[item.d] / maxS) * 640;
+      const w = (uso.semana[item.d] / maxS) * semBarMax;
       const y = 16 + i * 32;
-      semSvg += `<text x="70" y="${y + 14}" text-anchor="end" font-size="13" fill="#000000">${item.nome}</text>`;
-      semSvg += `<rect x="82" y="${y}" width="${w.toFixed(1)}" height="18" fill="#00F5FF"><title>${item.nome}: ${brl(uso.semana[item.d])}</title></rect>`;
+      semSvg += `<text x="80" y="${y + 14}" text-anchor="end" font-size="13" fill="#000000">${item.nome}</text>`;
+      semSvg += `<rect x="${semBarraX}" y="${y}" width="${w.toFixed(1)}" height="18" fill="#00F5FF"><title>${item.nome}: ${brl(uso.semana[item.d])}</title></rect>`;
+      semSvg += `<text x="${semValorX}" y="${y + 14}" font-size="13" fill="#000000">${esc(brl(uso.semana[item.d]))}</text>`;
     });
-    document.getElementById("chart-semana").innerHTML = svgAbrir(760, 16 + SEMANA.length * 32, "Gasto por dia da semana") + semSvg + "</svg>";
+    document.getElementById("chart-semana").innerHTML = svgAbrir(920, 16 + SEMANA.length * 32, "Gasto por dia da semana") + semSvg + "</svg>";
 
     const rotuloDia = (lista, base) => lista.map((d) => {
       const nome = principalDoDia(m, d.dia, base);
