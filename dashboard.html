@@ -10,22 +10,38 @@
 <link rel="stylesheet" href="assets/style.css">
 <style>
 .dk-page {
-  --ink: #1A1C1E;
-  --slate: #3D4248;
-  --muted-ink: #5C6168;
-  --paper: #F4F3EF;
-  --card: #FFFFFF;
-  --line: #D5D3CC;
-  --line-strong: #1A1C1E;
-  --hover: #ECEAE4;
-  background: var(--paper);
-  color: var(--ink);
+  --ink: #000;
+  --slate: #000;
+  --muted-ink: #000;
+  --paper: #fff;
+  --card: #fff;
+  --line: #000;
+  --line-strong: #000;
+  --hover: #F2F2F2;
+  background: #fff;
+  color: #000;
+  font-size: 11px;
+}
+.dk-page input { accent-color: #000; }
+.dk-page,
+.dk-page h1, .dk-page h2, .dk-page h3, .dk-page p, .dk-page a,
+.dk-page button, .dk-page span, .dk-page strong,
+.dk-page .nav-logo-name, .dk-page .nav-logo-sub, .dk-page .nav-links a,
+.dk-page .dk-btn, .dk-page .foot-info, .dk-page .foot-links a {
+  font-size: 11px !important;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .dk-page h1, .dk-page h2, .dk-page h3 { color: var(--ink); }
 
 .dk-page nav {
-  background: rgba(244,243,239,.94);
-  border-bottom: 1px solid var(--line);
+  background: #fff;
+  border-bottom: 1px solid #000;
+}
+.dk-page .nav-cta, .dk-page .nav-cta:hover {
+  border-color: #000 !important;
+  background: #000 !important;
+  color: #fff !important;
 }
 .dk-page .nav-logo-name { color: var(--ink); }
 .dk-page .nav-logo-sub,
@@ -46,8 +62,8 @@
 }
 
 .dk-page footer {
-  background: #E8E6DF;
-  border-top: 1px solid var(--line);
+  background: #fff;
+  border-top: 1px solid #000;
 }
 .dk-page .foot-links a:hover { color: var(--ink); }
 .dk-page ::-webkit-scrollbar-track { background: var(--paper); }
@@ -55,20 +71,19 @@
 
 .dk-hero { padding: 48px 0 28px; border-bottom: 2px solid var(--line-strong); }
 .dk-kicker {
-  font-size: 10px; letter-spacing: .24em; text-transform: uppercase;
-  color: var(--slate); font-weight: 700; display: block; margin-bottom: 12px;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: #000; font-weight: 700; display: block; margin-bottom: 8px;
 }
-.dk-hero h1 { font-size: clamp(28px,4.8vw,44px); line-height: 1.08; margin-bottom: 12px; }
-.dk-hero p { font-size: 14px; line-height: 1.7; color: var(--slate); max-width: 58ch; }
+.dk-hero h1 { line-height: 1.3; margin-bottom: 8px; }
+.dk-hero p { line-height: 1.45; color: #000; max-width: 70ch; }
 .dk-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 .dk-btn {
   display: inline-flex; align-items: center; justify-content: center;
-  padding: 12px 24px; font-size: 13px; font-weight: 600;
+  padding: 6px 10px; font-weight: 600;
   letter-spacing: .06em; text-transform: uppercase;
   cursor: pointer; font-family: inherit; border: 1.5px solid var(--ink);
 }
-.dk-btn-solid { background: var(--ink); color: #fff; }
-.dk-btn-solid:hover { background: #000; }
+.dk-page .dk-btn-solid, .dk-page .dk-btn-solid:hover { background: #000; color: #fff !important; }
 .dk-btn-ghost { background: transparent; color: var(--ink); }
 .dk-btn-ghost:hover { background: var(--hover); }
 .dk-grid {
@@ -87,22 +102,21 @@
 }
 .dk-card:hover { background: var(--hover); }
 .dk-tag {
-  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--slate); font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: #000; font-weight: 700;
 }
-.dk-card h2 { font-size: 20px; line-height: 1.2; }
-.dk-card p { font-size: 13.5px; color: var(--slate); line-height: 1.6; flex: 1; margin: 0; }
+.dk-card h2 { line-height: 1.3; }
+.dk-card p { color: #000; line-height: 1.45; flex: 1; margin: 0; }
 .dk-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
 .dk-links a {
-  font-size: 12px; padding: 8px 12px; border: 1.5px solid var(--ink);
+  padding: 4px 8px; border: 1px solid #000;
   text-decoration: none; color: var(--ink); background: #fff;
 }
 .dk-links a:hover { background: var(--hover); }
-.dk-links a.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
-.dk-links a.primary:hover { background: #000; }
-.dk-url { font-size: 11px; color: var(--muted-ink); word-break: break-all; }
+.dk-links a.primary, .dk-links a.primary:hover { background: #000; color: #fff !important; border-color: #000; }
+.dk-url { color: #000; word-break: break-all; }
 .dk-note {
-  font-size: 12.5px; color: var(--muted-ink); max-width: 62ch; margin: 0 0 48px;
+  color: #000; max-width: 70ch; margin: 0 0 48px;
 }
 </style>
 </head>

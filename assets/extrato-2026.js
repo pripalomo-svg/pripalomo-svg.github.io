@@ -42,47 +42,47 @@
   };
 
   const FAMILIAS = [
-    { id: "salario_priscila", nome: "Salário da Priscila", lado: "entrada", cor: "#0E4A57" },
-    { id: "aporte_priscila", nome: "Transferências da Priscila", lado: "entrada", cor: "#5BA3B5" },
-    { id: "salario_luisa", nome: "Salário da Luísa (McKinsey)", lado: "entrada", cor: "#2A9D8F" },
-    { id: "outras_entradas", nome: "Outras entradas", lado: "entrada", cor: "#7FB3A6" },
-    { id: "cartao_black", nome: "Cartão Black", lado: "saida", cor: "#1A1A1A" },
-    { id: "moradia", nome: "Moradia", lado: "saida", cor: "#E27A2E" },
-    { id: "educacao", nome: "Educação", lado: "saida", cor: "#C44536" },
-    { id: "pessoas", nome: "Pessoas", lado: "saida", cor: "#6B4C9A" },
-    { id: "assinaturas", nome: "Assinaturas", lado: "saida", cor: "#2F6F4E" },
-    { id: "dia_a_dia", nome: "Dia a dia", lado: "saida", cor: "#E0A100" },
-    { id: "oficiais", nome: "Impostos e boletos", lado: "saida", cor: "#8C5A3C" },
-    { id: "investimentos", nome: "Investimentos e outros bancos", lado: "saida", cor: "#3D5A80" },
-    { id: "outros", nome: "Outros", lado: "saida", cor: "#8A97A0" }
+    { id: "salario_priscila", nome: "Salário da Priscila", lado: "entrada", cor: "#000000" },
+    { id: "aporte_priscila", nome: "Transferências da Priscila", lado: "entrada", cor: "#4F4F4F" },
+    { id: "salario_luisa", nome: "Salário da Luísa (McKinsey)", lado: "entrada", cor: "#8A8A8A" },
+    { id: "outras_entradas", nome: "Outras entradas", lado: "entrada", cor: "#C8C8C8" },
+    { id: "cartao_black", nome: "Cartão Black", lado: "saida", cor: "#000000" },
+    { id: "moradia", nome: "Moradia", lado: "saida", cor: "#2B2B2B" },
+    { id: "educacao", nome: "Educação", lado: "saida", cor: "#454545" },
+    { id: "pessoas", nome: "Pessoas", lado: "saida", cor: "#5E5E5E" },
+    { id: "assinaturas", nome: "Assinaturas", lado: "saida", cor: "#777777" },
+    { id: "dia_a_dia", nome: "Dia a dia", lado: "saida", cor: "#909090" },
+    { id: "oficiais", nome: "Impostos e boletos", lado: "saida", cor: "#A8A8A8" },
+    { id: "investimentos", nome: "Investimentos e outros bancos", lado: "saida", cor: "#C0C0C0" },
+    { id: "outros", nome: "Outros", lado: "saida", cor: "#D8D8D8" }
   ];
   const COR = Object.fromEntries(FAMILIAS.map((f) => [f.id, f.cor]));
 
   const RECORRENTES = [
-    { nome: "Porto Seguro Vida", papel: "assinatura", cor: "#2F6F4E" },
-    { nome: "VGBL", papel: "assinatura", cor: "#7DAB8E" },
-    { nome: "Claro", papel: "assinatura", cor: "#0E4A57" },
-    { nome: "Vivo", papel: "assinatura", cor: "#5BA3B5" },
-    { nome: "Telefônica", papel: "assinatura", cor: "#163A44" },
-    { nome: "Conselho profissional", papel: "assinatura", cor: "#9C3B24" },
-    { nome: "Financiamento imobiliário", papel: "conta_fixa", cor: "#E27A2E" },
-    { nome: "Ciranda", papel: "conta_fixa", cor: "#C44536" },
-    { nome: "Condomínio Verana", papel: "conta_fixa", cor: "#C0641C" },
-    { nome: "Energia elétrica", papel: "conta_fixa", cor: "#C9A227" },
-    { nome: "Prefeitura / IPTU", papel: "conta_fixa", cor: "#8C5A3C" },
-    { nome: "Boleto recorrente", papel: "conta_fixa", cor: "#6B4C9A" },
-    { nome: "Compra de USDC", papel: "conta_fixa", cor: "#3D5A80" }
+    { nome: "Porto Seguro Vida", papel: "assinatura", cor: "#000000" },
+    { nome: "VGBL", papel: "assinatura", cor: "#3A3A3A" },
+    { nome: "Claro", papel: "assinatura", cor: "#5C5C5C" },
+    { nome: "Vivo", papel: "assinatura", cor: "#7E7E7E" },
+    { nome: "Telefônica", papel: "assinatura", cor: "#A0A0A0" },
+    { nome: "Conselho profissional", papel: "assinatura", cor: "#C2C2C2" },
+    { nome: "Financiamento imobiliário", papel: "conta_fixa", cor: "#111111" },
+    { nome: "Ciranda", papel: "conta_fixa", cor: "#333333" },
+    { nome: "Condomínio Verana", papel: "conta_fixa", cor: "#555555" },
+    { nome: "Energia elétrica", papel: "conta_fixa", cor: "#777777" },
+    { nome: "Prefeitura / IPTU", papel: "conta_fixa", cor: "#999999" },
+    { nome: "Boleto recorrente", papel: "conta_fixa", cor: "#BBBBBB" },
+    { nome: "Compra de USDC", papel: "conta_fixa", cor: "#DDDDDD" }
   ];
 
   const ABERTURA = [
-    ["Alimentação", "#E0A100"],
-    ["Transporte", "#3D5A80"],
-    ["Saúde", "#C44536"],
-    ["Compras", "#6B4C9A"],
-    ["Lazer", "#E27A2E"],
-    ["Viagem", "#2A9D8F"],
-    ["Educação", "#0E4A57"],
-    ["Outros", "#8A97A0"]
+    ["Alimentação", "#000000"],
+    ["Transporte", "#2A2A2A"],
+    ["Saúde", "#484848"],
+    ["Compras", "#666666"],
+    ["Lazer", "#848484"],
+    ["Viagem", "#A2A2A2"],
+    ["Educação", "#C0C0C0"],
+    ["Outros", "#DEDEDE"]
   ];
 
   const anim = { timer: 0, index: 0, playing: false };
@@ -251,27 +251,27 @@
       const x = pad.l + i * gw + gw / 2;
       const hE = (ent[i] / maxBar) * ih;
       const hS = (sai[i] / maxBar) * ih;
-      barras += `<rect x="${(x - gw * 0.32).toFixed(1)}" y="${yBar(ent[i]).toFixed(1)}" width="${(gw * 0.26).toFixed(1)}" height="${hE.toFixed(1)}" fill="#1D6B45"><title>${esc(mesLongo(ym))}: entrou ${brl(ent[i])}</title></rect>`;
-      barras += `<rect x="${(x + gw * 0.04).toFixed(1)}" y="${yBar(sai[i]).toFixed(1)}" width="${(gw * 0.26).toFixed(1)}" height="${hS.toFixed(1)}" fill="#E27A2E"><title>${esc(mesLongo(ym))}: saiu ${brl(sai[i])}</title></rect>`;
+      barras += `<rect x="${(x - gw * 0.32).toFixed(1)}" y="${yBar(ent[i]).toFixed(1)}" width="${(gw * 0.26).toFixed(1)}" height="${hE.toFixed(1)}" fill="#000000"><title>${esc(mesLongo(ym))}: entrou ${brl(ent[i])}</title></rect>`;
+      barras += `<rect x="${(x + gw * 0.04).toFixed(1)}" y="${yBar(sai[i]).toFixed(1)}" width="${(gw * 0.26).toFixed(1)}" height="${hS.toFixed(1)}" fill="#B0B0B0" stroke="#000" stroke-width="1"><title>${esc(mesLongo(ym))}: saiu ${brl(sai[i])}</title></rect>`;
       const px = x.toFixed(1), py = ySaldo(saldos[i]).toFixed(1);
       linha += (i ? "L" : "M") + px + " " + py + " ";
-      barras += `<circle cx="${px}" cy="${py}" r="3.5" fill="#0E4A57"><title>Saldo ${brl(saldos[i])}</title></circle>`;
-      barras += `<text x="${px}" y="${H - 14}" text-anchor="middle" font-size="12" fill="#5A6B78">${mesCurto(ym)}</text>`;
+      barras += `<circle cx="${px}" cy="${py}" r="3.5" fill="#000000"><title>Saldo ${brl(saldos[i])}</title></circle>`;
+      barras += `<text x="${px}" y="${H - 14}" text-anchor="middle" font-size="12" fill="#000000">${mesCurto(ym)}</text>`;
     });
     let grades = "";
     [0, 0.5, 1].forEach((p) => {
       const y = (pad.t + ih - p * ih).toFixed(1);
-      grades += `<line x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" stroke="#E4EEEE"/>`;
-      grades += `<text x="${pad.l - 8}" y="${Number(y) + 4}" text-anchor="end" font-size="11" fill="#5A6B78">${eixo(maxBar * p)}</text>`;
+      grades += `<line x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" stroke="#CCCCCC"/>`;
+      grades += `<text x="${pad.l - 8}" y="${Number(y) + 4}" text-anchor="end" font-size="11" fill="#000000">${eixo(maxBar * p)}</text>`;
       const saldoTick = minS + (maxS - minS) * p;
-      grades += `<text x="${W - pad.r + 8}" y="${Number(y) + 4}" font-size="11" fill="#0E4A57">${eixo(saldoTick)}</text>`;
+      grades += `<text x="${W - pad.r + 8}" y="${Number(y) + 4}" font-size="11" fill="#000000">${eixo(saldoTick)}</text>`;
     });
     document.getElementById("chart-totais").innerHTML = svgAbrir(W, H, "Entradas e saídas por mês em 2026") +
-      grades + barras + `<path d="${linha}" fill="none" stroke="#0E4A57" stroke-width="2"/>` + "</svg>";
+      grades + barras + `<path d="${linha}" fill="none" stroke="#000000" stroke-width="2"/>` + "</svg>";
     legenda("legenda-totais", [
-      { cor: "#1D6B45", nome: "Entradas" },
-      { cor: "#E27A2E", nome: "Saídas" },
-      { cor: "#0E4A57", nome: "Saldo no fim do mês (escala da direita)" }
+      { cor: "#000000", nome: "Entradas" },
+      { cor: "#B0B0B0", nome: "Saídas" },
+      { cor: "#000000", nome: "Saldo no fim do mês (escala da direita)" }
     ]);
     const te = ent.reduce((a, b) => a + b, 0);
     const ts = sai.reduce((a, b) => a + b, 0);
@@ -296,12 +296,12 @@
     let grades = "";
     [1, 0.5, 0].forEach((p) => {
       const y = mid - (p * ih) / 2;
-      grades += `<line x1="${pad.l}" y1="${y.toFixed(1)}" x2="${W - pad.r}" y2="${y.toFixed(1)}" stroke="${p === 0 ? "#0E4A57" : "#E4EEEE"}"/>`;
-      grades += `<text x="${pad.l - 8}" y="${y + 4}" text-anchor="end" font-size="11" fill="#5A6B78">${eixo(max * p)}</text>`;
+      grades += `<line x1="${pad.l}" y1="${y.toFixed(1)}" x2="${W - pad.r}" y2="${y.toFixed(1)}" stroke="${p === 0 ? "#000000" : "#CCCCCC"}"/>`;
+      grades += `<text x="${pad.l - 8}" y="${y + 4}" text-anchor="end" font-size="11" fill="#000000">${eixo(max * p)}</text>`;
       if (p) {
         const y2 = mid + (p * ih) / 2;
-        grades += `<line x1="${pad.l}" y1="${y2.toFixed(1)}" x2="${W - pad.r}" y2="${y2.toFixed(1)}" stroke="#E4EEEE"/>`;
-        grades += `<text x="${pad.l - 8}" y="${y2 + 4}" text-anchor="end" font-size="11" fill="#5A6B78">${eixo(max * p)}</text>`;
+        grades += `<line x1="${pad.l}" y1="${y2.toFixed(1)}" x2="${W - pad.r}" y2="${y2.toFixed(1)}" stroke="#CCCCCC"/>`;
+        grades += `<text x="${pad.l - 8}" y="${y2 + 4}" text-anchor="end" font-size="11" fill="#000000">${eixo(max * p)}</text>`;
       }
     });
     MESES.forEach((ym, i) => {
@@ -322,7 +322,7 @@
         formas += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" fill="${f.cor}"><title>${esc(mesLongo(ym))} · ${esc(f.nome)}: ${brl(v)}</title></rect>`;
         y += h;
       });
-      formas += `<text x="${(x + bw / 2).toFixed(1)}" y="${H - 14}" text-anchor="middle" font-size="12" fill="#5A6B78">${mesCurto(ym)}</text>`;
+      formas += `<text x="${(x + bw / 2).toFixed(1)}" y="${H - 14}" text-anchor="middle" font-size="12" fill="#000000">${mesCurto(ym)}</text>`;
     });
     document.getElementById("chart-fluxo").innerHTML = svgAbrir(W, H, "Entradas e saídas especificadas por mês") + grades + formas + "</svg>";
     legenda("legenda-fluxo", FAMILIAS);
@@ -344,9 +344,9 @@
     top.forEach((item, i) => {
       const y = 18 + i * 36;
       const w = Math.max(2, (item.valor / max) * 620);
-      body += `<text x="210" y="${y + 16}" text-anchor="end" font-size="13" fill="#0E4A57">${esc(item.nome)}</text>`;
-      body += `<rect x="222" y="${y}" width="${w.toFixed(1)}" height="22" fill="#E27A2E"><title>${esc(item.nome)}: ${brl(item.valor)}</title></rect>`;
-      body += `<text x="${(230 + w).toFixed(1)}" y="${y + 16}" font-size="13" fill="#24383d">${esc(brl(item.valor))}</text>`;
+      body += `<text x="210" y="${y + 16}" text-anchor="end" font-size="13" fill="#000000">${esc(item.nome)}</text>`;
+      body += `<rect x="222" y="${y}" width="${w.toFixed(1)}" height="22" fill="#000000"><title>${esc(item.nome)}: ${brl(item.valor)}</title></rect>`;
+      body += `<text x="${(230 + w).toFixed(1)}" y="${y + 16}" font-size="13" fill="#000000">${esc(brl(item.valor))}</text>`;
     });
     document.getElementById("chart-destinos").innerHTML = svgAbrir(W, H, "Maiores saídas por destino") + body + "</svg>";
   }
@@ -363,8 +363,8 @@
     let grades = "", formas = "";
     [0, 0.5, 1].forEach((p) => {
       const y = pad.t + ih - p * ih;
-      grades += `<line x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" stroke="#E4EEEE"/>`;
-      grades += `<text x="${pad.l - 8}" y="${y + 4}" text-anchor="end" font-size="11" fill="#5A6B78">${eixo(max * p)}</text>`;
+      grades += `<line x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" stroke="#CCCCCC"/>`;
+      grades += `<text x="${pad.l - 8}" y="${y + 4}" text-anchor="end" font-size="11" fill="#000000">${eixo(max * p)}</text>`;
     });
     MESES.forEach((ym, i) => {
       const x = pad.l + i * gw + (gw - bw) / 2;
@@ -376,7 +376,7 @@
         y -= h;
         formas += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(h, 0.5).toFixed(1)}" fill="${r.cor}"><title>${esc(mesLongo(ym))} · ${esc(r.nome)}: ${brl(v)}</title></rect>`;
       });
-      formas += `<text x="${(x + bw / 2).toFixed(1)}" y="${H - 14}" text-anchor="middle" font-size="12" fill="#5A6B78">${mesCurto(ym)}</text>`;
+      formas += `<text x="${(x + bw / 2).toFixed(1)}" y="${H - 14}" text-anchor="middle" font-size="12" fill="#000000">${mesCurto(ym)}</text>`;
     });
     document.getElementById("chart-assinaturas").innerHTML = svgAbrir(W, H, "Assinaturas e contas recorrentes por mês") + grades + formas + "</svg>";
     legenda("legenda-assinaturas", series);
@@ -394,7 +394,7 @@
     const total = partes.reduce((s, p) => s + p.valor, 0);
     const W = 260, H = 240, cx = 130, cy = 112, r = 72;
     if (total <= 0) {
-      return svgAbrir(W, H, rotulo) + `<text x="${cx}" y="${cy}" text-anchor="middle" font-size="13" fill="#5A6B78">Sem valor</text></svg>`;
+      return svgAbrir(W, H, rotulo) + `<text x="${cx}" y="${cy}" text-anchor="middle" font-size="13" fill="#000000">Sem valor</text></svg>`;
     }
     let ang = -Math.PI / 2;
     let paths = "";
@@ -410,8 +410,8 @@
         ang += passo;
       });
     }
-    paths += `<text x="${cx}" y="${cy - 4}" text-anchor="middle" font-size="15" font-weight="700" fill="#0E4A57">${esc(centro)}</text>`;
-    paths += `<text x="${cx}" y="${cy + 16}" text-anchor="middle" font-size="11" fill="#5A6B78">${esc(brl(total))}</text>`;
+    paths += `<text x="${cx}" y="${cy - 4}" text-anchor="middle" font-size="15" font-weight="700" fill="#000000">${esc(centro)}</text>`;
+    paths += `<text x="${cx}" y="${cy + 16}" text-anchor="middle" font-size="11" fill="#000000">${esc(brl(total))}</text>`;
     return svgAbrir(W, H, rotulo) + paths + "</svg>";
   }
 
@@ -446,8 +446,8 @@
     let grades = "", formas = "";
     [0, 0.5, 1].forEach((p) => {
       const y = pad.t + ih - p * ih;
-      grades += `<line x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" stroke="#E4EEEE"/>`;
-      grades += `<text x="${pad.l - 8}" y="${y + 4}" text-anchor="end" font-size="11" fill="#5A6B78">${eixo(max * p)}</text>`;
+      grades += `<line x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" stroke="#CCCCCC"/>`;
+      grades += `<text x="${pad.l - 8}" y="${y + 4}" text-anchor="end" font-size="11" fill="#000000">${eixo(max * p)}</text>`;
     });
     const faturas = m.txs.filter((tx) => tx.origem === "fatura_black").sort((a, b) => a.data.localeCompare(b.data));
     const dias = faturas.map((tx) => Number(tx.data.slice(8)));
@@ -456,14 +456,14 @@
       const hF = (fat[i] / max) * ih;
       const hT = (tar[i] / max) * ih;
       const yF = pad.t + ih - hF - hT;
-      formas += `<rect x="${x.toFixed(1)}" y="${(yF + hT).toFixed(1)}" width="${bw.toFixed(1)}" height="${hF.toFixed(1)}" fill="#1A1A1A"><title>${esc(mesLongo(ym))}: fatura ${brl(fat[i])}</title></rect>`;
-      if (hT) formas += `<rect x="${x.toFixed(1)}" y="${yF.toFixed(1)}" width="${bw.toFixed(1)}" height="${hT.toFixed(1)}" fill="#8A97A0"><title>Tarifa ${brl(tar[i])}</title></rect>`;
-      formas += `<text x="${(x + bw / 2).toFixed(1)}" y="${H - 14}" text-anchor="middle" font-size="12" fill="#5A6B78">${mesCurto(ym)}</text>`;
+      formas += `<rect x="${x.toFixed(1)}" y="${(yF + hT).toFixed(1)}" width="${bw.toFixed(1)}" height="${hF.toFixed(1)}" fill="#000000"><title>${esc(mesLongo(ym))}: fatura ${brl(fat[i])}</title></rect>`;
+      if (hT) formas += `<rect x="${x.toFixed(1)}" y="${yF.toFixed(1)}" width="${bw.toFixed(1)}" height="${hT.toFixed(1)}" fill="#B0B0B0"><title>Tarifa ${brl(tar[i])}</title></rect>`;
+      formas += `<text x="${(x + bw / 2).toFixed(1)}" y="${H - 14}" text-anchor="middle" font-size="12" fill="#000000">${mesCurto(ym)}</text>`;
     });
     document.getElementById("chart-black").innerHTML = svgAbrir(W, H, "Fatura do Cartão Black por mês") + grades + formas + "</svg>";
     legenda("legenda-black", [
-      { cor: "#1A1A1A", nome: "Fatura" },
-      { cor: "#8A97A0", nome: "Tarifa Personnalité" }
+      { cor: "#000000", nome: "Fatura" },
+      { cor: "#B0B0B0", nome: "Tarifa Personnalité" }
     ]);
     const freq = {};
     dias.forEach((d) => { freq[d] = (freq[d] || 0) + 1; });
@@ -486,8 +486,8 @@
     const fatura = m.mes[ym].fatura;
     const resto = fatura - soma;
     let plot = partes.filter((p) => p.valor > 0);
-    if (resto > 0.009) plot = plot.concat([{ nome: "Ainda não aberto", cor: "#1A1A1A", valor: resto }]);
-    if (!plot.length) plot = [{ nome: "Sem fatura neste mês", cor: "#E4EEEE", valor: 1 }];
+    if (resto > 0.009) plot = plot.concat([{ nome: "Ainda não aberto", cor: "#000000", valor: resto }]);
+    if (!plot.length) plot = [{ nome: "Sem fatura neste mês", cor: "#E6E6E6", valor: 1 }];
     document.getElementById("chart-black-split").innerHTML = donut(plot, MES_CURTO[mesIdx(ym)], "Abertura da fatura Black de " + mesLongo(ym));
     const box = document.getElementById("black-resto");
     if (resto < -0.009) {
@@ -549,8 +549,8 @@
     for (let dia = 1; dia <= 31; dia++) {
       const h = (uso.dias[dia] / max) * ih;
       const x = pad.l + (dia - 1) * gw;
-      body += `<rect x="${x.toFixed(1)}" y="${(pad.t + ih - h).toFixed(1)}" width="${Math.max(gw - 3, 1).toFixed(1)}" height="${h.toFixed(1)}" fill="${semBlack ? "#0E4A57" : "#E27A2E"}"><title>Dia ${dia}: ${brl(uso.dias[dia])}</title></rect>`;
-      body += `<text x="${(x + gw / 2).toFixed(1)}" y="${H - 10}" text-anchor="middle" font-size="10" fill="#5A6B78">${dia}</text>`;
+      body += `<rect x="${x.toFixed(1)}" y="${(pad.t + ih - h).toFixed(1)}" width="${Math.max(gw - 3, 1).toFixed(1)}" height="${h.toFixed(1)}" fill="#000000"><title>Dia ${dia}: ${brl(uso.dias[dia])}</title></rect>`;
+      body += `<text x="${(x + gw / 2).toFixed(1)}" y="${H - 10}" text-anchor="middle" font-size="10" fill="#000000">${dia}</text>`;
     }
     document.getElementById("chart-dias").innerHTML = svgAbrir(W, H, "Gasto por dia do mês") + body + "</svg>";
 
@@ -559,8 +559,8 @@
     SEMANA.forEach((item, i) => {
       const w = (uso.semana[item.d] / maxS) * 640;
       const y = 16 + i * 32;
-      semSvg += `<text x="70" y="${y + 14}" text-anchor="end" font-size="13" fill="#0E4A57">${item.nome}</text>`;
-      semSvg += `<rect x="82" y="${y}" width="${w.toFixed(1)}" height="18" fill="#0E4A57"><title>${item.nome}: ${brl(uso.semana[item.d])}</title></rect>`;
+      semSvg += `<text x="70" y="${y + 14}" text-anchor="end" font-size="13" fill="#000000">${item.nome}</text>`;
+      semSvg += `<rect x="82" y="${y}" width="${w.toFixed(1)}" height="18" fill="#000000"><title>${item.nome}: ${brl(uso.semana[item.d])}</title></rect>`;
     });
     document.getElementById("chart-semana").innerHTML = svgAbrir(760, 16 + SEMANA.length * 32, "Gasto por dia da semana") + semSvg + "</svg>";
 
@@ -622,16 +622,11 @@
   }
 
   function corCalor(v, max) {
-    if (v <= 0) return "#F4F1EA";
-    const t = Math.min(1, v / max);
-    return misturar(t < 0.55 ? ["#F8E7D4", "#E27A2E", t / 0.55] : ["#E27A2E", "#6A2E12", (t - 0.55) / 0.45]);
-  }
-
-  function misturar([a, b, t]) {
-    const pa = [1, 3, 5].map((i) => parseInt(a.slice(i, i + 2), 16));
-    const pb = [1, 3, 5].map((i) => parseInt(b.slice(i, i + 2), 16));
-    const hex = pa.map((c, i) => Math.round(c + (pb[i] - c) * t).toString(16).padStart(2, "0"));
-    return "#" + hex.join("");
+    if (v <= 0) return "#FFFFFF";
+    const t = Math.min(1, Math.sqrt(v / max));
+    const g = Math.round(255 - t * 220);
+    const hex = g.toString(16).padStart(2, "0");
+    return "#" + hex + hex + hex;
   }
 
   function escalaAnim(m) {
@@ -651,8 +646,8 @@
       if (d.data <= ate) forte += cmd;
     });
     document.getElementById("anim-linha").innerHTML = svgAbrir(W, H, "Saldo da conta ao longo de 2026") +
-      `<path d="${cheia}" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="2"/>` +
-      `<path d="${forte}" fill="none" stroke="#E27A2E" stroke-width="2.5"/>` + "</svg>";
+      `<path d="${cheia}" fill="none" stroke="#CCCCCC" stroke-width="2"/>` +
+      `<path d="${forte}" fill="none" stroke="#000000" stroke-width="2.5"/>` + "</svg>";
   }
 
   function mostrarMes(indice, base) {
@@ -1030,7 +1025,6 @@
   });
 
   document.getElementById("btn-reset").addEventListener("click", () => {
-    if (!confirm("Apagar categorias, apelidos e notas salvas neste navegador?")) return;
     edits = vazio();
     localStorage.removeItem(STORE);
     render();
