@@ -449,10 +449,8 @@
       grades += `<line x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" stroke="#E4EEEE"/>`;
       grades += `<text x="${pad.l - 8}" y="${y + 4}" text-anchor="end" font-size="11" fill="#5A6B78">${eixo(max * p)}</text>`;
     });
-    const dias = [];
-    m.txs.forEach((tx) => {
-      if (tx.origem === "fatura_black") dias.push(Number(tx.data.slice(8)));
-    });
+    const faturas = m.txs.filter((tx) => tx.origem === "fatura_black").sort((a, b) => a.data.localeCompare(b.data));
+    const dias = faturas.map((tx) => Number(tx.data.slice(8)));
     MESES.forEach((ym, i) => {
       const x = pad.l + i * gw + (gw - bw) / 2;
       const hF = (fat[i] / max) * ih;
@@ -566,8 +564,12 @@
     });
     document.getElementById("chart-semana").innerHTML = svgAbrir(760, 16 + SEMANA.length * 32, "Gasto por dia da semana") + semSvg + "</svg>";
 
-    const a = topDias(com.dias, 3).map((d) => `dia ${d.dia} (${brl(d.v)})`).join(", ");
-    const b = topDias(sem.dias, 3).map((d) => `dia ${d.dia} (${brl(d.v)})`).join(", ");
+    const rotuloDia = (lista, base) => lista.map((d) => {
+      const nome = principalDoDia(m, d.dia, base);
+      return `dia ${d.dia} (${brl(d.v)}${nome ? ", sobretudo " + nome : ""})`;
+    }).join(", ");
+    const a = rotuloDia(topDias(com.dias, 3), false);
+    const b = rotuloDia(topDias(sem.dias, 3), true);
     const maiorSemana = SEMANA.slice().sort((p, q) => uso.semana[q.d] - uso.semana[p.d])[0];
     document.getElementById("leitura-dias").textContent = semBlack
       ? `Sem a fatura do Black, os dias com mais saída são ${b}. O dia da semana mais pesado neste recorte é ${maiorSemana.nome}.`
@@ -594,6 +596,18 @@
     });
     cal += "</table>";
     document.getElementById("chart-cal").innerHTML = cal;
+  }
+
+  function principalDoDia(m, dia, semBlack) {
+    const mapa = new Map();
+    m.txs.forEach((tx) => {
+      if (Number(tx.data.slice(8)) !== dia || tx.natureza !== "saida") return;
+      if (semBlack && (tx.origem === "fatura_black" || tx.origem === "tarifa_black")) return;
+      mapa.set(tx.nome, (mapa.get(tx.nome) || 0) + -tx.valor);
+    });
+    let melhor = "", valor = 0;
+    mapa.forEach((v, nome) => { if (v > valor) { valor = v; melhor = nome; } });
+    return melhor;
   }
 
   function gastoDoDia(m, ym, dia, semBlack) {
@@ -1004,9 +1018,12 @@
 
   preencherFiltros();
   render();
-  if (reduzido) {
+  const params = new URLSearchParams(location.search);
+  const pausa = reduzido || params.has("pausa");
+  if (pausa) {
     parar();
-    mostrarMes(MESES.length - 1);
+    const pedido = Number(params.get("mes"));
+    mostrarMes(Number.isFinite(pedido) && params.has("mes") ? pedido : (reduzido ? MESES.length - 1 : 0));
   } else {
     anim.playing = true;
     document.getElementById("btn-play").textContent = "Pausar";

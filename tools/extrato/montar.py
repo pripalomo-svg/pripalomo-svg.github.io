@@ -162,7 +162,8 @@ def classify(desc: str, value: float) -> dict | None:
     if "IMPULSO" in raw:
         return pack("educacao", "Impulso")
 
-    if "SECRETARIA" in raw or "PM SAO PAU" in raw or "SECR." in raw:
+    # "SECR. D" é nome de pessoa truncado, não a Secretaria da Fazenda.
+    if "SECRETARIA" in raw or "PM SAO PAU" in raw:
         if value < 0:
             return pack("impostos", "Prefeitura / IPTU", papel="conta_fixa")
         return pack("outras_entradas", "Prefeitura / IPTU")
@@ -174,8 +175,9 @@ def classify(desc: str, value: float) -> dict | None:
     if "CRIPTO" in raw:
         name = "Compra de BTC" if "BTC" in raw else "Cripto"
         return pack("investimentos", name)
-    if "INTE" in raw and raw.startswith("TED"):
-        return pack("transferencia_banco", "Banco Inter")
+    # "TED D" + código não identifica o banco. McKinsey já foi separado acima.
+    if raw.startswith("TED D"):
+        return pack("transferencia_banco", "TED enviado")
 
     if "DECOLAR" in raw:
         return pack("viagem", "Decolar")
@@ -281,11 +283,13 @@ def load_transactions(first_half: str, second_half: str) -> tuple[dict, list[dic
     opening = next(
         item for item in first if item["date"] == "2025-12-31" and item["desc"].startswith("SALDO")
     )
-    chosen = [item for item in first if "2026-01-01" <= item["date"] <= "2026-06-30"]
-    chosen += [item for item in second if "2026-07-01" <= item["date"] <= "2026-09-25"]
-    # Extratos vêm do dia mais novo para o mais antigo.
-    chosen.reverse()
-    return opening, chosen, first + second
+    # Cada PDF vem do dia mais novo para o mais antigo. Inverte cada metade
+    # antes de juntar, senão julho–setembro fica na frente de janeiro–junho.
+    primeiro = [item for item in first if "2026-01-01" <= item["date"] <= "2026-06-30"]
+    segundo = [item for item in second if "2026-07-01" <= item["date"] <= "2026-09-25"]
+    primeiro.reverse()
+    segundo.reverse()
+    return opening, primeiro + segundo, first + second
 
 
 def build(opening: dict, chosen: list[dict]) -> dict:
@@ -337,6 +341,13 @@ def build(opening: dict, chosen: list[dict]) -> dict:
 
     if abs(balance - 592.57) > 0.001:
         raise SystemExit(f"Saldo final inesperado: {balance}")
+
+    secr = [item for item in lancamentos if "SECR. D" in item["desc"]]
+    if len(secr) != 1 or secr[0]["contraparte"] != "Secr. D" or secr[0]["valor"] <= 0:
+        raise SystemExit(f"Pix SECR. D classificado errado: {secr}")
+    ted = [item for item in lancamentos if item["desc"].startswith("TED D")]
+    if len(ted) != 1 or ted[0]["contraparte"] != "TED enviado" or abs(ted[0]["valor"] + 30000) > 0.01:
+        raise SystemExit(f"TED de R$ 30 mil classificado errado: {ted}")
 
     ids = [item["id"] for item in lancamentos]
     if len(ids) != len(set(ids)):
