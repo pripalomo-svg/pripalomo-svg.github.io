@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extrato 2026 — Priscila Palomo</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Leitura pessoal do extrato de 2026: entradas, saídas, assinaturas e cartão Black.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>P</text></svg>">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+.ex-page { font-size: 15px; line-height: 1.5; }
+.ex-page h1, .ex-page h2, .ex-page h3 { font-weight: 600; }
+.ex-wrap { width: min(1120px, 92vw); margin-inline: auto; }
+.ex-page nav { background: rgba(243,246,244,.94); }
+.ex-kicker {
+  display: block; font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--dourado-escuro); font-weight: 700; margin-bottom: 8px;
+}
+.ex-hero { padding: 36px 0 28px; }
+.ex-hero h1 { font-size: clamp(32px, 5vw, 48px); margin-bottom: 10px; }
+.ex-hero p { font-size: 16px; max-width: 68ch; color: #24383d; }
+.ex-aviso {
+  margin-top: 18px; padding: 12px 14px; background: var(--dourado-pale);
+  border-left: 3px solid var(--dourado); font-size: 13.5px; max-width: 78ch;
+}
+.ex-sec { padding: 34px 0 40px; border-top: 1px solid var(--borda); }
+.ex-sec h2 { font-size: clamp(24px, 3vw, 32px); margin-bottom: 6px; }
+.ex-lead { color: var(--muted); font-size: 14.5px; max-width: 70ch; margin-bottom: 16px; }
+.ex-note { color: var(--muted); font-size: 13px; margin-top: 10px; }
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.kpi {
+  background: #fff; border: 1px solid var(--borda); padding: 14px 14px 12px;
+}
+.kpi span { display: block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.kpi strong { display: block; margin-top: 4px; font-size: 22px; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.kpi em { display: block; margin-top: 2px; font-style: normal; font-size: 12px; color: var(--muted); }
+.kpi.sai strong { color: #9C3B24; }
+.kpi.ent strong { color: #1D6B45; }
+.card {
+  background: #fff; border: 1px solid var(--borda); padding: 16px 14px 12px; margin-top: 14px;
+}
+.card h3 { font-size: 16px; margin-bottom: 4px; }
+.chart { width: 100%; overflow-x: auto; }
+.chart svg { display: block; min-width: 680px; width: 100%; height: auto; }
+#chart-setores svg, #chart-black-split svg { min-width: 0; max-width: 260px; }
+.cal th:first-child { width: 46px; text-align: right; padding-right: 6px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 12px; }
+.legend i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; }
+.legend span { font-size: 12.5px; color: #24383d; }
+.toggles { display: flex; flex-wrap: wrap; gap: 10px 16px; margin: 8px 0 4px; }
+.toggles label, .filtros label { font-size: 13.5px; display: inline-flex; gap: 8px; align-items: center; }
+.split { display: grid; grid-template-columns: 280px 1fr; gap: 18px; align-items: center; }
+.lista-setores { list-style: none; }
+.lista-setores li {
+  display: grid; grid-template-columns: 14px 1fr auto auto; gap: 8px; align-items: center;
+  padding: 6px 0; border-bottom: 1px solid var(--borda-suave); font-size: 14px;
+}
+.leitura {
+  background: var(--creme-escuro); padding: 12px 14px; margin: 12px 0; font-size: 15px;
+}
+.palco { background: #0E4A57; color: #F3F6F4; padding: 22px 18px 18px; margin-top: 8px; }
+.palco h3, .palco p { color: #F3F6F4; }
+.palco-top { display: flex; justify-content: space-between; gap: 12px; align-items: end; flex-wrap: wrap; }
+.palco h3 { font-size: clamp(26px, 4vw, 36px); }
+.palco-ctrl { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.palco .btn { padding: 8px 14px; letter-spacing: .04em; }
+.palco .btn-outline { color: #fff; border-color: rgba(255,255,255,.45); }
+.palco .btn-outline:hover { border-color: var(--dourado); color: #fff; }
+.palco input[type="range"] { width: min(220px, 40vw); accent-color: var(--dourado); }
+.barras { display: grid; gap: 10px; margin: 16px 0; }
+.barra-linha { display: grid; grid-template-columns: 92px 1fr auto; gap: 10px; align-items: center; font-size: 14px; }
+.trilho { height: 16px; background: rgba(255,255,255,.12); }
+.trilho span { display: block; height: 100%; width: 0; }
+.trilho.ent span { background: #7DCAA8; }
+.trilho.sai span { background: #E27A2E; }
+.palco-nums { display: flex; gap: 22px; flex-wrap: wrap; font-variant-numeric: tabular-nums; }
+.palco-nums strong { display: block; font-size: 18px; }
+.palco-nums span { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+.eventos { list-style: none; margin-top: 14px; display: grid; gap: 4px; }
+.eventos li { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; border-top: 1px solid rgba(255,255,255,.12); padding-top: 4px; }
+.tag-int { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; opacity: .7; margin-left: 6px; }
+.sheet-wrap { overflow-x: auto; border: 1px solid var(--borda); background: #fff; }
+table.sheet { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 760px; }
+.sheet th {
+  text-align: left; font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--muted); font-weight: 700; padding: 10px 8px; border-bottom: 2px solid var(--preto);
+  background: #fff; white-space: nowrap;
+}
+.sheet td { padding: 8px; border-bottom: 1px solid var(--borda-suave); vertical-align: middle; }
+.sheet tr:hover td { background: #FBF8F3; }
+.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.neg { color: #9C3B24; }
+.pos { color: #1D6B45; }
+.sheet tfoot td { font-weight: 700; border-top: 2px solid var(--preto); border-bottom: 0; }
+.edit, .sheet [contenteditable] {
+  border: 1px dashed transparent; padding: 3px 6px; min-height: 1.4em; display: inline-block; min-width: 6ch;
+}
+.sheet [contenteditable]:hover, .sheet [contenteditable]:focus, .edit:focus {
+  border-color: var(--dourado); background: #fff; outline: none;
+}
+.sheet select, .ex-page select, .ex-page input[type="text"], .ex-page input[type="search"] {
+  font: inherit; color: var(--preto); background: #fff; border: 1px solid var(--borda); padding: 6px 8px;
+}
+.filtros { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: end; margin: 8px 0 12px; }
+.acoes { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.black-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px; }
+.black-grid label { font-size: 12px; color: var(--muted); display: grid; gap: 4px; }
+.black-grid input { width: 100%; }
+.resto { margin-top: 8px; font-size: 14px; }
+.resto.alerta { color: #9C3B24; font-weight: 700; }
+.cal { border-collapse: collapse; font-size: 11px; }
+.cal th, .cal td { width: 28px; height: 26px; text-align: center; padding: 0; }
+.cal th { color: var(--muted); font-weight: 600; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); border: 0;
+}
+@media (max-width: 800px) {
+  .kpis, .black-grid { grid-template-columns: 1fr 1fr; }
+  .split { grid-template-columns: 1fr; }
+  .kpi strong { font-size: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .trilho span { transition: none !important; }
+}
+</style>
+</head>
+<body class="ex-page">
+
+<nav>
+  <a class="nav-logo" href="dashboard.html">
+    <img src="assets/logo.svg" alt="Priscila Palomo Psicologia">
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Priscila Palomo</span>
+      <span class="nav-logo-sub">Extrato · uso pessoal</span>
+    </div>
+  </a>
+  <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
+  <ul class="nav-links">
+    <li><a href="#totais">Totais</a></li>
+    <li><a href="#fluxo">Detalhe</a></li>
+    <li><a href="#assinaturas">Assinaturas</a></li>
+    <li><a href="#movimento">Animação</a></li>
+    <li><a href="#black">Black</a></li>
+    <li><a href="#resumo">Tabela</a></li>
+    <li><a href="dashboard.html">Desk</a></li>
+  </ul>
+</nav>
+
+<main class="ex-wrap">
+  <header class="ex-hero">
+    <span class="ex-kicker">Conta Itaú · 2026</span>
+    <h1>O ano na conta, mês a mês.</h1>
+    <p>De 1º de janeiro a 25 de setembro. Os dois extratos entram juntos, sem repetir junho. O salário da Priscila, os Pix em nome dela e os TED da McKinsey (salário da Luísa) ficam separados das outras entradas.</p>
+    <p class="ex-aviso">Uso pessoal. A página não aparece no menu público nem no Google, mas o arquivo fica no ar se esta versão for publicada. Não compartilhe o link. CPF e número da conta não estão nesta leitura.</p>
+  </header>
+
+  <section class="kpis" aria-label="Resumo do ano">
+    <article class="kpi ent"><span>Entrou</span><strong id="kpi-entradas">—</strong><em>sem cofrinho, CDB e mesma conta</em></article>
+    <article class="kpi sai"><span>Saiu</span><strong id="kpi-saidas">—</strong><em>gastos e transferências para fora</em></article>
+    <article class="kpi"><span>Resultado</span><strong id="kpi-resultado">—</strong><em>entrou menos saiu</em></article>
+    <article class="kpi"><span>Saldo em 25/09</span><strong id="kpi-saldo">—</strong><em id="kpi-saldo-ini">partiu de —</em></article>
+    <article class="kpi"><span>Salário da Priscila</span><strong id="kpi-salario">—</strong><em>remuneração</em></article>
+    <article class="kpi"><span>Transferências da Priscila</span><strong id="kpi-aportes">—</strong><em>Pix e TED no nome dela</em></article>
+    <article class="kpi"><span>Luísa · McKinsey</span><strong id="kpi-luisa">—</strong><em>TED da McKinsey</em></article>
+    <article class="kpi"><span>Faturas Black</span><strong id="kpi-black">—</strong><em>débito da fatura no ano</em></article>
+  </section>
+
+  <section class="ex-sec" id="totais">
+    <h2>Total de entradas e de saídas</h2>
+    <p class="ex-lead">Cada mês tem o que entrou e o que saiu. A linha é o saldo no fim do mês. Setembro vai só até o dia 25.</p>
+    <div class="toggles">
+      <label><input type="checkbox" id="toggle-internas"> Incluir cofrinho, CDB e transferência para a mesma conta</label>
+    </div>
+    <div class="card">
+      <div class="chart" id="chart-totais"></div>
+      <div class="legend" id="legenda-totais"></div>
+      <p class="ex-note" id="nota-totais"></p>
+    </div>
+  </section>
+
+  <section class="ex-sec" id="fluxo">
+    <h2>Entradas e saídas, com nome e sobrenome</h2>
+    <p class="ex-lead">Para cima, de onde o dinheiro veio: salário da Priscila, transferências dela, salário da Luísa na McKinsey e o resto. Para baixo, para onde foi.</p>
+    <div class="card">
+      <div class="chart" id="chart-fluxo"></div>
+      <div class="legend" id="legenda-fluxo"></div>
+    </div>
+    <div class="card">
+      <h3>Maiores saídas por destino</h3>
+      <div class="chart" id="chart-destinos"></div>
+    </div>
+  </section>
+
+  <section class="ex-sec" id="assinaturas">
+    <h2>Assinaturas ao longo dos meses</h2>
+    <p class="ex-lead">Porto Seguro Vida, VGBL, Claro, Vivo, Telefônica e o conselho profissional. No mesmo gráfico, as contas que se repetem: financiamento, Ciranda, condomínio, luz, IPTU, boleto e a compra mensal de USDC.</p>
+    <div class="toggles">
+      <label><input type="checkbox" id="toggle-assinaturas"> Mostrar só as assinaturas</label>
+    </div>
+    <div class="card">
+      <div class="chart" id="chart-assinaturas"></div>
+      <div class="legend" id="legenda-assinaturas"></div>
+    </div>
+  </section>
+
+  <section class="ex-sec" id="movimento">
+    <h2>Movimentação mensal</h2>
+    <p class="ex-lead">O ano anda sozinho. As barras são entrada e saída de verdade. A linha é o saldo da conta, inclusive o que foi para o cofrinho.</p>
+    <div class="palco">
+      <div class="palco-top">
+        <h3 id="anim-mes">janeiro</h3>
+        <div class="palco-ctrl">
+          <button type="button" class="btn btn-outline" id="anim-prev" aria-label="Mês anterior">←</button>
+          <button type="button" class="btn btn-gold" id="btn-play">Pausar</button>
+          <button type="button" class="btn btn-outline" id="anim-next" aria-label="Próximo mês">→</button>
+          <input type="range" id="anim-scrub" min="0" max="8" value="0" aria-label="Posição no ano">
+        </div>
+      </div>
+      <div class="chart" id="anim-linha"></div>
+      <div class="barras">
+        <div class="barra-linha"><span>Entradas</span><div class="trilho ent"><span id="anim-bar-ent"></span></div><strong id="anim-entradas">—</strong></div>
+        <div class="barra-linha"><span>Saídas</span><div class="trilho sai"><span id="anim-bar-sai"></span></div><strong id="anim-saidas">—</strong></div>
+      </div>
+      <div class="palco-nums">
+        <div><span>Resultado do mês</span><strong id="anim-resultado">—</strong></div>
+        <div><span>Saldo no fim</span><strong id="anim-saldo">—</strong></div>
+      </div>
+      <ul class="eventos" id="anim-eventos"></ul>
+      <p class="sr-only" id="anim-live" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section class="ex-sec" id="black">
+    <h2>Cartão Black e os dias de maior gasto</h2>
+    <p class="ex-lead">O extrato só traz o débito da fatura, não as compras de dentro do cartão. O gráfico de setores mostra a conta inteira — a fatura entra como um bloco. A abertura por tipo de gasto é sua: preencha e o gráfico acompanha, salvo neste navegador.</p>
+    <div class="card">
+      <h3>O que mais sai da conta</h3>
+      <div class="split">
+        <div class="chart" id="chart-setores"></div>
+        <div>
+          <p class="leitura" id="leitura-setores"></p>
+          <ul class="lista-setores" id="lista-setores"></ul>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Fatura Black em cada mês</h3>
+      <div class="chart" id="chart-black"></div>
+      <div class="legend" id="legenda-black"></div>
+      <p class="leitura" id="leitura-black"></p>
+    </div>
+    <div class="card">
+      <h3>Abrir a fatura por tipo de gasto</h3>
+      <label>Mês <select id="black-mes"></select></label>
+      <div class="split" style="margin-top:12px">
+        <div class="chart" id="chart-black-split"></div>
+        <div>
+          <div class="black-grid" id="black-form"></div>
+          <p class="resto" id="black-resto"></p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Dias em que mais se gasta</h3>
+      <div class="toggles">
+        <label><input type="checkbox" id="toggle-sem-black"> Tirar o débito da fatura Black</label>
+      </div>
+      <p class="leitura" id="leitura-dias"></p>
+      <div class="chart" id="chart-dias"></div>
+      <h3 style="margin-top:18px">Dia da semana</h3>
+      <div class="chart" id="chart-semana"></div>
+      <h3 style="margin-top:18px">Calendário do ano</h3>
+      <div class="chart" id="chart-cal"></div>
+    </div>
+  </section>
+
+  <section class="ex-sec" id="resumo">
+    <h2>Resumo para anotar</h2>
+    <p class="ex-lead">Troque a categoria, o apelido ou a nota. A mudança fica neste navegador e os gráficos de cima acompanham a categoria. Nada disso volta para o banco.</p>
+    <p class="ex-note" id="status-edicao"></p>
+    <div class="acoes">
+      <button type="button" class="btn btn-outline" id="btn-csv">Baixar planilha</button>
+      <button type="button" class="btn btn-outline" id="btn-json">Baixar anotações</button>
+      <button type="button" class="btn btn-outline" id="btn-importar">Trazer anotações</button>
+      <input type="file" id="arquivo-json" accept="application/json" hidden>
+      <button type="button" class="btn btn-outline" id="btn-reset">Apagar anotações</button>
+    </div>
+
+    <h3>Por mês</h3>
+    <div class="sheet-wrap" id="tabela-mes"></div>
+
+    <h3 style="margin-top:22px">Por pessoa e lugar</h3>
+    <div class="filtros">
+      <label>Tamanho
+        <select id="f-min">
+          <option value="0">Tudo</option>
+          <option value="100" selected>Acima de R$ 100</option>
+          <option value="500">Acima de R$ 500</option>
+          <option value="1000">Acima de R$ 1.000</option>
+        </select>
+      </label>
+      <label>Busca <input type="search" id="f-nome" placeholder="Márcia, Ciranda, Black…"></label>
+    </div>
+    <div class="sheet-wrap" id="tabela-quem"></div>
+
+    <h3 style="margin-top:22px">Lançamentos</h3>
+    <div class="filtros">
+      <label>Mês <select id="f-mes"><option value="">Todos</option></select></label>
+      <label>Categoria <select id="f-setor"><option value="">Todas</option></select></label>
+      <label>Tipo
+        <select id="f-tipo">
+          <option value="">Todos</option>
+          <option value="entrada">Entradas</option>
+          <option value="saida">Saídas</option>
+          <option value="interna">Cofrinho, CDB e mesma conta</option>
+        </select>
+      </label>
+      <label>Busca <input type="search" id="f-busca" placeholder="Descrição ou nome"></label>
+      <label><input type="checkbox" id="f-internas" checked> Esconder cofrinho, CDB e mesma conta</label>
+    </div>
+    <p class="ex-note" id="conta-lanc"></p>
+    <div class="sheet-wrap" id="tabela-lanc"></div>
+  </section>
+</main>
+
+<footer>
+  <a href="dashboard.html" class="foot-logo"><img src="assets/logo.svg" alt=""></a>
+  <div class="foot-links">
+    <a href="dashboard.html">Desk</a>
+    <a href="#totais">Voltar ao topo</a>
+  </div>
+  <span class="foot-info">Extrato 2026 · uso pessoal · © <span data-year></span></span>
+</footer>
+
+<script src="assets/app.js"></script>
+<script src="assets/extrato-2026.data.js"></script>
+<script src="assets/extrato-2026.js"></script>
+</body>
+</html>
