@@ -191,11 +191,11 @@
         recorrentes: {},
         saldo: saldoNo(fimMes(ym)),
         salario: 0, aportes: 0, luisa: 0, outras: 0,
-        cofrinho: 0, cdb: 0, tbi: 0,
+        cofrinho: 0, cdb: 0, tbi: 0, cofrinhoEntrada: 0,
         fatura: 0, tarifa: 0
       };
     });
-    let entrou = 0, saiu = 0, salario = 0, aportes = 0, luisa = 0, fatura = 0;
+    let entrou = 0, saiu = 0, salario = 0, aportes = 0, luisa = 0, fatura = 0, cofrinhoEntrada = 0;
     txs.forEach((tx) => {
       const row = mes[tx.data.slice(0, 7)];
       if (!row) return;
@@ -205,7 +205,13 @@
       if (tx.setor === "cdb") row.cdb += tx.valor;
       if (tx.setor === "tbi") row.tbi += tx.valor;
       if (tx.natureza === "interna") {
-        if (tx.valor > 0) row.internaEnt += tx.valor;
+        if (tx.setor === "cofrinho" && tx.valor < 0) {
+          const abs = -tx.valor;
+          row.entradas += abs;
+          row.cofrinhoEntrada += abs;
+          entrou += abs;
+          cofrinhoEntrada += abs;
+        } else if (tx.valor > 0) row.internaEnt += tx.valor;
         else row.internaSai += -tx.valor;
         return;
       }
@@ -225,7 +231,7 @@
         if (tx.papel) row.recorrentes[tx.nomeOriginal] = (row.recorrentes[tx.nomeOriginal] || 0) + abs;
       }
     });
-    return { txs, mes, entrou, saiu, salario, aportes, luisa, fatura };
+    return { txs, mes, entrou, saiu, salario, aportes, luisa, fatura, cofrinhoEntrada };
   }
 
   function legenda(id, itens) {
@@ -852,6 +858,38 @@
     por("kpi-entradas", m.entrou);
     por("kpi-saidas", m.saiu);
     por("kpi-resultado", m.entrou - m.saiu);
+    const nota = document.getElementById("kpi-cofrinho");
+    if (nota) nota.textContent = "inclui " + brl(m.cofrinhoEntrada) + " do cofrinho";
+    const cofre = document.getElementById("cofrinho-valor");
+    if (cofre) cofre.textContent = brl(m.cofrinhoEntrada);
+  }
+
+  function desenharSetas(m) {
+    const mapa = new Map();
+    m.txs.forEach((tx) => {
+      if (tx.natureza !== "saida") return;
+      const atual = mapa.get(tx.nomeOriginal) || { nome: tx.nome, valor: 0 };
+      atual.valor += -tx.valor;
+      atual.nome = tx.nome;
+      mapa.set(tx.nomeOriginal, atual);
+    });
+    const lista = [...mapa.values()].sort((a, b) => b.valor - a.valor);
+    const principais = lista.slice(0, 8);
+    const resto = lista.slice(8).reduce((s, item) => s + item.valor, 0);
+    const max = principais[0] ? principais[0].valor : 1;
+    const caixa = document.getElementById("setas");
+    if (!caixa) return;
+    const linha = (nome, valor) => {
+      const largura = Math.max(8, Math.round(100 * valor / max));
+      return `<div class="seta"><span class="seta-marca" aria-hidden="true">→</span><span class="seta-nome">${esc(nome)}</span><span class="seta-trilho"><span style="width:${largura}%"></span></span><strong>${esc(brl(valor))}</strong></div>`;
+    };
+    let html = principais.map((item) => linha(item.nome, item.valor)).join("");
+    if (resto > 0) html += linha("Outros destinos", resto);
+    caixa.innerHTML = html;
+    const frase = document.getElementById("setas-frase");
+    if (frase && principais.length >= 3) {
+      frase.textContent = "Saiu mais para " + principais[0].nome + " → " + principais[1].nome + " → " + principais[2].nome + ".";
+    }
   }
 
   function desenharMeses(m) {
@@ -878,6 +916,7 @@
     const y = window.scrollY;
     const m = modelo();
     kpis(m);
+    desenharSetas(m);
     desenharTotais(m);
     desenharMeses(m);
     window.scrollTo(0, y);
