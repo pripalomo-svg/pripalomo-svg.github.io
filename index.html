@@ -3,619 +3,502 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Priscila Palomo — Especialista em fobias</title>
-<meta name="description" content="Priscila Palomo, psicóloga (CRP 98007). Especialista em fobias. Atendimento online e presencial na Vila Leopoldina.">
+<title>Priscila Palomo — Saúde mental no trabalho com neurociência e evidência</title>
+<meta name="description" content="Priscila Palomo, psicóloga e doutora pela Universitat de València. Diagnóstico de riscos psicossociais (NR-1), programas de regulação emocional com medição de resultados, formação de líderes e palestras. Saúde mental corporativa com ciência, não com discurso.">
+<meta property="og:title" content="Priscila Palomo — Saúde mental no trabalho com evidência científica">
+<meta property="og:description" content="Do laboratório para a empresa: NR-1, burnout e ansiedade tratados com protocolos testados e resultados medidos.">
+<meta property="og:image" content="https://www.priscilapalomo.com/assets/avatar-priscila.jpg">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>P</text></svg>">
 <link rel="stylesheet" href="assets/style.css">
 <style>
-/* ── Página Fobias: preto, branco e azul marinho ── */
-:root {
-  --fb-navy:  #0E4A57;
-  --fb-ink:   #111111;
-  --fb-paper: #FFFFFF;
-  --fb-line:  rgba(17,17,17,.15);
+/* ── Home · Neurociência aplicada ao trabalho ── */
+.hm-page { background: var(--sand); color: var(--ink); }
+.hm-page h1, .hm-page h2, .hm-page h3 { color: var(--navy); }
+.hm-kicker {
+  font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--teal-dark); font-weight: 700; display: block; margin-bottom: 14px;
 }
-.fb-page { background: var(--fb-paper); color: var(--fb-ink); }
-.fb-page h1, .fb-page h2, .fb-page h3 { color: var(--fb-ink); }
+.hm-section { padding: clamp(52px,7vw,84px) 0; border-bottom: 1px solid var(--borda-suave); }
+.hm-section h2 { font-size: clamp(26px,3.6vw,38px); margin-bottom: 14px; max-width: 24ch; }
+.hm-sub { font-size: 16px; line-height: 1.7; color: #3b4753; max-width: 62ch; }
 
-.fb-hero {
-  padding: 56px 0 40px;
-  border-bottom: 2px solid var(--fb-ink);
-  display: grid; grid-template-columns: 1fr 300px;
-  gap: clamp(24px,5vw,64px); align-items: center;
+/* HERO */
+.hm-hero {
+  display: grid; grid-template-columns: 1.15fr .85fr;
+  gap: clamp(32px,6vw,80px); align-items: center;
+  padding: clamp(48px,7vw,88px) 0 clamp(44px,6vw,72px);
 }
-.fb-kicker {
-  font-size: 10px; letter-spacing: .24em; text-transform: uppercase;
-  color: var(--fb-navy); font-weight: 700; display: block; margin-bottom: 12px;
+.hm-hero h1 {
+  font-size: clamp(32px,4.3vw,52px); line-height: 1.06; margin-bottom: 20px;
+  letter-spacing: -.02em;
 }
-.fb-hero h1 { font-size: clamp(30px,5vw,50px); line-height: 1.05; margin-bottom: 14px; }
-.fb-hero h1 em { font-style: normal; color: var(--fb-navy); }
-.fb-lead { font-size: 14px; line-height: 1.7; max-width: 52ch; color: #333; }
+.hm-hero h1 em { font-style: normal; color: var(--teal-dark); }
+.hm-lead { font-size: clamp(16px,1.5vw,18px); line-height: 1.7; color: #3b4753; max-width: 56ch; margin-bottom: 28px; }
+.hm-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn-navy { background: var(--navy); color: #fff !important; box-shadow: 0 8px 22px rgba(11,37,69,.22); }
+.btn-navy:hover { background: var(--teal-dark); transform: translateY(-1px); }
+.btn-line { background: transparent; color: var(--navy) !important; border: 1.5px solid var(--navy); box-shadow: none; }
+.btn-line:hover { background: var(--navy); color: #fff !important; }
+.hm-micro { font-size: 12.5px; color: var(--muted); margin-top: 14px; }
 
-.fb-section { padding: 44px 0; border-bottom: 1px solid var(--fb-line); }
-.fb-section-title {
-  font-size: 10px; letter-spacing: .24em; text-transform: uppercase;
-  color: var(--fb-navy); font-weight: 700; display: block; margin-bottom: 18px;
+.hm-portrait { position: relative; justify-self: end; width: min(380px,100%); }
+.hm-portrait img {
+  width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: center 18%;
+  border-radius: 18px; box-shadow: 0 30px 60px -28px rgba(11,37,69,.45);
 }
-.fb-section h2 { font-size: clamp(22px,3.4vw,32px); margin-bottom: 12px; }
-.fb-section p  { font-size: 13px; line-height: 1.75; color: #333; max-width: 62ch; margin-bottom: 12px; }
-
-.fb-split { display: grid; grid-template-columns: 1fr 260px; gap: clamp(24px,5vw,56px); align-items: center; }
-.fb-split.rev { grid-template-columns: 260px 1fr; }
-
-/* Catálogo de tipos de fobia — um embaixo do outro */
-.fb-grid {
-  display: flex;
-  flex-direction: column;
-  border: 2px solid var(--fb-ink); margin-top: 22px;
+.hm-badge {
+  position: absolute; background: #fff; border-radius: 12px; padding: 10px 14px;
+  box-shadow: 0 10px 30px -12px rgba(11,37,69,.35); font-size: 12px; line-height: 1.35;
+  border-left: 3px solid var(--teal);
 }
-.fb-card {
-  padding: 22px 20px; border-bottom: 1px solid var(--fb-line);
-  display: flex; flex-direction: row; align-items: center; gap: 20px;
-  transition: background .2s;
+.hm-badge strong { display: block; font-family: var(--font-title); font-size: 13px; color: var(--navy); }
+.hm-badge.b1 { left: -28px; top: 26px; }
+.hm-badge.b2 { right: -22px; top: 46%; border-left-color: var(--gold); }
+.hm-badge.b3 { left: -18px; bottom: 30px; }
+
+/* TRUST */
+.hm-trust { padding: 22px 0 26px; border-top: 1px solid var(--borda-suave); border-bottom: 1px solid var(--borda-suave); }
+.hm-trust span.lbl { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 12px; }
+.hm-trust ul { list-style: none; display: flex; flex-wrap: wrap; gap: 10px 28px; }
+.hm-trust li { font-family: var(--font-title); font-weight: 600; font-size: 14px; color: var(--navy-2); opacity: .85; }
+
+/* DADOS */
+.hm-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: 16px; margin-top: 32px; }
+.hm-stat { background: #fff; border-radius: 14px; padding: 22px 22px 18px; border: 1px solid var(--borda-suave); }
+.hm-stat-n { white-space: nowrap; font-family: var(--font-title); font-size: clamp(28px,2.6vw,34px); font-weight: 800; color: var(--navy); line-height: 1; letter-spacing: -.02em; }
+.hm-stat-n small { font-size: .5em; color: var(--teal-dark); font-weight: 700; margin-left: 2px; }
+.hm-stat-l { font-size: 13px; color: #3b4753; margin-top: 8px; line-height: 1.5; }
+.hm-stat-s { font-size: 11px; color: var(--muted); margin-top: 8px; display: block; }
+.hm-alert {
+  margin-top: 22px; background: var(--navy); color: #fff; border-radius: 14px;
+  padding: 22px 26px; display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center;
 }
-.fb-card:last-child { border-bottom: none; }
-.fb-card .fb-ico { flex: 0 0 auto; }
-.fb-card-text { display: flex; flex-direction: column; gap: 6px; }
-.fb-card:hover { background: #EAF2F2; }
-.fb-card h3 { font-size: 14px; }
-.fb-card p  { font-size: 11.5px; color: #444; margin: 0; line-height: 1.5; }
-.fb-ico { width: 64px; height: 64px; }
+.hm-alert .tag { background: var(--gold); color: var(--navy); font-family: var(--font-title); font-weight: 800; font-size: 12px; letter-spacing: .08em; padding: 6px 10px; border-radius: 6px; }
+.hm-alert p { font-size: 14px; line-height: 1.6; color: rgba(255,255,255,.9); }
+.hm-alert p strong { color: #fff; }
 
-/* Legenda dos desenhos */
-.fb-caption {
-  font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--fb-navy); margin-top: 8px; text-align: center; display: block;
+/* SOLUÇÕES */
+.hm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 18px; margin-top: 36px; }
+.hm-card {
+  background: #fff; border-radius: 16px; padding: 28px 26px 24px; border: 1px solid var(--borda-suave);
+  display: flex; flex-direction: column; gap: 12px; position: relative; transition: transform .25s, box-shadow .25s;
 }
+.hm-card:hover { transform: translateY(-3px); box-shadow: 0 22px 44px -26px rgba(11,37,69,.4); }
+.hm-card .num { font-family: var(--font-title); font-weight: 800; font-size: 12px; color: var(--teal-dark); letter-spacing: .12em; }
+.hm-card h3 { font-size: 20px; line-height: 1.2; }
+.hm-card p { font-size: 14px; line-height: 1.65; color: #3b4753; }
+.hm-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+.hm-card li { font-size: 13px; color: #2f3b47; padding-left: 18px; position: relative; }
+.hm-card li::before { content: ''; position: absolute; left: 0; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: var(--teal); }
+.hm-card .fmt { margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--borda); font-size: 12px; color: var(--muted); }
+.hm-card.dark { background: var(--navy); border-color: var(--navy); }
+.hm-card.dark h3, .hm-card.dark .num { color: #fff; }
+.hm-card.dark p, .hm-card.dark li, .hm-card.dark .fmt { color: rgba(255,255,255,.85); }
+.hm-card.dark li::before { background: var(--gold); }
 
-/* CTA final */
-.fb-cta { padding: 48px 0 64px; text-align: left; }
-.btn-navy {
-  background: var(--fb-navy); color: #fff !important;
-  box-shadow: none;
+/* MÉTODO */
+.hm-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr)); gap: 0; margin-top: 36px; border: 1px solid var(--borda); border-radius: 16px; overflow: hidden; background: #fff; }
+.hm-step { padding: 26px 24px; border-right: 1px solid var(--borda-suave); }
+.hm-step:last-child { border-right: none; }
+.hm-step .n { font-family: var(--font-title); font-weight: 800; font-size: 36px; color: var(--teal); line-height: 1; }
+.hm-step h3 { font-size: 17px; margin: 10px 0 8px; }
+.hm-step p { font-size: 13.5px; line-height: 1.6; color: #3b4753; }
+@media (max-width: 900px) { .hm-step { border-right: none; border-bottom: 1px solid var(--borda-suave); } .hm-step:last-child { border-bottom: none; } }
+
+/* CALCULADORA */
+.hm-calc { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px,4vw,48px); align-items: start; margin-top: 30px; }
+.hm-calc-form { background: #fff; border-radius: 16px; padding: 26px; border: 1px solid var(--borda-suave); display: grid; gap: 16px; }
+.hm-calc-form label { font-size: 12.5px; font-weight: 600; color: var(--navy); display: grid; gap: 6px; }
+.hm-calc-form input { font: inherit; font-size: 16px; padding: 12px 14px; border: 1.5px solid var(--borda); border-radius: 10px; background: var(--sand); color: var(--ink); }
+.hm-calc-form input:focus { outline: none; border-color: var(--teal); background: #fff; }
+.hm-calc-out { display: grid; gap: 14px; }
+.hm-out { background: var(--navy); color: #fff; border-radius: 16px; padding: 24px 26px; }
+.hm-out .v { font-family: var(--font-title); font-size: clamp(30px,3.6vw,44px); font-weight: 800; line-height: 1; letter-spacing: -.02em; color: #fff; }
+.hm-out .l { font-size: 13px; color: rgba(255,255,255,.8); margin-top: 8px; line-height: 1.5; }
+.hm-out.light { background: #fff; color: var(--navy); border: 1px solid var(--borda-suave); }
+.hm-out.light .v { color: var(--navy); }
+.hm-out.light .l { color: #3b4753; }
+.hm-out.gold { background: var(--mint); color: var(--navy); }
+.hm-out.gold .v { color: var(--teal-dark); }
+.hm-out.gold .l { color: #2f3b47; }
+.hm-note { font-size: 11.5px; color: var(--muted); line-height: 1.55; }
+
+/* CREDENCIAIS */
+.hm-cred { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(28px,5vw,64px); align-items: start; }
+.hm-cred-list { list-style: none; display: grid; gap: 14px; margin-top: 8px; }
+.hm-cred-list li { display: grid; grid-template-columns: 30px 1fr; gap: 12px; font-size: 14.5px; line-height: 1.6; color: #2f3b47; }
+.hm-cred-list li strong { color: var(--navy); }
+.hm-cred-list .ic { width: 30px; height: 30px; border-radius: 8px; background: var(--mint); display: grid; place-items: center; color: var(--teal-dark); font-weight: 800; font-family: var(--font-title); font-size: 13px; }
+.hm-quote {
+  background: #fff; border-radius: 16px; padding: 28px; border: 1px solid var(--borda-suave);
+  font-size: 17px; line-height: 1.65; color: var(--navy); font-family: var(--font-title); font-weight: 500;
+  position: relative;
 }
-.btn-navy:hover { background: var(--fb-ink); }
+.hm-quote::before { content: '“'; position: absolute; top: -14px; left: 18px; font-size: 72px; color: var(--teal); font-family: Georgia, serif; line-height: 1; }
+.hm-quote small { display: block; margin-top: 14px; font-family: var(--font-body); font-size: 12.5px; color: var(--muted); font-weight: 400; }
 
-@media (max-width: 720px) {
-  .fb-hero, .fb-split, .fb-split.rev { grid-template-columns: 1fr; }
-  .fb-hero svg, .fb-split svg { max-width: 260px; margin-inline: auto; }
-  .fb-card { flex-direction: column; align-items: flex-start; gap: 12px; }
-}
+/* CLÍNICA */
+.hm-clinic { background: var(--navy); color: #fff; border-radius: 22px; padding: clamp(28px,5vw,52px); display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; }
+.hm-clinic h2 { color: #fff; }
+.hm-clinic p { color: rgba(255,255,255,.85); font-size: 15px; line-height: 1.7; max-width: 60ch; }
+.hm-clinic .hm-kicker { color: var(--gold); }
+.btn-white { background: #fff; color: var(--navy) !important; box-shadow: none; }
+.btn-white:hover { background: var(--mint); }
 
-/* =============== ANIMAÇÕES DOS DESENHOS =============== */
-svg .anim { transform-box: fill-box; transform-origin: center; }
+/* SOBRE */
+.hm-about { display: grid; grid-template-columns: 240px 1fr; gap: clamp(24px,5vw,56px); align-items: center; }
+.hm-about img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 50%; border: 6px solid #fff; box-shadow: 0 20px 40px -24px rgba(11,37,69,.45); }
+.hm-about p { font-size: 15.5px; line-height: 1.75; color: #2f3b47; max-width: 62ch; margin-bottom: 14px; }
 
-@keyframes fb-shrink { 0%,15% { transform: scale(1); } 55%,75% { transform: scale(.45); } 100% { transform: scale(1); } }
-@keyframes fb-step   { 0%,15% { transform: translateX(0); } 55%,100% { transform: translateX(46px); } }
-@keyframes fb-beat   { 0%,100% { transform: scale(1); } 12% { transform: scale(1.25); } 24% { transform: scale(1); } 36% { transform: scale(1.18); } 48% { transform: scale(1); } }
-@keyframes fb-drop   { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: 1; } 70% { transform: translateY(26px); opacity: 1; } 100% { transform: translateY(30px); opacity: 0; } }
-@keyframes fb-tremor { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-1.5px); } 75% { transform: translateX(1.5px); } }
-@keyframes fb-orbit  { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-@keyframes fb-swing  { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
-@keyframes fb-fly    { 0% { transform: translate(-14px,6px); } 50% { transform: translate(14px,-6px); } 100% { transform: translate(-14px,6px); } }
-@keyframes fb-squeeze{ 0%,100% { transform: translateX(0); } 50% { transform: translateX(7px); } }
-@keyframes fb-squeezeR{ 0%,100% { transform: translateX(0); } 50% { transform: translateX(-7px); } }
-@keyframes fb-slither{ 0%,100% { transform: translateX(-6px); } 50% { transform: translateX(6px); } }
-@keyframes fb-flash  { 0%,88%,100% { opacity: 0; } 90%,96% { opacity: 1; } }
-@keyframes fb-wave   { 0%,100% { transform: translateX(0); } 50% { transform: translateX(-12px); } }
-@keyframes fb-blink  { 0%,90%,100% { transform: scaleY(1); } 94% { transform: scaleY(.1); } }
-@keyframes fb-pulse  { 0% { transform: scale(.7); opacity: .9; } 100% { transform: scale(1.5); opacity: 0; } }
-@keyframes fb-bark   { 0%,100% { transform: rotate(0deg); } 20% { transform: rotate(-8deg); } 40% { transform: rotate(0deg); } }
-@keyframes fb-climb  { 0%,10% { transform: translate(0,0); } 30% { transform: translate(28px,-22px); } 55% { transform: translate(56px,-44px); } 80%,100% { transform: translate(84px,-66px); } }
-@keyframes fb-float  { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-@keyframes fb-blush  { 0%,100% { opacity: .25; } 50% { opacity: .9; } }
-@keyframes fb-tooth  { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
-@keyframes fb-needle { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-5px,5px); } }
+/* CTA FINAL */
+.hm-final { text-align: center; padding: clamp(56px,8vw,96px) 0; }
+.hm-final h2 { margin-inline: auto; }
+.hm-final .hm-sub { margin: 0 auto 26px; }
+.hm-contact { display: flex; flex-wrap: wrap; gap: 14px 28px; justify-content: center; margin-top: 22px; font-size: 13.5px; color: var(--muted); }
+.hm-contact a { color: var(--navy); font-weight: 600; border-bottom: 1px solid var(--teal); }
 
-.a-shrink { animation: fb-shrink 6s ease-in-out infinite; }
-.a-step   { animation: fb-step 6s ease-in-out infinite; }
-.a-beat   { animation: fb-beat 1.6s ease-in-out infinite; }
-.a-drop   { animation: fb-drop 2.2s ease-in infinite; }
-.a-drop2  { animation: fb-drop 2.2s ease-in 1.1s infinite; }
-.a-tremor { animation: fb-tremor .28s linear infinite; }
-.a-orbit  { animation: fb-orbit 8s linear infinite; transform-origin: 110px 110px; transform-box: view-box; }
-.a-swing  { animation: fb-swing 2.4s ease-in-out infinite; }
-.a-fly    { animation: fb-fly 4s ease-in-out infinite; }
-.a-squeeze  { animation: fb-squeeze 2.6s ease-in-out infinite; }
-.a-squeezeR { animation: fb-squeezeR 2.6s ease-in-out infinite; }
-.a-slither{ animation: fb-slither 2.4s ease-in-out infinite; }
-.a-flash  { animation: fb-flash 3.2s linear infinite; }
-.a-wave   { animation: fb-wave 3.4s ease-in-out infinite; }
-.a-blink  { animation: fb-blink 3.5s linear infinite; }
-.a-pulse  { animation: fb-pulse 1.8s ease-out infinite; }
-.a-pulse2 { animation: fb-pulse 1.8s ease-out .9s infinite; }
-.a-bark   { animation: fb-bark 1.8s ease-in-out infinite; }
-.a-climb  { animation: fb-climb 7s ease-in-out infinite; }
-.a-float  { animation: fb-float 3s ease-in-out infinite; }
-.a-blush  { animation: fb-blush 2.4s ease-in-out infinite; }
-.a-tooth  { animation: fb-tooth 1.6s ease-in-out infinite; }
-.a-needle { animation: fb-needle 2s ease-in-out infinite; }
-
-@media (prefers-reduced-motion: reduce) {
-  svg [class^="a-"], svg [class*=" a-"] { animation: none !important; }
+@media (max-width: 900px) {
+  .hm-hero { grid-template-columns: 1fr; }
+  .hm-portrait { justify-self: start; width: min(320px,100%); margin-top: 8px; }
+  .hm-badge.b1 { left: 0; top: -14px; } .hm-badge.b2 { right: -8px; } .hm-badge.b3 { left: 0; bottom: -14px; }
+  .hm-calc, .hm-cred, .hm-clinic, .hm-about { grid-template-columns: 1fr; }
+  .hm-about img { width: 180px; }
 }
 </style>
 </head>
-<body class="fb-page">
+<body class="hm-page">
 
 <nav>
   <a class="nav-logo" href="index.html">
     <img src="assets/logo.svg" alt="Priscila Palomo Psicologia">
     <div class="nav-logo-text">
       <span class="nav-logo-name">Priscila Palomo</span>
-      <span class="nav-logo-sub">Psicóloga · CRP 98007</span>
+      <span class="nav-logo-sub">Psicóloga · PhD · CRP 98007</span>
     </div>
   </a>
   <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
   <ul class="nav-links">
     <li><a href="index.html" class="active">Início</a></li>
+    <li><a href="index.html#solucoes">Empresas</a></li>
+    <li><a href="fobias.html">Fobias e ansiedade</a></li>
+    <li><a href="pesquisa.html">Ciência</a></li>
     <li><a href="blog.html">Blog</a></li>
-    <li><a href="cursos.html">Cursos</a></li>
-    <li><a href="terapia-pro.html">Terap-ia</a></li>
     <li><a href="apresentacao.html">Minha história</a></li>
-    <li><a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!" target="_blank" class="nav-cta">Falar comigo</a></li>
+    <li><a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Quero%20conversar%20sobre%20sa%C3%BAde%20mental%20na%20minha%20empresa." target="_blank" class="nav-cta">Falar comigo</a></li>
   </ul>
 </nav>
 
 <main class="wrap">
 
-  <!-- ═══════════ BOAS-VINDAS (primeira visita) ═══════════ -->
-  <section class="welcome">
-    <img class="welcome-avatar" src="assets/avatar-ilustrado.png" alt="Ilustração de Priscila Palomo">
-    <div class="welcome-text">
-      <span class="fb-kicker">Boas-vindas · é a sua primeira vez aqui?</span>
-      <h2>Oi! Eu sou a Priscila 💛</h2>
-      <p>
-        Que bom que você chegou. Sou psicóloga (CRP 98007), doutora pela Universitat de València
-        e especialista em <strong>ansiedade e fobias</strong>. Aqui eu explico a mente com
-        desenhos animados, conto <strong>historinhas</strong> que carrego comigo e compartilho,
-        de um jeito simples, o que ajuda a gente a viver com mais leveza. Fique à vontade para explorar.
-      </p>
-      <div class="welcome-links">
-        <a href="apresentacao.html" class="btn btn-navy">Conhecer minha história</a>
-        <a href="blog.html" class="btn btn-ghost">Ler minhas historinhas</a>
-        <a href="#neuronews" class="btn btn-ghost">Assinar a NeuroNews</a>
-      </div>
-    </div>
-  </section>
-
   <!-- ═══════════ HERO ═══════════ -->
-  <section class="fb-hero">
+  <section class="hm-hero">
     <div>
-      <span class="fb-kicker">Psicoeducação · em desenho animado</span>
-      <h1>O medo parece gigante.<br>Mas ele pode <em>encolher</em>.</h1>
-      <p class="fb-lead">
-        Fobia é um medo intenso e desproporcional de algo que oferece pouco ou nenhum
-        perigo real. Nesta página você entende, com desenhos animados, o que é uma fobia,
-        por que ela não vai embora sozinha, os principais tipos — e como o tratamento funciona.
+      <span class="hm-kicker">Neurociência aplicada à saúde mental no trabalho</span>
+      <h1>Saúde mental na empresa com <em>evidência científica</em> — e resultado que dá para medir.</h1>
+      <p class="hm-lead">
+        Sou Priscila Palomo, psicóloga e doutora <em>cum laude</em> pela Universitat de València.
+        Ajudo empresas a cumprir a <strong>NR-1</strong>, reduzir afastamentos por
+        <strong>ansiedade e burnout</strong> e formar <strong>líderes emocionalmente regulados</strong>
+        — com protocolos testados em laboratório, não com palestras motivacionais.
+      </p>
+      <div class="hm-actions">
+        <a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Quero%20conversar%20sobre%20sa%C3%BAde%20mental%20na%20minha%20empresa." target="_blank" class="btn btn-navy">Falar sobre minha empresa</a>
+        <a href="#solucoes" class="btn btn-line">Ver as soluções</a>
+      </div>
+      <p class="hm-micro">Diagnóstico inicial gratuito de 30 minutos · Atendimento em todo o Brasil, presencial em São Paulo</p>
+    </div>
+    <div class="hm-portrait">
+      <img src="assets/avatar-priscila.jpg" alt="Priscila Palomo">
+      <div class="hm-badge b1"><strong>PhD cum laude</strong>Universitat de València · Espanha</div>
+      <div class="hm-badge b2"><strong>+20 artigos</strong>em revistas internacionais</div>
+      <div class="hm-badge b3"><strong>Instrutora MBSR/MBCT</strong>UNIFESP · Oxford Mindfulness</div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CONFIANÇA ═══════════ -->
+  <section class="hm-trust">
+    <span class="lbl">Experiência com organizações e instituições</span>
+    <ul>
+      <li>Embrapa</li><li>Eldorado Brasil Celulose</li><li>Instituto Conectomus</li>
+      <li>UNIFESP</li><li>PUCPR</li><li>Santa Casa de São Paulo</li>
+      <li>Universitat de València</li><li>Insper</li><li>Horizon 2020 · União Europeia</li>
+    </ul>
+  </section>
+
+  <!-- ═══════════ CENÁRIO ═══════════ -->
+  <section class="hm-section" id="cenario">
+    <span class="hm-kicker">O cenário em 2026</span>
+    <h2>O adoecimento mental virou o maior custo invisível das empresas brasileiras.</h2>
+    <p class="hm-sub">
+      O Brasil bateu recorde de afastamentos por saúde mental pelo segundo ano seguido. Ansiedade lidera,
+      burnout triplicou e a NR-1 passou a exigir gestão dos riscos psicossociais. Cuidar deixou de ser
+      benefício: virou obrigação legal e decisão financeira.
+    </p>
+
+    <div class="hm-stats">
+      <div class="hm-stat">
+        <div class="hm-stat-n">546<small>mil</small></div>
+        <div class="hm-stat-l">afastamentos do trabalho por transtornos mentais em 2025 — alta de 15,6% sobre 2024.</div>
+        <span class="hm-stat-s">Ministério da Previdência Social</span>
+      </div>
+      <div class="hm-stat">
+        <div class="hm-stat-n">R$ 954<small>mi</small></div>
+        <div class="hm-stat-l">pagos pelo INSS em benefícios por transtornos mentais em 2025 — o dobro de 2023.</div>
+        <span class="hm-stat-s">ANAMT, com dados do INSS</span>
+      </div>
+      <div class="hm-stat">
+        <div class="hm-stat-n">3<small>×</small></div>
+        <div class="hm-stat-l">foi quanto cresceram os afastamentos por burnout entre 2023 e 2025.</div>
+        <span class="hm-stat-s">INSS · análise ANAMT</span>
+      </div>
+      <div class="hm-stat">
+        <div class="hm-stat-n">6<small>%</small></div>
+        <div class="hm-stat-l">da folha de pagamento é o custo médio do adoecimento mental para o empregador.</div>
+        <span class="hm-stat-s">Estudo com 150 mil trabalhadores, citado pelo G1</span>
+      </div>
+      <div class="hm-stat">
+        <div class="hm-stat-n">R$ 3–7</div>
+        <div class="hm-stat-l">de retorno para cada R$ 1 investido em prevenção estruturada de saúde mental.</div>
+        <span class="hm-stat-s">OMS · Harvard Business Review</span>
+      </div>
+    </div>
+
+    <div class="hm-alert">
+      <span class="tag">NR-1</span>
+      <p>
+        Desde <strong>26 de maio de 2026</strong>, os <strong>fatores de risco psicossociais</strong> (sobrecarga, metas
+        inatingíveis, assédio, falta de autonomia) precisam ser identificados, avaliados e controlados no
+        <strong>PGR</strong> de toda empresa. A multa está em conciliação no STF, mas a obrigação, a fiscalização do MPT
+        e a responsabilidade civil por adoecimento continuam valendo — e o PGR de hoje é a prova documental de amanhã.
       </p>
     </div>
-    <div>
-      <!-- Desenho: pessoa diante da sombra do medo, que encolhe quando ela se aproxima -->
-      <svg viewBox="0 0 300 220" role="img" aria-label="Desenho animado: uma pessoa se aproxima do monstro do medo e ele encolhe">
-        <line x1="10" y1="196" x2="290" y2="196" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-        <g class="anim a-shrink">
-          <path d="M195 196 C185 130 205 108 232 104 C262 100 280 128 274 158 C288 158 292 176 280 182 C286 190 278 196 270 196 Z" fill="#0E4A57"/>
-          <circle cx="228" cy="132" r="6" fill="#fff"/>
-          <circle cx="254" cy="130" r="6" fill="#fff"/>
-          <circle cx="229" cy="133" r="2.4" fill="#111"/>
-          <circle cx="255" cy="131" r="2.4" fill="#111"/>
-          <path d="M230 152 q12 8 24 0" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
-        </g>
-        <g class="anim a-step">
-          <circle cx="70" cy="118" r="16" fill="#fff" stroke="#111" stroke-width="3"/>
-          <circle cx="76" cy="115" r="2" fill="#111"/>
-          <path d="M70 134 L70 168 M70 144 L54 156 M70 144 L88 150 M70 168 L58 194 M70 168 L84 194"
-                stroke="#111" stroke-width="3" fill="none" stroke-linecap="round"/>
-        </g>
-      </svg>
-      <span class="fb-caption">Aproximar-se, aos poucos, encolhe o medo</span>
+  </section>
+
+  <!-- ═══════════ SOLUÇÕES ═══════════ -->
+  <section class="hm-section" id="solucoes">
+    <span class="hm-kicker">Para empresas</span>
+    <h2>Cinco formas de trabalharmos juntos.</h2>
+    <p class="hm-sub">
+      Tudo o que ofereço nasce de protocolos com evidência publicada e é entregue com
+      <strong>medição antes e depois</strong>. Você recebe dados — para o PGR, para o board e para o
+      Certificado Empresa Promotora da Saúde Mental (Lei 14.831/2024).
+    </p>
+
+    <div class="hm-grid">
+      <article class="hm-card">
+        <span class="num">01 · DIAGNÓSTICO</span>
+        <h3>Mapeamento de riscos psicossociais (NR-1)</h3>
+        <p>Avaliação dos fatores psicossociais com instrumentos validados — não um formulário genérico. Cruzo escalas de estresse, ansiedade e burnout com indicadores da própria empresa.</p>
+        <ul>
+          <li>Inventário de riscos por área e função</li>
+          <li>Relatório técnico pronto para o PGR/GRO</li>
+          <li>Plano de ação priorizado por impacto</li>
+        </ul>
+        <span class="fmt">Formato: 3 a 6 semanas · presencial ou remoto</span>
+      </article>
+
+      <article class="hm-card">
+        <span class="num">02 · PROGRAMA</span>
+        <h3>Mente Regulada — 8 semanas</h3>
+        <p>Protocolo baseado em MBSR/MBCT adaptado ao contexto de trabalho: atenção, regulação emocional e o corpo como instrumento de autorregulação sob pressão. Sem misticismo.</p>
+        <ul>
+          <li>Grupos de até 20 pessoas, 8 encontros semanais</li>
+          <li>Medição pré/pós: estresse percebido, ansiedade, burnout</li>
+          <li>Opcional: variabilidade cardíaca (HRV) e biofeedback</li>
+        </ul>
+        <span class="fmt">Formato: presencial, online ou híbrido</span>
+      </article>
+
+      <article class="hm-card">
+        <span class="num">03 · LIDERANÇA</span>
+        <h3>Liderança Regulada</h3>
+        <p>Formação de gestores em neurociência do estresse, decisão sob pressão, comunicação difícil e prevenção de assédio. O líder é o principal fator psicossocial de um time — para o bem ou para o mal.</p>
+        <ul>
+          <li>4 encontros de 3 horas + material de apoio</li>
+          <li>Casos reais da empresa trabalhados em sala</li>
+          <li>Indicadores de clima antes e depois</li>
+        </ul>
+        <span class="fmt">Formato: turmas de até 25 líderes</span>
+      </article>
+
+      <article class="hm-card">
+        <span class="num">04 · PALESTRAS</span>
+        <h3>Palestras, SIPAT e workshops</h3>
+        <p>Ciência traduzida em histórias. Temas mais pedidos: <em>Como o cérebro aprende a ter medo — e a ter coragem</em>; <em>Burnout: o que a ciência sabe e o RH precisa saber</em>; <em>Mindfulness sem misticismo</em>; <em>Atenção plena e prevenção de acidentes</em>.</p>
+        <ul>
+          <li>60 a 90 minutos, presencial ou online</li>
+          <li>Conteúdo adaptado ao setor e ao momento da empresa</li>
+        </ul>
+        <span class="fmt">Já realizadas para Embrapa, Eldorado Brasil, Safety Master e outras</span>
+      </article>
+
+      <article class="hm-card dark">
+        <span class="num">05 · TECNOLOGIA</span>
+        <h3>Consultoria científica para healthtechs</h3>
+        <p>Para empresas que criam produtos digitais de saúde mental: validação de protocolos, desenho de estudos, realidade virtual e IA com rigor clínico e ético. Experiência em consórcios europeus de saúde digital (E-COMPARED, ECOWEB, iCARE).</p>
+        <ul>
+          <li>Validação clínica e desenho de evidência</li>
+          <li>RV para fobias e ansiedade · interfaces centradas no usuário</li>
+        </ul>
+        <span class="fmt"><a href="pesquisa.html" style="text-decoration:underline">Ver minha pesquisa →</a></span>
+      </article>
     </div>
   </section>
 
-  <!-- ═══════════ O QUE ACONTECE NO CORPO ═══════════ -->
-  <section class="fb-section">
-    <span class="fb-section-title">1 · O que acontece no corpo</span>
-    <div class="fb-split">
-      <div>
-        <h2>É um alarme de incêndio disparando sem fogo</h2>
-        <p>
-          Diante do objeto ou situação temida, o cérebro ativa o sistema de
-          <strong>luta ou fuga</strong>: o coração acelera, a respiração encurta,
-          os músculos tremem, o suor aparece. É desconfortável, mas
-          <strong>não é perigoso</strong> — o corpo está apenas se preparando para
-          um perigo que não existe.
-        </p>
-        <p>
-          Na fobia, esse alarme dispara forte demais, rápido demais, para a coisa errada.
-          A boa notícia: alarmes podem ser recalibrados.
-        </p>
-      </div>
-      <div>
-        <!-- Desenho: personagem com coração batendo e gotas de suor -->
-        <svg viewBox="0 0 220 220" role="img" aria-label="Desenho animado: personagem com coração acelerado e suor">
-          <g class="anim a-tremor">
-            <circle cx="110" cy="80" r="44" fill="#fff" stroke="#111" stroke-width="3"/>
-            <circle cx="96" cy="72" r="4.5" fill="#111"/>
-            <circle cx="126" cy="72" r="4.5" fill="#111"/>
-            <ellipse cx="111" cy="98" rx="8" ry="10" fill="none" stroke="#111" stroke-width="3"/>
-            <path d="M78 150 h64 v46 h-64 z" fill="#fff" stroke="#111" stroke-width="3"/>
-          </g>
-          <g class="anim a-beat">
-            <path d="M110 186 C100 174 84 172 82 158 C80 146 92 140 101 147 C106 150 108 154 110 158 C112 154 114 150 119 147 C128 140 140 146 138 158 C136 172 120 174 110 186 Z"
-                  fill="#0E4A57" transform="translate(0,-18)"/>
-          </g>
-          <path class="anim a-drop"  d="M56 60 q6 10 0 14 q-6 -4 0 -14" fill="#0E4A57"/>
-          <path class="anim a-drop2" d="M168 52 q6 10 0 14 q-6 -4 0 -14" fill="#0E4A57"/>
-        </svg>
-        <span class="fb-caption">Coração acelerado, suor, tremor: alarme falso</span>
-      </div>
+  <!-- ═══════════ MÉTODO ═══════════ -->
+  <section class="hm-section" id="metodo">
+    <span class="hm-kicker">Como eu trabalho</span>
+    <h2>Do laboratório para a empresa: medir, intervir, medir de novo.</h2>
+    <p class="hm-sub">
+      Passei sete anos em laboratórios europeus medindo o que a maioria acha que não se mede — atenção,
+      medo, regulação emocional. Trago o mesmo método para dentro da sua organização.
+    </p>
+    <div class="hm-steps">
+      <div class="hm-step"><span class="n">1</span><h3>Medir</h3><p>Escalas validadas, indicadores de RH e, quando cabível, medidas fisiológicas. Sem linha de base não há resultado — só opinião.</p></div>
+      <div class="hm-step"><span class="n">2</span><h3>Intervir</h3><p>Protocolos com evidência publicada, adaptados à cultura e ao ritmo da empresa. Grupos pequenos, prática real, linguagem direta.</p></div>
+      <div class="hm-step"><span class="n">3</span><h3>Medir de novo</h3><p>Reavaliação ao final do programa e após 3 meses. O que mudou, quanto mudou e para quem mudou.</p></div>
+      <div class="hm-step"><span class="n">4</span><h3>Reportar</h3><p>Relatório executivo com dados para o PGR, para o board e para a certificação da Lei 14.831. Documento que protege — e que prova.</p></div>
     </div>
   </section>
 
-  <!-- ═══════════ O CICLO ═══════════ -->
-  <section class="fb-section">
-    <span class="fb-section-title">2 · Por que a fobia não passa sozinha</span>
-    <div class="fb-split rev">
-      <div>
-        <!-- Desenho: ciclo da evitação com ponto orbitando -->
-        <svg viewBox="0 0 220 220" role="img" aria-label="Desenho animado: ciclo da fobia — medo, evitação, alívio, medo maior">
-          <circle cx="110" cy="110" r="72" fill="none" stroke="#111" stroke-width="3" stroke-dasharray="6 8"/>
-          <g class="a-orbit">
-            <circle cx="110" cy="38" r="9" fill="#0E4A57"/>
-          </g>
-          <g font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="bold" fill="#111" text-anchor="middle">
-            <text x="110" y="18">MEDO</text>
-            <text x="188" y="114">EVITAÇÃO</text>
-            <text x="110" y="210">ALÍVIO</text>
-            <text x="30" y="108">MEDO<tspan x="30" dy="12">MAIOR</tspan></text>
-          </g>
-          <text x="110" y="115" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#0E4A57" text-anchor="middle" letter-spacing="2">O CICLO</text>
-        </svg>
-        <span class="fb-caption">Evitar alivia agora — e alimenta o medo depois</span>
-      </div>
-      <div>
-        <h2>O ciclo da evitação</h2>
-        <p>
-          Sinto <strong>medo</strong> → <strong>evito</strong> a situação →
-          sinto <strong>alívio imediato</strong> → o cérebro aprende que só sobrevivi
-          <em>porque evitei</em> → na próxima vez, o <strong>medo volta maior</strong>.
-        </p>
-        <p>
-          Cada volta nesse ciclo confirma a "regra" de que aquilo é perigoso.
-          Por isso força de vontade não basta: é preciso quebrar o ciclo no lugar
-          certo — a evitação — de forma gradual e planejada.
+  <!-- ═══════════ CALCULADORA ═══════════ -->
+  <section class="hm-section" id="calculadora">
+    <span class="hm-kicker">Calculadora</span>
+    <h2>Quanto o adoecimento mental custa à sua empresa hoje?</h2>
+    <p class="hm-sub">
+      Uma estimativa educativa a partir de dados públicos: taxa nacional de afastamentos por transtornos mentais,
+      custo médio de 6% da folha e o retorno documentado da prevenção.
+    </p>
+    <div class="hm-calc">
+      <form class="hm-calc-form" onsubmit="event.preventDefault()">
+        <label>Número de colaboradores
+          <input type="number" id="calcN" min="1" step="1" value="200" inputmode="numeric">
+        </label>
+        <label>Salário médio mensal (R$)
+          <input type="number" id="calcS" min="100" step="100" value="4500" inputmode="numeric">
+        </label>
+        <p class="hm-note">Os valores são atualizados automaticamente. Nenhum dado é enviado ou armazenado.</p>
+      </form>
+      <div class="hm-calc-out" aria-live="polite">
+        <div class="hm-out">
+          <div class="v" id="outCusto">—</div>
+          <div class="l">custo anual estimado do adoecimento mental (absenteísmo, presenteísmo, turnover e plano de saúde), com base em 6% da folha.</div>
+        </div>
+        <div class="hm-out light">
+          <div class="v" id="outAfast">—</div>
+          <div class="l">afastamentos superiores a 15 dias esperados por ano na sua empresa, na taxa nacional de 2025. Cada um dura, em média, 196 dias.</div>
+        </div>
+        <div class="hm-out gold">
+          <div class="v" id="outRoi">—</div>
+          <div class="l">é o potencial de retorno anual de um programa estruturado, considerando R$ 3 a R$ 7 por real investido (OMS/HBR) em um orçamento de 10% do custo atual.</div>
+        </div>
+        <p class="hm-note">
+          Fontes: Ministério da Previdência Social (546.254 afastamentos em 2025 sobre ~45 milhões de vínculos formais);
+          G1/estudo com 150 mil trabalhadores (6% da folha); INSS (duração média); OMS e HBR (retorno). Estimativa
+          indicativa, não substitui diagnóstico.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════ TIPOS DE FOBIA ═══════════ -->
-  <section class="fb-section">
-    <span class="fb-section-title">3 · Os tipos de fobia</span>
-    <h2>Um catálogo animado das fobias</h2>
+  <!-- ═══════════ CREDENCIAIS ═══════════ -->
+  <section class="hm-section" id="ciencia">
+    <div class="hm-cred">
+      <div>
+        <span class="hm-kicker">Por que uma cientista</span>
+        <h2>Não é palestra motivacional. É ciência que virou prática.</h2>
+        <p class="hm-sub">
+          Minha formação foi construída entre a clínica, o laboratório e a sala de aula — no Brasil e na Europa.
+          Isso muda a qualidade do que chega à sua empresa.
+        </p>
+        <div class="hm-quote" style="margin-top:26px">
+          Um ambiente de realidade virtual pode curar uma fobia, mas pode também disparar crises em alguém com
+          transtorno de ansiedade. Tecnologia e cuidado só funcionam com conhecimento profundo da cognição humana.
+          <small>Priscila Palomo · Memorial acadêmico, 2025</small>
+        </div>
+      </div>
+      <ul class="hm-cred-list">
+        <li><span class="ic">PhD</span><span><strong>Doutorado internacional em Psicologia da Saúde</strong> — Universitat de València (Espanha), <em>Sobresaliente Cum Laude</em> e Menção Europeia. Tese sobre embodiment, integração multissensorial e psicopatologia, orientada por Rosa Baños e Ausiàs Cebolla.</span></li>
+        <li><span class="ic">3</span><span><strong>Três mestrados</strong> — Psicogerontologia (oficial, Salamanca · Barcelona · Santiago · València), Metodologia de Pesquisa em Ciências da Saúde e Psicanálise Clínica (Universidad de Salamanca).</span></li>
+        <li><span class="ic">20+</span><span><strong>Mais de 20 artigos científicos</strong> em revistas como <em>Neuropsychologia</em>, <em>Consciousness and Cognition</em>, <em>Mindfulness</em> e <em>Frontiers in Psychology</em>.</span></li>
+        <li><span class="ic">€</span><span><strong>Consórcios europeus Horizon 2020</strong> — E-COMPARED, ECOWEB e iCARE (€ 20 milhões em saúde mental digital), integrando psicologia e tecnologia.</span></li>
+        <li><span class="ic">M</span><span><strong>Instrutora de Mindfulness (MBSR e MBCT)</strong> formada no Centro Mente Aberta (UNIFESP) em parceria com a Universidade de Oxford; mais de 400 horas de formação e retiros no Brasil e na Espanha.</span></li>
+        <li><span class="ic">🎓</span><span><strong>Docente</strong> na UNIFESP, na Santa Casa de São Paulo, na PUCPR Digital e na Universitat de València — incluindo a disciplina <em>Tecnologia de Ponta e Desempenho de Pessoas e Gestores</em>.</span></li>
+        <li><span class="ic">B2B</span><span><strong>Treinamentos corporativos</strong> para Embrapa Agroenergia, Eldorado Brasil Celulose, Safety Master e, com o Instituto Conectomus, programas de neurociência para líderes em várias regiões do Brasil.</span></li>
+      </ul>
+    </div>
+    <p style="margin-top:28px"><a href="pesquisa.html" class="btn btn-line">Ver pesquisa, publicações e laboratórios</a></p>
+  </section>
+
+  <!-- ═══════════ CLÍNICA ═══════════ -->
+  <section class="hm-section" id="pessoas">
+    <div class="hm-clinic">
+      <div>
+        <span class="hm-kicker">Para pessoas</span>
+        <h2>Também atendo individualmente: fobias e ansiedade de desempenho.</h2>
+        <p>
+          Medo de voar que atrapalha a carreira. Pavor de falar em reunião ou no palco. Ansiedade que
+          trava antes da avaliação. Trato fobias e ansiedade de desempenho com <strong>exposição gradual</strong>
+          — inclusive com <strong>realidade virtual</strong> — online para todo o Brasil e presencialmente
+          na Vila Leopoldina, em São Paulo.
+        </p>
+      </div>
+      <a href="fobias.html" class="btn btn-white">Conhecer a clínica</a>
+    </div>
+  </section>
+
+  <!-- ═══════════ SOBRE ═══════════ -->
+  <section class="hm-section" id="sobre">
+    <div class="hm-about">
+      <img src="assets/avatar-priscila.jpg" alt="Priscila Palomo">
+      <div>
+        <span class="hm-kicker">Quem sou</span>
+        <h2 style="margin-bottom:14px">Filha de um cirurgião cardíaco e de uma enfermeira. Cresci ouvindo que técnica sem humano não cura.</h2>
+        <p>
+          Meu pai fez parte da primeira equipe de transplante cardíaco da América Latina. Dele aprendi que um
+          coração pode funcionar perfeitamente e, mesmo assim, ser rejeitado — porque a experiência humana
+          decide. É a mesma lição que levo às empresas: não adianta o melhor processo se as pessoas não
+          conseguem habitá-lo.
+        </p>
+        <p>
+          Estudei em São Paulo, Salamanca e València. Voltei ao Brasil para transformar sete anos de
+          laboratório em algo útil: pessoas que trabalham melhor porque estão bem — e empresas que sabem
+          provar isso.
+        </p>
+        <a href="apresentacao.html" class="btn btn-line" style="margin-top:6px">Minha história em vídeo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ NEWSLETTER ═══════════ -->
+  <section class="news" id="neuronews" style="border-radius:18px;border:none">
+    <span class="news-kicker">NeuroNews · para RH e líderes</span>
+    <h2>A ciência da mente aplicada ao trabalho, uma vez por mês.</h2>
     <p>
-      As fobias específicas se agrupam em cinco famílias: <strong>animais</strong>,
-      <strong>ambiente natural</strong>, <strong>sangue-injeção-ferimentos</strong>,
-      <strong>situacionais</strong> e <strong>outras</strong>. Além delas, existem a
-      <strong>fobia social</strong> e a <strong>agorafobia</strong>. Estes são os tipos mais comuns:
-    </p>
-
-    <div class="fb-grid">
-
-      <div class="fb-card">
-        <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Aranha balançando no fio">
-          <line x1="32" y1="0" x2="32" y2="18" stroke="#111" stroke-width="2"/>
-          <g class="anim a-swing">
-            <circle cx="32" cy="30" r="9" fill="#111"/>
-            <circle cx="28" cy="27" r="1.8" fill="#fff"/>
-            <circle cx="36" cy="27" r="1.8" fill="#fff"/>
-            <path d="M24 26 Q14 20 10 24 M24 31 Q13 30 9 35 M40 26 Q50 20 54 24 M40 31 Q51 30 55 35 M25 36 Q17 42 13 48 M39 36 Q47 42 51 48"
-                  stroke="#0E4A57" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-          </g>
-        </svg>
-        <div class="fb-card-text">
-          <h3>Aracnofobia</h3>
-          <p>Medo de aranhas — a fobia de animal mais comum no mundo.</p>
-        </div>
-      </div>
-
-      <div class="fb-card">
-        <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Cobra rastejando">
-          <g class="anim a-slither">
-            <path d="M6 44 Q16 32 26 44 T46 44" fill="none" stroke="#0E4A57" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="49" cy="42" r="5" fill="#111"/>
-            <circle cx="51" cy="40" r="1.2" fill="#fff"/>
-            <path d="M54 42 l6 -2 M54 42 l6 2" stroke="#111" stroke-width="1.6"/>
-          </g>
-        </svg>
-        <div class="fb-card-text">
-          <h3>Ofidiofobia</h3>
-          <p>Medo de cobras — herança evolutiva que pode sair do controle.</p>
-        </div>
-      </div>
-
-      <div class="fb-card">
-        <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Cachorro latindo">
-          <g class="anim a-bark">
-            <rect x="14" y="30" width="26" height="16" rx="7" fill="#fff" stroke="#111" stroke-width="2.6"/>
-            <circle cx="44" cy="30" r="9" fill="#fff" stroke="#111" stroke-width="2.6"/>
-            <path d="M40 22 l-3 -7 5 2 z M50 23 l4 -6 1 6 z" fill="#0E4A57"/>
-            <circle cx="47" cy="28" r="1.6" fill="#111"/>
-            <line x1="18" y1="46" x2="18" y2="53" stroke="#111" stroke-width="2.6"/>
-            <line x1="34" y1="46" x2="34" y2="53" stroke="#111" stroke-width="2.6"/>
-          </g>
-          <path d="M57 24 q4 4 0 8 M60 20 q7 6 0 14" stroke="#0E4A57" stroke-width="1.8" fill="none" class="anim a-blush"/>
-        </svg>
-        <div class="fb-card-text">
-          <h3>Cinofobia</h3>
-          <p>Medo de cães, muitas vezes após um susto na infância.</p>
-        </div>
-      </div>
-
-      <div class="fb-card">
-        <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Montanha com nuvem passando">
-          <path d="M4 56 L26 18 L38 38 L46 26 L60 56 Z" fill="#fff" stroke="#111" stroke-width="2.6"/>
-          <path d="M26 18 L32 28 L26 30 L22 25 Z" fill="#0E4A57"/>
-          <g class="anim a-fly">
-            <ellipse cx="30" cy="12" rx="10" ry="4.5" fill="#0E4A57" opacity=".85"/>
-          </g>
-        </svg>
-        <div class="fb-card-text">
-          <h3>Acrofobia</h3>
-          <p>Medo de altura: sacadas, escadas, mirantes e pontes.</p>
-        </div>
-      </div>
-
-      <div class="fb-card">
-        <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Paredes apertando uma pessoa">
-          <rect class="anim a-squeeze"  x="6"  y="10" width="10" height="44" fill="#0E4A57"/>
-          <rect class="anim a-squeezeR" x="48" y="10" width="10" height="44" fill="#0E4A57"/>
-          <circle cx="32" cy="26" r="7" fill="#fff" stroke="#111" stroke-width="2.4"/>
-          <path d="M32 33 L32 46 M32 37 L25 42 M32 37 L39 42 M32 46 L27 54 M32 46 L37 54"
-                stroke="#111" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-        </svg>
-        <div class="fb-card-text">
-          <h3>Claustrofobia</h3>
-          <p>Medo de lugares fechados: elevador, avião, ressonância, túnel.</p>
-        </div>
-      </div>
-
-      <div class="fb-card">
-        <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Avião voando">
-          <g class="anim a-fly">
-            <path d="M8 36 L44 30 L56 22 L50 34 L54 40 L44 38 L20 44 Z" fill="#0E4A57"/>
-            <circle cx="49" cy="27" r="1.6" fill="#fff"/>
-          </g>
-          <path d="M6 52 h18 M30 52 h10" stroke="#111" stroke-width="2" stroke-dasharray="3 4"/>
-        </svg>
-        <div class="fb-card-text">
-          <h3>Aerofobia</h3>
-          <p>Medo de voar — mesmo sabendo que o avião é o transporte mais seguro.</p>
-        </div>
-      </div>
-
-      <div class="fb-card">
-        <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Gota de sangue caindo">
-          <path class="anim a-drop" d="M32 8 q10 16 0 22 q-10 -6 0 -22" fill="#0E4A57"/>
-          <rect x="14" y="44" width="36" height="4" rx="2" fill="#111"/>
-        </svg>
-        <div class="fb-card-text">
-          <h3>Hematofobia</h3>
-          <p>Medo de sangue e ferimentos — a única fobia que pode causar desmaio.</p>
-        </div>
-      </div>
-
-      <div class="fb-card">
-        <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Seringa">
-          <g class="anim a-needle">
-            <rect x="20" y="20" width="26" height="12" rx="2" transform="rotate(45 33 26)" fill="#fff" stroke="#111" stroke-width="2.4"/>
-            <line x1="16" y1="48" x2="26" y2="38" stroke="#111" stroke-width="2.4"/>
-            <line x1="10" y1="54" x2="16" y2="48" stroke="#0E4A57" stroke-width="3"/>
-            <line x1="40" y1="14" x2="50" y2="24" stroke="#111" stroke-width="2.4"/>
-          </g>
-        </svg>
-        <div class="fb-card-text">
-          <h3>Tripanofobia</h3>
-          <p>Medo de agulhas e injeções — atrapalha vacinas e exames.</p>
-        </div>
-      </div>
-
-      <div class="fb-card">
-        <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Raio piscando">
-          <path d="M14 10 q8 -8 18 -4 q12 -4 16 8 q10 2 6 12 q-4 8 -14 6 l-24 0 q-10 0 -8 -10 q-2 -8 6 -12" fill="#fff" stroke="#111" stroke-width="2.4"/>
-          <path class="anim a-flash" d="M34 34 L26 48 L32 48 L28 60 L42 44 L35 44 L40 34 Z" fill="#0E4A57"/>
-        </svg>
-        <div class="fb-card-text">
-          <h3>Astrafobia</h3>
-          <p>Medo de trovões e tempestades, comum em crianças e adultos.</p>
-        </div>
-      </div>
-
-      <div class="fb-card">
-        <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Lua e estrela piscando no escuro">
-          <rect x="6" y="6" width="52" height="52" rx="6" fill="#111"/>
-          <path d="M40 18 a12 12 0 1 0 8 21 a10 10 0 0 1 -8 -21" fill="#fff"/>
-          <g class="anim a-blink"><circle cx="20" cy="22" r="2.4" fill="#fff"/></g>
-          <g class="anim a-blink" style="animation-delay:1.4s"><circle cx="26" cy="42" r="2" fill="#fff"/></g>
-        </svg>
-        <div class="fb-card-text">
-          <h3>Nictofobia</h3>
-          <p>Medo do escuro — não é "coisa de criança": adultos também têm.</p>
-        </div>
-      </div>
-
-      <div class="fb-card">
-        <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Dente balançando">
-          <g class="anim a-tooth">
-            <path d="M20 14 q12 -8 24 0 q6 6 2 18 q-3 10 -7 18 q-3 6 -5 -2 q-1 -6 -2 -6 q-1 0 -2 6 q-2 8 -5 2 q-4 -8 -7 -18 q-4 -12 2 -18" fill="#fff" stroke="#111" stroke-width="2.4"/>
-          </g>
-          <path d="M50 16 q4 4 0 8" stroke="#0E4A57" stroke-width="2" fill="none" class="anim a-blush"/>
-        </svg>
-        <div class="fb-card-text">
-          <h3>Odontofobia</h3>
-          <p>Medo de dentista — leva ao adiamento de cuidados importantes.</p>
-        </div>
-      </div>
-
-      <div class="fb-card">
-        <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Ondas do mar profundo">
-          <rect x="6" y="10" width="52" height="44" rx="4" fill="#fff" stroke="#111" stroke-width="2.4"/>
-          <g class="anim a-wave">
-            <path d="M2 34 Q10 28 18 34 T34 34 T50 34 T66 34 T82 34 V56 H2 Z" fill="#0E4A57"/>
-          </g>
-          <circle cx="32" cy="22" r="4" fill="#fff" stroke="#111" stroke-width="2"/>
-        </svg>
-        <div class="fb-card-text">
-          <h3>Talassofobia</h3>
-          <p>Medo do mar profundo e do que não se vê debaixo d'água.</p>
-        </div>
-      </div>
-
-      <div class="fb-card">
-        <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Microfone com ondas de som">
-          <rect x="26" y="10" width="12" height="22" rx="6" fill="#0E4A57"/>
-          <path d="M20 26 a12 12 0 0 0 24 0 M32 40 v10 M24 52 h16" stroke="#111" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-          <g class="anim a-pulse"><circle cx="32" cy="22" r="16" fill="none" stroke="#0E4A57" stroke-width="2"/></g>
-          <g class="anim a-pulse2"><circle cx="32" cy="22" r="16" fill="none" stroke="#0E4A57" stroke-width="2"/></g>
-        </svg>
-        <div class="fb-card-text">
-          <h3>Glossofobia</h3>
-          <p>Medo de falar em público — o coração dispara só de pensar.</p>
-        </div>
-      </div>
-
-      <div class="fb-card">
-        <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Rosto envergonhado entre outros rostos">
-          <circle cx="16" cy="28" r="9" fill="#fff" stroke="#111" stroke-width="2.4"/>
-          <circle cx="48" cy="28" r="9" fill="#fff" stroke="#111" stroke-width="2.4"/>
-          <circle cx="32" cy="34" r="11" fill="#fff" stroke="#111" stroke-width="2.6"/>
-          <circle cx="28" cy="32" r="1.6" fill="#111"/>
-          <circle cx="36" cy="32" r="1.6" fill="#111"/>
-          <path d="M28 40 q4 -3 8 0" stroke="#111" stroke-width="2" fill="none"/>
-          <circle class="anim a-blush" cx="25" cy="37" r="2.6" fill="#0E4A57"/>
-          <circle class="anim a-blush" cx="39" cy="37" r="2.6" fill="#0E4A57"/>
-        </svg>
-        <div class="fb-card-text">
-          <h3>Fobia social</h3>
-          <p>Medo intenso de julgamento e avaliação nas interações sociais.</p>
-        </div>
-      </div>
-
-      <div class="fb-card">
-        <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Pessoa flutuando em espaço aberto">
-          <circle cx="32" cy="32" r="26" fill="none" stroke="#111" stroke-width="2.4" stroke-dasharray="5 6"/>
-          <g class="anim a-float">
-            <circle cx="32" cy="26" r="6" fill="#fff" stroke="#111" stroke-width="2.2"/>
-            <path d="M32 32 L32 44 M32 36 L26 40 M32 36 L38 40 M32 44 L28 52 M32 44 L36 52"
-                  stroke="#111" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-          </g>
-        </svg>
-        <div class="fb-card-text">
-          <h3>Agorafobia</h3>
-          <p>Medo de lugares de onde seria difícil escapar ou receber ajuda.</p>
-        </div>
-      </div>
-
-      <div class="fb-card">
-        <svg class="fb-ico" viewBox="0 0 64 64" aria-label="Rosto enjoado">
-          <circle cx="32" cy="32" r="20" fill="#fff" stroke="#111" stroke-width="2.6"/>
-          <path d="M24 28 l5 3 M45 28 l-5 3" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
-          <path class="anim a-tremor" d="M25 42 q7 -5 14 0" stroke="#111" stroke-width="2.2" fill="none"/>
-          <path class="anim a-drop" d="M50 20 q5 8 0 11 q-5 -3 0 -11" fill="#0E4A57"/>
-        </svg>
-        <div class="fb-card-text">
-          <h3>Emetofobia</h3>
-          <p>Medo de vomitar ou ver alguém passando mal.</p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ═══════════ TRATAMENTO ═══════════ -->
-  <section class="fb-section">
-    <span class="fb-section-title">4 · Como se trata</span>
-    <div class="fb-split">
-      <div>
-        <h2>A escada da exposição gradual</h2>
-        <p>
-          O tratamento com melhor evidência científica é a
-          <strong>Terapia Cognitivo-Comportamental</strong> com
-          <strong>exposição gradual</strong>: enfrentar o medo em degraus pequenos,
-          planejados e repetidos — do mais fácil ao mais difícil — até o cérebro
-          aprender, na prática, que o alarme era falso.
-        </p>
-        <p>
-          Ver uma foto → assistir a um vídeo → observar de longe → aproximar-se →
-          tocar. Cada degrau vencido encolhe o monstro. Com apoio profissional,
-          as fobias específicas estão entre os quadros com
-          <strong>maior taxa de sucesso</strong> em psicoterapia.
-        </p>
-      </div>
-      <div>
-        <!-- Desenho: bolinha subindo a escada -->
-        <svg viewBox="0 0 220 190" role="img" aria-label="Desenho animado: personagem subindo a escada da exposição">
-          <path d="M20 170 h28 v-22 h28 v-22 h28 v-22 h28 v-22 h28 v-22 h28" fill="none" stroke="#111" stroke-width="3"/>
-          <g class="anim a-climb">
-            <circle cx="34" cy="152" r="10" fill="#0E4A57"/>
-            <circle cx="31" cy="149" r="2" fill="#fff"/>
-            <circle cx="38" cy="149" r="2" fill="#fff"/>
-            <path d="M30 156 q4 3 8 0" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
-          </g>
-          <g font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#111">
-            <text x="24" y="183">foto</text>
-            <text x="51" y="161">vídeo</text>
-            <text x="79" y="139">longe</text>
-            <text x="107" y="117">perto</text>
-            <text x="135" y="95">tocar</text>
-          </g>
-        </svg>
-        <span class="fb-caption">Degrau a degrau, o cérebro reaprende</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════ LIVRO HARRY POTTER ═══════════ -->
-  <section class="fb-section" style="background:#EAF2F2;border-bottom:2px solid #111">
-    <span class="fb-section-title">Livro Ilustrado</span>
-    <h2 style="margin-bottom:12px">Harry Potter e a Magia da Coragem</h2>
-    <p style="margin-bottom:8px">
-      Harry Potter enfrenta um inimigo secreto — o Devorador de Coragem, que cresce a cada
-      medo evitado — enquanto esconde um amor por Hermione que ele jura impossível. 21
-      capítulos ilustrados em estilo anime, com segredos reais da Psicologia e final feliz!
-    </p>
-    <p style="margin-bottom:20px">
-      <span style="text-decoration:line-through;color:#777;margin-right:8px">R$&nbsp;197</span>
-      <strong style="font-size:18px">R$&nbsp;97</strong>
-    </p>
-    <a href="escada-segura.html" class="btn btn-navy">Conhecer o livro</a>
-  </section>
-
-  <!-- ═══════════ NEWSLETTER NEURONEWS ═══════════ -->
-  <section class="news" id="neuronews">
-    <span class="news-kicker">NeuroNews</span>
-    <h2>Receba minhas historinhas no seu e-mail</h2>
-    <p>
-      Uma carta leve, de vez em quando: pequenos contos, ideias sobre a mente e o
-      que aprendo no consultório — para te aproximar de mim e da ciência do bem-estar.
+      Dados novos sobre saúde mental corporativa, o que muda na NR-1, e uma prática de regulação
+      emocional para usar com o time. Direto, sem jargão.
     </p>
     <form onsubmit="subscribe(event)">
-      <input type="email" placeholder="Seu melhor e-mail" required>
+      <input type="email" placeholder="Seu e-mail corporativo" required>
       <button type="submit">Assinar</button>
     </form>
-    <span class="news-mini">Sem spam. Só carinho e ciência. Cancele quando quiser.</span>
+    <span class="news-mini">Sem spam. Cancele quando quiser.</span>
   </section>
 
-  <!-- ═══════════ CTA ═══════════ -->
-  <section class="fb-cta">
-    <h2 style="font-size:clamp(22px,3.4vw,30px);margin-bottom:10px">Sua fobia tem nome — e tem tratamento.</h2>
-    <p style="font-size:13px;color:#333;max-width:56ch;margin-bottom:20px">
-      Especialista em fobias. Atendo online e também presencialmente na Vila Leopoldina,
-      com exposição gradual (inclusive com realidade virtual). O primeiro passo é uma conversa.
+  <!-- ═══════════ CTA FINAL ═══════════ -->
+  <section class="hm-final">
+    <span class="hm-kicker">Próximo passo</span>
+    <h2>Vamos conversar sobre a sua empresa?</h2>
+    <p class="hm-sub">
+      Uma conversa de 30 minutos, sem custo, para entender o seu cenário — do PGR à liderança — e
+      dizer com honestidade o que faz sentido fazer primeiro.
     </p>
-    <a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Li%20a%20p%C3%A1gina%20sobre%20fobias%20e%20quero%20conversar."
-       target="_blank" class="btn btn-navy">Falar comigo</a>
+    <a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Quero%20agendar%20o%20diagn%C3%B3stico%20inicial%20gratuito%20para%20minha%20empresa." target="_blank" class="btn btn-navy">Agendar diagnóstico gratuito</a>
+    <div class="hm-contact">
+      <span>WhatsApp: <a href="https://wa.me/5511950690537" target="_blank">+55 11 95069-0537</a></span>
+      <span>E-mail: <a href="mailto:pripalomo@outlook.com">pripalomo@outlook.com</a></span>
+      <span>LinkedIn: <a href="https://www.linkedin.com/in/priscilapalomo" target="_blank" rel="noopener">/in/priscilapalomo</a></span>
+    </div>
   </section>
 
 </main>
@@ -623,16 +506,38 @@ svg .anim { transform-box: fill-box; transform-origin: center; }
 <footer>
   <a href="index.html" class="foot-logo"><img src="assets/logo.svg" alt="Priscila Palomo Psicologia"></a>
   <div class="foot-links">
+    <a href="fobias.html">Fobias</a>
+    <a href="pesquisa.html">Ciência</a>
     <a href="blog.html">Blog</a>
     <a href="cursos.html">Cursos</a>
     <a href="terapia-pro.html">Terap-ia</a>
     <a href="catalogo-videos.html">Vídeos</a>
     <a href="dashboard.html">Desk</a>
-    <a href="https://wa.me/5511950690537" target="_blank">WhatsApp</a>
+    <a href="https://www.linkedin.com/in/priscilapalomo" target="_blank" rel="noopener">LinkedIn</a>
   </div>
-  <span class="foot-info">© <span data-year></span> · CRP 98007</span>
+  <span class="foot-info">© <span data-year></span> · Priscila Palomo · CRP 98007</span>
 </footer>
 
 <script src="assets/app.js"></script>
+<script>
+(function(){
+  const n=document.getElementById('calcN'), s=document.getElementById('calcS');
+  const oC=document.getElementById('outCusto'), oA=document.getElementById('outAfast'), oR=document.getElementById('outRoi');
+  const brl=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+  function calc(){
+    const N=Math.max(0,parseInt(n.value,10)||0);
+    const S=Math.max(0,parseFloat(s.value)||0);
+    const folhaAnual=N*S*13.33;          // 12 salários + 13º + 1/3 de férias
+    const custo=folhaAnual*0.06;          // 6% da folha
+    const afast=N*(546254/45000000);      // taxa nacional de 2025
+    const invest=custo*0.10;              // orçamento de 10% do custo atual
+    oC.textContent=brl(custo);
+    oA.textContent=afast<1?afast.toFixed(1).replace('.',','):Math.round(afast).toLocaleString('pt-BR');
+    oR.textContent=brl(invest*3)+' – '+brl(invest*7);
+  }
+  [n,s].forEach(el=>el.addEventListener('input',calc));
+  calc();
+})();
+</script>
 </body>
 </html>

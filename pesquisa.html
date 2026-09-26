@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciência e tecnologia — Priscila Palomo</title>
+<meta name="description" content="Linhas de pesquisa, publicações, laboratórios parceiros e consultoria científica de Priscila Palomo: embodiment, realidade virtual para fobias, mindfulness e neurociência, tecnologias digitais em saúde mental.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>P</text></svg>">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+.pq-page { background: var(--sand); color: var(--ink); }
+.pq-page h1, .pq-page h2, .pq-page h3 { color: var(--navy); }
+.pq-kicker { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--teal-dark); font-weight: 700; display: block; margin-bottom: 14px; }
+.pq-hero { padding: clamp(48px,7vw,80px) 0 clamp(36px,5vw,56px); border-bottom: 1px solid var(--borda-suave); display: grid; grid-template-columns: 1.2fr .8fr; gap: clamp(28px,5vw,64px); align-items: end; }
+.pq-hero h1 { font-size: clamp(32px,4.4vw,52px); line-height: 1.06; margin-bottom: 18px; letter-spacing: -.02em; }
+.pq-hero h1 em { font-style: normal; color: var(--teal-dark); }
+.pq-lead { font-size: 16.5px; line-height: 1.7; color: #3b4753; max-width: 58ch; }
+.pq-links { display: flex; flex-wrap: wrap; gap: 10px; }
+.pq-links a { font-size: 12.5px; font-weight: 600; color: var(--navy); background: #fff; border: 1px solid var(--borda); border-radius: 999px; padding: 8px 14px; transition: all .2s; }
+.pq-links a:hover { border-color: var(--teal); color: var(--teal-dark); }
+.pq-section { padding: clamp(48px,6vw,72px) 0; border-bottom: 1px solid var(--borda-suave); }
+.pq-section h2 { font-size: clamp(24px,3.2vw,34px); margin-bottom: 12px; max-width: 26ch; }
+.pq-sub { font-size: 15.5px; line-height: 1.7; color: #3b4753; max-width: 64ch; margin-bottom: 28px; }
+
+.pq-lines { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+@media (max-width: 700px) { .pq-lines { grid-template-columns: 1fr; } }
+.pq-line { background: #fff; border-radius: 16px; padding: 26px; border: 1px solid var(--borda-suave); }
+.pq-line .ic { width: 42px; height: 42px; border-radius: 12px; background: var(--mint); display: grid; place-items: center; margin-bottom: 14px; color: var(--teal-dark); }
+.pq-line h3 { font-size: 18px; margin-bottom: 8px; }
+.pq-line p { font-size: 14px; line-height: 1.65; color: #3b4753; }
+.pq-line .apl { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--borda); font-size: 12.5px; color: var(--navy); }
+.pq-line .apl strong { color: var(--teal-dark); }
+
+.pq-pubs { list-style: none; display: grid; gap: 0; border: 1px solid var(--borda); border-radius: 16px; overflow: hidden; background: #fff; }
+.pq-pub { display: grid; grid-template-columns: 64px 1fr; gap: 18px; padding: 20px 22px; border-bottom: 1px solid var(--borda-suave); }
+.pq-pub:last-child { border-bottom: none; }
+.pq-pub .yr { font-family: var(--font-title); font-weight: 800; color: var(--teal-dark); font-size: 15px; }
+.pq-pub h3 { font-size: 15.5px; line-height: 1.4; margin-bottom: 4px; font-weight: 600; }
+.pq-pub p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.pq-pub p em { color: var(--navy); font-style: italic; }
+
+.pq-labs { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 12px; }
+.pq-lab { background: #fff; border: 1px solid var(--borda-suave); border-radius: 12px; padding: 16px 18px; }
+.pq-lab strong { display: block; font-family: var(--font-title); font-size: 14px; color: var(--navy); margin-bottom: 4px; }
+.pq-lab span { font-size: 12.5px; color: var(--muted); line-height: 1.5; display: block; }
+
+.pq-two { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px,4vw,48px); }
+.pq-list { list-style: none; display: grid; gap: 10px; }
+.pq-list li { background: #fff; border: 1px solid var(--borda-suave); border-radius: 12px; padding: 14px 16px; font-size: 14px; line-height: 1.55; color: #2f3b47; }
+.pq-list li strong { color: var(--navy); display: block; font-size: 14px; }
+
+.pq-tech { background: var(--navy); color: #fff; border-radius: 22px; padding: clamp(28px,5vw,52px); display: grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items: center; }
+.pq-tech h2 { color: #fff; }
+.pq-tech .pq-kicker { color: var(--gold); }
+.pq-tech p { color: rgba(255,255,255,.86); font-size: 15px; line-height: 1.7; }
+.pq-tech ul { list-style: none; display: grid; gap: 10px; }
+.pq-tech li { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 12px; padding: 14px 16px; font-size: 14px; color: #fff; }
+.pq-tech li small { display: block; color: rgba(255,255,255,.7); font-size: 12.5px; margin-top: 3px; }
+.btn-white { background: #fff; color: var(--navy) !important; box-shadow: none; }
+.btn-white:hover { background: var(--mint); }
+.btn-navy { background: var(--navy); color: #fff !important; box-shadow: 0 8px 22px rgba(11,37,69,.22); }
+.btn-navy:hover { background: var(--teal-dark); }
+
+.pq-cta { text-align: center; padding: clamp(52px,7vw,84px) 0; }
+.pq-cta h2 { margin-inline: auto; }
+.pq-cta .pq-sub { margin: 0 auto 24px; }
+
+@media (max-width: 860px) {
+  .pq-hero, .pq-two, .pq-tech { grid-template-columns: 1fr; }
+  .pq-pub { grid-template-columns: 1fr; gap: 6px; }
+}
+</style>
+</head>
+<body class="pq-page">
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="assets/logo.svg" alt="Priscila Palomo Psicologia">
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Priscila Palomo</span>
+      <span class="nav-logo-sub">Psicóloga · PhD · CRP 98007</span>
+    </div>
+  </a>
+  <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
+  <ul class="nav-links">
+    <li><a href="index.html">Início</a></li>
+    <li><a href="index.html#solucoes">Empresas</a></li>
+    <li><a href="fobias.html">Fobias e ansiedade</a></li>
+    <li><a href="pesquisa.html" class="active">Ciência</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="apresentacao.html">Minha história</a></li>
+    <li><a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Quero%20conversar%20sobre%20sa%C3%BAde%20mental%20na%20minha%20empresa." target="_blank" class="nav-cta">Falar comigo</a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+
+  <section class="pq-hero">
+    <div>
+      <span class="pq-kicker">Ciência e tecnologia</span>
+      <h1>Sete anos medindo o que a maioria acha que <em>não se mede</em>.</h1>
+      <p class="pq-lead">
+        Medo, atenção, consciência corporal, regulação emocional. Minha pesquisa nasceu no Labpsitec da
+        Universitat de València — um dos laboratórios mais inovadores da Europa na interface entre psicologia e
+        tecnologia — e continua hoje em parcerias com UNIFESP, USP, UNICAMP e UFRN. É essa base que
+        sustenta cada programa que levo às empresas.
+      </p>
+    </div>
+    <div class="pq-links">
+      <a href="http://lattes.cnpq.br/4124029805069326" target="_blank" rel="noopener">Currículo Lattes</a>
+      <a href="https://orcid.org/0000-0003-4936-6479" target="_blank" rel="noopener">ORCID</a>
+      <a href="https://www.researchgate.net/profile/Priscila-Palomo" target="_blank" rel="noopener">ResearchGate</a>
+      <a href="https://www.linkedin.com/in/priscilapalomo" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </section>
+
+  <!-- LINHAS DE PESQUISA -->
+  <section class="pq-section" id="linhas">
+    <span class="pq-kicker">Linhas de pesquisa</span>
+    <h2>Quatro linhas — e o que cada uma entrega para o mundo real.</h2>
+    <p class="pq-sub">Cada linha começou como pergunta de laboratório e virou ferramenta aplicada em clínica, hospital e empresa.</p>
+    <div class="pq-lines">
+      <article class="pq-line">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 0 1 5 5v3a5 5 0 0 1-10 0V7a5 5 0 0 1 5-5z"/><path d="M4 22a8 8 0 0 1 16 0"/></svg></div>
+        <h3>Embodiment e plasticidade corporal</h3>
+        <p>Com a <em>Rubber Hand Illusion</em> e realidade virtual, mostramos que pacientes com transtornos alimentares têm fronteiras corporais mais instáveis — a distorção de imagem não é só cognitiva, é perceptiva. Estudos com AMBULIM/USP e UNICAMP.</p>
+        <div class="apl"><strong>Aplicação:</strong> o corpo como instrumento de autorregulação em programas de liderança e estresse.</div>
+      </article>
+      <article class="pq-line">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="11" rx="3"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/><circle cx="8.5" cy="12.5" r="1.5"/><circle cx="15.5" cy="12.5" r="1.5"/></svg></div>
+        <h3>Realidade virtual aplicada a fobias</h3>
+        <p>Cenários imersivos para medo de voar — do embarque à turbulência — com registro fisiológico (EDA, frequência cardíaca) em tempo real e quedas progressivas de ansiedade ao longo das sessões. Pacientes que nunca aceitariam a exposição real completaram o protocolo.</p>
+        <div class="apl"><strong>Aplicação:</strong> tratamento de fobias e ansiedade de desempenho; consultoria para healthtechs de RV.</div>
+      </article>
+      <article class="pq-line">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="5"/></svg></div>
+        <h3>Mindfulness e neurociência</h3>
+        <p>Meditadores experientes mostram maior estabilidade perceptiva e respostas autonômicas mais reguladas. Mindfulness recalibra sistemas de percepção e defesa — é intervenção fisiológica, não só relaxamento. Publicado em <em>Mindfulness</em> e <em>Consciousness and Cognition</em>.</p>
+        <div class="apl"><strong>Aplicação:</strong> Programa Mente Regulada (MBSR/MBCT no trabalho) com medição pré/pós.</div>
+      </article>
+      <article class="pq-line">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/><path d="M7 13l3-3 2 2 4-4"/></svg></div>
+        <h3>Tecnologias digitais em saúde mental</h3>
+        <p>Nos consórcios europeus E-COMPARED (depressão), ECOWEB (resiliência em jovens) e iCARE, integrei psicologia e tecnologia para que intervenções digitais fossem válidas <em>e</em> usáveis. Em certos contextos, são tão eficazes quanto o atendimento presencial.</p>
+        <div class="apl"><strong>Aplicação:</strong> desenho de evidência e UX clínica para produtos digitais; IA como “lupa”, não substituto.</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- PUBLICAÇÕES -->
+  <section class="pq-section" id="publicacoes">
+    <span class="pq-kicker">Publicações selecionadas</span>
+    <h2>Artigos em revistas internacionais.</h2>
+    <p class="pq-sub">Seleção dos trabalhos mais relevantes. A lista completa está no Lattes e no ORCID.</p>
+    <ul class="pq-pubs">
+      <li class="pq-pub"><span class="yr">2017</span><div><h3>Body schema plasticity after stroke: subjective and neurophysiological correlates of the rubber hand illusion</h3><p>Llorens, Borrego, <em>Palomo</em>, Cebolla, Noé, Bermúdez i Badia, Baños — <em>Neuropsychologia</em>, 96, 61–69.</p></div></li>
+      <li class="pq-pub"><span class="yr">2017</span><div><h3>Subjective, behavioral, and physiological responses to the rubber hand illusion do not vary with age in the adult phase</h3><p><em>Palomo</em>, Borrego, Cebolla, Llorens, Demarzo, Baños — <em>Consciousness and Cognition</em>.</p></div></li>
+      <li class="pq-pub"><span class="yr">2016</span><div><h3>Embodiment and body awareness in meditators</h3><p>Cebolla, Miragall, <em>Palomo</em>, Llorens, Soler, Demarzo, García-Campayo, Baños — <em>Mindfulness</em>, 7, 1–9.</p></div></li>
+      <li class="pq-pub"><span class="yr">2016</span><div><h3>Virtual Body Swap: a new feasible tool to be explored in health and education</h3><p>De Oliveira, Bertrand, Lesur, <em>Palomo</em>, Cebolla, Baños, Tori — <em>Frontiers in Psychology</em> e IEEE SVR.</p></div></li>
+      <li class="pq-pub"><span class="yr">2016</span><div><h3>Estudio del embodiment por medio de la ilusión de la mano de goma en pacientes con trastornos de la conducta alimentaria</h3><p><em>Palomo</em>, Vara, Cebolla, Guillén, Jorquera, Demarzo, Baños — XI Congreso Internacional de la SEAS, València.</p></div></li>
+      <li class="pq-pub"><span class="yr">2015</span><div><h3>Embodied Mindfulness: review of the body's participation in the changes associated with the practice of mindfulness</h3><p>Cebolla, Vara, Miragall, <em>Palomo</em>, Baños — <em>Actas Españolas de Psiquiatría</em>, 43, 36–41.</p></div></li>
+      <li class="pq-pub"><span class="yr">2014</span><div><h3>La relación entre Mindfulness y auto-conciencia corporal de las sensaciones internas</h3><p>Prêmio de <strong>Melhor Pôster</strong> — 1st International Meeting on Mindfulness, Universidad de Zaragoza.</p></div></li>
+    </ul>
+  </section>
+
+  <!-- LABORATÓRIOS -->
+  <section class="pq-section" id="laboratorios">
+    <span class="pq-kicker">Laboratórios e parcerias</span>
+    <h2>Uma rede entre Brasil e Europa.</h2>
+    <p class="pq-sub">Grupos com os quais pesquisei, publiquei ou colaboro até hoje.</p>
+    <div class="pq-labs">
+      <div class="pq-lab"><strong>Labpsitec · Universitat de València / Jaume I</strong><span>Embodiment, realidade virtual, psicopatologia, mindfulness. Rosa Baños e Ausiàs Cebolla.</span></div>
+      <div class="pq-lab"><strong>Centro Mente Aberta · UNIFESP</strong><span>Programas baseados em mindfulness aplicados à saúde. Marcelo Demarzo.</span></div>
+      <div class="pq-lab"><strong>Università Cattolica del Sacro Cuore · Milão</strong><span>Cybertherapy e RV em saúde mental. Giuseppe Riva.</span></div>
+      <div class="pq-lab"><strong>NEURORHB · Hospitales Vithas, València</strong><span>Reabilitação cognitiva e motora após AVC.</span></div>
+      <div class="pq-lab"><strong>Universitat Politècnica de València</strong><span>Interfaces digitais e engenharia aplicada à saúde. R. Llorens e A. Borrego.</span></div>
+      <div class="pq-lab"><strong>Universidad de Barcelona</strong><span>Mindfulness, DBT e transtornos de personalidade. Joaquim Soler.</span></div>
+      <div class="pq-lab"><strong>BeAnotherLab · The Machine to Be Another</strong><span>RV imersiva e empatia; validação científica do dispositivo.</span></div>
+      <div class="pq-lab"><strong>AMBULIM · IPq-HCFMUSP</strong><span>Transtornos alimentares. Grupo Táki Cordás.</span></div>
+      <div class="pq-lab"><strong>UNICAMP · UFRN</strong><span>Neurociência experimental; psicologia aplicada à saúde em contextos de vulnerabilidade.</span></div>
+    </div>
+  </section>
+
+  <!-- DOCÊNCIA & FORMAÇÃO -->
+  <section class="pq-section" id="docencia">
+    <div class="pq-two">
+      <div>
+        <span class="pq-kicker">Docência</span>
+        <h2>Onde ensinei.</h2>
+        <ul class="pq-list">
+          <li><strong>UNIFESP</strong>Pós-graduação: Embodiment e mecanismos psicológicos do mindfulness; instrutora de grupo para dor crônica. Orientação de iniciação científica, mestrado e doutorado.</li>
+          <li><strong>Santa Casa de São Paulo</strong>Mindfulness e regulação emocional; instrumentos tecnológicos para regulação emocional; tecnologia de ponta e desempenho de pessoas e gestores.</li>
+          <li><strong>PUCPR Digital (2022–2025)</strong>Treinamentos, protocolos e práticas de mindfulness em saúde, educação e organizações — centenas de alunos em todo o Brasil.</li>
+          <li><strong>Universitat de València e Máster em Psicogerontologia</strong>Embodied cognition e interação humano-computador (engenharia, em inglês); paradigma da Rubber Hand Illusion; neurociência e plasticidade; intervenção em demências.</li>
+        </ul>
+      </div>
+      <div>
+        <span class="pq-kicker">Formação</span>
+        <h2>Como me formei.</h2>
+        <ul class="pq-list">
+          <li><strong>Doutorado internacional em Psicologia da Saúde</strong>Universitat de València (2014–2017). <em>Sobresaliente Cum Laude</em>, Menção Europeia. Bolsa CAPES. Homologado no Brasil em 2025.</li>
+          <li><strong>Mestrado oficial em Psicogerontologia</strong>Salamanca · Barcelona · Santiago de Compostela · València. Neuropsicologia do envelhecimento e plasticidade cerebral.</li>
+          <li><strong>Máster em Metodologia de Pesquisa em Ciências da Saúde</strong>Universidad de Salamanca. Estatística avançada, desenho experimental, validação de instrumentos.</li>
+          <li><strong>Máster em Psicanálise Clínica</strong>Universidad de Salamanca. Escuta clínica e análise qualitativa.</li>
+          <li><strong>Instrutora MBSR e MBCT</strong>Centro Mente Aberta/UNIFESP com a Universidade de Oxford; retiros no Brasil e na Espanha (Cebolla, García-Campayo).</li>
+          <li><strong>Graduação em Psicologia</strong>FMU (oradora da turma), após três anos de Administração no Instituto Mauá. Estágios no HCor e no PROTOC/IPq-HCFMUSP.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONSULTORIA PARA HEALTHTECHS -->
+  <section class="pq-section" id="healthtech">
+    <div class="pq-tech">
+      <div>
+        <span class="pq-kicker">Consultoria científica</span>
+        <h2>Para quem constrói tecnologia de saúde mental.</h2>
+        <p>
+          Startups e empresas que criam apps, plataformas, realidade virtual ou IA para saúde mental precisam de
+          evidência — para convencer clientes, investidores e reguladores. Ajudo a desenhar o estudo certo,
+          escolher os instrumentos certos e garantir que o produto seja usável <em>e</em> ético.
+          Um dispositivo funcional não basta: o usuário precisa “habitá-lo” como parte de si.
+        </p>
+        <p style="margin-top:14px"><a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Tenho%20uma%20healthtech%20e%20quero%20conversar%20sobre%20consultoria%20cient%C3%ADfica." target="_blank" class="btn btn-white">Conversar sobre meu produto</a></p>
+      </div>
+      <ul>
+        <li>Validação clínica e desenho de evidência<small>Protocolos, amostras, escalas validadas, análise estatística (GLMM, ANOVA mista, psicometria).</small></li>
+        <li>Realidade virtual para fobias e ansiedade<small>Cenários, calibragem de presença e imersão, registro fisiológico, segurança do usuário.</small></li>
+        <li>IA e humanização do atendimento digital<small>IA como “lupa” clínica; fluxos que preservam vínculo, privacidade e ética.</small></li>
+        <li>UX centrada no paciente<small>Design participativo, qualidade em uso e qualidade hedônica — o que decide adoção ou rejeição.</small></li>
+      </ul>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);margin-top:14px">
+      Na mídia: <a href="https://www.insper.edu.br/pt/noticias/2022/11/como-as-novas-tecnologias-podem-auxiliar-no-tratamento-de-fobias" target="_blank" rel="noopener" style="color:var(--navy);text-decoration:underline">Insper — Como as novas tecnologias podem auxiliar no tratamento de fobias (2022)</a> ·
+      <a href="https://tivita.com/conteudos/atendimento-humanizado-com-tecnologia" target="_blank" rel="noopener" style="color:var(--navy);text-decoration:underline">Tivita — Atendimento humanizado em clínicas digitais (2025)</a>
+    </p>
+  </section>
+
+  <section class="pq-cta">
+    <span class="pq-kicker">Da pesquisa para a prática</span>
+    <h2>Quer essa base científica dentro da sua empresa?</h2>
+    <p class="pq-sub">Diagnóstico de riscos psicossociais, programas com medição de resultado, formação de líderes e palestras.</p>
+    <a href="index.html#solucoes" class="btn btn-navy">Ver soluções para empresas</a>
+  </section>
+
+</main>
+
+<footer>
+  <a href="index.html" class="foot-logo"><img src="assets/logo.svg" alt="Priscila Palomo Psicologia"></a>
+  <div class="foot-links">
+    <a href="fobias.html">Fobias</a>
+    <a href="pesquisa.html">Ciência</a>
+    <a href="blog.html">Blog</a>
+    <a href="cursos.html">Cursos</a>
+    <a href="terapia-pro.html">Terap-ia</a>
+    <a href="catalogo-videos.html">Vídeos</a>
+    <a href="https://www.linkedin.com/in/priscilapalomo" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+  <span class="foot-info">© <span data-year></span> · Priscila Palomo · CRP 98007</span>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
