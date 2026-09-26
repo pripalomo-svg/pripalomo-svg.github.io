@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dashboard do extrato 2026 — Priscila Palomo</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Dashboard pessoal do extrato de 2026: entradas, saídas, assinaturas, cartão Black e tabela editável.">
+<meta name="description" content="Dashboard pessoal do extrato de 2026: entradas e saídas de cada mês.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>P</text></svg>">
 <link rel="stylesheet" href="assets/style.css">
 <style>
@@ -85,7 +85,7 @@
 .ex-sec { padding: 22px 0 24px; border-top: 1px solid #5A2080; }
 .ex-lead, .ex-note { color: #D7FFE8; max-width: 78ch; margin-bottom: 10px; }
 .ex-note { margin-top: 8px; margin-bottom: 0; }
-.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .kpi { background: #120018; border: 1px solid #CCFF00; padding: 8px; box-shadow: 0 0 12px rgba(204,255,0,.25); }
 .kpi:nth-child(4n+2) { border-color: #FF2BD6; box-shadow: 0 0 12px rgba(255,43,214,.35); }
 .kpi:nth-child(4n+3) { border-color: #00F5FF; box-shadow: 0 0 12px rgba(0,245,255,.35); }
@@ -197,12 +197,7 @@ table.sheet { width: 100%; border-collapse: collapse; min-width: 760px; }
   </a>
   <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
   <ul class="nav-links">
-    <li><a href="#totais">Totais</a></li>
-    <li><a href="#fluxo">Detalhe</a></li>
-    <li><a href="#assinaturas">Assinaturas</a></li>
-    <li><a href="#movimento">Animação</a></li>
-    <li><a href="#black">Black</a></li>
-    <li><a href="#resumo">Tabela</a></li>
+    <li><a href="#totais">Entradas e saídas</a></li>
     <li><a href="dashboard.html">Desk</a></li>
   </ul>
 </nav>
@@ -211,12 +206,12 @@ table.sheet { width: 100%; border-collapse: collapse; min-width: 760px; }
   <header class="ex-hero">
     <span class="ex-kicker">Dashboard · Conta Itaú · 2026</span>
     <h1>O ano na conta, mês a mês.</h1>
-    <p>De 1º de janeiro a 25 de setembro. Os dois extratos entram juntos, sem repetir junho. O salário da Priscila, os Pix em nome dela e os TED da McKinsey (salário da Luísa) ficam separados das outras entradas.</p>
+    <p>De 1º de janeiro a 25 de setembro. Os dois extratos entram juntos, sem repetir junho. Cada mês mostra um total de entradas e um total de saídas.</p>
     <div class="dash-link">
       <div>
         <span class="ex-kicker">Link deste dashboard</span>
         <a class="dash-url" id="dash-url" href="https://www.priscilapalomo.com/extrato-2026.html">https://www.priscilapalomo.com/extrato-2026.html</a>
-        <p class="ex-note" id="dash-status">Totais, detalhe, assinaturas, animação, cartão Black e a tabela editável estão nesta página.</p>
+        <p class="ex-note" id="dash-status">Esta página mostra só as entradas e as saídas de cada mês.</p>
       </div>
       <div class="dash-actions">
         <button type="button" class="btn btn-gold" id="btn-copiar-link">Copiar link</button>
@@ -230,16 +225,11 @@ table.sheet { width: 100%; border-collapse: collapse; min-width: 760px; }
     <article class="kpi ent"><span>Entrou</span><strong id="kpi-entradas">—</strong><em>sem cofrinho, CDB e mesma conta</em></article>
     <article class="kpi sai"><span>Saiu</span><strong id="kpi-saidas">—</strong><em>gastos e transferências para fora</em></article>
     <article class="kpi"><span>Resultado</span><strong id="kpi-resultado">—</strong><em>entrou menos saiu</em></article>
-    <article class="kpi"><span>Saldo em 25/09</span><strong id="kpi-saldo">—</strong><em id="kpi-saldo-ini">partiu de —</em></article>
-    <article class="kpi"><span>Salário da Priscila</span><strong id="kpi-salario">—</strong><em>remuneração</em></article>
-    <article class="kpi"><span>Transferências da Priscila</span><strong id="kpi-aportes">—</strong><em>Pix e TED no nome dela</em></article>
-    <article class="kpi"><span>Luísa · McKinsey</span><strong id="kpi-luisa">—</strong><em>TED da McKinsey</em></article>
-    <article class="kpi"><span>Faturas Black</span><strong id="kpi-black">—</strong><em>débito da fatura no ano</em></article>
   </section>
 
   <section class="ex-sec" id="totais">
-    <h2>Total de entradas e de saídas</h2>
-    <p class="ex-lead">Cada mês tem o que entrou e o que saiu. A linha é o saldo no fim do mês. Setembro vai só até o dia 25.</p>
+    <h2>Entradas e saídas por mês</h2>
+    <p class="ex-lead">Uma barra do que entrou e outra do que saiu. Setembro vai só até o dia 25.</p>
     <div class="toggles">
       <label><input type="checkbox" id="toggle-internas"> Incluir cofrinho, CDB e transferência para a mesma conta</label>
     </div>
@@ -250,148 +240,9 @@ table.sheet { width: 100%; border-collapse: collapse; min-width: 760px; }
     </div>
   </section>
 
-  <section class="ex-sec" id="fluxo">
-    <h2>Entradas e saídas, com nome e sobrenome</h2>
-    <p class="ex-lead">Para cima, de onde o dinheiro veio: salário da Priscila, transferências dela, salário da Luísa na McKinsey e o resto. Para baixo, para onde foi.</p>
-    <div class="card">
-      <div class="chart" id="chart-fluxo"></div>
-      <div class="legend" id="legenda-fluxo"></div>
-    </div>
-    <div class="card">
-      <h3>Maiores saídas por destino</h3>
-      <div class="chart" id="chart-destinos"></div>
-    </div>
-  </section>
-
-  <section class="ex-sec" id="assinaturas">
-    <h2>Assinaturas ao longo dos meses</h2>
-    <p class="ex-lead">Porto Seguro Vida, VGBL, Claro, Vivo, Telefônica e o conselho profissional. Desmarque a caixa para ver também o que se repete todo mês: financiamento, Ciranda, condomínio, luz, IPTU, boleto e a compra de USDC.</p>
-    <div class="toggles">
-      <label><input type="checkbox" id="toggle-assinaturas" checked> Mostrar só as assinaturas</label>
-    </div>
-    <div class="card">
-      <div class="chart" id="chart-assinaturas"></div>
-      <div class="legend" id="legenda-assinaturas"></div>
-    </div>
-  </section>
-
-  <section class="ex-sec" id="movimento">
-    <h2>Movimentação mensal</h2>
-    <p class="ex-lead">O ano anda sozinho. As barras são entrada e saída de verdade. A linha é o saldo da conta, inclusive o que foi para o cofrinho.</p>
-    <div class="palco">
-      <div class="palco-top">
-        <h3 id="anim-mes">janeiro</h3>
-        <div class="palco-ctrl">
-          <button type="button" class="btn btn-outline" id="anim-prev" aria-label="Mês anterior">←</button>
-          <button type="button" class="btn btn-gold" id="btn-play">Pausar</button>
-          <button type="button" class="btn btn-outline" id="anim-next" aria-label="Próximo mês">→</button>
-          <input type="range" id="anim-scrub" min="0" max="8" value="0" aria-label="Posição no ano">
-        </div>
-      </div>
-      <div class="chart" id="anim-linha"></div>
-      <div class="barras">
-        <div class="barra-linha"><span>Entradas</span><div class="trilho ent"><span id="anim-bar-ent"></span></div><strong id="anim-entradas">—</strong></div>
-        <div class="barra-linha"><span>Saídas</span><div class="trilho sai"><span id="anim-bar-sai"></span></div><strong id="anim-saidas">—</strong></div>
-      </div>
-      <div class="palco-nums">
-        <div><span>Resultado do mês</span><strong id="anim-resultado">—</strong></div>
-        <div><span>Saldo no fim</span><strong id="anim-saldo">—</strong></div>
-      </div>
-      <ul class="eventos" id="anim-eventos"></ul>
-      <p class="sr-only" id="anim-live" aria-live="polite"></p>
-    </div>
-  </section>
-
-  <section class="ex-sec" id="black">
-    <h2>Cartão Black e os dias de maior gasto</h2>
-    <p class="ex-lead">O extrato só traz o débito da fatura, não as compras de dentro do cartão. O gráfico de setores mostra a conta inteira — a fatura entra como um bloco. A abertura por tipo de gasto é sua: preencha e o gráfico acompanha, salvo neste navegador.</p>
-    <div class="card">
-      <h3>O que mais sai da conta</h3>
-      <div class="split">
-        <div class="chart" id="chart-setores"></div>
-        <div>
-          <p class="leitura" id="leitura-setores"></p>
-          <ul class="lista-setores" id="lista-setores"></ul>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <h3>Fatura Black em cada mês</h3>
-      <div class="chart" id="chart-black"></div>
-      <div class="legend" id="legenda-black"></div>
-      <p class="leitura" id="leitura-black"></p>
-    </div>
-    <div class="card">
-      <h3>Abrir a fatura por tipo de gasto</h3>
-      <label>Mês <select id="black-mes"></select></label>
-      <div class="split" style="margin-top:12px">
-        <div class="chart" id="chart-black-split"></div>
-        <div>
-          <div class="black-grid" id="black-form"></div>
-          <p class="resto" id="black-resto"></p>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <h3>Dias em que mais se gasta</h3>
-      <div class="toggles">
-        <label><input type="checkbox" id="toggle-sem-black"> Tirar o débito da fatura Black</label>
-      </div>
-      <p class="leitura" id="leitura-dias"></p>
-      <div class="chart" id="chart-dias"></div>
-      <h3 style="margin-top:18px">Dia da semana</h3>
-      <div class="chart" id="chart-semana"></div>
-      <h3 style="margin-top:18px">Calendário do ano</h3>
-      <div class="chart" id="chart-cal"></div>
-    </div>
-  </section>
-
   <section class="ex-sec" id="resumo">
-    <h2>Resumo para anotar</h2>
-    <p class="ex-lead">Troque a categoria, o apelido ou a nota. A mudança fica neste navegador e os gráficos de cima acompanham a categoria. Nada disso volta para o banco.</p>
-    <p class="ex-note" id="status-edicao"></p>
-    <div class="acoes">
-      <button type="button" class="btn btn-outline" id="btn-csv">Baixar planilha</button>
-      <button type="button" class="btn btn-outline" id="btn-json">Baixar anotações</button>
-      <button type="button" class="btn btn-outline" id="btn-importar">Trazer anotações</button>
-      <input type="file" id="arquivo-json" accept="application/json" hidden>
-      <button type="button" class="btn btn-outline" id="btn-reset">Apagar anotações</button>
-    </div>
-
-    <h3>Por mês</h3>
+    <h2>Entradas e saídas em reais</h2>
     <div class="sheet-wrap" id="tabela-mes"></div>
-
-    <h3 style="margin-top:22px">Por pessoa e lugar</h3>
-    <div class="filtros">
-      <label>Tamanho
-        <select id="f-min">
-          <option value="0">Tudo</option>
-          <option value="100" selected>Acima de R$ 100</option>
-          <option value="500">Acima de R$ 500</option>
-          <option value="1000">Acima de R$ 1.000</option>
-        </select>
-      </label>
-      <label>Busca <input type="search" id="f-nome" placeholder="Márcia, Ciranda, Black…"></label>
-    </div>
-    <div class="sheet-wrap" id="tabela-quem"></div>
-
-    <h3 style="margin-top:22px">Lançamentos</h3>
-    <div class="filtros">
-      <label>Mês <select id="f-mes"><option value="">Todos</option></select></label>
-      <label>Categoria <select id="f-setor"><option value="">Todas</option></select></label>
-      <label>Tipo
-        <select id="f-tipo">
-          <option value="">Todos</option>
-          <option value="entrada">Entradas</option>
-          <option value="saida">Saídas</option>
-          <option value="interna">Cofrinho, CDB e mesma conta</option>
-        </select>
-      </label>
-      <label>Busca <input type="search" id="f-busca" placeholder="Descrição ou nome"></label>
-      <label><input type="checkbox" id="f-internas" checked> Esconder cofrinho, CDB e mesma conta</label>
-    </div>
-    <p class="ex-note" id="conta-lanc"></p>
-    <div class="sheet-wrap" id="tabela-lanc"></div>
   </section>
 </main>
 

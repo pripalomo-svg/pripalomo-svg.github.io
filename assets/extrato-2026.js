@@ -242,42 +242,32 @@
     const incluir = document.getElementById("toggle-internas").checked;
     const ent = MESES.map((ym) => m.mes[ym].entradas + (incluir ? m.mes[ym].internaEnt : 0));
     const sai = MESES.map((ym) => m.mes[ym].saidas + (incluir ? m.mes[ym].internaSai : 0));
-    const saldos = MESES.map((ym) => m.mes[ym].saldo);
     const W = 920, H = 390;
-    const pad = { l: 108, r: 108, t: 16, b: 36 };
+    const pad = { l: 108, r: 16, t: 16, b: 36 };
     const iw = W - pad.l - pad.r, ih = H - pad.t - pad.b;
     const maxBar = Math.max(1, ...ent, ...sai);
-    const minS = Math.min(...saldos), maxS = Math.max(...saldos);
     const yBar = (v) => pad.t + ih - (v / maxBar) * ih;
-    const ySaldo = (v) => pad.t + ih - ((v - minS) / (maxS - minS || 1)) * ih;
     const gw = iw / MESES.length;
     let barras = "";
-    let linha = "";
     MESES.forEach((ym, i) => {
       const x = pad.l + i * gw + gw / 2;
       const hE = (ent[i] / maxBar) * ih;
       const hS = (sai[i] / maxBar) * ih;
       barras += `<rect x="${(x - gw * 0.32).toFixed(1)}" y="${yBar(ent[i]).toFixed(1)}" width="${(gw * 0.26).toFixed(1)}" height="${hE.toFixed(1)}" fill="#39FF14"><title>${esc(mesLongo(ym))}: entrou ${brl(ent[i])}</title></rect>`;
       barras += `<rect x="${(x + gw * 0.04).toFixed(1)}" y="${yBar(sai[i]).toFixed(1)}" width="${(gw * 0.26).toFixed(1)}" height="${hS.toFixed(1)}" fill="#FF2BD6"><title>${esc(mesLongo(ym))}: saiu ${brl(sai[i])}</title></rect>`;
-      const px = x.toFixed(1), py = ySaldo(saldos[i]).toFixed(1);
-      linha += (i ? "L" : "M") + px + " " + py + " ";
-      barras += `<circle cx="${px}" cy="${py}" r="3.5" fill="#00F5FF"><title>Saldo ${brl(saldos[i])}</title></circle>`;
-      barras += `<text x="${px}" y="${H - 14}" text-anchor="middle" font-size="12" fill="#000000">${mesCurto(ym)}</text>`;
+      barras += `<text x="${x.toFixed(1)}" y="${H - 14}" text-anchor="middle" font-size="12" fill="#000000">${mesCurto(ym)}</text>`;
     });
     let grades = "";
     [0, 0.5, 1].forEach((p) => {
       const y = (pad.t + ih - p * ih).toFixed(1);
       grades += `<line x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" stroke="#5A2080"/>`;
       grades += `<text x="${pad.l - 8}" y="${Number(y) + 4}" text-anchor="end" font-size="11" fill="#000000">${eixo(maxBar * p)}</text>`;
-      const saldoTick = minS + (maxS - minS) * p;
-      grades += `<text x="${W - pad.r + 8}" y="${Number(y) + 4}" font-size="11" fill="#000000">${eixo(saldoTick)}</text>`;
     });
     document.getElementById("chart-totais").innerHTML = svgAbrir(W, H, "Entradas e saídas por mês em 2026") +
-      grades + barras + `<path d="${linha}" fill="none" stroke="#00F5FF" stroke-width="2"/>` + "</svg>";
+      grades + barras + "</svg>";
     legenda("legenda-totais", [
       { cor: "#39FF14", nome: "Entradas" },
-      { cor: "#FF2BD6", nome: "Saídas" },
-      { cor: "#00F5FF", nome: "Saldo no fim do mês (escala da direita)" }
+      { cor: "#FF2BD6", nome: "Saídas" }
     ]);
     const te = ent.reduce((a, b) => a + b, 0);
     const ts = sai.reduce((a, b) => a + b, 0);
@@ -866,16 +856,25 @@
     por("kpi-entradas", m.entrou);
     por("kpi-saidas", m.saiu);
     por("kpi-resultado", m.entrou - m.saiu);
-    por("kpi-saldo", D.saldoFinal);
-    por("kpi-salario", m.salario);
-    por("kpi-aportes", m.aportes);
-    por("kpi-luisa", m.luisa);
-    por("kpi-black", m.fatura);
-    document.getElementById("kpi-saldo-ini").textContent = "em 31/12/2025 estava " + brl(D.saldoInicial);
-    const temNota = Object.keys(edits.lancamentos).length || Object.keys(edits.apelidos).length || Object.keys(edits.notasMes).length || Object.keys(edits.notasNome).length || Object.keys(edits.black).length;
-    document.getElementById("status-edicao").textContent = temNota
-      ? "Anotações salvas neste navegador."
-      : "Nada anotado ainda. Categoria, apelido e nota ficam só neste navegador.";
+  }
+
+  function desenharMeses(m) {
+    const incluir = document.getElementById("toggle-internas").checked;
+    let html = `<table class="sheet"><thead><tr>
+      <th>Mês</th><th class="num">Entradas</th><th class="num">Saídas</th><th class="num">Resultado</th>
+    </tr></thead><tbody>`;
+    let entrou = 0;
+    let saiu = 0;
+    MESES.forEach((ym) => {
+      const row = m.mes[ym];
+      const ent = row.entradas + (incluir ? row.internaEnt : 0);
+      const sai = row.saidas + (incluir ? row.internaSai : 0);
+      entrou += ent;
+      saiu += sai;
+      html += `<tr><td>${esc(mesLongo(ym))}</td>${tdNum(ent)}<td class="num">${esc(brl(sai))}</td>${tdNum(ent - sai)}</tr>`;
+    });
+    html += `</tbody><tfoot><tr><td>Ano</td>${tdNum(entrou)}<td class="num">${esc(brl(saiu))}</td>${tdNum(entrou - saiu)}</tr></tfoot></table>`;
+    document.getElementById("tabela-mes").innerHTML = html;
   }
 
   function render() {
@@ -883,15 +882,7 @@
     const m = modelo();
     kpis(m);
     desenharTotais(m);
-    desenharFluxo(m);
-    desenharDestinos(m);
-    desenharAssinaturas(m);
-    desenharSetores(m);
-    desenharBlack(m);
-    montarFormBlack(m);
-    desenharDias(m);
-    desenharTabelas(m);
-    if (!anim.playing) mostrarMes(anim.index, m);
+    desenharMeses(m);
     window.scrollTo(0, y);
     window.__extrato = {
       entrou: m.entrou,
@@ -926,7 +917,7 @@
 
   document.body.addEventListener("change", (e) => {
     const t = e.target;
-    if (t.id === "toggle-internas") { desenharTotais(modelo()); return; }
+    if (t.id === "toggle-internas") { render(); return; }
     if (t.id === "toggle-assinaturas") { desenharAssinaturas(modelo()); return; }
     if (t.id === "toggle-sem-black") { desenharDias(modelo()); return; }
     if (t.id === "black-mes") { montarFormBlack(modelo()); return; }
@@ -994,22 +985,21 @@
     document.execCommand("insertText", false, texto);
   });
 
-  document.getElementById("btn-play").addEventListener("click", reproduzir);
-  document.getElementById("anim-prev").addEventListener("click", () => { parar(); mostrarMes(anim.index - 1); });
-  document.getElementById("anim-next").addEventListener("click", () => { parar(); mostrarMes(anim.index + 1); });
-  document.getElementById("anim-scrub").addEventListener("input", (e) => { parar(); mostrarMes(Number(e.target.value)); });
-
-  document.getElementById("btn-csv").addEventListener("click", () => {
+  const btnCsv = document.getElementById("btn-csv");
+  if (btnCsv) btnCsv.addEventListener("click", () => {
     const m = modelo();
     const linhas = [["data", "descricao", "nome", "categoria", "valor", "nota"]];
     m.txs.forEach((tx) => linhas.push([tx.data, tx.desc, tx.nome, SETORES[tx.setor].nome, tx.valor.toFixed(2), tx.nota]));
     baixar("extrato-2026.csv", linhas.map((cols) => cols.map(csvSeguro).join(";")).join("\n"), "text/csv;charset=utf-8");
   });
-  document.getElementById("btn-json").addEventListener("click", () => {
+  const btnJson = document.getElementById("btn-json");
+  if (btnJson) btnJson.addEventListener("click", () => {
     baixar("anotacoes-extrato-2026.json", JSON.stringify(edits, null, 2), "application/json");
   });
-  document.getElementById("btn-importar").addEventListener("click", () => document.getElementById("arquivo-json").click());
-  document.getElementById("arquivo-json").addEventListener("change", async (e) => {
+  const btnImportar = document.getElementById("btn-importar");
+  const arquivoJson = document.getElementById("arquivo-json");
+  if (btnImportar && arquivoJson) btnImportar.addEventListener("click", () => arquivoJson.click());
+  if (arquivoJson) arquivoJson.addEventListener("change", async (e) => {
     const file = e.target.files && e.target.files[0];
     if (!file) return;
     try {
@@ -1043,23 +1033,12 @@
     statusLink.textContent = "Atalho baixado. Arraste o arquivo para o Desktop.";
   });
 
-  document.getElementById("btn-reset").addEventListener("click", () => {
+  const btnReset = document.getElementById("btn-reset");
+  if (btnReset) btnReset.addEventListener("click", () => {
     edits = vazio();
     localStorage.removeItem(STORE);
     render();
   });
 
-  preencherFiltros();
   render();
-  const params = new URLSearchParams(location.search);
-  const pausa = reduzido || params.has("pausa");
-  if (pausa) {
-    parar();
-    const pedido = Number(params.get("mes"));
-    mostrarMes(Number.isFinite(pedido) && params.has("mes") ? pedido : (reduzido ? MESES.length - 1 : 0));
-  } else {
-    anim.playing = true;
-    document.getElementById("btn-play").textContent = "Pausar";
-    setTimeout(passo, 700);
-  }
 })();
