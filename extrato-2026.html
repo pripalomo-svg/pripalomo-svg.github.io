@@ -36,6 +36,35 @@
 .kpi.ent strong { color: #39FF14; }
 .kpi.sai strong { color: #FF2BD6; }
 .kpi.res strong { color: #F4FFE8; }
+.kpi em { display: block; margin-top: 6px; font-style: normal; color: #9AA89A; font-size: 13px; }
+.fluxo {
+  margin-top: 28px;
+  padding-top: 8px;
+}
+.fluxo h2 { color: #F4FFE8; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.fluxo-frase { color: #FF2BD6; font-size: 20px; font-weight: 700; margin: 8px 0 16px; }
+.cofrinho {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  flex-wrap: wrap; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid #2A1840;
+}
+.cofrinho span { color: #39FF14; font-size: 18px; font-weight: 700; }
+.cofrinho strong { color: #39FF14; font-size: 22px; font-variant-numeric: tabular-nums; }
+.seta {
+  display: grid;
+  grid-template-columns: 22px minmax(120px, 1.1fr) minmax(80px, 1.4fr) auto;
+  gap: 10px; align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #1C1028;
+}
+.seta-marca { color: #FF2BD6; font-size: 22px; line-height: 1; }
+.seta-nome { color: #F4FFE8; font-size: 16px; }
+.seta-trilho { height: 8px; background: #1C1028; }
+.seta-trilho span { display: block; height: 100%; background: #FF2BD6; }
+.seta strong { color: #F4FFE8; font-size: 16px; font-variant-numeric: tabular-nums; }
+@media (max-width: 700px) {
+  .seta { grid-template-columns: 22px 1fr auto; }
+  .seta-trilho { display: none; }
+}
 .ex-sec { padding: 28px 0; }
 .ex-sec h2 { color: #F4FFE8; font-size: 18px; font-weight: 700; margin-bottom: 12px; }
 .chart svg { display: block; width: 100%; height: auto; background: transparent; min-width: 640px; }
@@ -87,9 +116,19 @@ table.sheet { width: 100%; border-collapse: collapse; min-width: 520px; }
   </header>
 
   <section class="kpis" aria-label="Totais do ano">
-    <article class="kpi ent"><span>Entrou</span><strong id="kpi-entradas">—</strong></article>
+    <article class="kpi ent"><span>Entrou</span><strong id="kpi-entradas">—</strong><em id="kpi-cofrinho"></em></article>
     <article class="kpi sai"><span>Saiu</span><strong id="kpi-saidas">—</strong></article>
     <article class="kpi res"><span>Resultado</span><strong id="kpi-resultado">—</strong></article>
+  </section>
+
+  <section class="fluxo" id="para-onde">
+    <h2>O que mais saiu</h2>
+    <p class="fluxo-frase" id="setas-frase"></p>
+    <div class="cofrinho">
+      <span>Conta → cofrinho, somado em Entrou</span>
+      <strong id="cofrinho-valor">—</strong>
+    </div>
+    <div id="setas"></div>
   </section>
 
   <section class="ex-sec" id="totais">
