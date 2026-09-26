@@ -862,9 +862,10 @@
     if (nota) nota.textContent = "inclui " + brl(m.cofrinhoEntrada) + " para cofrinhos";
   }
 
-  function htmlSeta(nome, valor, max, tom) {
-    const largura = Math.max(8, Math.round(100 * valor / max));
-    return `<div class="seta ${tom}"><span class="seta-marca" aria-hidden="true">→</span><span class="seta-nome">${esc(nome)}</span><span class="seta-trilho"><span style="width:${largura}%"></span></span><strong>${esc(brl(valor))}</strong></div>`;
+  function htmlColuna(nome, valor, max, tom) {
+    const altura = Math.max(6, Math.round(100 * valor / max));
+    const reais = brl(valor);
+    return `<div class="coluna ${tom}"><strong class="coluna-valor">${esc(reais)}</strong><div class="coluna-pista" title="${esc(nome)}: ${esc(reais)}"><span style="height:${altura}%"></span></div><span class="coluna-nome">${esc(nome)}</span></div>`;
   }
 
   function desenharEntradas(m) {
@@ -876,7 +877,7 @@
     const caixa = document.getElementById("setas-entradas");
     if (!caixa) return;
     const max = itens[0] ? itens[0].valor : 1;
-    caixa.innerHTML = itens.map((item) => htmlSeta(item.nome, item.valor, max, "entrada")).join("");
+    caixa.innerHTML = itens.map((item) => htmlColuna(item.nome, item.valor, max, "entrada")).join("");
     const frase = document.getElementById("entradas-frase");
     if (frase) frase.textContent = "Transferências para os cofrinhos são entradas.";
   }
@@ -893,16 +894,16 @@
     const lista = [...mapa.values()].sort((a, b) => b.valor - a.valor);
     const principais = lista.slice(0, 8);
     const resto = lista.slice(8).reduce((s, item) => s + item.valor, 0);
-    const max = principais[0] ? principais[0].valor : 1;
+    const max = Math.max(principais[0] ? principais[0].valor : 1, resto);
     const caixa = document.getElementById("setas");
     if (!caixa) return;
-    const linha = (nome, valor) => htmlSeta(nome, valor, max, "saida");
+    const linha = (nome, valor) => htmlColuna(nome, valor, max, "saida");
     let html = principais.map((item) => linha(item.nome, item.valor)).join("");
     if (resto > 0) html += linha("Outros destinos", resto);
     caixa.innerHTML = html;
     const frase = document.getElementById("setas-frase");
     if (frase && principais.length >= 3) {
-      frase.textContent = "Saiu mais para " + principais[0].nome + " → " + principais[1].nome + " → " + principais[2].nome + ".";
+      frase.textContent = "Saiu mais para " + principais[0].nome + ", " + principais[1].nome + " e " + principais[2].nome + ".";
     }
   }
 

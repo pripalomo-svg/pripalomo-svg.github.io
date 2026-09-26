@@ -16,7 +16,7 @@
   font-size: 16px;
   line-height: 1.4;
 }
-.ex-wrap { width: min(880px, 92vw); margin-inline: auto; }
+.ex-wrap { width: min(960px, 94vw); margin-inline: auto; }
 .ex-page nav {
   background: #070012;
   border-bottom: 1px solid #2A1840;
@@ -44,23 +44,46 @@
 .fluxo h2 { color: #F4FFE8; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
 .fluxo-frase { color: #FF2BD6; font-size: 20px; font-weight: 700; margin: 8px 0 16px; }
 .fluxo-frase.entrada { color: #39FF14; }
-.seta.entrada .seta-marca { color: #39FF14; }
-.seta.entrada .seta-trilho span { background: #39FF14; }
-.seta {
-  display: grid;
-  grid-template-columns: 22px minmax(120px, 1.1fr) minmax(80px, 1.4fr) auto;
-  gap: 10px; align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #1C1028;
+.colunas-box { overflow-x: auto; }
+.colunas { display: flex; align-items: stretch; gap: 8px; }
+.colunas.muitas { min-width: 820px; }
+.coluna {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 78px;
 }
-.seta-marca { color: #FF2BD6; font-size: 22px; line-height: 1; }
-.seta-nome { color: #F4FFE8; font-size: 16px; }
-.seta-trilho { height: 8px; background: #1C1028; }
-.seta-trilho span { display: block; height: 100%; background: #FF2BD6; }
-.seta strong { color: #F4FFE8; font-size: 16px; font-variant-numeric: tabular-nums; }
-@media (max-width: 700px) {
-  .seta { grid-template-columns: 22px 1fr auto; }
-  .seta-trilho { display: none; }
+.coluna-valor {
+  min-height: 2.8em;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  color: #F4FFE8;
+}
+.coluna-pista {
+  width: min(100%, 64px);
+  height: 190px;
+  margin-top: 8px;
+  display: flex;
+  align-items: flex-end;
+  background: #1C1028;
+}
+.coluna-pista span { display: block; width: 100%; background: #FF2BD6; }
+.coluna.entrada .coluna-pista span { background: #39FF14; }
+.coluna.entrada .coluna-valor { color: #39FF14; }
+.coluna.saida .coluna-valor { color: #FF2BD6; }
+.coluna-nome {
+  margin-top: 8px;
+  color: #F4FFE8;
+  font-size: 13px;
+  line-height: 1.25;
+  text-align: center;
 }
 .ex-sec { padding: 28px 0; }
 .ex-sec h2 { color: #F4FFE8; font-size: 18px; font-weight: 700; margin-bottom: 12px; }
@@ -121,13 +144,13 @@ table.sheet { width: 100%; border-collapse: collapse; min-width: 520px; }
   <section class="fluxo" id="entradas-fluxo">
     <h2>Entradas</h2>
     <p class="fluxo-frase entrada" id="entradas-frase"></p>
-    <div id="setas-entradas"></div>
+    <div class="colunas-box"><div class="colunas" id="setas-entradas"></div></div>
   </section>
 
   <section class="fluxo" id="para-onde">
     <h2>O que mais saiu</h2>
     <p class="fluxo-frase" id="setas-frase"></p>
-    <div id="setas"></div>
+    <div class="colunas-box"><div class="colunas muitas" id="setas"></div></div>
   </section>
 
   <section class="ex-sec" id="totais">
