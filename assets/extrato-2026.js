@@ -239,7 +239,8 @@
   }
 
   function desenharTotais(m) {
-    const incluir = document.getElementById("toggle-internas").checked;
+    const toggle = document.getElementById("toggle-internas");
+    const incluir = toggle ? toggle.checked : false;
     const ent = MESES.map((ym) => m.mes[ym].entradas + (incluir ? m.mes[ym].internaEnt : 0));
     const sai = MESES.map((ym) => m.mes[ym].saidas + (incluir ? m.mes[ym].internaSai : 0));
     const W = 920, H = 390;
@@ -269,11 +270,6 @@
       { cor: "#39FF14", nome: "Entradas" },
       { cor: "#FF2BD6", nome: "Saídas" }
     ]);
-    const te = ent.reduce((a, b) => a + b, 0);
-    const ts = sai.reduce((a, b) => a + b, 0);
-    document.getElementById("nota-totais").textContent = incluir
-      ? `Somando também cofrinho, CDB e a mesma conta: entrou ${brl(te)} e saiu ${brl(ts)}.`
-      : `No recorte de verdade: entrou ${brl(te)} e saiu ${brl(ts)}. Resultado ${brl(te - ts)}.`;
   }
 
   function desenharFluxo(m) {
@@ -859,7 +855,8 @@
   }
 
   function desenharMeses(m) {
-    const incluir = document.getElementById("toggle-internas").checked;
+    const toggle = document.getElementById("toggle-internas");
+    const incluir = toggle ? toggle.checked : false;
     let html = `<table class="sheet"><thead><tr>
       <th>Mês</th><th class="num">Entradas</th><th class="num">Saídas</th><th class="num">Resultado</th>
     </tr></thead><tbody>`;
@@ -1015,7 +1012,9 @@
   });
   const DASH_URL = "https://www.priscilapalomo.com/extrato-2026.html";
   const statusLink = document.getElementById("dash-status");
-  document.getElementById("btn-copiar-link").addEventListener("click", async () => {
+  const btnCopiar = document.getElementById("btn-copiar-link");
+  const btnAtalho = document.getElementById("btn-atalho");
+  if (btnCopiar && statusLink) btnCopiar.addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText(DASH_URL);
       statusLink.textContent = "Link copiado: " + DASH_URL;
@@ -1023,7 +1022,7 @@
       statusLink.textContent = DASH_URL;
     }
   });
-  document.getElementById("btn-atalho").addEventListener("click", () => {
+  if (btnAtalho && statusLink) btnAtalho.addEventListener("click", () => {
     const mac = /Macintosh|Mac OS X|iPhone|iPad/.test(navigator.userAgent);
     const nome = mac ? "Dashboard Extrato 2026.webloc" : "Dashboard Extrato 2026.url";
     const corpo = mac
