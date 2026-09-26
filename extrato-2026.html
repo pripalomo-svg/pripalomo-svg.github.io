@@ -43,12 +43,9 @@
 }
 .fluxo h2 { color: #F4FFE8; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
 .fluxo-frase { color: #FF2BD6; font-size: 20px; font-weight: 700; margin: 8px 0 16px; }
-.cofrinho {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
-  flex-wrap: wrap; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid #2A1840;
-}
-.cofrinho span { color: #39FF14; font-size: 18px; font-weight: 700; }
-.cofrinho strong { color: #39FF14; font-size: 22px; font-variant-numeric: tabular-nums; }
+.fluxo-frase.entrada { color: #39FF14; }
+.seta.entrada .seta-marca { color: #39FF14; }
+.seta.entrada .seta-trilho span { background: #39FF14; }
 .seta {
   display: grid;
   grid-template-columns: 22px minmax(120px, 1.1fr) minmax(80px, 1.4fr) auto;
@@ -121,13 +118,15 @@ table.sheet { width: 100%; border-collapse: collapse; min-width: 520px; }
     <article class="kpi res"><span>Resultado</span><strong id="kpi-resultado">—</strong></article>
   </section>
 
+  <section class="fluxo" id="entradas-fluxo">
+    <h2>Entradas</h2>
+    <p class="fluxo-frase entrada" id="entradas-frase"></p>
+    <div id="setas-entradas"></div>
+  </section>
+
   <section class="fluxo" id="para-onde">
     <h2>O que mais saiu</h2>
     <p class="fluxo-frase" id="setas-frase"></p>
-    <div class="cofrinho">
-      <span>Conta → cofrinho, somado em Entrou</span>
-      <strong id="cofrinho-valor">—</strong>
-    </div>
     <div id="setas"></div>
   </section>
 
