@@ -90,14 +90,16 @@
   let edits = carregar();
 
   function vazio() {
-    return { lancamentos: {}, apelidos: {}, notasNome: {}, notasMes: {}, black: {} };
+    return { lancamentos: {}, apelidos: {}, notasNome: {}, notasMes: {}, black: {}, papel: {} };
   }
 
   function carregar() {
     try {
       const salvo = JSON.parse(localStorage.getItem(STORE) || "null");
       if (!salvo || typeof salvo !== "object") return vazio();
-      return Object.assign(vazio(), salvo);
+      const merged = Object.assign(vazio(), salvo);
+      if (!merged.papel || typeof merged.papel !== "object") merged.papel = {};
+      return merged;
     } catch {
       return vazio();
     }
@@ -181,6 +183,40 @@
     return ponto ? ponto.saldo : 0;
   }
 
+  function papelEfetivo(tx) {
+    if (tx.setor === "cofrinho" && tx.valor < 0) return edits.papel["__cofrinho__"] || "cofrinho";
+    if (tx.natureza === "interna") return "ignorar";
+    if (edits.papel[tx.nomeOriginal]) return edits.papel[tx.nomeOriginal];
+    return tx.valor > 0 ? "entrada" : "saida";
+  }
+
+  function chaveDo(tx) {
+    if (tx.setor === "cofrinho" && tx.valor < 0) return "__cofrinho__";
+    if (tx.natureza === "interna") return "";
+    return tx.nomeOriginal;
+  }
+
+  function nomePadrao(chave, tx) {
+    if (chave === "__demais__") return "Demais entradas";
+    if (chave === "__cofrinho__") return "Transferências para cofrinhos";
+    return tx ? tx.contraparte : chave;
+  }
+
+  function nomeVisivel(chave, fallback) {
+    return edits.apelidos[chave] || fallback;
+  }
+
+  function opcoesPapel(atual) {
+    const ops = [
+      ["extrato", "Como no extrato"],
+      ["entrada", "Entrada"],
+      ["saida", "Saída"],
+      ["cofrinho", "Cofrinho"],
+      ["ignorar", "Não entra"]
+    ];
+    return ops.map(([valor, nome]) => `<option value="${valor}"${valor === atual ? " selected" : ""}>${nome}</option>`).join("");
+  }
+
   function modelo() {
     const txs = D.lancamentos.map(aplicar);
     const mes = {};
@@ -204,32 +240,33 @@
       if (tx.setor === "cofrinho") row.cofrinho += tx.valor;
       if (tx.setor === "cdb") row.cdb += tx.valor;
       if (tx.setor === "tbi") row.tbi += tx.valor;
-      if (tx.natureza === "interna") {
-        if (tx.setor === "cofrinho" && tx.valor < 0) {
-          const abs = -tx.valor;
-          row.entradas += abs;
-          row.cofrinhoEntrada += abs;
-          entrou += abs;
-          cofrinhoEntrada += abs;
-        } else if (tx.valor > 0) row.internaEnt += tx.valor;
-        else row.internaSai += -tx.valor;
+      const papel = papelEfetivo(tx);
+      if (papel === "ignorar") {
+        if (tx.valor > 0) row.internaEnt += tx.valor;
+        else if (tx.valor < 0) row.internaSai += -tx.valor;
         return;
       }
-      if (tx.valor > 0) {
-        row.entradas += tx.valor;
-        entrou += tx.valor;
-        row.entradaFamilia[tx.familia] = (row.entradaFamilia[tx.familia] || 0) + tx.valor;
-        if (tx.setor === "salario_priscila") { row.salario += tx.valor; salario += tx.valor; }
-        else if (tx.setor === "aporte_priscila") { row.aportes += tx.valor; aportes += tx.valor; }
-        else if (tx.setor === "salario_luisa") { row.luisa += tx.valor; luisa += tx.valor; }
-        else row.outras += tx.valor;
-      } else {
-        const abs = -tx.valor;
-        row.saidas += abs;
-        saiu += abs;
-        row.saidaFamilia[tx.familia] = (row.saidaFamilia[tx.familia] || 0) + abs;
-        if (tx.papel) row.recorrentes[tx.nomeOriginal] = (row.recorrentes[tx.nomeOriginal] || 0) + abs;
+      const abs = Math.abs(tx.valor);
+      if (papel === "entrada" || papel === "cofrinho") {
+        row.entradas += abs;
+        entrou += abs;
+        if (papel === "cofrinho") {
+          row.cofrinhoEntrada += abs;
+          cofrinhoEntrada += abs;
+        }
+        if (papel === "entrada" && tx.valor > 0 && !edits.papel[tx.nomeOriginal]) {
+          row.entradaFamilia[tx.familia] = (row.entradaFamilia[tx.familia] || 0) + tx.valor;
+          if (tx.setor === "salario_priscila") { row.salario += tx.valor; salario += tx.valor; }
+          else if (tx.setor === "aporte_priscila") { row.aportes += tx.valor; aportes += tx.valor; }
+          else if (tx.setor === "salario_luisa") { row.luisa += tx.valor; luisa += tx.valor; }
+          else row.outras += tx.valor;
+        }
+        return;
       }
+      row.saidas += abs;
+      saiu += abs;
+      row.saidaFamilia[tx.familia] = (row.saidaFamilia[tx.familia] || 0) + abs;
+      if (tx.papel) row.recorrentes[tx.nomeOriginal] = (row.recorrentes[tx.nomeOriginal] || 0) + abs;
     });
     return { txs, mes, entrou, saiu, salario, aportes, luisa, fatura, cofrinhoEntrada };
   }
@@ -862,49 +899,156 @@
     if (nota) nota.textContent = "inclui " + brl(m.cofrinhoEntrada) + " para cofrinhos";
   }
 
-  function htmlColuna(nome, valor, max, tom) {
-    const altura = Math.max(6, Math.round(100 * valor / max));
-    const reais = brl(valor);
-    return `<div class="coluna ${tom}"><strong class="coluna-valor">${esc(reais)}</strong><div class="coluna-pista" title="${esc(nome)}: ${esc(reais)}"><span style="height:${altura}%"></span></div><span class="coluna-nome">${esc(nome)}</span></div>`;
+  function htmlColuna(item, max) {
+    const altura = Math.max(6, Math.round(100 * item.valor / max));
+    const reais = brl(item.valor);
+    const nome = item.editavel
+      ? `<span class="coluna-nome" contenteditable="true" spellcheck="false" data-apelido="${esc(item.chave)}">${esc(item.nome)}</span>`
+      : `<span class="coluna-nome">${esc(item.nome)}</span>`;
+    const menu = item.editavel && !item.semMenu
+      ? `<select class="coluna-papel" data-papel-chave="${esc(item.chave)}" aria-label="Como contar ${esc(item.nome)}">${opcoesPapel(item.papel)}</select>`
+      : "";
+    return `<div class="coluna ${item.tom}"><strong class="coluna-valor">${esc(reais)}</strong><div class="coluna-pista" title="${esc(item.nome)}: ${esc(reais)}"><span style="height:${altura}%"></span></div>${nome}${menu}</div>`;
   }
 
-  function desenharEntradas(m) {
-    const demais = m.entrou - m.cofrinhoEntrada;
-    const itens = [
-      { nome: "Transferências para cofrinhos", valor: m.cofrinhoEntrada },
-      { nome: "Demais entradas", valor: demais }
-    ].filter((item) => item.valor > 0.004).sort((a, b) => b.valor - a.valor);
-    const caixa = document.getElementById("setas-entradas");
-    if (!caixa) return;
-    const max = itens[0] ? itens[0].valor : 1;
-    caixa.innerHTML = itens.map((item) => htmlColuna(item.nome, item.valor, max, "entrada")).join("");
-    const frase = document.getElementById("entradas-frase");
-    if (frase) frase.textContent = "Transferências para os cofrinhos são entradas.";
+  function barrasEntrada(txs) {
+    let demais = 0;
+    const extras = new Map();
+    txs.forEach((tx) => {
+      const papel = papelEfetivo(tx);
+      if (papel !== "entrada" && papel !== "cofrinho") return;
+      const natural = tx.natureza !== "interna" && tx.valor > 0 && !edits.papel[tx.nomeOriginal];
+      if (natural && papel === "entrada") {
+        demais += tx.valor;
+        return;
+      }
+      const chave = chaveDo(tx);
+      if (!chave) return;
+      const atual = extras.get(chave) || {
+        chave,
+        valor: 0,
+        papel,
+        tom: "entrada",
+        editavel: true
+      };
+      atual.valor += Math.abs(tx.valor);
+      atual.papel = papel;
+      atual.nome = nomeVisivel(chave, nomePadrao(chave, tx));
+      extras.set(chave, atual);
+    });
+    const itens = [];
+    if (demais > 0.004) {
+      itens.push({
+        chave: "__demais__",
+        nome: nomeVisivel("__demais__", "Demais entradas"),
+        valor: demais,
+        papel: "entrada",
+        tom: "entrada",
+        editavel: true,
+        semMenu: true
+      });
+    }
+    itens.push(...extras.values());
+    itens.sort((a, b) => b.valor - a.valor);
+    return itens;
   }
 
-  function desenharSetas(m) {
+  function barrasSaida(txs) {
     const mapa = new Map();
-    m.txs.forEach((tx) => {
-      if (tx.natureza !== "saida") return;
-      const atual = mapa.get(tx.nomeOriginal) || { nome: tx.nome, valor: 0 };
-      atual.valor += -tx.valor;
-      atual.nome = tx.nome;
-      mapa.set(tx.nomeOriginal, atual);
+    txs.forEach((tx) => {
+      if (papelEfetivo(tx) !== "saida") return;
+      const chave = chaveDo(tx);
+      if (!chave) return;
+      const atual = mapa.get(chave) || { chave, valor: 0, papel: "saida", tom: "saida", editavel: true };
+      atual.valor += Math.abs(tx.valor);
+      atual.nome = nomeVisivel(chave, nomePadrao(chave, tx));
+      mapa.set(chave, atual);
     });
     const lista = [...mapa.values()].sort((a, b) => b.valor - a.valor);
     const principais = lista.slice(0, 8);
     const resto = lista.slice(8).reduce((s, item) => s + item.valor, 0);
-    const max = Math.max(principais[0] ? principais[0].valor : 1, resto);
+    const itens = principais.slice();
+    if (resto > 0.004) {
+      itens.push({ chave: "", nome: "Outros destinos", valor: resto, papel: "saida", tom: "saida", editavel: false });
+    }
+    return { itens, principais };
+  }
+
+  function desenharEntradas(m) {
+    const itens = barrasEntrada(m.txs);
+    const caixa = document.getElementById("setas-entradas");
+    if (!caixa) return;
+    caixa.classList.toggle("muitas", itens.length > 4);
+    const max = itens.reduce((n, item) => Math.max(n, item.valor), 1);
+    caixa.innerHTML = itens.map((item) => htmlColuna(item, max)).join("");
+    const frase = document.getElementById("entradas-frase");
+    if (frase) frase.textContent = "Transferências para os cofrinhos são entradas. O nome de cada barra pode ser editado.";
+  }
+
+  function desenharSetas(m) {
+    const grupo = barrasSaida(m.txs);
     const caixa = document.getElementById("setas");
     if (!caixa) return;
-    const linha = (nome, valor) => htmlColuna(nome, valor, max, "saida");
-    let html = principais.map((item) => linha(item.nome, item.valor)).join("");
-    if (resto > 0) html += linha("Outros destinos", resto);
-    caixa.innerHTML = html;
+    const max = grupo.itens.reduce((n, item) => Math.max(n, item.valor), 1);
+    caixa.innerHTML = grupo.itens.map((item) => htmlColuna(item, max)).join("");
     const frase = document.getElementById("setas-frase");
+    const principais = grupo.principais;
     if (frase && principais.length >= 3) {
-      frase.textContent = "Saiu mais para " + principais[0].nome + ", " + principais[1].nome + " e " + principais[2].nome + ".";
+      frase.textContent = "Saiu mais para " + principais[0].nome + ", " + principais[1].nome + " e " + principais[2].nome + ". O menu muda a conta.";
     }
+  }
+
+  function listarChaves(txs) {
+    const mapa = new Map();
+    txs.forEach((tx) => {
+      const chave = chaveDo(tx);
+      if (!chave) return;
+      const atual = mapa.get(chave) || { chave, pos: 0, neg: 0, amostra: tx };
+      if (tx.valor > 0) atual.pos += tx.valor;
+      else atual.neg += -tx.valor;
+      mapa.set(chave, atual);
+    });
+    return [...mapa.values()].map((g) => {
+      const marcado = edits.papel[g.chave];
+      let papel = marcado;
+      if (!papel) {
+        if (g.chave === "__cofrinho__") papel = "cofrinho";
+        else if (g.pos > 0 && g.neg === 0) papel = "entrada";
+        else if (g.neg > 0 && g.pos === 0) papel = "saida";
+        else papel = "extrato";
+      }
+      return {
+        chave: g.chave,
+        nome: nomeVisivel(g.chave, nomePadrao(g.chave, g.amostra)),
+        nomePadrao: nomePadrao(g.chave, g.amostra),
+        papel,
+        valor: g.pos + g.neg
+      };
+    }).sort((a, b) => b.valor - a.valor);
+  }
+
+  function desenharModificar(m) {
+    const caixa = document.getElementById("tabela-mod");
+    const buscaEl = document.getElementById("mod-busca");
+    if (!caixa) return;
+    const q = (buscaEl && buscaEl.value || "").trim().toLocaleLowerCase("pt-BR");
+    if (q.length < 2) {
+      caixa.innerHTML = "<p class='mod-dica'>Digite pelo menos duas letras para achar um nome que não está nas barras.</p>";
+      return;
+    }
+    const linhas = listarChaves(m.txs).filter((g) =>
+      g.nome.toLocaleLowerCase("pt-BR").includes(q) || g.nomePadrao.toLocaleLowerCase("pt-BR").includes(q)
+    ).slice(0, 40);
+    if (!linhas.length) {
+      caixa.innerHTML = "<p class='mod-dica'>Nenhum nome com esse texto.</p>";
+      return;
+    }
+    let html = `<table class="sheet"><thead><tr><th>Nome</th><th>Conta como</th><th class="num">Valor</th></tr></thead><tbody>`;
+    linhas.forEach((g) => {
+      html += `<tr><td><span contenteditable="true" spellcheck="false" data-apelido="${esc(g.chave)}">${esc(g.nome)}</span></td><td><select data-papel-chave="${esc(g.chave)}" aria-label="Como contar ${esc(g.nome)}">${opcoesPapel(g.papel)}</select></td><td class="num">${esc(brl(g.valor))}</td></tr>`;
+    });
+    html += "</tbody></table>";
+    caixa.innerHTML = html;
   }
 
   function desenharMeses(m) {
@@ -933,6 +1077,7 @@
     kpis(m);
     desenharEntradas(m);
     desenharSetas(m);
+    desenharModificar(m);
     desenharTotais(m);
     desenharMeses(m);
     window.scrollTo(0, y);
@@ -973,6 +1118,14 @@
     if (t.id === "toggle-assinaturas") { desenharAssinaturas(modelo()); return; }
     if (t.id === "toggle-sem-black") { desenharDias(modelo()); return; }
     if (t.id === "black-mes") { montarFormBlack(modelo()); return; }
+    if (t.dataset && t.dataset.papelChave) {
+      const chave = t.dataset.papelChave;
+      if (!chave || t.value === "extrato") delete edits.papel[chave];
+      else edits.papel[chave] = t.value;
+      save();
+      render();
+      return;
+    }
     if (t.dataset && t.dataset.setorId) {
       edits.lancamentos[t.dataset.setorId] = edits.lancamentos[t.dataset.setorId] || {};
       if (t.value === "__original") delete edits.lancamentos[t.dataset.setorId].setor;
@@ -993,6 +1146,10 @@
 
   document.body.addEventListener("input", (e) => {
     const t = e.target;
+    if (t.id === "mod-busca") {
+      desenharModificar(modelo());
+      return;
+    }
     if (t.id === "f-nome" || t.id === "f-busca") {
       clearTimeout(inputTimer);
       inputTimer = setTimeout(render, 160);
@@ -1027,6 +1184,13 @@
       else delete edits.apelidos[t.dataset.apelido];
       save();
       render();
+    }
+  });
+
+  document.body.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && e.target.isContentEditable) {
+      e.preventDefault();
+      e.target.blur();
     }
   });
 
@@ -1091,6 +1255,8 @@
   if (btnReset) btnReset.addEventListener("click", () => {
     edits = vazio();
     localStorage.removeItem(STORE);
+    const status = document.getElementById("status-edicao");
+    if (status) status.textContent = "Alterações desfeitas.";
     render();
   });
 

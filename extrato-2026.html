@@ -85,6 +85,40 @@
   line-height: 1.25;
   text-align: center;
 }
+.coluna-nome[contenteditable="true"],
+#tabela-mod [contenteditable="true"] {
+  border-bottom: 1px solid #5A2080;
+  cursor: text;
+  outline: none;
+}
+.coluna-nome[contenteditable="true"]:focus,
+#tabela-mod [contenteditable="true"]:focus { border-bottom-color: #39FF14; }
+.coluna-papel, #tabela-mod select, .mod-acoes input {
+  width: 100%;
+  max-width: 160px;
+  margin-top: 6px;
+  background: #12081C;
+  color: #F4FFE8;
+  border: 1px solid #5A2080;
+  font: inherit;
+  font-size: 12px;
+  padding: 4px;
+}
+.mod-nota { color: #9AA89A; font-size: 15px; margin: 4px 0 12px; }
+.mod-acoes { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 12px; }
+.mod-acoes input { max-width: 280px; margin-top: 0; font-size: 15px; padding: 8px; }
+.mod-acoes button {
+  background: #FF2BD6;
+  color: #070012;
+  border: 0;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+#status-edicao { color: #39FF14; font-size: 14px; }
+.mod-dica { color: #9AA89A; font-size: 14px; }
 .ex-sec { padding: 28px 0; }
 .ex-sec h2 { color: #F4FFE8; font-size: 18px; font-weight: 700; margin-bottom: 12px; }
 .chart svg { display: block; width: 100%; height: auto; background: transparent; min-width: 640px; }
@@ -151,6 +185,17 @@ table.sheet { width: 100%; border-collapse: collapse; min-width: 520px; }
     <h2>O que mais saiu</h2>
     <p class="fluxo-frase" id="setas-frase"></p>
     <div class="colunas-box"><div class="colunas muitas" id="setas"></div></div>
+  </section>
+
+  <section class="fluxo" id="modificar">
+    <h2>Modificar</h2>
+    <p class="mod-nota">Edite o nome na barra. No menu, escolha se aquele valor entra, sai, vai para o cofrinho ou fica de fora. A busca acha os outros nomes. Fica salvo só neste navegador.</p>
+    <div class="mod-acoes">
+      <input id="mod-busca" type="search" placeholder="Buscar nome" autocomplete="off" aria-label="Buscar nome para modificar">
+      <button type="button" id="btn-reset">Desfazer alterações</button>
+      <span id="status-edicao"></span>
+    </div>
+    <div class="sheet-wrap" id="tabela-mod"></div>
   </section>
 
   <section class="ex-sec" id="totais">
