@@ -262,18 +262,18 @@
       const hS = (sai[i] / maxBar) * ih;
       barras += `<rect x="${(x - gw * 0.32).toFixed(1)}" y="${yBar(ent[i]).toFixed(1)}" width="${(gw * 0.26).toFixed(1)}" height="${hE.toFixed(1)}" fill="#39FF14"><title>${esc(mesLongo(ym))}: entrou ${brl(ent[i])}</title></rect>`;
       barras += `<rect x="${(x + gw * 0.04).toFixed(1)}" y="${yBar(sai[i]).toFixed(1)}" width="${(gw * 0.26).toFixed(1)}" height="${hS.toFixed(1)}" fill="#FF2BD6"><title>${esc(mesLongo(ym))}: saiu ${brl(sai[i])}</title></rect>`;
-      barras += `<text x="${x.toFixed(1)}" y="${H - 14}" text-anchor="middle" font-size="12" fill="#000000">${mesCurto(ym)}</text>`;
+      barras += `<text x="${x.toFixed(1)}" y="${H - 14}" text-anchor="middle" font-size="12" fill="#C9D4C4">${mesCurto(ym)}</text>`;
     });
     let grades = "";
     [0, 0.5, 1].forEach((p) => {
       const y = (pad.t + ih - p * ih).toFixed(1);
       grades += `<line x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" stroke="#5A2080"/>`;
-      grades += `<text x="${pad.l - 8}" y="${Number(y) + 4}" text-anchor="end" font-size="11" fill="#000000">${eixo(maxBar * p)}</text>`;
+      grades += `<text x="${pad.l - 8}" y="${Number(y) + 4}" text-anchor="end" font-size="11" fill="#C9D4C4">${eixo(maxBar * p)}</text>`;
     });
-    document.getElementById("chart-totais").innerHTML = svgAbrir(W, H, "Entradas e saídas por mês em 2026") +
+    document.getElementById("chart-totais").innerHTML = svgAbrir(W, H, "Entradas e saídas por mês em 2026, com cofrinho nas entradas") +
       grades + barras + "</svg>";
     legenda("legenda-totais", [
-      { cor: "#39FF14", nome: "Entradas" },
+      { cor: "#39FF14", nome: "Entradas, com cofrinho" },
       { cor: "#FF2BD6", nome: "Saídas" }
     ]);
   }
@@ -859,9 +859,26 @@
     por("kpi-saidas", m.saiu);
     por("kpi-resultado", m.entrou - m.saiu);
     const nota = document.getElementById("kpi-cofrinho");
-    if (nota) nota.textContent = "inclui " + brl(m.cofrinhoEntrada) + " do cofrinho";
-    const cofre = document.getElementById("cofrinho-valor");
-    if (cofre) cofre.textContent = brl(m.cofrinhoEntrada);
+    if (nota) nota.textContent = "inclui " + brl(m.cofrinhoEntrada) + " para cofrinhos";
+  }
+
+  function htmlSeta(nome, valor, max, tom) {
+    const largura = Math.max(8, Math.round(100 * valor / max));
+    return `<div class="seta ${tom}"><span class="seta-marca" aria-hidden="true">→</span><span class="seta-nome">${esc(nome)}</span><span class="seta-trilho"><span style="width:${largura}%"></span></span><strong>${esc(brl(valor))}</strong></div>`;
+  }
+
+  function desenharEntradas(m) {
+    const demais = m.entrou - m.cofrinhoEntrada;
+    const itens = [
+      { nome: "Transferências para cofrinhos", valor: m.cofrinhoEntrada },
+      { nome: "Demais entradas", valor: demais }
+    ].filter((item) => item.valor > 0.004).sort((a, b) => b.valor - a.valor);
+    const caixa = document.getElementById("setas-entradas");
+    if (!caixa) return;
+    const max = itens[0] ? itens[0].valor : 1;
+    caixa.innerHTML = itens.map((item) => htmlSeta(item.nome, item.valor, max, "entrada")).join("");
+    const frase = document.getElementById("entradas-frase");
+    if (frase) frase.textContent = "Transferências para os cofrinhos são entradas.";
   }
 
   function desenharSetas(m) {
@@ -879,10 +896,7 @@
     const max = principais[0] ? principais[0].valor : 1;
     const caixa = document.getElementById("setas");
     if (!caixa) return;
-    const linha = (nome, valor) => {
-      const largura = Math.max(8, Math.round(100 * valor / max));
-      return `<div class="seta"><span class="seta-marca" aria-hidden="true">→</span><span class="seta-nome">${esc(nome)}</span><span class="seta-trilho"><span style="width:${largura}%"></span></span><strong>${esc(brl(valor))}</strong></div>`;
-    };
+    const linha = (nome, valor) => htmlSeta(nome, valor, max, "saida");
     let html = principais.map((item) => linha(item.nome, item.valor)).join("");
     if (resto > 0) html += linha("Outros destinos", resto);
     caixa.innerHTML = html;
@@ -916,6 +930,7 @@
     const y = window.scrollY;
     const m = modelo();
     kpis(m);
+    desenharEntradas(m);
     desenharSetas(m);
     desenharTotais(m);
     desenharMeses(m);
