@@ -894,7 +894,7 @@
     const lista = [...mapa.values()].sort((a, b) => b.valor - a.valor);
     const principais = lista.slice(0, 8);
     const resto = lista.slice(8).reduce((s, item) => s + item.valor, 0);
-    const max = principais[0] ? principais[0].valor : 1;
+    const max = Math.max(principais[0] ? principais[0].valor : 1, resto);
     const caixa = document.getElementById("setas");
     if (!caixa) return;
     const linha = (nome, valor) => htmlColuna(nome, valor, max, "saida");
