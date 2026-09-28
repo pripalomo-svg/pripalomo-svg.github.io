@@ -30,6 +30,7 @@
 .ex-hero { padding: 28px 0 8px; }
 .ex-hero h1 { color: #F4FFE8; font-size: 28px; font-weight: 700; line-height: 1.2; }
 .ex-hero p { margin-top: 6px; color: #9AA89A; font-size: 15px; }
+.ex-hero a { color: #39FF14; font-weight: 700; }
 .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 22px 0 8px; }
 .kpi span { display: block; color: #9AA89A; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; }
 .kpi strong { display: block; margin-top: 4px; font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.15; }
@@ -107,7 +108,7 @@
 .mod-nota { color: #9AA89A; font-size: 15px; margin: 4px 0 12px; }
 .mod-acoes { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 12px; }
 .mod-acoes input { max-width: 280px; margin-top: 0; font-size: 15px; padding: 8px; }
-.mod-acoes button {
+.mod-acoes button, .mod-acoes a {
   background: #FF2BD6;
   color: #070012;
   border: 0;
@@ -116,7 +117,9 @@
   font-weight: 700;
   padding: 8px 12px;
   cursor: pointer;
+  text-decoration: none;
 }
+.mod-acoes a, #btn-excel { background: #39FF14; }
 #status-edicao { color: #39FF14; font-size: 14px; }
 .mod-dica { color: #9AA89A; font-size: 14px; }
 .ex-sec { padding: 28px 0; }
@@ -166,7 +169,7 @@ table.sheet { width: 100%; border-collapse: collapse; min-width: 520px; }
 <main class="ex-wrap">
   <header class="ex-hero">
     <h1>Entradas e saídas</h1>
-    <p>1 jan – 25 set 2026</p>
+    <p>1 jan – 25 set 2026 · <a href="extrato-2026.xlsx" download>Excel com todos os lançamentos</a></p>
   </header>
 
   <section class="kpis" aria-label="Totais do ano">
@@ -189,8 +192,11 @@ table.sheet { width: 100%; border-collapse: collapse; min-width: 520px; }
 
   <section class="fluxo" id="modificar">
     <h2>Modificar</h2>
-    <p class="mod-nota">Edite o nome na barra. No menu, escolha se aquele valor entra, sai, vai para o cofrinho ou fica de fora. A busca acha os outros nomes. Fica salvo só neste navegador.</p>
+    <p class="mod-nota">No Excel, escreva o nome na coluna amarela Seu nome. Depois traga o arquivo para cá. Também dá para editar o nome na barra. Fica salvo só neste navegador.</p>
     <div class="mod-acoes">
+      <a href="extrato-2026.xlsx" download>Baixar Excel</a>
+      <button type="button" id="btn-excel">Trazer nomes do Excel</button>
+      <input id="arquivo-excel" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden>
       <input id="mod-busca" type="search" placeholder="Buscar nome" autocomplete="off" aria-label="Buscar nome para modificar">
       <button type="button" id="btn-reset">Desfazer alterações</button>
       <span id="status-edicao"></span>
@@ -218,6 +224,7 @@ table.sheet { width: 100%; border-collapse: collapse; min-width: 520px; }
 </footer>
 
 <script src="assets/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="assets/extrato-2026.data.js"></script>
 <script src="assets/extrato-2026.js"></script>
 </body>
