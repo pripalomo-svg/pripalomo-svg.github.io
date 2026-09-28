@@ -16,7 +16,7 @@
   font-size: 16px;
   line-height: 1.4;
 }
-.ex-wrap { width: min(960px, 94vw); margin-inline: auto; }
+.ex-wrap { width: min(1100px, 94vw); margin-inline: auto; }
 .ex-page nav {
   background: #070012;
   border-bottom: 1px solid #2A1840;
@@ -142,6 +142,38 @@ table.sheet { width: 100%; border-collapse: collapse; min-width: 520px; }
 .pos { color: #39FF14; }
 .neg { color: #FF2BD6; }
 .sheet tfoot td { font-weight: 700; border-bottom: 0; border-top: 1px solid #F4FFE8; }
+.filtros-tipo { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.filtros-tipo button {
+  background: transparent;
+  color: #F4FFE8;
+  border: 1px solid #5A2080;
+  font: inherit;
+  font-size: 14px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.filtros-tipo button[aria-pressed="true"] { background: #F4FFE8; color: #070012; border-color: #F4FFE8; }
+#planilha-resumo { color: #9AA89A; margin: 0 0 8px; }
+.planilha { min-width: 720px; }
+.planilha .dia td {
+  background: #12081C;
+  font-weight: 700;
+  padding-top: 16px;
+}
+.planilha .dia span { float: right; color: #9AA89A; font-weight: 400; }
+.planilha .desc { color: #C9D4C4; font-size: 14px; }
+.nome-valor[contenteditable="true"] {
+  display: inline-block;
+  min-width: 8em;
+  border-bottom: 1px solid #5A2080;
+  cursor: text;
+  outline: none;
+}
+.nome-valor[contenteditable="true"]:focus { border-bottom-color: #39FF14; }
+.tipo { font-size: 13px; font-weight: 700; }
+.tipo.entrada, .planilha .num.entrada, .tipo.cofrinho, .planilha .num.cofrinho { color: #39FF14; }
+.tipo.saida, .planilha .num.saida { color: #FF2BD6; }
+.tipo.entre, .planilha .num.entre { color: #9AA89A; }
 .ex-page footer { background: #070012; border-top: 1px solid #2A1840; }
 .ex-page .foot-links a, .ex-page .foot-info { color: #9AA89A; font-size: 14px; }
 @media (max-width: 700px) {
@@ -176,6 +208,20 @@ table.sheet { width: 100%; border-collapse: collapse; min-width: 520px; }
     <article class="kpi ent"><span>Entrou</span><strong id="kpi-entradas">—</strong><em id="kpi-cofrinho"></em></article>
     <article class="kpi sai"><span>Saiu</span><strong id="kpi-saidas">—</strong></article>
     <article class="kpi res"><span>Resultado</span><strong id="kpi-resultado">—</strong></article>
+  </section>
+
+  <section class="fluxo" id="planilha">
+    <h2>Planilha por data</h2>
+    <p class="mod-nota">Clique no nome para mudá-lo. A mudança vale para os movimentos iguais. O filtro mostra um tipo de cada vez. Fica salvo só neste navegador.</p>
+    <div class="filtros-tipo" id="filtros-tipo">
+      <button type="button" data-tipo="" aria-pressed="true">Todos</button>
+      <button type="button" data-tipo="entrada" aria-pressed="false">Entrada</button>
+      <button type="button" data-tipo="saida" aria-pressed="false">Saída</button>
+      <button type="button" data-tipo="cofrinho" aria-pressed="false">Cofrinho</button>
+      <button type="button" data-tipo="entre" aria-pressed="false">Entre contas</button>
+    </div>
+    <p id="planilha-resumo"></p>
+    <div class="sheet-wrap" id="planilha-lista"></div>
   </section>
 
   <section class="fluxo" id="entradas-fluxo">

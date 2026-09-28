@@ -88,6 +88,7 @@
   const anim = { timer: 0, index: 0, playing: false };
   const reduzido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let edits = carregar();
+  let filtroTipo = "";
 
   function vazio() {
     return { lancamentos: {}, apelidos: {}, notasNome: {}, notasMes: {}, black: {}, papel: {} };
@@ -1065,6 +1066,59 @@
     caixa.innerHTML = html;
   }
 
+  function tipoExibicao(tx) {
+    const papel = papelEfetivo(tx);
+    if (papel === "cofrinho") return { id: "cofrinho", nome: "Cofrinho" };
+    if (papel === "entrada") return { id: "entrada", nome: "Entrada" };
+    if (papel === "saida") return { id: "saida", nome: "Saída" };
+    return { id: "entre", nome: "Entre contas" };
+  }
+
+  function rotuloDia(iso) {
+    const partes = iso.split("-");
+    return partes[2] + " " + MES_CURTO[Number(partes[1]) - 1] + " " + partes[0];
+  }
+
+  function desenharPlanilha(m) {
+    const caixa = document.getElementById("planilha-lista");
+    const resumo = document.getElementById("planilha-resumo");
+    if (!caixa) return;
+    document.querySelectorAll("#filtros-tipo button").forEach((btn) => {
+      btn.setAttribute("aria-pressed", btn.dataset.tipo === filtroTipo ? "true" : "false");
+    });
+    const lista = m.txs.filter((tx) => !filtroTipo || tipoExibicao(tx).id === filtroTipo);
+    if (resumo) {
+      const soma = lista.reduce((s, tx) => s + tx.valor, 0);
+      const movs = lista.length === 1 ? " movimento" : " movimentos";
+      resumo.textContent = lista.length + movs + " · soma dos valores " + brl(soma);
+    }
+    if (!lista.length) {
+      caixa.innerHTML = "<p class='mod-dica'>Nenhum movimento desse tipo.</p>";
+      return;
+    }
+    let html = `<table class="sheet planilha"><thead><tr>
+      <th>Nome</th><th>Descrição</th><th>Tipo</th><th class="num">Valor</th>
+    </tr></thead><tbody>`;
+    let dia = "";
+    lista.forEach((tx) => {
+      if (tx.data !== dia) {
+        dia = tx.data;
+        html += `<tr class="dia"><td colspan="4">${esc(rotuloDia(dia))}<span>saldo ${esc(brl(saldoNo(dia)))}</span></td></tr>`;
+      }
+      const tipo = tipoExibicao(tx);
+      const chave = chaveDo(tx) || tx.nomeOriginal;
+      const nome = rotuloDoGrupo(chave, tx);
+      html += `<tr>
+        <td><span class="nome-valor" contenteditable="true" spellcheck="false" data-apelido="${esc(chave)}">${esc(nome)}</span></td>
+        <td class="desc">${esc(tx.desc)}</td>
+        <td><span class="tipo ${tipo.id}">${esc(tipo.nome)}</span></td>
+        <td class="num ${tipo.id}">${esc(brl(tx.valor))}</td>
+      </tr>`;
+    });
+    html += "</tbody></table>";
+    caixa.innerHTML = html;
+  }
+
   function desenharMeses(m) {
     const toggle = document.getElementById("toggle-internas");
     const incluir = toggle ? toggle.checked : false;
@@ -1089,6 +1143,7 @@
     const y = window.scrollY;
     const m = modelo();
     kpis(m);
+    desenharPlanilha(m);
     desenharEntradas(m);
     desenharSetas(m);
     desenharModificar(m);
@@ -1125,6 +1180,14 @@
   }
 
   let inputTimer = 0;
+
+  const filtrosTipo = document.getElementById("filtros-tipo");
+  if (filtrosTipo) filtrosTipo.addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-tipo]");
+    if (!btn) return;
+    filtroTipo = btn.dataset.tipo;
+    render();
+  });
 
   document.body.addEventListener("change", (e) => {
     const t = e.target;
