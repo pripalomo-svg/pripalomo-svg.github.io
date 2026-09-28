@@ -9,19 +9,19 @@
 <link rel="stylesheet" href="assets/style.css">
 <style>
 :root {
-  --fb-navy:  #0E4A57;
+  --fb-navy:  #0B2545;
   --fb-ink:   #111111;
   --fb-paper: #FFFFFF;
   --fb-line:  rgba(17,17,17,.15);
-  --fb-pale:  #EAF2F2;
-  --fb-orange:#E27A2E;
+  --fb-pale:  #E3F6F2;
+  --fb-orange:#13A89E;
 }
 .es-page { background: var(--fb-paper); color: var(--fb-ink); }
 .es-page h1, .es-page h2, .es-page h3 { color: var(--fb-ink); }
 
 .es-hero {
   padding: 56px 0 48px; border-bottom: 2px solid var(--fb-ink);
-  background: linear-gradient(180deg, #EAF2F2 0%, #FFFFFF 55%);
+  background: linear-gradient(180deg, #E3F6F2 0%, #FFFFFF 55%);
 }
 .es-kicker { font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--fb-navy); font-weight: 700; display: block; margin-bottom: 14px; }
 .es-hero h1 { font-size: clamp(32px, 5.5vw, 52px); line-height: 1.05; margin-bottom: 16px; max-width: 16ch; }
@@ -97,15 +97,16 @@
     <img src="assets/logo.svg" alt="Priscila Palomo Psicologia">
     <div class="nav-logo-text">
       <span class="nav-logo-name">Priscila Palomo</span>
-      <span class="nav-logo-sub">Psicóloga · CRP 98007</span>
+      <span class="nav-logo-sub">Psicóloga · PhD · CRP 98007</span>
     </div>
   </a>
   <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
   <ul class="nav-links">
     <li><a href="index.html">Início</a></li>
+    <li><a href="index.html#solucoes">Empresas</a></li>
+    <li><a href="fobias.html">Fobias e ansiedade</a></li>
+    <li><a href="pesquisa.html">Ciência</a></li>
     <li><a href="blog.html">Blog</a></li>
-    <li><a href="cursos.html">Cursos</a></li>
-    <li><a href="terapia-pro.html">Terap-ia</a></li>
     <li><a href="apresentacao.html">Minha história</a></li>
     <li><a href="#comprar" class="nav-cta">Quero o programa</a></li>
   </ul>
@@ -228,10 +229,10 @@
         <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
           <img src="assets/avatar-ilustrado.png" alt="Dra. Priscila Palomo"
                width="72" height="72"
-               style="width:72px;height:72px;object-fit:cover;border-radius:50%;border:2px solid #0E4A57">
+               style="width:72px;height:72px;object-fit:cover;border-radius:50%;border:2px solid #0B2545">
           <div>
             <strong style="display:block;font-size:15px">Dra. Priscila Palomo</strong>
-            <span style="font-size:12px;color:#555">Psicóloga · CRP 98007 · Especialista em fobias</span>
+            <span style="font-size:12px;color:#555">Psicóloga · PhD · CRP 98007 · Especialista em fobias e ansiedade</span>
           </div>
         </div>
         <span class="es-label">Investimento</span>
@@ -262,12 +263,16 @@
 <footer>
   <a href="index.html" class="foot-logo"><img src="assets/logo.svg" alt="Priscila Palomo Psicologia"></a>
   <div class="foot-links">
+    <a href="index.html">Início</a>
+    <a href="fobias.html">Fobias</a>
+    <a href="pesquisa.html">Ciência</a>
     <a href="blog.html">Blog</a>
     <a href="cursos.html">Cursos</a>
     <a href="terapia-pro.html">Terap-ia</a>
+    <a href="catalogo-videos.html">Vídeos</a>
     <a href="https://wa.me/5511950690537" target="_blank">WhatsApp</a>
   </div>
-  <span class="foot-info">© <span data-year></span> · CRP 98007</span>
+  <span class="foot-info">© <span data-year></span> · Priscila Palomo · CRP 98007</span>
 </footer>
 
 <!-- Modal pagamento -->
