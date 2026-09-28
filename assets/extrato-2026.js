@@ -173,7 +173,7 @@
       natureza,
       familia: meta.familia,
       nota: ed.nota || "",
-      nome: edits.apelidos[tx.contraparte] || tx.contraparte,
+      nome: ed.nome || edits.apelidos[tx.contraparte] || tx.contraparte,
       nomeOriginal: tx.contraparte
     };
   }
@@ -203,7 +203,15 @@
   }
 
   function nomeVisivel(chave, fallback) {
-    return edits.apelidos[chave] || fallback;
+    if (edits.apelidos[chave]) return edits.apelidos[chave];
+    if (chave === "__cofrinho__" && edits.apelidos.Cofrinho) return edits.apelidos.Cofrinho;
+    return fallback;
+  }
+
+  function rotuloDoGrupo(chave, tx) {
+    const padrao = nomeVisivel(chave, nomePadrao(chave, tx));
+    if (tx.nome && tx.nome !== tx.contraparte) return tx.nome;
+    return padrao;
   }
 
   function opcoesPapel(atual) {
@@ -933,7 +941,10 @@
       };
       atual.valor += Math.abs(tx.valor);
       atual.papel = papel;
-      atual.nome = nomeVisivel(chave, nomePadrao(chave, tx));
+      const rotulo = rotuloDoGrupo(chave, tx);
+      if (!atual.rotulos) atual.rotulos = new Set();
+      atual.rotulos.add(rotulo);
+      atual.nome = atual.rotulos.size === 1 ? rotulo : nomeVisivel(chave, nomePadrao(chave, tx));
       extras.set(chave, atual);
     });
     const itens = [];
@@ -961,7 +972,10 @@
       if (!chave) return;
       const atual = mapa.get(chave) || { chave, valor: 0, papel: "saida", tom: "saida", editavel: true };
       atual.valor += Math.abs(tx.valor);
-      atual.nome = nomeVisivel(chave, nomePadrao(chave, tx));
+      const rotulo = rotuloDoGrupo(chave, tx);
+      if (!atual.rotulos) atual.rotulos = new Set();
+      atual.rotulos.add(rotulo);
+      atual.nome = atual.rotulos.size === 1 ? rotulo : nomeVisivel(chave, nomePadrao(chave, tx));
       mapa.set(chave, atual);
     });
     const lista = [...mapa.values()].sort((a, b) => b.valor - a.valor);
@@ -1199,6 +1213,73 @@
     e.preventDefault();
     const texto = (e.clipboardData || window.clipboardData).getData("text");
     document.execCommand("insertText", false, texto);
+  });
+
+  function textoCelula(valor) {
+    return String(valor ?? "").trim();
+  }
+
+  function aplicarPlanilha(wb) {
+    const abaNomes = wb.Sheets.Nomes;
+    if (!abaNomes) throw new Error("sem nomes");
+    const nomes = XLSX.utils.sheet_to_json(abaNomes, { defval: "", raw: false });
+    let n = 0;
+    nomes.forEach((row) => {
+      const original = textoCelula(row["Nome no extrato"]);
+      const seu = textoCelula(row["Seu nome"]);
+      if (!original) return;
+      if (seu && seu !== original) {
+        edits.apelidos[original] = seu;
+        n += 1;
+      } else delete edits.apelidos[original];
+    });
+    const movs = wb.Sheets["Lançamentos"];
+    if (movs && movs["!ref"]) {
+      const ref = XLSX.utils.decode_range(movs["!ref"]);
+      const headers = {};
+      for (let c = ref.s.c; c <= ref.e.c; c++) {
+        const cell = movs[XLSX.utils.encode_cell({ r: ref.s.r, c })];
+        if (cell && cell.v != null) headers[textoCelula(cell.v)] = c;
+      }
+      const colNome = headers["Seu nome"];
+      const colId = headers.Id;
+      if (colNome !== undefined && colId !== undefined) {
+        for (let r = ref.s.r + 1; r <= ref.e.r; r++) {
+          const idCell = movs[XLSX.utils.encode_cell({ r, c: colId })];
+          const nomeCell = movs[XLSX.utils.encode_cell({ r, c: colNome })];
+          if (!idCell || !nomeCell || nomeCell.f) continue;
+          const id = textoCelula(idCell.v);
+          const seu = textoCelula(nomeCell.v);
+          if (!id) continue;
+          edits.lancamentos[id] = edits.lancamentos[id] || {};
+          if (seu) {
+            edits.lancamentos[id].nome = seu;
+            n += 1;
+          } else delete edits.lancamentos[id].nome;
+        }
+      }
+    }
+    return n;
+  }
+
+  const btnExcel = document.getElementById("btn-excel");
+  const arquivoExcel = document.getElementById("arquivo-excel");
+  if (btnExcel && arquivoExcel) btnExcel.addEventListener("click", () => arquivoExcel.click());
+  if (arquivoExcel) arquivoExcel.addEventListener("change", async (e) => {
+    const file = e.target.files && e.target.files[0];
+    e.target.value = "";
+    const status = document.getElementById("status-edicao");
+    if (!file) return;
+    try {
+      if (typeof XLSX === "undefined") throw new Error("biblioteca");
+      const wb = XLSX.read(await file.arrayBuffer(), { type: "array" });
+      const n = aplicarPlanilha(wb);
+      save();
+      render();
+      if (status) status.textContent = n ? "Nomes do Excel salvos neste navegador." : "Nenhum nome na coluna Seu nome.";
+    } catch {
+      if (status) status.textContent = "Não consegui ler esse Excel.";
+    }
   });
 
   const btnCsv = document.getElementById("btn-csv");
