@@ -1,9 +1,9 @@
 ---
-titulo: Burnout — o que a ciência sabe e o RH precisa saber (palestra gravada + material)
+titulo: Burnout — o que a ciência sabe e o RH precisa saber (kit completo da palestra)
 slug: palestra-burnout
 preco: R$ 197
 tag: Empresas · RH, SESMT e lideranças
-formato: Palestra gravada (60 min) + roteiro integral em PDF + descrição dos 32 slides + perguntas e respostas + checklist de 30 dias
+formato: Roteiro integral da palestra (60 min) em PDF + descrição dos 32 slides + perguntas e respostas + checklist de 30 dias
 autora: Priscila Palomo — Psicóloga (CRP 98007), PhD em Psicologia da Saúde (Universitat de València)
 versao: 1.1 — 2026
 ---
@@ -12,7 +12,7 @@ versao: 1.1 — 2026
 
 **Roteiro integral da palestra de 60 minutos, descrição de cada um dos 32 slides, perguntas frequentes com respostas e checklist de ações para os 30 dias seguintes.**
 
-Este material acompanha a gravação da palestra e foi pensado para três usos: assistir e aplicar na própria empresa; usar o roteiro como base para uma apresentação interna conduzida pelo RH ou pelo SESMT (com a devida citação da fonte); e servir de guia de leitura para lideranças. O texto está escrito na forma como é falado — direto, com exemplos e pausas marcadas — porque palestra boa é conversa estruturada, não leitura de slide.
+Este material é o kit completo da palestra e foi pensado para três usos: ler e aplicar na própria empresa; usar o roteiro como base para uma apresentação interna conduzida pelo RH ou pelo SESMT (com a devida citação da fonte); e servir de guia de leitura para lideranças. O texto está escrito na forma como é falado — direto, com exemplos e pausas marcadas — porque palestra boa é conversa estruturada, não leitura de slide.
 
 **Duração:** 60 minutos (45 de exposição + 15 de perguntas).
 **Público:** RH, SESMT, CIPA, gestores, diretoria.
@@ -293,7 +293,7 @@ Para o RH/SESMT que organizou a sessão:
 
 ## Nota sobre uso do material
 
-A gravação e este roteiro são licenciados para uso interno da empresa compradora. A reprodução do conteúdo em apresentações internas é permitida com citação da autoria. Não é permitida a revenda, a exibição para terceiros ou a publicação em canais abertos. Para apresentação ao vivo, adaptada ao setor e com dados da própria empresa, ou para palestras em SIPAT e eventos, entre em contato pelo WhatsApp indicado no site.
+Este roteiro e os materiais que o acompanham são licenciados para uso interno da empresa compradora. A reprodução do conteúdo em apresentações internas é permitida com citação da autoria. Não é permitida a revenda, a exibição para terceiros ou a publicação em canais abertos. Para apresentação ao vivo, adaptada ao setor e com dados da própria empresa, ou para palestras em SIPAT e eventos, entre em contato pelo WhatsApp indicado no site.
 
 Este material tem caráter educativo e não substitui avaliação clínica individual. Pessoas com sintomas de burnout devem procurar psicólogo ou médico; em situação de crise, o CVV atende pelo 188.
 
