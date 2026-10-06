@@ -28,9 +28,15 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
 
 ## Páginas
 
-- `index.html` — **home B2B (empresas)**: hero, dados (NR-1, burnout, INSS),
-  5 soluções, método em 4 etapas, calculadora de custo do adoecimento mental,
-  credenciais, atalho para a clínica e CTA de diagnóstico.
+- `index.html` — **home B2B (empresas)**: hero, faixa de instituições, dados
+  (NR-1, burnout, INSS), 5 soluções + card de diagnóstico gratuito, método em
+  4 etapas, calculadora de custo (seção escura), credenciais, faixa da clínica,
+  sobre, NeuroNews e CTA. Tem JSON-LD (Person + ProfessionalService + WebSite).
+- `loja.html` — **loja** de produtos digitais (checkout via modal `openPay`:
+  Pix/WhatsApp/cartão). Landings em `produtos/<slug>.html`; conteúdo integral
+  de cada produto em `produtos/conteudo/<slug>.md`.
+- `divulgacao.html` — plano de divulgação (noindex; acessível pelo Desk).
+  Materiais prontos em `marketing/`; resumo em `PLANO-DIVULGACAO.md`.
 - `fobias.html` — **clínica (pessoas)**: psicoeducação sobre fobias e ansiedade
   de desempenho (desenhos animados) + boas-vindas e newsletter. Era a antiga home.
 - `pesquisa.html` — **ciência**: linhas de pesquisa, publicações selecionadas,
@@ -62,18 +68,34 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
 - Obs.: a pasta `produtos/*.md` é um resquício da antiga loja (removida); os
   cursos hoje ficam fixos em `cursos.html`.
 
+## Layout e componentes (design system)
+
+Todas as páginas públicas usam o **mesmo cabeçalho** (`<header class="site-header">`
+com `nav.nav.container`) e o **mesmo rodapé** (`<footer class="site-footer">`, 4
+colunas). Para criar uma página nova, copie esses dois blocos de `index.html`
+e marque `class="active"` no link certo. Componentes em `assets/style.css`:
+`page-hero`/`hero`, `section` (+ `--alt`, `--dark`, `--teal`, `--tight`),
+`container`, `section-head`, `kicker`, `lead`, `grid grid-2/3/4`, `split`,
+`card` (+ `--dark`, `--teal`, `checks`, `card-foot`), `stats`/`stat`, `steps`,
+`timeline`, `band`, `calc`, `video-card`, `post-grid`/`post-card`, `article`,
+`news`, `btn` (+ `-primary`, `-outline`, `-white`, `-lg`). Páginas internas
+(`dashboard.html`, `extrato-2026.html`) ainda usam `<nav>`/`<footer>` simples —
+há estilos legados para elas no fim do CSS; não remova.
+
 ## Identidade visual
 
-- Paleta corporativa-científica: **navy `#0B1F3A`** (títulos/fundo escuro),
-  **teal `#0E7C7B`** (ação/destaque), **sand `#F5F1EA`** (fundo claro) e
-  **gold `#C9A227`** (detalhe). Definidas em `assets/style.css` como
-  `--navy`, `--teal`, `--sand`, `--gold`; os nomes antigos (`--preto`,
-  `--dourado`, `--creme`…) continuam como aliases para não quebrar páginas.
+- Paleta: **navy `#0B2545`** (base, botões primários, rodapé), **teal `#13A89E`
+  / `#0E8079`** (acento, kickers, ícones), fundos brancos e cinza-azulado
+  `#F3F6F9`, dourado `#D9A441` só em detalhes. Tokens em `assets/style.css`
+  (`--navy`, `--teal`, `--bg-alt`…); os nomes antigos (`--preto`, `--dourado`,
+  `--creme`, `--sand`) continuam como aliases.
 - Tipografia: **Sora** (títulos, `--font-title`) e **Inter** (texto,
   `--font-body`) via Google Fonts.
 - Logo: monograma "PP" em `assets/logo.svg`.
-- Navegação padrão em todas as páginas: Empresas · Fobias e ansiedade ·
-  Ciência · Blog · Cursos · Sobre + CTA "Falar com a Priscila".
+- Navegação padrão: Início · Empresas · Fobias e ansiedade · Ciência · Blog ·
+  Loja · Sobre + CTA "Falar comigo" (WhatsApp).
+- SEO: toda página pública tem `canonical`, Open Graph, `theme-color`; title
+  30–65 caracteres e description 70–160 (o auditor cobra isso).
 - Estilos reutilizáveis: `.welcome` (boas-vindas), `.news` (newsletter NeuroNews).
 
 ## Contato e newsletter
@@ -93,6 +115,17 @@ cd tools/video-linha-tempo && npm install && pip install edge-tts && python3 bui
 
 O MP4 final vai para `assets/videos/` e é embutido em `apresentacao.html`.
 
-## Sem lint / testes / build
+## Qualidade e monitoramento
 
-Não há comandos de lint, teste automatizado ou build neste repositório.
+- `python3 tools/auditoria/auditar.py --base http://localhost:8000` audita
+  títulos, descriptions, h1, alt, canonical, OG, JSON-LD, peso, TTFB e links
+  quebrados; sai com código 1 se houver item crítico. Rode antes de abrir PR.
+- `.github/workflows/auditoria-diaria.yml` roda todo dia (Lighthouse + auditor)
+  e publica o relatório na issue "Monitoramento diário do site".
+- `MONITORAMENTO.md` explica as metas; `.cursor/automation-monitor.md` é o
+  prompt do agente diário de melhoria (Cursor Automations).
+- Ética (Código de Ética do Psicólogo, art. 20): sem promessa de resultado,
+  sem depoimentos de pacientes, sem sensacionalismo, sem preço como chamariz
+  de serviço clínico. Produtos digitais podem exibir preço de forma sóbria.
+
+Não há build nem lint; o auditor acima é o único teste automatizado.
