@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard do extrato 2026 — Priscila Palomo</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Dashboard pessoal do extrato de 2026: entradas e saídas de cada mês.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>P</text></svg>">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+.ex-page {
+  background: #070012;
+  color: #F4FFE8;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+}
+.ex-wrap { width: min(1100px, 94vw); margin-inline: auto; }
+.ex-page nav {
+  background: #070012;
+  border-bottom: 1px solid #2A1840;
+  height: auto;
+  min-height: 56px;
+}
+.ex-page .nav-logo-name { color: #F4FFE8; font-size: 16px; }
+.ex-page .nav-logo-sub { display: none; }
+.ex-page .nav-links a { color: #9AA89A; font-size: 15px; }
+.ex-page .nav-links a:hover { color: #F4FFE8; }
+.ex-hero { padding: 28px 0 8px; }
+.ex-hero h1 { color: #F4FFE8; font-size: 28px; font-weight: 700; line-height: 1.2; }
+.ex-hero p { margin-top: 6px; color: #9AA89A; font-size: 15px; }
+.ex-hero a { color: #39FF14; font-weight: 700; }
+.kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 22px 0 8px; }
+.kpi span { display: block; color: #9AA89A; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; }
+.kpi strong { display: block; margin-top: 4px; font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.15; }
+.kpi.ent strong { color: #39FF14; }
+.kpi.sai strong { color: #FF2BD6; }
+.kpi.res strong { color: #F4FFE8; }
+.kpi em { display: block; margin-top: 6px; font-style: normal; color: #9AA89A; font-size: 13px; }
+.fluxo {
+  margin-top: 28px;
+  padding-top: 8px;
+}
+.fluxo h2 { color: #F4FFE8; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.fluxo-frase { color: #FF2BD6; font-size: 20px; font-weight: 700; margin: 8px 0 16px; }
+.fluxo-frase.entrada { color: #39FF14; }
+.colunas-box { overflow-x: auto; }
+.colunas { display: flex; align-items: stretch; gap: 8px; }
+.colunas.muitas { min-width: 820px; }
+.coluna {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 78px;
+}
+.coluna-valor {
+  min-height: 2.8em;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  color: #F4FFE8;
+}
+.coluna-pista {
+  width: min(100%, 64px);
+  height: 190px;
+  margin-top: 8px;
+  display: flex;
+  align-items: flex-end;
+  background: #1C1028;
+}
+.coluna-pista span { display: block; width: 100%; background: #FF2BD6; }
+.coluna.entrada .coluna-pista span { background: #39FF14; }
+.coluna.entrada .coluna-valor { color: #39FF14; }
+.coluna.saida .coluna-valor { color: #FF2BD6; }
+.coluna-nome {
+  margin-top: 8px;
+  color: #F4FFE8;
+  font-size: 13px;
+  line-height: 1.25;
+  text-align: center;
+}
+.coluna-nome[contenteditable="true"],
+#tabela-mod [contenteditable="true"] {
+  border-bottom: 1px solid #5A2080;
+  cursor: text;
+  outline: none;
+}
+.coluna-nome[contenteditable="true"]:focus,
+#tabela-mod [contenteditable="true"]:focus { border-bottom-color: #39FF14; }
+.coluna-papel, #tabela-mod select, .mod-acoes input {
+  width: 100%;
+  max-width: 160px;
+  margin-top: 6px;
+  background: #12081C;
+  color: #F4FFE8;
+  border: 1px solid #5A2080;
+  font: inherit;
+  font-size: 12px;
+  padding: 4px;
+}
+.mod-nota { color: #9AA89A; font-size: 15px; margin: 4px 0 12px; }
+.mod-acoes { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 12px; }
+.mod-acoes input { max-width: 280px; margin-top: 0; font-size: 15px; padding: 8px; }
+.mod-acoes button, .mod-acoes a {
+  background: #FF2BD6;
+  color: #070012;
+  border: 0;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 12px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.mod-acoes a, #btn-excel { background: #39FF14; }
+#status-edicao { color: #39FF14; font-size: 14px; }
+.mod-dica { color: #9AA89A; font-size: 14px; }
+.ex-sec { padding: 28px 0; }
+.ex-sec h2 { color: #F4FFE8; font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+.chart svg { display: block; width: 100%; height: auto; background: transparent; min-width: 640px; }
+.chart { overflow-x: auto; }
+.ex-page svg text { font-family: Arial, Helvetica, sans-serif; fill: #C9D4C4; font-size: 13px; }
+.legend { display: flex; gap: 16px; margin-top: 8px; }
+.legend i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; }
+.legend span { color: #C9D4C4; font-size: 14px; }
+.sheet-wrap { overflow-x: auto; }
+table.sheet { width: 100%; border-collapse: collapse; min-width: 520px; }
+.sheet th {
+  text-align: left; color: #9AA89A; font-size: 13px; font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase; padding: 8px 6px;
+  border-bottom: 1px solid #2A1840;
+}
+.sheet td { padding: 8px 6px; border-bottom: 1px solid #1C1028; color: #F4FFE8; font-size: 16px; }
+.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pos { color: #39FF14; }
+.neg { color: #FF2BD6; }
+.sheet tfoot td { font-weight: 700; border-bottom: 0; border-top: 1px solid #F4FFE8; }
+.filtros-tipo { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.filtros-tipo button {
+  background: transparent;
+  color: #F4FFE8;
+  border: 1px solid #5A2080;
+  font: inherit;
+  font-size: 14px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.filtros-tipo button[aria-pressed="true"] { background: #F4FFE8; color: #070012; border-color: #F4FFE8; }
+#planilha-resumo { color: #9AA89A; margin: 0 0 8px; }
+.planilha { min-width: 720px; }
+.planilha .dia td {
+  background: #12081C;
+  font-weight: 700;
+  padding-top: 16px;
+}
+.planilha .dia span { float: right; color: #9AA89A; font-weight: 400; }
+.planilha .desc { color: #C9D4C4; font-size: 14px; }
+.nome-valor[contenteditable="true"] {
+  display: inline-block;
+  min-width: 8em;
+  border-bottom: 1px solid #5A2080;
+  cursor: text;
+  outline: none;
+}
+.nome-valor[contenteditable="true"]:focus { border-bottom-color: #39FF14; }
+.tipo { font-size: 13px; font-weight: 700; }
+.tipo.entrada, .planilha .num.entrada, .tipo.cofrinho, .planilha .num.cofrinho { color: #39FF14; }
+.tipo.saida, .planilha .num.saida { color: #FF2BD6; }
+.tipo.entre, .planilha .num.entre { color: #9AA89A; }
+.ex-page footer { background: #070012; border-top: 1px solid #2A1840; }
+.ex-page .foot-links a, .ex-page .foot-info { color: #9AA89A; font-size: 14px; }
+@media (max-width: 700px) {
+  .kpis { grid-template-columns: 1fr; }
+  .kpi strong { font-size: 22px; }
+}
+</style>
+</head>
+<body class="ex-page">
+
+<nav>
+  <a class="nav-logo" href="dashboard.html">
+    <img src="assets/logo.svg" alt="Priscila Palomo Psicologia">
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Priscila Palomo</span>
+      <span class="nav-logo-sub">Dashboard · uso pessoal</span>
+    </div>
+  </a>
+  <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
+  <ul class="nav-links">
+    <li><a href="dashboard.html">Desk</a></li>
+  </ul>
+</nav>
+
+<main class="ex-wrap">
+  <header class="ex-hero">
+    <h1>Entradas e saídas</h1>
+    <p>1 jan – 25 set 2026 · <a href="extrato-2026.xlsx" download>Excel com todos os lançamentos</a></p>
+  </header>
+
+  <section class="kpis" aria-label="Totais do ano">
+    <article class="kpi ent"><span>Entrou</span><strong id="kpi-entradas">—</strong><em id="kpi-cofrinho"></em></article>
+    <article class="kpi sai"><span>Saiu</span><strong id="kpi-saidas">—</strong></article>
+    <article class="kpi res"><span>Resultado</span><strong id="kpi-resultado">—</strong></article>
+  </section>
+
+  <section class="fluxo" id="planilha">
+    <h2>Planilha por data</h2>
+    <p class="mod-nota">Clique no nome para mudá-lo. A mudança vale para os movimentos iguais. O filtro mostra um tipo de cada vez. Fica salvo só neste navegador.</p>
+    <div class="filtros-tipo" id="filtros-tipo">
+      <button type="button" data-tipo="" aria-pressed="true">Todos</button>
+      <button type="button" data-tipo="entrada" aria-pressed="false">Entrada</button>
+      <button type="button" data-tipo="saida" aria-pressed="false">Saída</button>
+      <button type="button" data-tipo="cofrinho" aria-pressed="false">Cofrinho</button>
+      <button type="button" data-tipo="entre" aria-pressed="false">Entre contas</button>
+    </div>
+    <p id="planilha-resumo"></p>
+    <div class="sheet-wrap" id="planilha-lista"></div>
+  </section>
+
+  <section class="fluxo" id="entradas-fluxo">
+    <h2>Entradas</h2>
+    <p class="fluxo-frase entrada" id="entradas-frase"></p>
+    <div class="colunas-box"><div class="colunas" id="setas-entradas"></div></div>
+  </section>
+
+  <section class="fluxo" id="para-onde">
+    <h2>O que mais saiu</h2>
+    <p class="fluxo-frase" id="setas-frase"></p>
+    <div class="colunas-box"><div class="colunas muitas" id="setas"></div></div>
+  </section>
+
+  <section class="fluxo" id="modificar">
+    <h2>Modificar</h2>
+    <p class="mod-nota">No Excel, escreva o nome na coluna amarela Seu nome. Depois traga o arquivo para cá. Também dá para editar o nome na barra. Fica salvo só neste navegador.</p>
+    <div class="mod-acoes">
+      <a href="extrato-2026.xlsx" download>Baixar Excel</a>
+      <button type="button" id="btn-excel">Trazer nomes do Excel</button>
+      <input id="arquivo-excel" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden>
+      <input id="mod-busca" type="search" placeholder="Buscar nome" autocomplete="off" aria-label="Buscar nome para modificar">
+      <button type="button" id="btn-reset">Desfazer alterações</button>
+      <span id="status-edicao"></span>
+    </div>
+    <div class="sheet-wrap" id="tabela-mod"></div>
+  </section>
+
+  <section class="ex-sec" id="totais">
+    <h2>Por mês</h2>
+    <div class="chart" id="chart-totais"></div>
+    <div class="legend" id="legenda-totais"></div>
+  </section>
+
+  <section class="ex-sec" id="resumo">
+    <div class="sheet-wrap" id="tabela-mes"></div>
+  </section>
+</main>
+
+<footer>
+  <a href="dashboard.html" class="foot-logo"><img src="assets/logo.svg" alt=""></a>
+  <div class="foot-links">
+    <a href="dashboard.html">Desk</a>
+  </div>
+  <span class="foot-info">1 jan – 25 set 2026</span>
+</footer>
+
+<script src="assets/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="assets/extrato-2026.data.js"></script>
+<script src="assets/extrato-2026.js"></script>
+</body>
+</html>
