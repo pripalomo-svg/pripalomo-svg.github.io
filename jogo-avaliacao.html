@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jogo de autoavaliação — Priscila Palomo</title>
+<meta name="description" content="Mini-jogo interativo em português para observar padrões de ansiedade e impulsividade: tiro ao alvo e blocos estilo Tetris. Ferramenta lúdica, não substitui avaliação profissional.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>P</text></svg>">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/jogo-avaliacao.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="assets/logo.svg" alt="Priscila Palomo Psicologia">
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Priscila Palomo</span>
+      <span class="nav-logo-sub">Psicóloga · CRP 98007</span>
+    </div>
+  </a>
+  <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
+  <ul class="nav-links">
+    <li><a href="index.html">Início</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="cursos.html">Cursos</a></li>
+    <li><a href="produtos.html">Materiais</a></li>
+    <li><a href="jogo-avaliacao.html" class="active">Jogo</a></li>
+    <li><a href="apresentacao.html">Minha história</a></li>
+    <li><a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!" target="_blank" class="nav-cta">Falar comigo</a></li>
+  </ul>
+</nav>
+
+<main class="wrap jogo-wrap">
+
+  <!-- INTRO -->
+  <section class="jogo-tela ativa" id="tela-intro">
+    <div class="jogo-head">
+      <span style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--dourado-escuro);font-weight:700;display:block;margin-bottom:10px">Autoavaliação lúdica</span>
+      <h1>Mente em jogo</h1>
+      <p>Um mini-jogo em duas etapas para você observar, de forma leve, como reage sob pressão de tempo. Não é um diagnóstico — é um espelho divertido que pode abrir conversas sobre ansiedade e impulsividade.</p>
+    </div>
+
+    <div class="jogo-aviso">
+      <strong>Importante:</strong> este jogo é uma ferramenta de reflexão e entretenimento.
+      Os resultados <em>não substituem</em> uma avaliação psicológica com profissional.
+      Se algo te incomodar, fale comigo pelo WhatsApp.
+    </div>
+
+    <div class="jogo-instrucoes">
+      <h2>Como funciona</h2>
+      <ul>
+        <li><strong>Etapa 1 — Tiro ao alvo (45 s):</strong> clique nos círculos <span style="color:var(--dourado);font-weight:700">laranjas</span>. <strong>Não clique</strong> nos círculos vermelhos com ✕. Evite clicar no fundo vazio.</li>
+        <li><strong>Etapa 2 — Blocos (90 s):</strong> organize as peças que caem, como no Tetris. Mova com o <strong>mouse</strong> (passe sobre o tabuleiro) ou com as <strong>setas ← → ↓</strong>. Clique ou pressione <strong>↑</strong> para girar. <strong>Enter</strong> solta a peça de uma vez.</li>
+        <li><strong>Resultado:</strong> ao final, você recebe uma leitura sobre <strong>impulsividade</strong> e <strong>ansiedade</strong>, com sugestão de conversa comigo se quiser.</li>
+      </ul>
+      <div class="jogo-acoes">
+        <button class="btn btn-gold" type="button" onclick="iniciarJogo()">Começar o jogo</button>
+        <a class="btn btn-outline" href="index.html">Voltar ao início</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ETAPA 1: ALVOS -->
+  <section class="jogo-tela" id="tela-alvos">
+    <div class="jogo-head" style="border:none;padding-bottom:8px">
+      <h1>Etapa 1 — Tiro ao alvo</h1>
+      <p>Clique nos alvos laranjas. Ignore os vermelhos. Não clique no vazio.</p>
+    </div>
+
+    <div class="jogo-barra">
+      <span class="stat">Tempo: <strong class="timer" id="alvosTimer">45s</strong></span>
+      <span class="stat">Acertos: <strong id="alvosAcertos">0</strong></span>
+      <span class="stat">Erros: <strong id="alvosErros">0</strong></span>
+    </div>
+
+    <div class="alvo-area" id="alvoArea">
+      <div class="alvo-feedback" id="alvoFeedback"></div>
+    </div>
+  </section>
+
+  <!-- ETAPA 2: BLOCOS -->
+  <section class="jogo-tela" id="tela-blocos">
+    <div class="jogo-head" style="border:none;padding-bottom:8px">
+      <h1>Etapa 2 — Blocos</h1>
+      <p>Complete linhas antes do tempo acabar. Mouse para mover, clique para girar.</p>
+    </div>
+
+    <div class="jogo-barra">
+      <span class="stat">Tempo: <strong class="timer" id="blocosTimer">90s</strong></span>
+      <span class="stat">Linhas: <strong id="blocosLinhas">0</strong></span>
+      <span class="stat">Peças: <strong id="blocosPecas">0</strong></span>
+      <button class="btn btn-gold" type="button" onclick="quedaRapida()" style="padding:8px 14px;font-size:11px">Soltar (Enter)</button>
+    </div>
+
+    <div class="blocos-layout">
+      <div class="blocos-tabuleiro-wrap">
+        <div class="blocos-tabuleiro" id="blocosTabuleiro"></div>
+        <div class="blocos-mouse-zona">Passe o mouse sobre o tabuleiro para mover a peça · Clique para girar</div>
+      </div>
+      <div class="blocos-lateral">
+        <h3>Próxima peça</h3>
+        <div class="blocos-proxima" id="blocosProxima"></div>
+        <p><kbd>←</kbd> <kbd>→</kbd> mover &nbsp; <kbd>↓</kbd> descer<br>
+        <kbd>↑</kbd> ou clique girar &nbsp; <kbd>Enter</kbd> soltar</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTADOS -->
+  <section class="jogo-tela" id="tela-resultados">
+    <div class="jogo-head" style="border:none">
+      <span style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--dourado-escuro);font-weight:700;display:block;margin-bottom:10px">Seu resultado</span>
+      <h1>Como você se saiu</h1>
+      <p>Leitura baseada no seu desempenho nas duas etapas. Use como ponto de partida para reflexão — não como rótulo.</p>
+    </div>
+
+    <div class="resultados-grid">
+      <article class="resultado-card">
+        <h3>Impulsividade</h3>
+        <div class="nota" id="notaImpulsividade">—</div>
+        <div class="nivel" id="nivelImpulsividade">—</div>
+        <p id="textoImpulsividade"></p>
+      </article>
+      <article class="resultado-card">
+        <h3>Ansiedade (sob pressão)</h3>
+        <div class="nota" id="notaAnsiedade">—</div>
+        <div class="nivel" id="nivelAnsiedade">—</div>
+        <p id="textoAnsiedade"></p>
+      </article>
+    </div>
+
+    <div class="resultado-detalhes">
+      <h3>Dados da sua sessão</h3>
+      <table>
+        <tbody id="tabelaDetalhes"></tbody>
+      </table>
+    </div>
+
+    <div class="jogo-acoes" style="margin-top:24px">
+      <button class="btn btn-gold" type="button" onclick="compartilharWhatsApp()">Enviar resultado no WhatsApp</button>
+      <button class="btn btn-outline" type="button" onclick="reiniciarTudo()">Jogar de novo</button>
+      <a class="btn btn-outline" href="index.html">Voltar ao site</a>
+    </div>
+
+    <div class="jogo-aviso" style="margin-top:24px">
+      Lembre-se: ansiedade e impulsividade fazem parte da experiência humana.
+      Se os resultados te preocuparem ou você quiser entender melhor o que sente,
+      <a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Fiz%20o%20jogo%20de%20autoavalia%C3%A7%C3%A3o." target="_blank" style="color:var(--dourado-escuro);text-decoration:underline">agende uma conversa comigo</a>.
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <a href="index.html" class="foot-logo"><img src="assets/logo.svg" alt="Priscila Palomo Psicologia"></a>
+  <div class="foot-links">
+    <a href="index.html">Início</a>
+    <a href="blog.html">Blog</a>
+    <a href="jogo-avaliacao.html">Jogo</a>
+    <a href="painel.html">Painel</a>
+    <a href="https://wa.me/5511950690537" target="_blank">WhatsApp</a>
+  </div>
+  <span class="foot-info">© <span data-year></span> · CRP 98007</span>
+</footer>
+
+<script src="assets/app.js"></script>
+<script src="assets/jogo-avaliacao.js"></script>
+</body>
+</html>
