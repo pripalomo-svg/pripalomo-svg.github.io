@@ -32,12 +32,12 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
 - `catalogo-videos.html` — catálogo interno de vídeos.
 - `dashboard.html` — **Desk**: painel interno com o link e uma frase de status
   de cada projeto; atalhos em `desk/` para salvar no Desktop.
-- `terapia-pro.html` — **Terap-ia OS**: sistema de banco da clínica (login/senha,
-  pacientes, agenda Google + WhatsApp). Mensalidade R$ 100 (Pix `11950690537`
-  ou PagSeguro/cartão). Sem tour de boas-vindas. Dados isolados por usuário
-  no navegador; nuvem recomendada para 1000 clínicas: **Supabase** (auth +
-  Postgres com RLS) + **Cloudflare R2** (arquivos, muito espaço).
-  Estilos/JS em `assets/terapia-os.css` e `assets/terapia-os.js`.
+- `terapia-pro.html` — **Terap-ia OS**: sistema da clínica. Abre direto,
+  sem tela de login. Na primeira tela dá para salvar o paciente (Enter) e
+  agendar hoje (um clique no horário). Agenda de outros dias no Google +
+  WhatsApp, busca e backup em JSON. O banco fica no IndexedDB deste
+  navegador (cabe mais de 1000 pacientes). Estilos/JS em
+  `assets/terapia-os.css` e `assets/terapia-os.js`.
 
 ## Conteúdo em Markdown (blog)
 
