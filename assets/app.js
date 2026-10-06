@@ -9,10 +9,16 @@ document.querySelectorAll('.nav-links a').forEach(a=>{
 });
 
 // Animação de revelar ao rolar
-const _obs=new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');_obs.unobserve(e.target);}});
-},{threshold:.12});
-document.querySelectorAll('.rv').forEach(el=>_obs.observe(el));
+if('IntersectionObserver' in window){
+  const _obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');_obs.unobserve(e.target);}});
+  },{threshold:0,rootMargin:'0px 0px -5% 0px'});
+  document.querySelectorAll('.rv').forEach(el=>_obs.observe(el));
+  // Garantia: nada fica invisível se o observer não disparar (leitores, auditorias, abas em segundo plano)
+  setTimeout(()=>document.querySelectorAll('.rv:not(.vis)').forEach(el=>el.classList.add('vis')),2500);
+}else{
+  document.querySelectorAll('.rv').forEach(el=>el.classList.add('vis'));
+}
 
 // Ano dinâmico no rodapé
 document.querySelectorAll('[data-year]').forEach(el=>el.textContent=new Date().getFullYear());
