@@ -1,35 +1,103 @@
-/* Dra. Priscila Palomo — scripts compartilhados */
+/* Priscila Palomo — scripts compartilhados */
 
-// Menu mobile
-function setMenu(open){
-  const links=document.querySelector('.nav-links');
-  if(!links)return;
-  links.classList.toggle('open',open);
-  document.querySelector('.nav-toggle')?.setAttribute('aria-expanded',String(open));
-}
-function toggleMenu(){
-  setMenu(!document.querySelector('.nav-links')?.classList.contains('open'));
-}
-document.querySelectorAll('.nav-links a').forEach(a=>{
-  a.addEventListener('click',()=>setMenu(false));
-});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false);});
-document.querySelector('.nav-toggle')?.setAttribute('aria-expanded','false');
+/* ----- Navegação ----- */
+(function(){
+  const header=document.querySelector('.site-header');
+  const main=document.querySelector('.nav-main');
+  const toggle=document.querySelector('.nav-toggle');
+  const overlay=document.querySelector('.nav-overlay');
+  const mq=window.matchMedia('(max-width: 1080px)');
 
-// Animação de revelar ao rolar
+  function setDrawer(open){
+    if(!main)return;
+    main.classList.toggle('open',open);
+    overlay?.classList.toggle('show',open);
+    toggle?.setAttribute('aria-expanded',String(open));
+    document.body.classList.toggle('nav-open',open);
+    if(!open)closeMenus();
+  }
+  function closeMenus(except){
+    document.querySelectorAll('.nav-link[aria-expanded="true"]').forEach(b=>{if(b!==except)b.setAttribute('aria-expanded','false');});
+  }
+  toggle?.addEventListener('click',()=>setDrawer(!main.classList.contains('open')));
+  overlay?.addEventListener('click',()=>setDrawer(false));
+
+  document.querySelectorAll('.has-menu > .nav-link').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      e.preventDefault();
+      const open=btn.getAttribute('aria-expanded')==='true';
+      closeMenus(btn);
+      btn.setAttribute('aria-expanded',String(!open));
+    });
+  });
+  document.addEventListener('click',e=>{
+    if(!e.target.closest('.has-menu'))closeMenus();
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){closeMenus();setDrawer(false);closePay();closeVideo();}
+  });
+  document.querySelectorAll('.nav-menu a, .nav-list > li > a').forEach(a=>a.addEventListener('click',()=>setDrawer(false)));
+  mq.addEventListener?.('change',()=>setDrawer(false));
+
+  if(header){
+    const onScroll=()=>header.classList.toggle('scrolled',window.scrollY>8);
+    onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+  }
+
+  // Legado (Desk, Extrato): <nav> simples com .nav-links
+  window.setMenu=function(open){
+    const links=document.querySelector('.nav-links');
+    if(!links)return;
+    links.classList.toggle('open',open);
+  };
+  window.toggleMenu=function(){
+    setMenu(!document.querySelector('.nav-links')?.classList.contains('open'));
+  };
+})();
+
+/* ----- Revelar ao rolar ----- */
 if('IntersectionObserver' in window){
   const _obs=new IntersectionObserver((entries)=>{
     entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');_obs.unobserve(e.target);}});
   },{threshold:0,rootMargin:'0px 0px -5% 0px'});
   document.querySelectorAll('.rv').forEach(el=>_obs.observe(el));
-  // Garantia: nada fica invisível se o observer não disparar (leitores, auditorias, abas em segundo plano)
   setTimeout(()=>document.querySelectorAll('.rv:not(.vis)').forEach(el=>el.classList.add('vis')),2500);
 }else{
   document.querySelectorAll('.rv').forEach(el=>el.classList.add('vis'));
 }
 
-// Ano dinâmico no rodapé
+/* ----- Ano no rodapé ----- */
 document.querySelectorAll('[data-year]').forEach(el=>el.textContent=new Date().getFullYear());
+
+/* ----- Toast ----- */
+function toast(msg,ms){
+  let t=document.querySelector('.toast');
+  if(!t){t=document.createElement('div');t.className='toast';t.setAttribute('role','status');document.body.appendChild(t);}
+  t.textContent=msg;
+  requestAnimationFrame(()=>t.classList.add('show'));
+  clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),ms||3200);
+}
+
+/* ----- Vídeo institucional (hero) ----- */
+function openVideo(){
+  const m=document.getElementById('videoModal');
+  if(!m)return;
+  const v=m.querySelector('video');
+  document.querySelector('.hero-video video')?.pause();
+  m.classList.add('open');
+  document.body.style.overflow='hidden';
+  if(v){v.currentTime=0;v.muted=false;v.play().catch(()=>{});}
+  m.querySelector('.video-modal-close')?.focus();
+}
+function closeVideo(){
+  const m=document.getElementById('videoModal');
+  if(!m||!m.classList.contains('open'))return;
+  m.querySelector('video')?.pause();
+  m.classList.remove('open');
+  document.body.style.overflow='';
+  document.querySelector('.hero-video video')?.play().catch(()=>{});
+}
+document.addEventListener('click',e=>{if(e.target.id==='videoModal')closeVideo();});
 
 /* ----- Modal de pagamento (loja) ----- */
 const WHATSAPP='5511950690537';
@@ -46,7 +114,6 @@ function openPay(nome,preco){
   const msg=encodeURIComponent('Olá Dra. Priscila! Tenho interesse no material "'+nome+'"'+(preco?(' ('+preco+')'):'')+'. Pode me enviar mais informações?');
   m.querySelector('[data-wa]').href='https://wa.me/'+WHATSAPP+'?text='+msg;
 
-  // Cartão de crédito: usa o link de checkout se configurado; senão, cai no WhatsApp.
   const card=m.querySelector('[data-card]');
   if(card){
     if(CARTAO_LINK){
@@ -64,7 +131,9 @@ function openPay(nome,preco){
   document.body.style.overflow='hidden';
 }
 function closePay(){
-  document.getElementById('payModal')?.classList.remove('open');
+  const m=document.getElementById('payModal');
+  if(!m||!m.classList.contains('open'))return;
+  m.classList.remove('open');
   document.body.style.overflow='';
 }
 function togglePix(){
@@ -77,14 +146,13 @@ function copyPix(btn){
   });
 }
 document.addEventListener('click',e=>{if(e.target.id==='payModal')closePay();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closePay();});
 
-// Newsletter NeuroNews (sem backend — abre WhatsApp com o e-mail)
+/* ----- Newsletter NeuroNews (sem backend: abre o WhatsApp com o e-mail) ----- */
 function subscribe(ev){
   ev.preventDefault();
   const email=ev.target.querySelector('input').value;
-  const msg=encodeURIComponent('Olá Priscila! Quero assinar a NeuroNews e receber suas historinhas e conteúdos. Meu e-mail: '+email);
+  const msg=encodeURIComponent('Olá Priscila! Quero assinar a NeuroNews. Meu e-mail: '+email);
   window.open('https://wa.me/'+WHATSAPP+'?text='+msg,'_blank');
   ev.target.reset();
-  alert('Que bom te ter por aqui! 💛 Em breve você começa a receber a NeuroNews.');
+  toast('Inscrição enviada. Você começa a receber a NeuroNews na próxima edição.');
 }
