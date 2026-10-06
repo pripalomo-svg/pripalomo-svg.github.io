@@ -28,10 +28,13 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
 
 ## Páginas
 
-- `index.html` — **home B2B (empresas)**: hero, faixa de instituições, dados
-  (NR-1, burnout, INSS), 5 soluções + card de diagnóstico gratuito, método em
-  4 etapas, calculadora de custo (seção escura), credenciais, faixa da clínica,
-  sobre, NeuroNews e CTA. Tem JSON-LD (Person + ProfessionalService + WebSite).
+- `index.html` — **home**: hero com **vídeo institucional** (loop mudo +
+  botão "Assistir com som" que abre `#videoModal`), faixa de instituições,
+  **dois caminhos** (empresas / pessoas), dados (NR-1, burnout, INSS), 6 blocos
+  de soluções (`.features`), método em 4 etapas, calculadora de custo,
+  credenciais, sobre, faixa da clínica, NeuroNews e CTA. JSON-LD (Person +
+  ProfessionalService + VideoObject + WebSite).
+- `privacidade.html` — política de privacidade (LGPD; `noindex`).
 - `loja.html` — **loja** de produtos digitais (checkout via modal `openPay`:
   Pix/WhatsApp/cartão). Landings em `produtos/<slug>.html`; conteúdo integral
   de cada produto em `produtos/conteudo/<slug>.md`.
@@ -70,50 +73,62 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
 
 ## Layout e componentes (design system)
 
-Todas as páginas públicas usam o **mesmo cabeçalho** (`<header class="site-header">`
-com `nav.nav.container`) e o **mesmo rodapé** (`<footer class="site-footer">`, 4
-colunas). Para criar uma página nova, copie esses dois blocos de `index.html`
-e marque `class="active"` no link certo. Componentes em `assets/style.css`:
-`page-hero`/`hero`, `section` (+ `--alt`, `--dark`, `--teal`, `--tight`),
-`container`, `section-head`, `kicker`, `lead`, `grid grid-2/3/4`, `split`,
-`card` (+ `--dark`, `--teal`, `checks`, `card-foot`), `stats`/`stat`, `steps`,
-`timeline`, `band`, `calc`, `video-card`, `post-grid`/`post-card`, `article`,
-`news`, `btn` (+ `-primary`, `-outline`, `-white`, `-lg`). Páginas internas
-(`dashboard.html`, `extrato-2026.html`) ainda usam `<nav>`/`<footer>` simples —
-há estilos legados para elas no fim do CSS; não remova.
+Cabeçalho, rodapé, skip link, breadcrumbs e botão flutuante de WhatsApp são
+**gerados por `tools/layout/injetar.py`** e aplicados a todas as páginas
+públicas (inclusive `produtos/*.html`, com prefixo `../`). Para mudar o menu
+ou o rodapé, edite o script e rode `python3 tools/layout/injetar.py`. Para
+uma página nova, deixe `<header class="site-header"></header>` e
+`<footer class="site-footer"></footer>` vazios, cadastre-a em `PAGINAS`
+(item ativo + breadcrumbs) e rode o script.
+
+Menu: **Para empresas** (dropdown com 6 itens) · **Para você** (dropdown com
+5 itens) · Ciência · Blog · Loja · Sobre + botão "Agendar conversa". No mobile
+vira gaveta lateral com acordeões (`assets/app.js`).
+
+Componentes em `assets/style.css`: `hero` (+ `hero-video`), `page-hero`,
+`crumbs`, `paths`/`path`, `trust`, `features`/`feature`, `section`
+(+ `--alt`, `--dark`, `--teal`, `--tight`), `section-head` (+ `--row`),
+`kicker`, `lead`, `grid grid-2/3/4`, `split`, `card` (+ `--dark`, `--teal`,
+`checks`, `card-foot`), `stats`/`stat`, `callout`, `steps`, `timeline`,
+`cred-list`, `quote`, `band`, `calc`, `video-card`, `post-grid`/`post-card`,
+`article`, `news`, `btn` (+ `-primary`, `-outline`, `-dark`, `-white`, `-lg`,
+`-sm`), `wa-float`, `toast`, `video-modal`. Páginas internas (`dashboard.html`,
+`extrato-2026.html`) usam `<nav>`/`<footer>` simples; há estilos legados no fim
+do CSS; não remova.
+
+Regras de estilo que mantêm o aspecto corporativo: uma única cor de ação
+(`--brand`), títulos em `Inter Tight` com tracking negativo, sem gradientes
+radiais, sem emojis na interface, ícones SVG de linha (24px, stroke 1.8),
+kickers em caixa baixa e travessões evitados em títulos.
 
 ## Identidade visual
 
-- Paleta: **navy `#0B2545`** (base, botões primários, rodapé), **teal `#13A89E`
-  / `#0E8079`** (acento, kickers, ícones), fundos brancos e cinza-azulado
-  `#F3F6F9`, dourado `#D9A441` só em detalhes. Tokens em `assets/style.css`
-  (`--navy`, `--teal`, `--bg-alt`…); os nomes antigos (`--preto`, `--dourado`,
-  `--creme`, `--sand`) continuam como aliases.
-- Tipografia: **Sora** (títulos, `--font-title`) e **Inter** (texto,
+- Paleta: **navy `#0B2545`** (títulos, rodapé, fundos escuros), **brand
+  `#0E7C76`** (botões, links, ícones; `--brand`), teal claro `#E6F4F2`, fundos
+  `#F5F7FA`, dourado `#C99A2E` só em detalhes. Tokens em `assets/style.css`
+  (`--navy`, `--brand`, `--bg-alt`…); `--teal`, `--teal-dark`, `--preto`,
+  `--dourado`, `--creme`, `--sand` continuam como aliases.
+- Tipografia: **Inter Tight** (títulos, `--font-title`) e **Inter** (texto,
   `--font-body`) via Google Fonts.
-- Logo: monograma "PP" em `assets/logo.svg`.
-- Navegação padrão: Início · Empresas · Fobias e ansiedade · Ciência · Blog ·
-  Loja · Sobre + CTA "Falar comigo" (WhatsApp).
+- Logo: monograma "P" em `assets/logo.svg`.
 - SEO: toda página pública tem `canonical`, Open Graph, `theme-color`; title
   30–65 caracteres e description 70–160 (o auditor cobra isso).
-- Estilos reutilizáveis: `.welcome` (boas-vindas), `.news` (newsletter NeuroNews).
 
 ## Contato e newsletter
 
 - WhatsApp e chave Pix em `assets/app.js` (`WHATSAPP`, `PIX_KEY`).
 - Newsletter **NeuroNews**: `subscribe()` em `app.js` (sem backend — abre o WhatsApp).
 
-## Vídeos "draw my life"
+## Vídeos
 
-Ficam em `tools/video-*` (ex.: `tools/video-linha-tempo`). Determinísticos
-(`window.__render(t)`), narração via `edge-tts`, captura com puppeteer, montagem
-com ffmpeg. Regenerar:
-
-```bash
-cd tools/video-linha-tempo && npm install && pip install edge-tts && python3 build.py
-```
-
-O MP4 final vai para `assets/videos/` e é embutido em `apresentacao.html`.
+- **Institucional** (`tools/video-institucional`): motion graphics em canvas
+  determinístico (`render/institucional.html`, `window.__render(t)`), narração
+  `edge-tts` (`script.json`), trilha ambiente própria (`compose_ambient.py`,
+  numpy), captura com puppeteer e MP4 1280×720 via ffmpeg. Saída:
+  `assets/videos/institucional.mp4` + `institucional-poster.jpg`, usados no
+  hero da home. Regenerar: `npm install && pip install edge-tts && python3 build.py`.
+- **"Draw my life"** (`tools/video-linha-tempo`, `video-historia`…): mesmo
+  esquema, embutidos em `apresentacao.html`.
 
 ## Qualidade e monitoramento
 

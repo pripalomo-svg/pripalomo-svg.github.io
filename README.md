@@ -40,7 +40,9 @@ renderizado no navegador (biblioteca `marked`), sem nenhum passo de build.
 | `posts/` | Artigos do blog, **um arquivo `.md` por artigo** |
 | `escada-segura.html` | Landing do **Programa Escada Segura** (produto pago) |
 | `terapia-pro.html` | **Terap-ia OS** — login, pacientes, agenda Google + WhatsApp (R$ 100/mês) |
-| `assets/style.css` | Design system (paleta navy/teal, fontes Sora + Inter, cabeçalho e rodapé únicos) |
+| `assets/style.css` | Design system v3 (navy + cor de ação única, Inter Tight + Inter) |
+| `tools/layout/` | Gera cabeçalho, rodapé e breadcrumbs de todas as páginas (`python3 tools/layout/injetar.py`) |
+| `tools/video-institucional/` | Vídeo institucional animado exibido no hero da home |
 | `tools/auditoria/` | Auditoria diária (SEO, links, peso) usada pelo workflow do GitHub |
 | `MONITORAMENTO.md` | Metas e rotina do monitoramento diário; agente em `.cursor/automation-monitor.md` |
 | `assets/logo.svg` | Logo (monograma PP) |
