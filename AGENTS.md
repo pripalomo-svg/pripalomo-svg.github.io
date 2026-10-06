@@ -26,7 +26,10 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
 - `index.html` — **home**: landing de psicoeducação sobre fobias (desenhos animados) + seção de boas-vindas e newsletter.
 - `blog.html` — **blog**: lista os artigos de `posts/*.md`.
 - `post.html?p=<slug>` — renderiza um artigo de `posts/<slug>.md`.
-- `cursos.html` — **cursos** (checkout na Hotmart; cards fixos no HTML).
+- `cursos.html` — **cursos**: cards a partir de `dados/projetos.json` (itens `tipo: "curso"`, inclusive o Terap-ia OS).
+- `produtos.html` — **loja Materiais**: demais itens de `dados/projetos.json`. Compra por `linkCheckout`, PDF grátis, página própria ou modal Pix/WhatsApp/cartão.
+- `painel.html` — **painel de vendas** (noindex): edita e publica `dados/projetos.json` na `main` via GitHub Contents API (token no `localStorage`, chave `pp_gh_token`). Também há o botão "Baixar projetos.json".
+- `jogo-avaliacao.html` — jogo lúdico de autoavaliação (tiro ao alvo + blocos). Não é diagnóstico.
 - `apresentacao.html` — bio + vídeos "draw my life".
 - `escada-segura.html` — landing do produto "Programa Escada Segura".
 - `catalogo-videos.html` — catálogo interno de vídeos.
@@ -48,8 +51,7 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
   `posts/index.json`. Veja `COMO-USAR.md`.
 - Markdown é renderizado no navegador com `marked` (CDN jsDelivr); há fallback
   simples se a CDN falhar.
-- Obs.: a pasta `produtos/*.md` é um resquício da antiga loja (removida); os
-  cursos hoje ficam fixos em `cursos.html`.
+- Obs.: a pasta `produtos/*.md` é um resquício da antiga loja e não é lida por nenhuma página. A loja atual é `produtos.html` + `dados/projetos.json`.
 
 ## Identidade visual
 

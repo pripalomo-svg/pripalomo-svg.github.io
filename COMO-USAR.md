@@ -8,6 +8,17 @@ Sempre que você salvar ("Commit changes"), o site atualiza em 1 a 2 minutos.
 
 ---
 
+## Painel, loja e jogo
+
+- **Painel (editar e publicar produtos):** https://www.priscilapalomo.com/painel.html
+- **Desk (atalhos de todos os projetos):** https://www.priscilapalomo.com/dashboard.html
+- **Loja Materiais:** https://www.priscilapalomo.com/produtos.html
+- **Jogo de autoavaliação:** https://www.priscilapalomo.com/jogo-avaliacao.html
+
+No painel, o botão **Publicar no site** precisa de um código do GitHub (token), colado uma vez. O passo a passo está dentro do painel. Sem o código, use **Baixar projetos.json** e substitua o arquivo `dados/projetos.json` no GitHub.
+
+---
+
 ## Escrever um novo artigo no blog
 
 São **dois passos**: criar o arquivo do artigo e registrá-lo no índice.
