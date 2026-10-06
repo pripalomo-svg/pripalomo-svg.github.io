@@ -1,12 +1,20 @@
 /* Dra. Priscila Palomo — scripts compartilhados */
 
 // Menu mobile
+function setMenu(open){
+  const links=document.querySelector('.nav-links');
+  if(!links)return;
+  links.classList.toggle('open',open);
+  document.querySelector('.nav-toggle')?.setAttribute('aria-expanded',String(open));
+}
 function toggleMenu(){
-  document.querySelector('.nav-links')?.classList.toggle('open');
+  setMenu(!document.querySelector('.nav-links')?.classList.contains('open'));
 }
 document.querySelectorAll('.nav-links a').forEach(a=>{
-  a.addEventListener('click',()=>document.querySelector('.nav-links')?.classList.remove('open'));
+  a.addEventListener('click',()=>setMenu(false));
 });
+document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false);});
+document.querySelector('.nav-toggle')?.setAttribute('aria-expanded','false');
 
 // Animação de revelar ao rolar
 if('IntersectionObserver' in window){

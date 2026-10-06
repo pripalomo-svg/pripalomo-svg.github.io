@@ -41,6 +41,36 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://www.priscilapalomo.com/produtos/kit-nr1.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.priscilapalomo.com/produtos/playbook-lideranca-regulada.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.priscilapalomo.com/produtos/palestra-burnout.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.priscilapalomo.com/produtos/guia-medo-de-voar.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.priscilapalomo.com/produtos/programa-falar-em-publico.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.priscilapalomo.com/produtos/mente-regulada-audios.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.priscilapalomo.com/post.html?p=historinha-segunda-flecha</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>

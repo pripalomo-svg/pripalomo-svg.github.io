@@ -137,7 +137,14 @@
     const titulo = meta.titulo || slug;
 
     document.title = titulo + ' — Priscila Palomo';
-    document.querySelector('meta[name="description"]').content = (meta.resumo || resumoDe(corpo, 120));
+    const descricao = meta.resumo || resumoDe(corpo, 120);
+    document.querySelector('meta[name="description"]').content = descricao;
+    // Canonical e Open Graph apontam para o artigo, não para post.html genérico
+    const urlArtigo = 'https://www.priscilapalomo.com/post.html?p=' + encodeURIComponent(slug);
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', urlArtigo);
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', urlArtigo);
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', descricao);
     elT.textContent = titulo;
     if(meta.tag){ elTag.textContent = meta.tag; elTag.style.display='inline-block'; }
     const partes = [];
