@@ -33,9 +33,11 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
 - `dashboard.html` — **Desk**: painel interno com o link e uma frase de status
   de cada projeto; atalhos em `desk/` para salvar no Desktop.
 - `terapia-pro.html` — **Terap-ia OS**: sistema da clínica. Abre direto,
-  sem tela de login. Pacientes, agenda Google + WhatsApp e backup em JSON.
-  O banco fica no IndexedDB deste navegador (cabe mais de 1000 pacientes).
-  Estilos/JS em `assets/terapia-os.css` e `assets/terapia-os.js`.
+  sem tela de login. Na primeira tela dá para salvar o paciente (Enter) e
+  agendar hoje (um clique no horário). Agenda de outros dias no Google +
+  WhatsApp, busca e backup em JSON. O banco fica no IndexedDB deste
+  navegador (cabe mais de 1000 pacientes). Estilos/JS em
+  `assets/terapia-os.css` e `assets/terapia-os.js`.
 
 ## Conteúdo em Markdown (blog)
 
