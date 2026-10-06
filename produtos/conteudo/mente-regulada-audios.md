@@ -3,22 +3,42 @@ titulo: Mente Regulada — 8 semanas de práticas (roteiros de áudio)
 slug: mente-regulada-audios
 preco: R$ 147
 tag: Pessoas · Regulação emocional
-formato: 8 roteiros de prática guiada (texto para gravar ou ler) + diário semanal + guia de gravação
+formato: 8 roteiros de prática guiada (texto para gravar ou ler) + 8 práticas informais + 8 diários semanais + guia de gravação + plano de manutenção
 autora: Priscila Palomo — Psicóloga (CRP 98007), PhD em Psicologia da Saúde (Universitat de València), instrutora MBSR/MBCT
-versao: 1.0 — 2026
+versao: 1.1 — 2026
 ---
 
 # Mente Regulada: 8 semanas de práticas
 
 **Oito roteiros de prática guiada, escritos para serem gravados com a sua própria voz (ou lidos em voz alta por alguém de confiança), mais um diário semanal e um guia de gravação.**
 
-Este programa adapta, para o contexto do trabalho e da vida adulta ocupada, a estrutura dos protocolos de oito semanas baseados em mindfulness — o MBSR (Mindfulness-Based Stress Reduction, de Jon Kabat-Zinn) e o MBCT (Mindfulness-Based Cognitive Therapy, de Segal, Williams e Teasdale). Esses protocolos estão entre as intervenções psicológicas mais estudadas do mundo: metanálises mostram efeitos moderados e consistentes na redução de estresse, ansiedade e sintomas depressivos, e estudos de neuroimagem mostram mudanças em regiões ligadas à atenção, à regulação emocional e à percepção do corpo após oito semanas de prática regular.
+Este programa adapta, para o contexto do trabalho e da vida adulta ocupada, a estrutura dos protocolos de oito semanas baseados em mindfulness — o MBSR (Mindfulness-Based Stress Reduction, de Jon Kabat-Zinn) e o MBCT (Mindfulness-Based Cognitive Therapy, de Segal, Williams e Teasdale). Esses protocolos estão entre as intervenções psicológicas mais estudadas do mundo: metanálises mostram efeitos pequenos a moderados, e consistentes, na redução de estresse, ansiedade e sintomas depressivos (Goyal et al., 2014; Khoury et al., 2015), e o MBCT reduz o risco de recaída em depressão recorrente (Kuyken et al., 2016). Sobre o cérebro, é preciso honestidade: estudos iniciais sugeriram mudanças estruturais após oito semanas (Hölzel et al., 2011), mas dois ensaios controlados maiores e mais rigorosos não encontraram alterações estruturais nesse prazo (Kral et al., 2022). O que está bem estabelecido são mudanças funcionais em redes de atenção e regulação emocional e, sobretudo, os efeitos clínicos medidos por escalas (Tang, Hölzel & Posner, 2015; Creswell, 2017).
 
-A proposta de usar a própria voz não é um detalhe. Pesquisas em autocompaixão e em regulação emocional sugerem que ouvir a si mesmo em tom calmo e cuidadoso ativa o mesmo sistema de segurança que a voz de alguém querido — e você sempre terá a sua voz com você. Se preferir, grave com um amigo ou familiar, ou simplesmente leia os roteiros devagar.
+**Por que gravar com a própria voz.** A razão principal é prática: você sempre terá a sua voz com você, e gravar obriga a ler cada roteiro com atenção, o que ensina a estrutura da prática. Há também uma hipótese, ainda pouco testada, de que dirigir a si mesmo um tom de voz calmo e acolhedor favoreça o sistema de "segurança e afiliação" descrito por Paul Gilbert; trate isso como hipótese, não como fato comprovado. Se preferir, grave com um amigo ou familiar, ou simplesmente leia os roteiros devagar.
 
-**Como funciona:** uma prática principal por semana, de 10 a 20 minutos, feita pelo menos cinco dias por semana, mais uma prática informal (de 1 a 3 minutos) integrada à rotina de trabalho. Ao final de cada semana, o diário. Não existe "fazer certo"; existe fazer com regularidade.
+**Este é um material psicoeducativo.** Ele não substitui psicoterapia nem avaliação profissional. Mindfulness é um treino de saúde, não um tratamento para transtornos; leia a seção "Quando procurar ajuda profissional" antes de começar, sobretudo se você tem histórico de trauma, depressão ou crises de ansiedade.
+
+**Como funciona:** uma prática principal por semana, de 3 a 20 minutos, feita pelo menos cinco dias por semana, mais uma prática informal (de 1 a 3 minutos) integrada à rotina de trabalho. Ao final de cada semana, o diário. Não existe "fazer certo"; existe fazer com regularidade.
 
 **Nota:** mindfulness não é relaxamento (embora o relaxamento possa acontecer), não é esvaziar a mente (a mente produz pensamentos; esse é o trabalho dela) e não é uma técnica para eliminar emoções difíceis. É o treino de perceber o que está acontecendo — no corpo, na mente, ao redor — com uma atitude de curiosidade em vez de luta. Esse "perceber sem lutar" é o que, aos poucos, muda a relação com o estresse.
+
+## Sumário
+
+0. Guia de gravação
+1. Semana 1 — Chegar: atenção à respiração (10 min)
+2. Semana 2 — Habitar o corpo: escaneamento corporal (20 min)
+3. Semana 3 — A pausa de três minutos (3 min)
+4. Semana 4 — Movimento consciente (12 min)
+5. Semana 5 — Sons e pensamentos (15 min)
+6. Semana 6 — Trabalhar com a dificuldade (15 min)
+7. Semana 7 — Bondade e autocompaixão (12 min)
+8. Semana 8 — Prática integrada para o dia de trabalho (10 min)
+9. Depois das oito semanas (manutenção e medição)
+10. Quando procurar ajuda profissional
+11. Nota ética
+12. Referências
+
+**O que está incluído:** 8 roteiros completos com pausas marcadas em segundos (total de cerca de 97 minutos de prática gravada); 8 práticas informais para o trabalho; 8 diários semanais com perguntas de reflexão; guia de gravação; plano de manutenção; orientação para medir estresse percebido com a PSS-10 antes e depois.
 
 ---
 
@@ -30,6 +50,8 @@ A proposta de usar a própria voz não é um detalhe. Pesquisas em autocompaixã
 - **Erros:** se errar, repita a frase e siga. Não precisa ser perfeito; precisa ser gentil.
 - **Reticências (…)** indicam pausa curta, de 2 a 3 segundos, no meio da frase.
 - Grave uma prática por semana, no domingo, e use-a nos dias seguintes.
+- **Como usar a semana:** 1) leia o tema e o roteiro; 2) grave; 3) pratique com o áudio pelo menos cinco dias; 4) faça a prática informal nos dias de trabalho; 5) responda ao diário no fim da semana.
+- **Segurança:** se durante uma prática surgir angústia intensa, dissociação (sensação de estar fora do corpo) ou memórias traumáticas, abra os olhos, apoie os pés no chão, nomeie cinco objetos que vê e interrompa a prática. Isso é um sinal para fazer o programa com acompanhamento profissional, não para insistir.
 
 ---
 
@@ -241,7 +263,7 @@ Dias em que pratiquei: ___. A dificuldade que trouxe e onde ela apareceu no corp
 
 ## Semana 7 — Bondade e autocompaixão (12 minutos)
 
-**Tema da semana:** o tom da voz interna. Pessoas em estresse crônico costumam ter um crítico interno severo; a pesquisa de Kristin Neff e Paul Gilbert mostra que a autocrítica ativa o sistema de ameaça (o mesmo do estresse), enquanto a autocompaixão ativa o sistema de segurança e cuidado — e está associada a mais resiliência e menos burnout, sem reduzir a exigência.
+**Tema da semana:** o tom da voz interna. Pessoas em estresse crônico costumam ter um crítico interno severo; o trabalho de Kristin Neff e de Paul Gilbert sugere que a autocrítica recruta o sistema de ameaça (o mesmo do estresse), enquanto a autocompaixão recruta o sistema de segurança e cuidado (Gilbert, 2009; Longe et al., 2010) — e a autocompaixão está associada, em estudos correlacionais, a menos sintomas de estresse e burnout, sem reduzir a exigência consigo mesmo (Neff, 2003).
 
 **Prática informal:** ao perceber autocrítica, pergunte: "o que eu diria a um colega querido nesta situação?" — e diga isso a si mesmo.
 
@@ -311,11 +333,19 @@ Dias em que pratiquei: ___. Comparando com a Semana 1: o que mudou na minha rela
 - **Mantenha as âncoras informais.** São elas que fazem a prática chegar ao momento de estresse real.
 - **Volte à Semana 6** sempre que estiver num período difícil: aproximar-se é o que mais protege contra a evitação.
 - **Considere um grupo.** A prática em grupo, presencial ou online, sustenta a continuidade; é por isso que os protocolos originais são em grupo.
-- **Se quiser medir:** aplique uma escala de estresse percebido (PSS-10, de acesso livre) antes da Semana 1 e depois da Semana 8. Comparar números ajuda a ver o que a sensação subjetiva às vezes esconde.
+- **Se quiser medir:** aplique a Escala de Estresse Percebido (PSS-10; Cohen, Kamarck & Mermelstein, 1983), que tem versão validada em português do Brasil (Reis, Hino & Añez, 2010) e é de uso livre para fins não comerciais, antes da Semana 1 e depois da Semana 8. Comparar números ajuda a ver o que a sensação subjetiva às vezes esconde — e uma redução pequena ou nenhuma também é informação útil.
 
 ## Quando procurar ajuda profissional
 
-Mindfulness é um treino de saúde, não um tratamento para transtornos. Se você estiver com sintomas depressivos persistentes, crises de ansiedade frequentes, histórico de trauma que a prática esteja reativando, ou pensamentos de não querer viver, procure um psicólogo ou médico. Nesses casos, a prática pode ser muito útil — mas acompanhada.
+Este material é psicoeducação e não substitui atendimento. Mindfulness é um treino de saúde, não um tratamento para transtornos. Procure um psicólogo ou médico se:
+
+- Você estiver com sintomas depressivos persistentes (humor baixo, perda de interesse, alterações de sono e apetite por mais de duas semanas).
+- Houver crises de ansiedade ou pânico frequentes.
+- Você tiver histórico de trauma e perceber que as práticas (sobretudo o escaneamento corporal e a Semana 6) reativam memórias ou provocam dissociação.
+- Surgirem pensamentos de não querer viver ou de se machucar — nesse caso, procure ajuda imediatamente: CVV pelo 188 (24 horas), serviço de emergência ou pessoa de confiança.
+- O estresse no trabalho envolver assédio ou sobrecarga crônica: a prática ajuda a atravessar, mas o problema é organizacional e precisa de outra resposta.
+
+Nesses casos, a prática pode ser muito útil — mas acompanhada.
 
 ---
 
@@ -330,12 +360,15 @@ Este material é psicoeducativo e baseado em protocolos com evidência científi
 - Kabat-Zinn, J. (1990/2013). *Full Catastrophe Living: Using the Wisdom of Your Body and Mind to Face Stress, Pain, and Illness.* Bantam.
 - Segal, Z. V., Williams, J. M. G., & Teasdale, J. D. (2013). *Mindfulness-Based Cognitive Therapy for Depression* (2nd ed.). Guilford Press.
 - Khoury, B., Sharma, M., Rush, S. E., & Fournier, C. (2015). Mindfulness-based stress reduction for healthy individuals: A meta-analysis. *Journal of Psychosomatic Research, 78*(6), 519–528.
-- Goyal, M., Singh, S., Sibinga, E. M. S., et al. (2014). Meditation programs for psychological stress and well-being: A systematic review and meta-analysis. *JAMA Internal Medicine, 174*(3), 357–368.
+- Goyal, M., Singh, S., Sibinga, E. M. S., Gould, N. F., Rowland-Seymour, A., Sharma, R., Berger, Z., Sleicher, D., Maron, D. D., Shihab, H. M., Ranasinghe, P. D., Linn, S., Saha, S., Bass, E. B., & Haythornthwaite, J. A. (2014). Meditation programs for psychological stress and well-being: A systematic review and meta-analysis. *JAMA Internal Medicine, 174*(3), 357–368.
 - Tang, Y.-Y., Hölzel, B. K., & Posner, M. I. (2015). The neuroscience of mindfulness meditation. *Nature Reviews Neuroscience, 16*(4), 213–225.
-- Hölzel, B. K., Carmody, J., Vangel, M., et al. (2011). Mindfulness practice leads to increases in regional brain gray matter density. *Psychiatry Research: Neuroimaging, 191*(1), 36–43.
-- Kuyken, W., Warren, F. C., Taylor, R. S., et al. (2016). Efficacy of mindfulness-based cognitive therapy in prevention of depressive relapse. *JAMA Psychiatry, 73*(6), 565–574.
+- Hölzel, B. K., Carmody, J., Vangel, M., Congleton, C., Yerramsetti, S. M., Gard, T., & Lazar, S. W. (2011). Mindfulness practice leads to increases in regional brain gray matter density. *Psychiatry Research: Neuroimaging, 191*(1), 36–43.
+- Kral, T. R. A., Davis, K., Korponay, C., Hirshberg, M. J., Hoel, R., Tello, L. Y., Goldman, R. I., Rosenkranz, M. A., Lutz, A., & Davidson, R. J. (2022). Absence of structural brain changes from mindfulness-based stress reduction: Two combined randomized controlled trials. *Science Advances, 8*(20), eabk3316.
+- Kuyken, W., Warren, F. C., Taylor, R. S., Whalley, B., Crane, C., Bondolfi, G., Hayes, R., Huijbers, M., Ma, H., Schweizer, S., Segal, Z., Speckens, A., Teasdale, J. D., Van Heeringen, K., Williams, M., Byford, S., Byng, R., & Dalgleish, T. (2016). Efficacy of mindfulness-based cognitive therapy in prevention of depressive relapse. *JAMA Psychiatry, 73*(6), 565–574.
 - Neff, K. D. (2003). Self-compassion: An alternative conceptualization of a healthy attitude toward oneself. *Self and Identity, 2*(2), 85–101.
 - Gilbert, P. (2009). Introducing compassion-focused therapy. *Advances in Psychiatric Treatment, 15*(3), 199–208.
+- Longe, O., Maratos, F. A., Gilbert, P., Evans, G., Volker, F., Rockliff, H., & Rippon, G. (2010). Having a word with yourself: Neural correlates of self-criticism and self-reassurance. *NeuroImage, 49*(2), 1849–1856.
 - Creswell, J. D. (2017). Mindfulness interventions. *Annual Review of Psychology, 68*, 491–516.
 - Lomas, T., Medina, J. C., Ivtzan, I., Rupprecht, S., & Eiroa-Orosa, F. J. (2019). Mindfulness-based interventions in the workplace: An inclusive systematic review and meta-analysis of their impact upon wellbeing. *The Journal of Positive Psychology, 14*(5), 625–640.
 - Cohen, S., Kamarck, T., & Mermelstein, R. (1983). A global measure of perceived stress. *Journal of Health and Social Behavior, 24*(4), 385–396.
+- Reis, R. S., Hino, A. A. F., & Añez, C. R. R. (2010). Perceived Stress Scale: Reliability and validity study in Brazil. *Journal of Health Psychology, 15*(1), 107–114.
