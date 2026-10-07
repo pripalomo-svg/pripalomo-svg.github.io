@@ -928,10 +928,12 @@
     Object.keys(rotuloFonte).forEach((id) => {
       if (porFamilia[id] > 0.004) fontes.push(rotuloFonte[id] + " (" + brl(porFamilia[id]) + ")");
     });
-    let origem = fontes.length ? "O dinheiro veio " + juntar(fontes) + "." : "";
+    let origem = "";
     if (m.cofrinhoEntrada > 0.004) {
-      origem += (origem ? " " : "") +
-        "Desse total, " + brl(m.cofrinhoEntrada) + " são transferências para os cofrinhos e entram na conta do que entrou.";
+      origem = "Desse valor que entrou, " + brl(m.cofrinhoEntrada) + " foi para os cofrinhos.";
+    }
+    if (fontes.length) {
+      origem += (origem ? " O restante veio " : "O dinheiro veio ") + juntar(fontes) + ".";
     }
     if (origem) frases.push(origem);
 
@@ -1068,7 +1070,9 @@
     caixa.innerHTML = itens.map((item) => htmlColuna(item, max)).join("");
     const frase = document.getElementById("entradas-frase");
     if (frase && itens[0]) {
-      frase.textContent = "A maior entrada foi " + itens[0].nome + ", com " + brl(itens[0].valor) + ".";
+      frase.textContent = itens[0].chave === "__demais__"
+        ? "A barra maior junta salário, transferências e outras entradas: " + brl(itens[0].valor) + "."
+        : "A maior entrada foi " + itens[0].nome + ", com " + brl(itens[0].valor) + ".";
     }
   }
 
@@ -1082,7 +1086,7 @@
     const principais = grupo.principais;
     if (frase && principais.length) {
       const top = principais.slice(0, 3);
-      frase.textContent = "Saiu mais para " + juntar(top.map((item) => item.nome + ", " + brl(item.valor))) + ".";
+      frase.textContent = "Saiu mais para " + juntar(top.map((item) => item.nome + " (" + brl(item.valor) + ")")) + ".";
     }
   }
 
