@@ -3,118 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Programa Escada Segura — Dra. Priscila Palomo</title>
-<meta name="description" content="Harry Potter e a Magia da Coragem: a batalha secreta contra o Devorador de Coragem e um amor que parecia impossível. Uma historinha lúdica e cheia de ganchos sobre fobias, Psicologia e TCC, ilustrada em estilo anime. Dra. Priscila Palomo (CRP 98007).">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>P</text></svg>">
+<title>Harry Potter e a Magia da Coragem — livro ilustrado sobre medos</title>
+<meta name="description" content="Livro ilustrado em 21 capítulos que ensina, com histórias, a encolher medos e fobias passo a passo. Programa Escada Segura, de Priscila Palomo.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="canonical" href="https://www.priscilapalomo.com/escada-segura.html">
+<meta property="og:title" content="Harry Potter e a Magia da Coragem — livro ilustrado sobre medos">
+<meta property="og:description" content="Livro ilustrado em 21 capítulos que ensina, com histórias, a encolher medos e fobias passo a passo. Programa Escada Segura, de Priscila Palomo.">
+<meta property="og:image" content="https://www.priscilapalomo.com/assets/avatar-priscila.jpg">
+<meta property="og:url" content="https://www.priscilapalomo.com/escada-segura.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B2545">
 <link rel="stylesheet" href="assets/style.css">
 <style>
-:root {
-  --fb-navy:  #0E4A57;
-  --fb-ink:   #111111;
-  --fb-paper: #FFFFFF;
-  --fb-line:  rgba(17,17,17,.15);
-  --fb-pale:  #EAF2F2;
-  --fb-orange:#E27A2E;
-}
-.es-page { background: var(--fb-paper); color: var(--fb-ink); }
-.es-page h1, .es-page h2, .es-page h3 { color: var(--fb-ink); }
-
-.es-hero {
-  padding: 56px 0 48px; border-bottom: 2px solid var(--fb-ink);
-  background: linear-gradient(180deg, #EAF2F2 0%, #FFFFFF 55%);
-}
-.es-kicker { font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--fb-navy); font-weight: 700; display: block; margin-bottom: 14px; }
-.es-hero h1 { font-size: clamp(32px, 5.5vw, 52px); line-height: 1.05; margin-bottom: 16px; max-width: 16ch; }
-.es-hero h1 em { font-style: normal; color: var(--fb-navy); }
-.es-lead { font-size: 15px; line-height: 1.7; max-width: 52ch; color: #333; margin-bottom: 28px; }
-.es-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.es-price-inline { font-size: 13px; color: #555; }
-.es-price-inline .now { font-weight: 700; color: var(--fb-ink); font-size: 18px; }
+.es-hero { padding: clamp(48px,7vw,88px) 0 clamp(40px,5vw,64px); border-bottom: 1px solid var(--line);
+  background: radial-gradient(900px 400px at 90% -20%, rgba(19,168,158,.14), transparent 60%), linear-gradient(180deg, var(--bg-alt) 0%, #fff 100%); }
+.es-hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(32px,6vw,80px); align-items: center; }
+.es-cover img { width: min(380px,100%); aspect-ratio: 3/4; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); justify-self: end; margin-left: auto; }
+.es-kicker { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--teal-dark); font-weight: 700; margin-bottom: 18px; }
+.es-kicker::before { content: ''; width: 22px; height: 2px; background: currentColor; }
+.es-hero h1 { font-size: clamp(34px,4.6vw,56px); margin-bottom: 18px; }
+.es-hero h1 em { font-style: normal; color: var(--teal-dark); }
+.es-lead { font-size: clamp(16px,1.4vw,18px); line-height: 1.7; max-width: 56ch; margin-bottom: 28px; }
+.es-hero-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.es-price-inline { font-size: 14px; color: var(--muted); }
+.es-price-inline .now { font-family: var(--font-title); font-weight: 800; color: var(--navy); font-size: 20px; }
 .es-price-inline .old { text-decoration: line-through; margin-right: 8px; }
-
-.es-section { padding: 48px 0; border-bottom: 1px solid var(--fb-line); }
-.es-label { font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--fb-navy); font-weight: 700; display: block; margin-bottom: 14px; }
-.es-section h2 { font-size: clamp(22px, 3.4vw, 32px); margin-bottom: 12px; max-width: 26ch; }
-.es-section p { font-size: 14px; line-height: 1.75; color: #333; max-width: 62ch; margin-bottom: 12px; }
-
-/* Cartões de conceito (historinhas) */
-.es-concepts { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px,100%),1fr)); gap: 18px; margin-top: 26px; }
-.es-concept {
-  border: 2px solid var(--fb-ink); border-radius: 14px; padding: 24px 22px 26px;
-  display: flex; flex-direction: column; background: #fff;
-}
-.es-concept .es-ico { width: 100%; max-width: 220px; height: 150px; margin: 0 auto 14px; display: block; }
-.es-concept .tag { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--fb-orange); font-weight: 700; margin-bottom: 6px; }
-.es-concept h3 { font-size: 19px; line-height: 1.2; margin-bottom: 12px; }
-.es-concept .story {
-  background: var(--fb-pale); border-left: 4px solid var(--fb-navy);
-  padding: 13px 15px; border-radius: 0 10px 10px 0;
-  font-size: 13.5px; line-height: 1.65; color: #2a2a2a; margin-bottom: 12px;
-}
-.es-concept .real { font-size: 12.5px; line-height: 1.6; color: #555; margin-top: auto; }
-.es-concept .real strong { color: var(--fb-navy); }
-
-.es-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px,100%),1fr)); gap: 20px; margin-top: 26px; }
-.es-gallery figure { margin: 0; border: 2px solid var(--fb-ink); border-radius: 14px; overflow: hidden; background: #fff; }
+.es-section { padding: clamp(56px,7vw,88px) 0; border-bottom: 1px solid var(--line); }
+.es-section:nth-of-type(even) { background: var(--bg-alt); }
+.es-label { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--teal-dark); font-weight: 700; margin-bottom: 16px; }
+.es-label::before { content: ''; width: 22px; height: 2px; background: currentColor; }
+.es-section h2 { margin-bottom: 14px; max-width: 26ch; }
+.es-section p { font-size: 16px; line-height: 1.7; max-width: 64ch; margin-bottom: 12px; }
+.es-concepts { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px,100%),1fr)); gap: 20px; margin-top: 30px; }
+.es-concept { border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 24px; display: flex; flex-direction: column; background: #fff; transition: transform .25s, box-shadow .25s; }
+.es-concept:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.es-concept .es-ico { width: 100%; max-width: 200px; height: 140px; margin: 0 auto 14px; display: block; }
+.es-concept .tag { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--teal-dark); font-weight: 700; margin-bottom: 6px; }
+.es-concept h3 { font-size: 19px; margin-bottom: 12px; }
+.es-concept .story { background: var(--teal-light); border-left: 3px solid var(--teal); padding: 14px 16px; border-radius: 0 10px 10px 0; font-size: 14px; line-height: 1.65; margin-bottom: 12px; }
+.es-concept .real { font-size: 13.5px; line-height: 1.6; color: var(--muted); margin-top: auto; }
+.es-concept .real strong { color: var(--navy); }
+.es-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px,100%),1fr)); gap: 20px; margin-top: 30px; }
+.es-gallery figure { margin: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: #fff; }
 .es-gallery img { width: 100%; display: block; aspect-ratio: 4/3; object-fit: cover; }
-.es-gallery figcaption { padding: 14px 16px 16px; font-size: 13px; line-height: 1.6; color: #333; }
-.es-gallery figcaption strong { color: var(--fb-navy); }
-
-.es-list { list-style: none; margin-top: 20px; display: grid; gap: 0; border: 2px solid var(--fb-ink); }
-.es-list li { padding: 16px 18px; border-bottom: 1px solid var(--fb-line); font-size: 14px; line-height: 1.5; display: grid; grid-template-columns: 28px 1fr; gap: 10px; }
-.es-list li:last-child { border-bottom: none; }
-.es-list .n { font-weight: 700; color: var(--fb-navy); font-size: 13px; }
-
-.es-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 2px solid var(--fb-ink); margin-top: 22px; }
-.es-step { padding: 22px 18px; border-right: 1px solid var(--fb-line); }
-.es-step:last-child { border-right: none; }
-.es-step strong { display: block; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--fb-navy); margin-bottom: 8px; }
-.es-step p { font-size: 13px; margin: 0; max-width: none; }
-
-.es-offer { padding: 48px 0 64px; background: var(--fb-pale); border-bottom: 2px solid var(--fb-ink); }
-.es-offer-box { max-width: 520px; }
-.es-offer h2 { font-size: clamp(24px, 3.6vw, 34px); margin-bottom: 10px; }
-.es-offer .es-price { display: flex; align-items: baseline; gap: 10px; margin: 18px 0 8px; }
-.es-offer .es-price .now { font-size: 36px; font-weight: 700; color: var(--fb-ink); }
-.es-offer .es-price .old { font-size: 16px; color: #777; text-decoration: line-through; }
-.es-offer .hint { font-size: 13px; color: #555; margin-bottom: 22px; }
-.es-disclaimer { margin-top: 28px; font-size: 12px; color: #666; max-width: 56ch; line-height: 1.6; }
-
-.btn-navy { background: var(--fb-navy); color: #fff !important; box-shadow: none; }
-.btn-navy:hover { background: var(--fb-ink); }
-
-@media (max-width: 720px) {
-  .es-steps { grid-template-columns: 1fr; }
-  .es-step { border-right: none; border-bottom: 1px solid var(--fb-line); }
-  .es-step:last-child { border-bottom: none; }
-}
+.es-gallery figcaption { padding: 14px 16px 16px; font-size: 13.5px; line-height: 1.6; }
+.es-gallery figcaption strong { color: var(--navy); }
+.es-list { list-style: none; margin-top: 24px; display: grid; gap: 10px; }
+.es-list li { padding: 16px 18px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-sm); font-size: 15px; line-height: 1.5; display: grid; grid-template-columns: 32px 1fr; gap: 12px; }
+.es-list .n { font-family: var(--font-title); font-weight: 800; color: var(--teal-dark); font-size: 14px; }
+.es-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 26px; }
+.es-step { padding: 24px 22px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); }
+.es-step strong { display: block; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--teal-dark); margin-bottom: 8px; }
+.es-step p { font-size: 14.5px; margin: 0; max-width: none; }
+.es-offer { padding: clamp(56px,7vw,88px) 0; background: var(--navy); color: #fff; }
+.es-offer .es-label { color: var(--teal); }
+.es-offer h2, .es-offer h3 { color: #fff; }
+.es-offer p { color: rgba(255,255,255,.85); }
+.es-offer-box { max-width: 560px; }
+.es-offer .es-price { display: flex; align-items: baseline; gap: 12px; margin: 18px 0 8px; }
+.es-offer .es-price .now { font-family: var(--font-title); font-size: 40px; font-weight: 800; color: #fff; }
+.es-offer .es-price .old { font-size: 16px; color: rgba(255,255,255,.55); text-decoration: line-through; }
+.es-offer .hint { font-size: 14px; color: rgba(255,255,255,.7); margin-bottom: 22px; }
+.es-offer .btn-navy { background: #fff; color: var(--navy) !important; }
+.es-offer .btn-navy:hover { background: var(--teal-light); }
+.es-disclaimer { margin-top: 28px; font-size: 12.5px; color: rgba(255,255,255,.55); max-width: 60ch; line-height: 1.6; }
+@media (max-width: 820px) { .es-hero .wrap { grid-template-columns: 1fr; } .es-cover img { justify-self: start; margin-left: 0; width: min(280px,100%); } .es-steps { grid-template-columns: 1fr; } }
 </style>
 </head>
-<body class="es-page">
+<body>
 
-<nav>
-  <a class="nav-logo" href="index.html">
-    <img src="assets/logo.svg" alt="Priscila Palomo Psicologia">
-    <div class="nav-logo-text">
-      <span class="nav-logo-name">Priscila Palomo</span>
-      <span class="nav-logo-sub">Psicóloga · CRP 98007</span>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="nav-logo" href="index.html" aria-label="Priscila Palomo, página inicial">
+      <img src="assets/logo.svg" alt="" width="36" height="36">
+      <span class="nav-logo-text">
+        <span class="nav-logo-name">Priscila Palomo</span>
+        <span class="nav-logo-sub">Psicóloga · PhD · CRP 98007</span>
+      </span>
+    </a>
+    <nav class="nav-main" id="menu-principal" aria-label="Principal">
+      <ul class="nav-list">
+        <li class="has-menu">
+          <button class="nav-link" type="button" aria-expanded="false" aria-controls="menu-empresas">Para empresas <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-menu" id="menu-empresas">
+            <div class="nav-menu-grid">
+              <a class="nav-item" href="index.html#diagnostico"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg></span><span><strong>Diagnóstico NR-1</strong><small>Mapeamento de riscos psicossociais para o PGR</small></span></a>
+              <a class="nav-item" href="index.html#programa"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span><span><strong>Programa Mente Regulada</strong><small>Oito semanas de regulação emocional, com medição</small></span></a>
+              <a class="nav-item" href="index.html#lideranca"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span><strong>Liderança Regulada</strong><small>Formação de gestores em neurociência do estresse</small></span></a>
+              <a class="nav-item" href="index.html#palestras"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span><span><strong>Palestras e SIPAT</strong><small>Ciência traduzida em histórias, 60 a 90 minutos</small></span></a>
+              <a class="nav-item" href="pesquisa.html#healthtech"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2M9 2v2M15 20v2M9 20v2M2 15h2M2 9h2M20 15h2M20 9h2"/></svg></span><span><strong>Consultoria para healthtechs</strong><small>Validação clínica e desenho de evidência</small></span></a>
+              <a class="nav-item" href="index.html#calculadora"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01"/></svg></span><span><strong>Calculadora de custo</strong><small>Quanto o adoecimento mental custa à empresa</small></span></a>
+            </div>
+            <div class="nav-menu-foot"><a href="index.html#solucoes">Ver todas as soluções</a><a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Quero%20agendar%20o%20diagn%C3%B3stico%20inicial%20gratuito%20para%20minha%20empresa." target="_blank" rel="noopener">Agendar diagnóstico gratuito</a></div>
+          </div>
+        </li>
+        <li class="has-menu">
+          <button class="nav-link" type="button" aria-expanded="false" aria-controls="menu-voce">Para você <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-menu nav-menu--single" id="menu-voce">
+            <div class="nav-menu-grid">
+              <a class="nav-item" href="fobias.html"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span><span><strong>Fobias e ansiedade</strong><small>Atendimento com exposição gradual e realidade virtual</small></span></a>
+              <a class="nav-item" href="produtos/guia-medo-de-voar.html"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg></span><span><strong>Guia: medo de voar</strong><small>Programa de preparação para o próximo voo</small></span></a>
+              <a class="nav-item" href="produtos/programa-falar-em-publico.html"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span><strong>Falar em público</strong><small>Programa de 21 dias para ansiedade de desempenho</small></span></a>
+              <a class="nav-item" href="escada-segura.html"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span><span><strong>Livro Escada Segura</strong><small>Fobias na infância, para pais e cuidadores</small></span></a>
+              <a class="nav-item" href="produtos/mente-regulada-audios.html"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg></span><span><strong>Mente Regulada: áudios</strong><small>Oito práticas guiadas de regulação emocional</small></span></a>
+            </div>
+          </div>
+        </li>
+        <li><a class="nav-link" href="pesquisa.html">Ciência</a></li>
+        <li><a class="nav-link" href="blog.html">Blog</a></li>
+        <li><a class="nav-link active" href="loja.html">Loja</a></li>
+        <li><a class="nav-link" href="apresentacao.html">Sobre</a></li>
+      </ul>
+      <div class="nav-mobile-cta">
+        <a class="btn btn-primary" href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Quero%20conversar." target="_blank" rel="noopener">Agendar conversa</a>
+        <a class="btn btn-outline" href="mailto:pripalomo@outlook.com">pripalomo@outlook.com</a>
+      </div>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-primary" href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Quero%20conversar." target="_blank" rel="noopener">Agendar conversa</a>
+      <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal"><svg class="ic-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" x2="20" y1="7" y2="7"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="17" y2="17"/></svg><svg class="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
     </div>
-  </a>
-  <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
-  <ul class="nav-links">
-    <li><a href="index.html">Início</a></li>
-    <li><a href="blog.html">Blog</a></li>
-    <li><a href="cursos.html">Cursos</a></li>
-    <li><a href="terapia-pro.html">Terap-ia</a></li>
-    <li><a href="apresentacao.html">Minha história</a></li>
-    <li><a href="#comprar" class="nav-cta">Quero o programa</a></li>
-  </ul>
-</nav>
+  </div>
+  <div class="nav-overlay"></div>
+</header>
 
-<main>
+<main id="conteudo">
   <!-- HERO -->
   <header class="es-hero">
     <div class="wrap">
+    <div>
       <span class="es-kicker">Livro Infantil & Psicoeducativo</span>
       <h1>Harry Potter e a <em>Magia da Coragem</em></h1>
       <p class="es-lead">
@@ -129,6 +149,8 @@
         <span class="es-price-inline"><span class="old">R$&nbsp;197</span><span class="now">R$&nbsp;97</span></span>
       </div>
     </div>
+    <div class="es-cover"><img src="assets/img/hp/hp_cover.jpg" alt="Capa do livro Harry Potter e a Magia da Coragem"></div>
+  </div>
   </header>
 
   <!-- PARA QUEM -->
@@ -152,7 +174,7 @@
       <p>
         Ilustrado em estilo anime, com traços finos e paleta preto, branco e dourado — cada cena
         do livro mostra Harry Potter enfrentando o Devorador de Coragem e, aos poucos, se
-        aproximando de Hermione sem nunca ter certeza se o sentimento é correspondido. 💛
+        aproximando de Hermione sem nunca ter certeza se o sentimento é correspondido.
       </p>
 
       <div class="es-gallery">
@@ -197,7 +219,7 @@
         </div>
         <div class="es-step">
           <strong>Um Final Feliz</strong>
-          <p>O vilão encolhe, a confissão acontece na ponte coberta de neve, e o livro termina em casamento. 💛</p>
+          <p>O vilão encolhe, a confissão acontece na ponte coberta de neve, e o livro termina em casamento.</p>
         </div>
       </div>
     </div>
@@ -228,15 +250,15 @@
         <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
           <img src="assets/avatar-ilustrado.png" alt="Dra. Priscila Palomo"
                width="72" height="72"
-               style="width:72px;height:72px;object-fit:cover;border-radius:50%;border:2px solid #0E4A57">
+               style="width:72px;height:72px;object-fit:cover;border-radius:50%;border:2px solid #0B2545">
           <div>
-            <strong style="display:block;font-size:15px">Dra. Priscila Palomo</strong>
-            <span style="font-size:12px;color:#555">Psicóloga · CRP 98007 · Especialista em fobias</span>
+            <strong style="display:block;font-size:15px;color:#fff">Dra. Priscila Palomo</strong>
+            <span style="font-size:12px;color:rgba(255,255,255,.7)">Psicóloga · PhD · CRP 98007 · Especialista em fobias e ansiedade</span>
           </div>
         </div>
         <span class="es-label">Investimento</span>
         <h2>Harry Potter e a Magia da Coragem</h2>
-        <p style="font-size:14px;color:#333;max-width:48ch">
+        <p style="font-size:14px;max-width:48ch">
           Livro digital ilustrado em PDF · 21 capítulos contra o Devorador de Coragem ·
           um amor que parecia impossível até a confissão final · entrega pelo WhatsApp.
         </p>
@@ -259,15 +281,69 @@
   </section>
 </main>
 
-<footer>
-  <a href="index.html" class="foot-logo"><img src="assets/logo.svg" alt="Priscila Palomo Psicologia"></a>
-  <div class="foot-links">
-    <a href="blog.html">Blog</a>
-    <a href="cursos.html">Cursos</a>
-    <a href="terapia-pro.html">Terap-ia</a>
-    <a href="https://wa.me/5511950690537" target="_blank">WhatsApp</a>
+<a class="wa-float" href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Quero%20conversar." target="_blank" rel="noopener" aria-label="Falar pelo WhatsApp"><span class="wa-ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg></span><span>Falar no WhatsApp</span></a>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="assets/logo.svg" alt="">
+          <div><strong>Priscila Palomo</strong><span>Psicóloga · PhD · CRP 98007</span></div>
+        </div>
+        <p class="footer-desc">Saúde mental no trabalho com base em neurociência e evidência. Atendimento em São Paulo e online para todo o Brasil.</p>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/in/priscilapalomo" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.4 2H3.6A1.6 1.6 0 0 0 2 3.6v16.8A1.6 1.6 0 0 0 3.6 22h16.8a1.6 1.6 0 0 0 1.6-1.6V3.6A1.6 1.6 0 0 0 20.4 2zM8 19H5V9h3zM6.5 7.7A1.7 1.7 0 1 1 8.2 6a1.7 1.7 0 0 1-1.7 1.7zM19 19h-3v-4.9c0-1.2 0-2.7-1.6-2.7s-1.9 1.3-1.9 2.6V19h-3V9h2.9v1.4a3.2 3.2 0 0 1 2.9-1.6c3 0 3.6 2 3.6 4.6z"/></svg></a>
+          <a href="https://wa.me/5511950690537" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg></a>
+          <a href="mailto:pripalomo@outlook.com" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Para empresas</h4>
+        <ul class="footer-links">
+          <li><a href="index.html#diagnostico">Diagnóstico NR-1</a></li>
+          <li><a href="index.html#programa">Programa Mente Regulada</a></li>
+          <li><a href="index.html#lideranca">Liderança Regulada</a></li>
+          <li><a href="index.html#palestras">Palestras e SIPAT</a></li>
+          <li><a href="pesquisa.html#healthtech">Consultoria para healthtechs</a></li>
+          <li><a href="index.html#calculadora">Calculadora de custo</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Para você</h4>
+        <ul class="footer-links">
+          <li><a href="fobias.html">Fobias e ansiedade</a></li>
+          <li><a href="produtos/guia-medo-de-voar.html">Medo de voar</a></li>
+          <li><a href="produtos/programa-falar-em-publico.html">Falar em público</a></li>
+          <li><a href="escada-segura.html">Livro Escada Segura</a></li>
+          <li><a href="produtos/mente-regulada-audios.html">Áudios Mente Regulada</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Conteúdo</h4>
+        <ul class="footer-links">
+          <li><a href="pesquisa.html">Ciência e publicações</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="cursos.html">Cursos online</a></li>
+          <li><a href="loja.html">Loja</a></li>
+          <li><a href="apresentacao.html">Sobre a Priscila</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <ul class="footer-links">
+          <li><a href="https://wa.me/5511950690537" target="_blank" rel="noopener">+55 11 95069-0537</a></li>
+          <li><a href="mailto:pripalomo@outlook.com">pripalomo@outlook.com</a></li>
+          <li><a href="https://www.linkedin.com/in/priscilapalomo" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="http://lattes.cnpq.br/4124029805069326" target="_blank" rel="noopener">Currículo Lattes</a></li>
+          <li><a href="https://orcid.org/0000-0003-4936-6479" target="_blank" rel="noopener">ORCID</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year></span> Priscila Palomo · Psicóloga CRP 06/98007 · São Paulo, SP</span>
+      <span><a href="privacidade.html">Privacidade</a><a href="catalogo-videos.html">Vídeos</a><a href="dashboard.html">Desk</a></span>
+    </div>
   </div>
-  <span class="foot-info">© <span data-year></span> · CRP 98007</span>
 </footer>
 
 <!-- Modal pagamento -->
@@ -277,14 +353,14 @@
     <h3 data-prod></h3>
     <p class="m-sub" data-preco></p>
 
-    <a class="pay-opt" data-wa href="#" target="_blank">
+    <a class="pay-opt" data-wa href="#" target="_blank" rel="noopener">
       <div>
         <strong>Comprar pelo WhatsApp</strong>
         <small>Atendimento direto, recebe o PDF na hora</small>
       </div>
     </a>
 
-    <a class="pay-opt" data-card href="#" target="_blank">
+    <a class="pay-opt" data-card href="#" target="_blank" rel="noopener">
       <div>
         <strong>Cartão de crédito</strong>
         <small data-card-sub>Parcele em até 12x</small>
@@ -301,7 +377,7 @@
     <div class="pix-box">
       <small style="color:#999">Chave Pix (telefone):</small>
       <div class="pix-key">
-        <input type="text" value="11950690537" readonly>
+        <input type="text" value="11950690537" readonly aria-label="Chave Pix">
         <button onclick="copyPix(this)">Copiar</button>
       </div>
       <small style="display:block;margin-top:10px;color:#999">

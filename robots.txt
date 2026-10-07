@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard.html
+Disallow: /extrato-2026.html
+Disallow: /divulgacao.html
+Disallow: /kit-semana.html
+Disallow: /terapia-pro.html
+
+Sitemap: https://www.priscilapalomo.com/sitemap.xml

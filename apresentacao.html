@@ -3,303 +3,304 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minha história — Priscila Palomo</title>
-<meta name="description" content="A história por trás da Dra. Priscila Palomo — psicóloga, doutora pela Universidade de Valencia e especialista em fobias.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>P</text></svg">
+<title>Sobre Priscila Palomo — psicóloga e doutora em neurociência</title>
+<meta name="description" content="A história de Priscila Palomo: psicóloga, doutora cum laude pela Universitat de València e consultora em saúde mental no trabalho. Vídeos e trajetória.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="canonical" href="https://www.priscilapalomo.com/apresentacao.html">
+<meta property="og:title" content="Sobre Priscila Palomo — psicóloga e doutora em neurociência">
+<meta property="og:description" content="A história de Priscila Palomo: psicóloga, doutora cum laude pela Universitat de València e consultora em saúde mental no trabalho. Vídeos e trajetória.">
+<meta property="og:image" content="https://www.priscilapalomo.com/assets/avatar-priscila.jpg">
+<meta property="og:url" content="https://www.priscilapalomo.com/apresentacao.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B2545">
 <link rel="stylesheet" href="assets/style.css">
-<style>
-:root {
-  --mh-navy: #0E4A57;
-  --mh-ink: #111111;
-  --mh-green: #E27A2E;
-  --mh-paper: #FFFFFF;
-  --mh-tint: #EAF2F2;
-  --mh-line: rgba(17,17,17,.14);
-}
-.mh-page { background: var(--mh-paper); color: var(--mh-ink); }
-.mh-page h1, .mh-page h2 { color: var(--mh-ink); }
-
-/* ── HERO ── */
-.mh-hero {
-  padding: 56px 0 48px;
-  border-bottom: 2px solid var(--mh-ink);
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: clamp(28px,5vw,64px);
-  align-items: center;
-}
-.mh-portrait {
-  position: relative;
-}
-.mh-portrait img {
-  width: 100%;
-  aspect-ratio: 3/4;
-  object-fit: cover;
-  border: 2px solid var(--mh-ink);
-  display: block;
-}
-.mh-portrait-tag {
-  position: absolute;
-  bottom: -14px; left: 16px;
-  background: var(--mh-navy);
-  color: #fff;
-  font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
-  padding: 6px 12px;
-  font-weight: 700;
-}
-.mh-kicker {
-  font-size: 10px; letter-spacing: .26em; text-transform: uppercase;
-  color: var(--mh-navy); font-weight: 700; display: block; margin-bottom: 14px;
-}
-.mh-hero h1 {
-  font-size: clamp(32px,5vw,52px);
-  line-height: 1.06; margin-bottom: 18px; max-width: 14ch;
-}
-.mh-hero h1 em { font-style: normal; color: var(--mh-navy); }
-.mh-lead {
-  font-size: 15px; line-height: 1.75; color: #333; max-width: 52ch; margin-bottom: 24px;
-}
-.mh-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
-
-/* ── HISTÓRIA (timeline narrativa) ── */
-.mh-section { padding: 48px 0; border-bottom: 1px solid var(--mh-line); }
-.mh-label {
-  font-size: 10px; letter-spacing: .24em; text-transform: uppercase;
-  color: var(--mh-navy); font-weight: 700; display: block; margin-bottom: 16px;
-}
-.mh-section h2 { font-size: clamp(22px,3.4vw,32px); margin-bottom: 28px; max-width: 24ch; }
-
-.mh-story {
-  border: 2px solid var(--mh-ink);
-  display: flex; flex-direction: column;
-}
-.mh-beat {
-  display: grid;
-  grid-template-columns: 88px 1fr;
-  gap: 20px;
-  padding: 24px 22px;
-  border-bottom: 1px solid var(--mh-line);
-  opacity: 0; transform: translateY(14px);
-  transition: opacity .6s ease, transform .6s ease;
-}
-.mh-beat.vis { opacity: 1; transform: none; }
-.mh-beat:last-child { border-bottom: none; }
-.mh-beat-year {
-  font-size: 12px; font-weight: 700; color: var(--mh-navy);
-  letter-spacing: .04em; padding-top: 2px;
-}
-.mh-beat p { font-size: 14.5px; line-height: 1.7; color: #222; margin: 0; max-width: 62ch; }
-.mh-beat strong { color: var(--mh-ink); }
-
-@media (max-width: 720px) {
-  .mh-hero { grid-template-columns: 1fr; }
-  .mh-portrait { max-width: 260px; margin-inline: auto; }
-  .mh-beat { grid-template-columns: 1fr; gap: 6px; }
-}
-
-/* ── STATS ── */
-.mh-stats {
-  display: flex; gap: 36px; flex-wrap: wrap;
-  padding: 40px 0;
-}
-.mh-stat { display: flex; flex-direction: column; }
-.mh-stat-n { font-size: 34px; font-weight: 700; color: var(--mh-navy); line-height: 1; }
-.mh-stat-l { font-size: 12px; color: #666; margin-top: 6px; }
-
-/* ── CTA ── */
-.mh-cta { padding: 48px 0 64px; }
-.mh-cta h2 { font-size: clamp(22px,3.4vw,30px); margin-bottom: 10px; }
-.mh-cta p { font-size: 13px; color: #333; max-width: 56ch; margin-bottom: 20px; }
-.btn-navy { background: var(--mh-navy); color: #fff !important; box-shadow: none; }
-.btn-navy:hover { background: var(--mh-ink); }
-</style>
 </head>
-<body class="mh-page">
+<body>
 
-<nav>
-  <a class="nav-logo" href="index.html">
-    <img src="assets/logo.svg" alt="Priscila Palomo Psicologia">
-    <div class="nav-logo-text">
-      <span class="nav-logo-name">Priscila Palomo</span>
-      <span class="nav-logo-sub">Psicóloga · CRP 98007</span>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="nav-logo" href="index.html" aria-label="Priscila Palomo, página inicial">
+      <img src="assets/logo.svg" alt="" width="36" height="36">
+      <span class="nav-logo-text">
+        <span class="nav-logo-name">Priscila Palomo</span>
+        <span class="nav-logo-sub">Psicóloga · PhD · CRP 98007</span>
+      </span>
+    </a>
+    <nav class="nav-main" id="menu-principal" aria-label="Principal">
+      <ul class="nav-list">
+        <li class="has-menu">
+          <button class="nav-link" type="button" aria-expanded="false" aria-controls="menu-empresas">Para empresas <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-menu" id="menu-empresas">
+            <div class="nav-menu-grid">
+              <a class="nav-item" href="index.html#diagnostico"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg></span><span><strong>Diagnóstico NR-1</strong><small>Mapeamento de riscos psicossociais para o PGR</small></span></a>
+              <a class="nav-item" href="index.html#programa"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span><span><strong>Programa Mente Regulada</strong><small>Oito semanas de regulação emocional, com medição</small></span></a>
+              <a class="nav-item" href="index.html#lideranca"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span><strong>Liderança Regulada</strong><small>Formação de gestores em neurociência do estresse</small></span></a>
+              <a class="nav-item" href="index.html#palestras"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span><span><strong>Palestras e SIPAT</strong><small>Ciência traduzida em histórias, 60 a 90 minutos</small></span></a>
+              <a class="nav-item" href="pesquisa.html#healthtech"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2M9 2v2M15 20v2M9 20v2M2 15h2M2 9h2M20 15h2M20 9h2"/></svg></span><span><strong>Consultoria para healthtechs</strong><small>Validação clínica e desenho de evidência</small></span></a>
+              <a class="nav-item" href="index.html#calculadora"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01"/></svg></span><span><strong>Calculadora de custo</strong><small>Quanto o adoecimento mental custa à empresa</small></span></a>
+            </div>
+            <div class="nav-menu-foot"><a href="index.html#solucoes">Ver todas as soluções</a><a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Quero%20agendar%20o%20diagn%C3%B3stico%20inicial%20gratuito%20para%20minha%20empresa." target="_blank" rel="noopener">Agendar diagnóstico gratuito</a></div>
+          </div>
+        </li>
+        <li class="has-menu">
+          <button class="nav-link" type="button" aria-expanded="false" aria-controls="menu-voce">Para você <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-menu nav-menu--single" id="menu-voce">
+            <div class="nav-menu-grid">
+              <a class="nav-item" href="fobias.html"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span><span><strong>Fobias e ansiedade</strong><small>Atendimento com exposição gradual e realidade virtual</small></span></a>
+              <a class="nav-item" href="produtos/guia-medo-de-voar.html"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg></span><span><strong>Guia: medo de voar</strong><small>Programa de preparação para o próximo voo</small></span></a>
+              <a class="nav-item" href="produtos/programa-falar-em-publico.html"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span><strong>Falar em público</strong><small>Programa de 21 dias para ansiedade de desempenho</small></span></a>
+              <a class="nav-item" href="escada-segura.html"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span><span><strong>Livro Escada Segura</strong><small>Fobias na infância, para pais e cuidadores</small></span></a>
+              <a class="nav-item" href="produtos/mente-regulada-audios.html"><span class="nav-item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg></span><span><strong>Mente Regulada: áudios</strong><small>Oito práticas guiadas de regulação emocional</small></span></a>
+            </div>
+          </div>
+        </li>
+        <li><a class="nav-link" href="pesquisa.html">Ciência</a></li>
+        <li><a class="nav-link" href="blog.html">Blog</a></li>
+        <li><a class="nav-link" href="loja.html">Loja</a></li>
+        <li><a class="nav-link active" href="apresentacao.html">Sobre</a></li>
+      </ul>
+      <div class="nav-mobile-cta">
+        <a class="btn btn-primary" href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Quero%20conversar." target="_blank" rel="noopener">Agendar conversa</a>
+        <a class="btn btn-outline" href="mailto:pripalomo@outlook.com">pripalomo@outlook.com</a>
+      </div>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-primary" href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Quero%20conversar." target="_blank" rel="noopener">Agendar conversa</a>
+      <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal"><svg class="ic-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" x2="20" y1="7" y2="7"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="17" y2="17"/></svg><svg class="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
     </div>
-  </a>
-  <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
-  <ul class="nav-links">
-    <li><a href="index.html">Início</a></li>
-    <li><a href="blog.html">Blog</a></li>
-    <li><a href="cursos.html">Cursos</a></li>
-    <li><a href="terapia-pro.html">Terap-ia</a></li>
-    <li><a href="apresentacao.html" class="active">Minha história</a></li>
-    <li><a href="catalogo-videos.html">Vídeos</a></li>
-    <li><a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!" target="_blank" class="nav-cta">Falar comigo</a></li>
-  </ul>
-</nav>
+  </div>
+  <div class="nav-overlay"></div>
+</header>
 
-<main class="wrap">
+<main id="conteudo">
 
-  <!-- ═══════════ HERO ═══════════ -->
-  <section class="mh-hero">
-    <div class="mh-portrait">
-      <img src="assets/ilustracao-priscila.jpg" alt="Ilustração de Priscila Palomo">
-      <span class="mh-portrait-tag">São Paulo, Brasil</span>
-    </div>
-    <div>
-      <span class="mh-kicker">Minha história</span>
-      <h1>Do medo ao <em>movimento</em>.</h1>
-      <p class="mh-lead">
-        Todo mundo tem um medo que parece maior do que a vida real. Eu decidi
-        dedicar minha carreira a entender esse medo por dentro — e a ajudar
-        as pessoas a atravessá-lo, degrau a degrau, com método e ciência.
-      </p>
-      <div class="mh-hero-actions">
-        <a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!" target="_blank" class="btn btn-solid">Falar comigo</a>
-        <a href="#vida" class="btn">Assistir à minha vida</a>
+  <section class="page-hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Você está aqui"><ol><li><a href="index.html">Início</a></li><li aria-current="page">Sobre</li></ol></nav>
+      <div class="split split--narrow">
+        <div>
+          <span class="kicker">Sobre</span>
+          <h1>Do laboratório à <em>vida real</em>.</h1>
+          <p class="lead">
+            Cresci entre histórias de transplantes cardíacos e a certeza de que técnica sem humano não cura.
+            Virei cientista para medir o que parecia imensurável: medo, atenção, o corpo que a gente habita.
+            Voltei ao Brasil para transformar isso em cuidado que funciona, no consultório e dentro das empresas.
+          </p>
+          <div class="actions">
+            <a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!" target="_blank" rel="noopener" class="btn btn-primary">Falar comigo</a>
+            <a href="#videos" class="btn btn-outline">Assistir à minha história</a>
+          </div>
+        </div>
+        <div class="page-hero-media">
+          <img src="assets/avatar-priscila.jpg" alt="Priscila Palomo">
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════ VÍDEO: MINHA VIDA (narrado, ilustrado) ═══════════ -->
-  <section class="mh-section" id="vida">
-    <span class="mh-label">Desenhe minha vida</span>
-    <h2>De Valencia ao consultório — minha jornada, narrada</h2>
-    <p style="font-size:14px;color:#444;max-width:60ch;margin-bottom:22px;line-height:1.7">
-      Uma estudante brasileira que chegou à Universidade de Valencia, se encantou
-      por um laboratório de realidade virtual, estudou noite adentro em bibliotecas
-      e se formou com o prêmio <em style="font-style:normal;color:var(--mh-navy);font-weight:700">cum laude</em> —
-      antes de voltar para o Brasil com o coração cheio.
-    </p>
-    <video controls preload="metadata" poster="assets/videos/minha-vida-poster.jpg"
-           style="width:100%;max-width:820px;border:2px solid #111;display:block">
-      <source src="assets/videos/minha-vida.mp4" type="video/mp4">
-      Seu navegador não suporta vídeo HTML5.
-    </video>
-  </section>
-
-  <!-- ═══════════ VÍDEO: DRAW MYSELF (doutorado) ═══════════ -->
-  <section class="mh-section" id="doutorado">
-    <span class="mh-label">Desenhe minha história</span>
-    <h2>Meu doutorado, desenhado à mão</h2>
-    <p style="font-size:14px;color:#444;max-width:60ch;margin-bottom:22px;line-height:1.7">
-      No estilo <em style="font-style:normal;color:var(--mh-navy);font-weight:700">draw my life</em>,
-      conto como fui à <strong>Universitat de València</strong> estudar o <em style="font-style:normal;color:var(--mh-navy);font-weight:700">embodiment</em>
-      e a integração multissensorial do corpo nos transtornos alimentares — pesquisa defendida em 2016
-      com <em style="font-style:normal;color:var(--mh-navy);font-weight:700">Sobresaliente Cum Laude</em> e Menção Internacional.
-    </p>
-    <video controls preload="metadata" poster="assets/videos/draw-minha-historia-poster.jpg"
-           style="width:100%;max-width:820px;border:2px solid #111;display:block">
-      <source src="assets/videos/draw-minha-historia.mp4" type="video/mp4">
-      Seu navegador não suporta vídeo HTML5.
-    </video>
-  </section>
-
-  <!-- ═══════════ VÍDEO: LINHA DO TEMPO (draw my life completo) ═══════════ -->
-  <section class="mh-section" id="linha-tempo">
-    <span class="mh-label">Draw my life · linha do tempo</span>
-    <h2>Minha história completa, do início ao hoje</h2>
-    <p style="font-size:14px;color:#444;max-width:60ch;margin-bottom:22px;line-height:1.7">
-      Uma linha do tempo desenhada à mão: de menina curiosa em <strong>São Paulo</strong> (1983),
-      passando pelos livros da adolescência, pela Psicologia, pelos mestrados em <strong>Salamanca</strong>,
-      pelo doutorado em <strong>València</strong> com a <strong>Rosa María Baños</strong> e o
-      <strong>Ausiàs Cebolla</strong> — até hoje, aos 43 anos, com a minha família: duas mães e dois filhos.
-    </p>
-    <video controls preload="metadata" poster="assets/videos/draw-minha-vida-linha-tempo-poster.jpg"
-           style="width:100%;max-width:820px;border:2px solid #111;display:block">
-      <source src="assets/videos/draw-minha-vida-linha-tempo.mp4" type="video/mp4">
-      Seu navegador não suporta vídeo HTML5.
-    </video>
-  </section>
-
-  <!-- ═══════════ VÍDEO: ANEDOTA (realidade virtual) ═══════════ -->
-  <section class="mh-section" id="anedota">
-    <span class="mh-label">Uma história que eu vivi</span>
-    <h2>O dia em que um capacete mudou a minha carreira</h2>
-    <p style="font-size:14px;color:#444;max-width:60ch;margin-bottom:22px;line-height:1.7">
-      Uma anedota da minha vida como psicóloga: meu primeiro contato com a
-      <strong>realidade virtual</strong> no laboratório de <strong>Valência</strong> — o susto de me ver
-      no topo de um prédio e a descoberta que definiu o meu trabalho com fobias.
-    </p>
-    <video controls preload="metadata" poster="assets/videos/anedota-rv-poster.jpg"
-           style="width:100%;max-width:820px;border:2px solid #111;display:block">
-      <source src="assets/videos/anedota-rv.mp4" type="video/mp4">
-      Seu navegador não suporta vídeo HTML5.
-    </video>
-  </section>
-
-  <!-- ═══════════ VÍDEO: RESUMO ═══════════ -->
-  <section class="mh-section" id="video">
-    <span class="mh-label">Em vídeo</span>
-    <h2>Minha história, contada em 46 segundos</h2>
-    <video controls preload="metadata" poster="assets/ilustracao-priscila.jpg"
-           style="width:100%;max-width:640px;border:2px solid #111;display:block">
-      <source src="assets/videos/minha-historia.mp4" type="video/mp4">
-      Seu navegador não suporta vídeo HTML5.
-    </video>
-  </section>
-
-  <!-- ═══════════ HISTÓRIA ═══════════ -->
-  <section class="mh-section">
-    <span class="mh-label">Trajetória</span>
-    <h2>Como cheguei até aqui</h2>
-    <div class="mh-story">
-      <div class="mh-beat">
-        <span class="mh-beat-year">Formação</span>
-        <p><strong>Graduação em Psicologia</strong>, com foco em comportamento humano — o início de uma carreira dedicada a entender por que sentimos medo e como o cérebro aprende a ter coragem.</p>
-      </div>
-      <div class="mh-beat">
-        <span class="mh-beat-year">Esp.</span>
-        <p><strong>Especialização em Terapia Cognitivo-Comportamental</strong>, a abordagem com melhor evidência científica para ansiedade e fobias.</p>
-      </div>
-      <div class="mh-beat">
-        <span class="mh-beat-year">Dout.</span>
-        <p><strong>Doutorado na Universidade de Valencia</strong>, pesquisando fobias específicas e terapia de exposição — o método que hoje é o coração do meu trabalho.</p>
-      </div>
-      <div class="mh-beat">
-        <span class="mh-beat-year">Hoje</span>
-        <p><strong>Especialista em fobias</strong>, pioneira no uso de realidade virtual no tratamento, atendendo <strong>online para todo o Brasil</strong> e <strong>presencialmente na Vila Leopoldina</strong>, em São Paulo.</p>
+  <!-- NÚMEROS -->
+  <section class="section section--tight">
+    <div class="container">
+      <div class="stats">
+        <div class="stat"><div class="stat-n">20+</div><div class="stat-l">artigos em revistas internacionais</div></div>
+        <div class="stat"><div class="stat-n">4</div><div class="stat-l">títulos de pós-graduação na Europa</div></div>
+        <div class="stat"><div class="stat-n">10</div><div class="stat-l">laboratórios parceiros no Brasil e na Europa</div></div>
+        <div class="stat"><div class="stat-n">€ 20<small>mi</small></div><div class="stat-l">em projetos europeus de saúde mental digital</div></div>
       </div>
     </div>
+  </section>
 
-    <div class="mh-stats">
-      <div class="mh-stat"><span class="mh-stat-n">+500</span><span class="mh-stat-l">pacientes atendidos</span></div>
-      <div class="mh-stat"><span class="mh-stat-n">98%</span><span class="mh-stat-l">de satisfação</span></div>
-      <div class="mh-stat"><span class="mh-stat-n">2</span><span class="mh-stat-l">formas de atendimento</span></div>
+  <!-- VÍDEOS -->
+  <section class="section section--alt" id="videos">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Em vídeo</span>
+        <h2>Minha história, desenhada e narrada.</h2>
+        <p class="lead">Cinco vídeos curtos no estilo <em>draw my life</em>: de São Paulo a València, do laboratório ao consultório.</p>
+      </div>
+      <div class="grid grid-2">
+        <article class="video-card video-card--featured rv">
+          <video controls preload="metadata" poster="assets/videos/draw-minha-vida-linha-tempo-poster.jpg">
+            <source src="assets/videos/draw-minha-vida-linha-tempo.mp4" type="video/mp4">
+          </video>
+          <div class="vc-body">
+            <h3>Linha do tempo — minha história completa, do início ao hoje</h3>
+            <p>De menina curiosa em São Paulo (1983), passando pela Psicologia, pelos mestrados em Salamanca e pelo doutorado em València com Rosa Baños e Ausiàs Cebolla — até hoje, com a minha família.</p>
+          </div>
+        </article>
+        <article class="video-card rv">
+          <video controls preload="metadata" poster="assets/videos/minha-vida-poster.jpg">
+            <source src="assets/videos/minha-vida.mp4" type="video/mp4">
+          </video>
+          <div class="vc-body">
+            <h3>De València ao consultório</h3>
+            <p>Uma estudante brasileira que se encantou por um laboratório de realidade virtual e se formou com o prêmio <em>cum laude</em>.</p>
+          </div>
+        </article>
+        <article class="video-card rv">
+          <video controls preload="metadata" poster="assets/videos/draw-minha-historia-poster.jpg">
+            <source src="assets/videos/draw-minha-historia.mp4" type="video/mp4">
+          </video>
+          <div class="vc-body">
+            <h3>Meu doutorado, desenhado à mão</h3>
+            <p>Embodiment e integração multissensorial do corpo nos transtornos alimentares — pesquisa defendida em 2016 com <em>Sobresaliente Cum Laude</em>.</p>
+          </div>
+        </article>
+        <article class="video-card rv">
+          <video controls preload="metadata" poster="assets/videos/anedota-rv-poster.jpg">
+            <source src="assets/videos/anedota-rv.mp4" type="video/mp4">
+          </video>
+          <div class="vc-body">
+            <h3>O dia em que um capacete mudou a minha carreira</h3>
+            <p>Meu primeiro contato com a realidade virtual em València — o susto de me ver no topo de um prédio e a descoberta que definiu meu trabalho com fobias.</p>
+          </div>
+        </article>
+        <article class="video-card rv">
+          <video controls preload="metadata" poster="assets/ilustracao-priscila.jpg">
+            <source src="assets/videos/minha-historia.mp4" type="video/mp4">
+          </video>
+          <div class="vc-body">
+            <h3>Minha história em 46 segundos</h3>
+            <p>A versão curta, para quem tem pressa.</p>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
-  <!-- ═══════════ CTA ═══════════ -->
-  <section class="mh-cta">
-    <h2>Se o medo está encolhendo sua vida, vamos conversar?</h2>
-    <p>
-      Especialista em fobias. Atendo online e também presencialmente na Vila Leopoldina,
-      com exposição gradual (inclusive com realidade virtual). O primeiro passo é uma conversa.
-    </p>
-    <a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Li%20a%20sua%20hist%C3%B3ria%20e%20quero%20conversar."
-       target="_blank" class="btn btn-navy">Falar comigo</a>
+  <!-- TRAJETÓRIA -->
+  <section class="section">
+    <div class="container">
+      <div class="split split--top">
+        <div>
+          <span class="kicker">Trajetória</span>
+          <h2 class="mb-2">Como cheguei até aqui.</h2>
+          <p class="lead">
+            Ciência e ética na mesa de jantar. Filha de um cirurgião cardíaco boliviano, integrante da primeira equipe de
+            transplante de coração da América Latina com o professor Zerbini, e de uma enfermeira que em
+            cinquenta anos nunca errou uma dose.
+          </p>
+        </div>
+        <div class="timeline">
+          <div class="tl-item rv">
+            <span class="tl-year">1983</span>
+            <h3>São Paulo</h3>
+            <p>Cresço ouvindo que um coração pode funcionar perfeitamente e, mesmo assim, ser rejeitado — porque a experiência humana decide.</p>
+          </div>
+          <div class="tl-item rv">
+            <span class="tl-year">2003–2009</span>
+            <h3>Psicologia na FMU</h3>
+            <p>Depois de três anos de Administração no Instituto Mauá. Iniciação científica em neurociência na Santa Casa, estágios no HCor e no PROTOC do IPq-HCFMUSP. Oradora da turma.</p>
+          </div>
+          <div class="tl-item rv">
+            <span class="tl-year">2010–2013</span>
+            <h3>Três mestrados na Espanha</h3>
+            <p>Metodologia de Pesquisa em Ciências da Saúde e Psicanálise Clínica (Salamanca) e o mestrado oficial em Psicogerontologia (Salamanca · Barcelona · Santiago · València). Aprendi a medir e a escutar.</p>
+          </div>
+          <div class="tl-item rv">
+            <span class="tl-year">2014–2017</span>
+            <h3>Doutorado na Universitat de València</h3>
+            <p>No Labpsitec, com Rosa Baños e Ausiàs Cebolla: embodiment, Rubber Hand Illusion, realidade virtual e transtornos alimentares. Consórcios europeus Horizon 2020. Defesa com <strong>Sobresaliente Cum Laude</strong> e Menção Europeia.</p>
+          </div>
+          <div class="tl-item rv">
+            <span class="tl-year">2014–hoje</span>
+            <h3>Mindfulness com rigor</h3>
+            <p>Instrutora MBSR e MBCT formada no Centro Mente Aberta (UNIFESP) com a Universidade de Oxford; docente na UNIFESP, na Santa Casa e na PUCPR Digital; treinamentos para Embrapa, Eldorado Brasil e líderes de várias regiões do Brasil.</p>
+          </div>
+          <div class="tl-item rv">
+            <span class="tl-year">Hoje</span>
+            <h3>Saúde mental no trabalho com evidência</h3>
+            <p>Diagnóstico de riscos psicossociais, programas com medição de resultado e formação de líderes — e a clínica de fobias e ansiedade de desempenho, online e presencial na Vila Leopoldina, em São Paulo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--tight">
+    <div class="container">
+      <div class="band">
+        <div>
+          <span class="kicker">Vamos conversar?</span>
+          <h2>Quer levar essa história para a sua empresa ou para a sua vida?</h2>
+          <p>Trabalho com empresas em saúde mental no trabalho (NR-1, burnout, liderança) e atendo pessoas com fobias e ansiedade de desempenho. O primeiro passo é uma conversa.</p>
+        </div>
+        <a href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Li%20a%20sua%20hist%C3%B3ria%20e%20quero%20conversar." target="_blank" rel="noopener" class="btn btn-white btn-lg">Falar comigo</a>
+      </div>
+    </div>
   </section>
 
 </main>
 
-<footer>
-  <a href="index.html" class="foot-logo"><img src="assets/logo.svg" alt="Priscila Palomo Psicologia"></a>
-  <div class="foot-links">
-    <a href="blog.html">Blog</a>
-    <a href="cursos.html">Cursos</a>
-    <a href="terapia-pro.html">Terap-ia</a>
-    <a href="catalogo-videos.html">Vídeos</a>
-    <a href="https://wa.me/5511950690537" target="_blank">WhatsApp</a>
+<a class="wa-float" href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!%20Quero%20conversar." target="_blank" rel="noopener" aria-label="Falar pelo WhatsApp"><span class="wa-ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg></span><span>Falar no WhatsApp</span></a>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="assets/logo.svg" alt="">
+          <div><strong>Priscila Palomo</strong><span>Psicóloga · PhD · CRP 98007</span></div>
+        </div>
+        <p class="footer-desc">Saúde mental no trabalho com base em neurociência e evidência. Atendimento em São Paulo e online para todo o Brasil.</p>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/in/priscilapalomo" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.4 2H3.6A1.6 1.6 0 0 0 2 3.6v16.8A1.6 1.6 0 0 0 3.6 22h16.8a1.6 1.6 0 0 0 1.6-1.6V3.6A1.6 1.6 0 0 0 20.4 2zM8 19H5V9h3zM6.5 7.7A1.7 1.7 0 1 1 8.2 6a1.7 1.7 0 0 1-1.7 1.7zM19 19h-3v-4.9c0-1.2 0-2.7-1.6-2.7s-1.9 1.3-1.9 2.6V19h-3V9h2.9v1.4a3.2 3.2 0 0 1 2.9-1.6c3 0 3.6 2 3.6 4.6z"/></svg></a>
+          <a href="https://wa.me/5511950690537" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg></a>
+          <a href="mailto:pripalomo@outlook.com" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Para empresas</h4>
+        <ul class="footer-links">
+          <li><a href="index.html#diagnostico">Diagnóstico NR-1</a></li>
+          <li><a href="index.html#programa">Programa Mente Regulada</a></li>
+          <li><a href="index.html#lideranca">Liderança Regulada</a></li>
+          <li><a href="index.html#palestras">Palestras e SIPAT</a></li>
+          <li><a href="pesquisa.html#healthtech">Consultoria para healthtechs</a></li>
+          <li><a href="index.html#calculadora">Calculadora de custo</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Para você</h4>
+        <ul class="footer-links">
+          <li><a href="fobias.html">Fobias e ansiedade</a></li>
+          <li><a href="produtos/guia-medo-de-voar.html">Medo de voar</a></li>
+          <li><a href="produtos/programa-falar-em-publico.html">Falar em público</a></li>
+          <li><a href="escada-segura.html">Livro Escada Segura</a></li>
+          <li><a href="produtos/mente-regulada-audios.html">Áudios Mente Regulada</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Conteúdo</h4>
+        <ul class="footer-links">
+          <li><a href="pesquisa.html">Ciência e publicações</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="cursos.html">Cursos online</a></li>
+          <li><a href="loja.html">Loja</a></li>
+          <li><a href="apresentacao.html">Sobre a Priscila</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <ul class="footer-links">
+          <li><a href="https://wa.me/5511950690537" target="_blank" rel="noopener">+55 11 95069-0537</a></li>
+          <li><a href="mailto:pripalomo@outlook.com">pripalomo@outlook.com</a></li>
+          <li><a href="https://www.linkedin.com/in/priscilapalomo" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="http://lattes.cnpq.br/4124029805069326" target="_blank" rel="noopener">Currículo Lattes</a></li>
+          <li><a href="https://orcid.org/0000-0003-4936-6479" target="_blank" rel="noopener">ORCID</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year></span> Priscila Palomo · Psicóloga CRP 06/98007 · São Paulo, SP</span>
+      <span><a href="privacidade.html">Privacidade</a><a href="catalogo-videos.html">Vídeos</a><a href="dashboard.html">Desk</a></span>
+    </div>
   </div>
-  <span class="foot-info">© <span data-year></span> · CRP 98007</span>
 </footer>
 
 <script src="assets/app.js"></script>
-<script>
-document.querySelectorAll('.mh-beat').forEach((el, i) => {
-  setTimeout(() => el.classList.add('vis'), 150 + i * 150);
-});
-new IntersectionObserver((entries, ob) => entries.forEach(e => {
-  if (e.isIntersecting) { e.target.classList.add('vis'); ob.unobserve(e.target); }
-}), { threshold: .2 }).observe(document.querySelector('.mh-story'));
-</script>
 </body>
 </html>

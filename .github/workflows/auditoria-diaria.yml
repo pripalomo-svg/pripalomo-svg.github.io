@@ -1,0 +1,61 @@
+name: Auditoria diária do site
+
+on:
+  schedule:
+    - cron: "0 9 * * *"   # todo dia às 06:00 (horário de Brasília)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  auditar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lighthouse nas páginas principais
+        id: lh
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            https://www.priscilapalomo.com/
+            https://www.priscilapalomo.com/fobias.html
+            https://www.priscilapalomo.com/pesquisa.html
+            https://www.priscilapalomo.com/loja.html
+            https://www.priscilapalomo.com/blog.html
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          runs: 1
+        continue-on-error: true
+
+      - name: Auditoria de SEO, links e peso
+        id: audit
+        run: |
+          mkdir -p relatorio
+          python3 tools/auditoria/auditar.py \
+            --base https://www.priscilapalomo.com \
+            --out relatorio/auditoria.md --json relatorio/auditoria.json \
+            --lighthouse .lighthouseci/lhr-*.json || echo "criticos=1" >> "$GITHUB_OUTPUT"
+          cat relatorio/auditoria.md >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: auditoria-${{ github.run_number }}
+          path: relatorio/
+
+      - name: Publicar relatório na issue "Monitoramento diário"
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITULO="Monitoramento diário do site"
+          NUM=$(gh issue list --state open --label monitoramento --search "$TITULO in:title" --json number --jq '.[0].number // empty')
+          if [ -z "$NUM" ]; then
+            gh label create monitoramento --color 0B2545 --description "Relatórios automáticos de auditoria" 2>/dev/null || true
+            NUM=$(gh issue create --title "$TITULO" --label monitoramento \
+              --body "Relatórios automáticos da auditoria diária (desempenho, SEO, acessibilidade, links). Veja MONITORAMENTO.md." \
+              --json number --jq .number 2>/dev/null || gh issue create --title "$TITULO" --label monitoramento --body "Relatórios automáticos da auditoria diária." | grep -o '[0-9]*$')
+          fi
+          gh issue comment "$NUM" --body-file relatorio/auditoria.md
+          echo "Relatório publicado na issue #$NUM"

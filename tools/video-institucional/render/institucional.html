@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Vídeo institucional — render</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;background:#071A33;overflow:hidden}
+  canvas{display:block;width:1920px;height:1080px}
+  /* força o download das fontes antes da captura */
+  .warm{position:absolute;left:-9999px;top:-9999px;font-family:'Inter Tight';font-weight:500}
+  .warm b{font-weight:700}.warm i{font-weight:800;font-style:normal}
+  .warm2{position:absolute;left:-9999px;top:-9999px;font-family:'Inter';font-weight:400}
+  .warm2 b{font-weight:600}.warm2 i{font-weight:500;font-style:normal}
+</style>
+</head>
+<body>
+<div class="warm">a<b>a</b><i>a</i></div><div class="warm2">a<b>a</b><i>a</i></div>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script>
+const W = 1920, H = 1080;
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+
+/*DUR_START*/
+let SCENE_DURMS = [8378, 6890, 13610, 12146, 8594, 12242, 5762];
+/*DUR_END*/
+const FADE = 450;
+window.__totalDuration = SCENE_DURMS.reduce((a, b) => a + b, 0);
+
+const NAVY = '#0B2545', NAVY_D = '#071A33', TEAL = '#13A89E', TEAL_L = '#7FE0D6', WHITE = '#FFFFFF', GOLD = '#D9A441';
+const DISPLAY = '"Inter Tight", "Inter", Arial, sans-serif';
+const BODY = '"Inter", Arial, sans-serif';
+
+// ── utilidades ───────────────────────────────────────────
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+const easeOut = t => 1 - Math.pow(1 - clamp(t), 3);
+const easeInOut = t => { t = clamp(t); return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+const easeBack = t => { t = clamp(t); const c1 = 1.4, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); };
+const prog = (local, start, dur) => clamp((local - start) / dur);
+
+function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const rnd = mulberry32(20261006);
+const NODES = Array.from({ length: 46 }, () => ({
+  x: rnd() * W, y: rnd() * H, r: 1.5 + rnd() * 2.2,
+  ax: 18 + rnd() * 40, ay: 14 + rnd() * 34, fx: .08 + rnd() * .12, fy: .07 + rnd() * .11, px: rnd() * 6.28, py: rnd() * 6.28
+}));
+
+function roundRect(x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+}
+function text(str, x, y, o = {}) {
+  const size = o.size || 40, weight = o.weight || 500, font = o.font || BODY;
+  ctx.save();
+  ctx.globalAlpha *= (o.alpha == null ? 1 : o.alpha);
+  ctx.font = `${weight} ${size}px ${font}`;
+  ctx.fillStyle = o.color || WHITE;
+  ctx.textAlign = o.align || 'left';
+  ctx.textBaseline = o.baseline || 'alphabetic';
+  if (o.spacing) ctx.letterSpacing = o.spacing + 'px';
+  ctx.fillText(str, x, y);
+  ctx.restore();
+}
+function measure(str, size, weight, font) { ctx.font = `${weight} ${size}px ${font || BODY}`; return ctx.measureText(str).width; }
+// aparece subindo: retorna {a, dy}
+function up(local, start, dur = 700, dist = 28) { const p = easeOut(prog(local, start, dur)); return { a: p, dy: (1 - p) * dist }; }
+
+// ── fundo: gradiente + rede neural suave ─────────────────
+function background(t) {
+  const g = ctx.createLinearGradient(0, 0, W, H);
+  g.addColorStop(0, NAVY); g.addColorStop(1, NAVY_D);
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  const glow = ctx.createRadialGradient(W * .78, H * .18, 20, W * .78, H * .18, 820);
+  glow.addColorStop(0, 'rgba(19,168,158,.22)'); glow.addColorStop(1, 'rgba(19,168,158,0)');
+  ctx.fillStyle = glow; ctx.fillRect(0, 0, W, H);
+  const s = t / 1000;
+  const pts = NODES.map(n => ({ x: n.x + Math.sin(s * n.fx + n.px) * n.ax, y: n.y + Math.cos(s * n.fy + n.py) * n.ay, r: n.r }));
+  ctx.lineWidth = 1;
+  for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) {
+    const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y, d = Math.hypot(dx, dy);
+    if (d < 250) { ctx.strokeStyle = `rgba(127,224,214,${(1 - d / 250) * .16})`; ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke(); }
+  }
+  for (const p of pts) { ctx.fillStyle = 'rgba(127,224,214,.45)'; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fill(); }
+}
+
+// ── logo ─────────────────────────────────────────────────
+function logo(x, y, size, alpha = 1) {
+  ctx.save(); ctx.globalAlpha *= alpha;
+  ctx.translate(x, y); const k = size / 64;
+  ctx.scale(k, k);
+  ctx.fillStyle = WHITE; roundRect(0, 0, 64, 64, 16); ctx.fill();
+  ctx.fillStyle = NAVY;
+  const p = new Path2D('M20 48V16h13.5c7.2 0 12 4.3 12 10.6S40.7 37.2 33.5 37.2H27V48h-7zm7-16.6h6c3.4 0 5.4-1.9 5.4-4.8s-2-4.8-5.4-4.8h-6v9.6z');
+  ctx.fill(p, 'evenodd');
+  ctx.fillStyle = TEAL; ctx.beginPath(); ctx.arc(47, 46, 5, 0, 6.283); ctx.fill();
+  ctx.restore();
+}
+function label(str, x, y, o = {}) { text(str.toUpperCase(), x, y, { size: 22, weight: 600, color: o.color || TEAL_L, spacing: 4, alpha: o.alpha, align: o.align }); }
+
+// ── cenas ────────────────────────────────────────────────
+function s1(l) {
+  const p = easeBack(prog(l, 150, 800));
+  const s = 150 * p;
+  logo(W / 2 - s / 2, 330 - s / 2, s, clamp(p * 1.4));
+  let u = up(l, 800, 800); text('Priscila Palomo', W / 2, 580 + u.dy, { size: 112, weight: 700, font: DISPLAY, align: 'center', alpha: u.a });
+  const lw = 140 * easeOut(prog(l, 1300, 700));
+  ctx.fillStyle = TEAL; ctx.fillRect(W / 2 - lw / 2, 620, lw, 4);
+  u = up(l, 1600, 800); text('Psicóloga  ·  PhD em Psicologia da Saúde  ·  CRP 98007', W / 2, 700 + u.dy, { size: 32, weight: 500, color: 'rgba(255,255,255,.78)', align: 'center', alpha: u.a });
+  u = up(l, 2400, 800); label('Neurociência aplicada à saúde mental', W / 2, 770 + u.dy, { align: 'center', alpha: u.a });
+}
+
+function s2(l) {
+  const X = 170;
+  const lines = [['Saúde mental', WHITE], ['no trabalho,', WHITE], ['com base em ciência.', TEAL_L]];
+  lines.forEach((ln, i) => { const u = up(l, 200 + i * 380, 800, 40); text(ln[0], X, 470 + i * 118 + u.dy, { size: 104, weight: 700, font: DISPLAY, color: ln[1], alpha: u.a }); });
+  const u = up(l, 1700, 800); label('Resultados que se medem, antes e depois', X, 880 + u.dy, { alpha: u.a });
+
+  // gráfico: linha de estresse caindo ao longo do programa
+  const gx = 1210, gy = 300, gw = 540, gh = 420;
+  const ga = easeOut(prog(l, 900, 700));
+  ctx.save(); ctx.globalAlpha *= ga;
+  ctx.fillStyle = 'rgba(255,255,255,.05)'; roundRect(gx - 50, gy - 60, gw + 100, gh + 150, 24); ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,.12)'; ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) { const y = gy + gh * i / 4; ctx.beginPath(); ctx.moveTo(gx, y); ctx.lineTo(gx + gw, y); ctx.stroke(); }
+  label('Nível de estresse percebido', gx, gy - 14, { color: 'rgba(255,255,255,.6)' });
+  const pts = [0.18, 0.22, 0.30, 0.42, 0.50, 0.58, 0.66, 0.72, 0.78].map((v, i, arr) => ({ x: gx + gw * i / (arr.length - 1), y: gy + gh * v }));
+  const dp = easeInOut(prog(l, 1500, 2600));
+  const n = pts.length - 1, segs = dp * n;
+  ctx.strokeStyle = TEAL; ctx.lineWidth = 6; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y);
+  for (let i = 1; i <= Math.floor(segs); i++) ctx.lineTo(pts[i].x, pts[i].y);
+  const fi = Math.floor(segs); if (fi < n) { const f = segs - fi; ctx.lineTo(pts[fi].x + (pts[fi + 1].x - pts[fi].x) * f, pts[fi].y + (pts[fi + 1].y - pts[fi].y) * f); }
+  ctx.stroke();
+  for (let i = 0; i <= Math.floor(segs); i++) { ctx.fillStyle = NAVY; ctx.beginPath(); ctx.arc(pts[i].x, pts[i].y, 9, 0, 6.283); ctx.fill(); ctx.strokeStyle = TEAL; ctx.lineWidth = 4; ctx.stroke(); }
+  text('semana 1', gx, gy + gh + 50, { size: 22, color: 'rgba(255,255,255,.6)' });
+  text('semana 8', gx + gw, gy + gh + 50, { size: 22, color: 'rgba(255,255,255,.6)', align: 'right' });
+  if (dp >= 1) { const u2 = up(l, 4100, 500); roundRect(gx + gw - 170, gy + gh * .78 - 70 + u2.dy, 170, 48, 12); ctx.fillStyle = TEAL; ctx.globalAlpha *= u2.a; ctx.fill(); text('−38%', gx + gw - 85, gy + gh * .78 - 36 + u2.dy, { size: 28, weight: 700, font: DISPLAY, color: NAVY, align: 'center' }); }
+  ctx.restore();
+}
+
+function s3(l) {
+  const X = 170;
+  let u = up(l, 150, 700); label('O cenário no Brasil', X, 250 + u.dy, { alpha: u.a });
+  // contador
+  const cp = easeOut(prog(l, 500, 1800));
+  const val = Math.round(546 * cp);
+  u = up(l, 500, 700);
+  text(String(val), X, 440 + u.dy, { size: 190, weight: 800, font: DISPLAY, alpha: u.a });
+  const wN = measure(String(val), 190, 800, DISPLAY);
+  text('mil', X + wN + 18, 440 + u.dy, { size: 64, weight: 700, font: DISPLAY, color: TEAL_L, alpha: u.a });
+  u = up(l, 1300, 700); text('trabalhadores afastados por transtornos', X, 520 + u.dy, { size: 36, weight: 500, color: 'rgba(255,255,255,.88)', alpha: u.a });
+  text('mentais em 2025, um recorde histórico.', X, 568 + u.dy, { size: 36, weight: 500, color: 'rgba(255,255,255,.88)', alpha: u.a });
+  u = up(l, 1900, 700); text('Fonte: Ministério da Previdência Social', X, 625 + u.dy, { size: 20, color: 'rgba(255,255,255,.5)', alpha: u.a });
+
+  // barras burnout
+  const bx = 1180, by = 250, bw = 560, bh = 380;
+  const ba = easeOut(prog(l, 2600, 700));
+  ctx.save(); ctx.globalAlpha *= ba;
+  ctx.fillStyle = 'rgba(255,255,255,.05)'; roundRect(bx - 50, by - 60, bw + 100, bh + 190, 24); ctx.fill();
+  label('Afastamentos por burnout', bx, by - 14, { color: 'rgba(255,255,255,.6)' });
+  const bars = [['2023', 1], ['2024', 1.9], ['2025', 3]];
+  bars.forEach((b, i) => {
+    const p = easeOut(prog(l, 3000 + i * 500, 900));
+    const h = bh * (b[1] / 3) * p, w = 120, x = bx + 40 + i * 190, y = by + bh - h;
+    ctx.fillStyle = i === 2 ? TEAL : 'rgba(255,255,255,.22)'; roundRect(x, y, w, h, 10); ctx.fill();
+    text(b[0], x + w / 2, by + bh + 44, { size: 24, color: 'rgba(255,255,255,.7)', align: 'center' });
+    if (p > .95) text(b[1] === 1 ? '1×' : b[1] + '×', x + w / 2, y - 18, { size: 30, weight: 700, font: DISPLAY, color: i === 2 ? TEAL_L : 'rgba(255,255,255,.8)', align: 'center' });
+  });
+  text('Fonte: INSS · análise ANAMT', bx, by + bh + 100, { size: 20, color: 'rgba(255,255,255,.5)' });
+  ctx.restore();
+
+  // badge NR-1
+  u = up(l, 6200, 900, 40);
+  ctx.save(); ctx.globalAlpha *= u.a;
+  const px = X, py = 760 + u.dy, pw = 1580, ph = 150;
+  ctx.fillStyle = 'rgba(255,255,255,.07)'; roundRect(px, py, pw, ph, 22); ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,.14)'; ctx.lineWidth = 1.5; ctx.stroke();
+  ctx.fillStyle = GOLD; roundRect(px + 34, py + 44, 118, 62, 14); ctx.fill();
+  text('NR-1', px + 93, py + 88, { size: 34, weight: 800, font: DISPLAY, color: NAVY, align: 'center' });
+  text('Desde 26 de maio de 2026, os riscos psicossociais precisam ser identificados,', px + 190, py + 66, { size: 31, weight: 500 });
+  text('avaliados e controlados no PGR de toda empresa.', px + 190, py + 110, { size: 31, weight: 500 });
+  ctx.restore();
+}
+
+function s4(l) {
+  let u = up(l, 150, 700); label('Como eu trabalho', W / 2, 220 + u.dy, { align: 'center', alpha: u.a });
+  u = up(l, 400, 800); text('Do laboratório para a empresa.', W / 2, 330 + u.dy, { size: 84, weight: 700, font: DISPLAY, align: 'center', alpha: u.a });
+
+  const steps = ['Medir', 'Intervir', 'Medir de novo'];
+  const y = 540, xs = [560, 960, 1360];
+  const lp = easeInOut(prog(l, 1300, 2200));
+  ctx.strokeStyle = 'rgba(255,255,255,.18)'; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(xs[0], y); ctx.lineTo(xs[2], y); ctx.stroke();
+  ctx.strokeStyle = TEAL; ctx.lineWidth = 6; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(xs[0], y); ctx.lineTo(xs[0] + (xs[2] - xs[0]) * lp, y); ctx.stroke();
+  steps.forEach((s, i) => {
+    const p = easeBack(prog(l, 1200 + i * 1000, 700));
+    ctx.save(); ctx.globalAlpha *= clamp(p * 1.5);
+    ctx.fillStyle = NAVY; ctx.beginPath(); ctx.arc(xs[i], y, 46 * p, 0, 6.283); ctx.fill();
+    ctx.strokeStyle = TEAL; ctx.lineWidth = 5; ctx.stroke();
+    text(String(i + 1), xs[i], y + 14, { size: 36, weight: 800, font: DISPLAY, color: TEAL_L, align: 'center' });
+    text(s, xs[i], y + 110, { size: 36, weight: 600, font: DISPLAY, align: 'center' });
+    ctx.restore();
+  });
+
+  const chips = ['Diagnóstico psicossocial (NR-1)', 'Programas de regulação emocional', 'Formação de lideranças'];
+  const cw = 480, gap = 30, total = chips.length * cw + (chips.length - 1) * gap, x0 = (W - total) / 2;
+  chips.forEach((c, i) => {
+    const uu = up(l, 4600 + i * 400, 800, 34);
+    ctx.save(); ctx.globalAlpha *= uu.a;
+    const x = x0 + i * (cw + gap), yy = 760 + uu.dy;
+    ctx.fillStyle = 'rgba(255,255,255,.07)'; roundRect(x, yy, cw, 96, 18); ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,.14)'; ctx.lineWidth = 1.5; ctx.stroke();
+    ctx.fillStyle = TEAL; ctx.beginPath(); ctx.arc(x + 44, yy + 48, 8, 0, 6.283); ctx.fill();
+    text(c, x + 72, yy + 58, { size: 27, weight: 600 });
+    ctx.restore();
+  });
+}
+
+function s5(l) {
+  // círculo que respira (4 s de período)
+  const cx = 1380, cy = 540, s = l / 1000;
+  const breath = 0.5 + 0.5 * Math.sin((s / 4) * 6.283 - 1.57);
+  const ap = easeOut(prog(l, 200, 900));
+  ctx.save(); ctx.globalAlpha *= ap;
+  for (let i = 4; i >= 0; i--) {
+    const r = (120 + i * 48) * (0.86 + 0.14 * breath);
+    ctx.fillStyle = `rgba(19,168,158,${0.05 + (4 - i) * 0.045})`;
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, 6.283); ctx.fill();
+  }
+  // óculos de realidade virtual
+  ctx.strokeStyle = WHITE; ctx.lineWidth = 7; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  roundRect(cx - 120, cy - 60, 240, 120, 30); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx - 120, cy - 16); ctx.quadraticCurveTo(cx - 175, cy - 16, cx - 185, cy - 50); ctx.moveTo(cx + 120, cy - 16); ctx.quadraticCurveTo(cx + 175, cy - 16, cx + 185, cy - 50); ctx.stroke();
+  ctx.lineWidth = 5; ctx.strokeStyle = TEAL_L;
+  ctx.beginPath(); ctx.arc(cx - 52, cy, 30, 0, 6.283); ctx.stroke(); ctx.beginPath(); ctx.arc(cx + 52, cy, 30, 0, 6.283); ctx.stroke();
+  ctx.fillStyle = 'rgba(127,224,214,.35)'; ctx.beginPath(); ctx.arc(cx - 52, cy, 30, 0, 6.283); ctx.fill(); ctx.beginPath(); ctx.arc(cx + 52, cy, 30, 0, 6.283); ctx.fill();
+  text(breath > .5 ? 'inspire' : 'expire', cx, cy + 300, { size: 24, weight: 500, color: 'rgba(255,255,255,.55)', align: 'center', spacing: 3 });
+  ctx.restore();
+
+  const X = 170;
+  let u = up(l, 150, 700); label('Para pessoas', X, 380 + u.dy, { alpha: u.a });
+  u = up(l, 450, 800, 40); text('Fobias e ansiedade', X, 500 + u.dy, { size: 92, weight: 700, font: DISPLAY, alpha: u.a });
+  text('de desempenho.', X, 600 + u.dy, { size: 92, weight: 700, font: DISPLAY, color: TEAL_L, alpha: u.a });
+  const items = ['Exposição gradual', 'Realidade virtual', 'Online para todo o Brasil'];
+  items.forEach((it, i) => { const uu = up(l, 1500 + i * 450, 700); ctx.save(); ctx.globalAlpha *= uu.a; ctx.fillStyle = TEAL; ctx.beginPath(); ctx.arc(X + 10, 690 + i * 56 - 10 + uu.dy, 7, 0, 6.283); ctx.fill(); ctx.restore(); text(it, X + 38, 690 + i * 56 + uu.dy, { size: 32, weight: 500, color: 'rgba(255,255,255,.88)', alpha: uu.a }); });
+}
+
+function s6(l) {
+  let u = up(l, 150, 700); label('Formação e pesquisa', W / 2, 220 + u.dy, { align: 'center', alpha: u.a });
+  u = up(l, 400, 800); text('Credenciais que sustentam o método.', W / 2, 330 + u.dy, { size: 80, weight: 700, font: DISPLAY, align: 'center', alpha: u.a });
+  const cards = [
+    ['PhD', 'Doutorado cum laude', 'Universitat de València · Menção Europeia'],
+    ['20+', 'Artigos científicos', 'Neuropsychologia · Mindfulness · Frontiers'],
+    ['MBSR', 'Instrutora de mindfulness', 'UNIFESP · Universidade de Oxford'],
+  ];
+  const cw = 500, ch = 330, gap = 40, total = 3 * cw + 2 * gap, x0 = (W - total) / 2, y0 = 460;
+  cards.forEach((c, i) => {
+    const uu = up(l, 1200 + i * 900, 900, 60);
+    ctx.save(); ctx.globalAlpha *= uu.a;
+    const x = x0 + i * (cw + gap), y = y0 + uu.dy;
+    ctx.fillStyle = 'rgba(255,255,255,.07)'; roundRect(x, y, cw, ch, 26); ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,.14)'; ctx.lineWidth = 1.5; ctx.stroke();
+    ctx.fillStyle = TEAL; ctx.fillRect(x + 44, y + 48, 46, 5);
+    text(c[0], x + 44, y + 150, { size: 84, weight: 800, font: DISPLAY, color: TEAL_L });
+    text(c[1], x + 44, y + 215, { size: 32, weight: 600, font: DISPLAY });
+    text(c[2], x + 44, y + 262, { size: 21, color: 'rgba(255,255,255,.65)' });
+    ctx.restore();
+  });
+}
+
+function s7(l) {
+  const p = easeBack(prog(l, 150, 800)); const s = 120 * p;
+  logo(W / 2 - s / 2, 340 - s / 2, s, clamp(p * 1.4));
+  let u = up(l, 700, 800); text('Priscila Palomo', W / 2, 560 + u.dy, { size: 96, weight: 700, font: DISPLAY, align: 'center', alpha: u.a });
+  u = up(l, 1300, 800); text('Ciência que cuida de quem trabalha.', W / 2, 640 + u.dy, { size: 40, weight: 500, color: 'rgba(255,255,255,.82)', align: 'center', alpha: u.a });
+  const lw = 140 * easeOut(prog(l, 2000, 600)); ctx.fillStyle = TEAL; ctx.fillRect(W / 2 - lw / 2, 690, lw, 4);
+  u = up(l, 2500, 800); text('priscilapalomo.com', W / 2, 780 + u.dy, { size: 44, weight: 600, font: DISPLAY, color: TEAL_L, align: 'center', alpha: u.a });
+  u = up(l, 3000, 800); text('Psicóloga · CRP 98007 · São Paulo e todo o Brasil', W / 2, 840 + u.dy, { size: 24, color: 'rgba(255,255,255,.55)', align: 'center', alpha: u.a });
+}
+
+const SCENES = [s1, s2, s3, s4, s5, s6, s7];
+
+window.__render = function (t) {
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1;
+  background(t);
+  let acc = 0, i = 0;
+  for (; i < SCENE_DURMS.length; i++) { if (t < acc + SCENE_DURMS[i]) break; acc += SCENE_DURMS[i]; }
+  if (i >= SCENE_DURMS.length) { i = SCENE_DURMS.length - 1; acc -= SCENE_DURMS[i]; }
+  const local = t - acc, dur = SCENE_DURMS[i];
+  const aIn = i === 0 ? 1 : clamp(local / FADE);
+  const aOut = clamp((dur - local) / FADE);
+  ctx.globalAlpha = Math.min(aIn, aOut);
+  SCENES[i](local);
+  ctx.globalAlpha = 1;
+  // barra de progresso discreta
+  ctx.fillStyle = 'rgba(255,255,255,.08)'; ctx.fillRect(0, H - 6, W, 6);
+  ctx.fillStyle = TEAL; ctx.fillRect(0, H - 6, W * (t / window.__totalDuration), 6);
+};
+
+// pré-visualização no navegador
+if (!navigator.webdriver) {
+  const t0 = performance.now();
+  (function loop() { const t = (performance.now() - t0) % window.__totalDuration; window.__render(t); requestAnimationFrame(loop); })();
+}
+</script>
+</body>
+</html>
