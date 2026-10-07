@@ -77,7 +77,7 @@
   opacity: .28;
 }
 
-.dk-pedir { margin: 10px 0 36px; }
+.dk-pedir { margin: 10px 0 36px; scroll-margin-top: 84px; }
 .dk-pedir h2, .dk-ilha h2 {
   font-size: 13px; letter-spacing: .16em; text-transform: uppercase;
   color: #C0641C; margin-bottom: 6px;
@@ -98,7 +98,7 @@
   max-width: 240px;
   display: block;
   text-align: left;
-  background: #FBE7D6;
+  background: #F4C48A;
   border: 0;
   padding: 16px 16px 18px;
   color: #0E4A57;
@@ -109,10 +109,11 @@
   transform: rotate(var(--rot));
   transition: transform .2s, box-shadow .2s;
 }
-.dk-prompt:nth-child(2) { background: #F7D9B8; }
-.dk-prompt:nth-child(3) { background: #F3C49A; }
-.dk-prompt:nth-child(4) { background: #FBE7D6; }
-.dk-prompt:nth-child(5) { background: #E8DCC8; }
+.dk-prompt:nth-child(2) { background: #E27A2E; color: #fff4ea; }
+.dk-prompt:nth-child(2) small { color: #fff4ea; }
+.dk-prompt:nth-child(3) { background: #F0B36A; }
+.dk-prompt:nth-child(4) { background: #F7D3A1; }
+.dk-prompt:nth-child(5) { background: #E8C48A; }
 .dk-prompt:hover, .dk-prompt:focus-visible {
   transform: rotate(0deg) translateY(-3px);
   outline: 2px solid #E27A2E;
@@ -137,7 +138,7 @@
   --rot: 0deg;
   --w: 280px;
   width: min(var(--w), 100%);
-  background: var(--folha);
+  background: var(--papel, var(--folha));
   padding: 20px 20px 16px;
   border: 0;
   border-radius: 22px 32px 20px 28px;
@@ -232,23 +233,23 @@
     <h2 id="pedir-titulo">Recados para o Cursor</h2>
     <p>Clique num papel laranja para copiar. Cole na conversa, preencha e envie.</p>
     <div class="dk-prompts">
-      <button type="button" class="dk-prompt" style="--rot:-1.6deg" data-recado="artigo">
+      <button type="button" class="dk-prompt" style="--rot:-2.4deg" data-recado="artigo">
         <small>Publicar artigo</small>
         <span>Título, uma frase de resumo e o texto do post.</span>
       </button>
-      <button type="button" class="dk-prompt" style="--rot:1.4deg" data-recado="texto">
+      <button type="button" class="dk-prompt" style="--rot:2.2deg" data-recado="texto">
         <small>Trocar um texto</small>
         <span>A página, o trecho de hoje e o trecho novo.</span>
       </button>
-      <button type="button" class="dk-prompt" style="--rot:-.8deg" data-recado="dados">
+      <button type="button" class="dk-prompt" style="--rot:-1.8deg" data-recado="dados">
         <small>WhatsApp, Pix ou preço</small>
         <span>Número, chave Pix e valor do livro, se for o caso.</span>
       </button>
-      <button type="button" class="dk-prompt" style="--rot:1.8deg" data-recado="clara">
+      <button type="button" class="dk-prompt" style="--rot:2.6deg" data-recado="clara">
         <small>Deixar uma página mais clara</small>
         <span>Para quem é, o que a pessoa faz e qual botão apertar.</span>
       </button>
-      <button type="button" class="dk-prompt" style="--rot:-1.2deg" data-recado="status">
+      <button type="button" class="dk-prompt" style="--rot:-2.1deg" data-recado="status">
         <small>Atualizar o Desk</small>
         <span>Uma frase nova do que está no ar naquele projeto.</span>
       </button>
@@ -257,7 +258,7 @@
 
   <section class="dk-mapa" aria-label="Mapa da casa">
 
-    <div class="dk-ilha" id="pessoas">
+    <div class="dk-ilha" id="pessoas" style="--papel:#FFFBF4">
       <h2>Com as pessoas</h2>
       <p>Onde quem chega se encontra com você: a porta, as histórias, o recado e o WhatsApp.</p>
       <div class="dk-notas">
@@ -315,7 +316,7 @@
       <path d="M20 18 C 140 50, 260 6, 380 30 S 560 54, 700 22"/>
     </svg>
 
-    <div class="dk-ilha" id="oferece">
+    <div class="dk-ilha" id="oferece" style="--papel:#FFF6EE">
       <h2>O que você oferece</h2>
       <p>Cursos, o livro e o sistema da clínica — o que a pessoa pode comprar ou usar.</p>
       <div class="dk-notas">
@@ -356,7 +357,7 @@
       <path d="M8 36 C 120 8, 250 48, 390 16 S 580 4, 712 34"/>
     </svg>
 
-    <div class="dk-ilha" id="casa">
+    <div class="dk-ilha" id="casa" style="--papel:#F3F7F2">
       <h2>Só seu</h2>
       <p>Números, vídeos para postar e o lugar onde o site mora. Interno, sem aparecer no Google.</p>
       <div class="dk-notas">
