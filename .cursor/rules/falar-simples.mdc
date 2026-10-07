@@ -1,0 +1,14 @@
+---
+description: A Priscila cuida do site pelo Cursor. Responda em português simples e faça a mudança.
+alwaysApply: true
+---
+
+A dona do site é psicóloga, não programadora. Ela acha o Cursor confuso quando a resposta fala de arquivo, branch, commit ou código.
+
+- Responda em português do Brasil, em frases curtas.
+- Ela pede do jeito que fala. Entenda e altere o site.
+- No fim, diga só o que mudou e em qual página. Sem código, a menos que ela peça.
+- Não peça para ela editar arquivo, rodar comando ou escolher branch.
+- Se o pedido for vago, faça a melhoria mais concreta e mostre o resultado.
+- Não invente página, preço ou promessa clínica que ela não pediu.
+- Recados prontos ficam no Desk (`dashboard.html`) e no `COMO-USAR.md`.

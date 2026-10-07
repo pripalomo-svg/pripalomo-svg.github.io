@@ -1,6 +1,63 @@
 # Guia rápido — como atualizar meu site
 
-Olá, Priscila! Tudo é feito pelo site do GitHub, no navegador — sem instalar nada.
+Olá, Priscila! O jeito prático é pedir no Cursor, como um recado de WhatsApp.
+Não precisa abrir arquivo, saber código nem falar de GitHub.
+
+Os mesmos recados estão no Desk, com botão de copiar:
+https://www.priscilapalomo.com/dashboard.html
+
+Quando a alteração for publicada, o site atualiza em 1 a 2 minutos.
+
+---
+
+## Recados prontos
+
+Copie, preencha os colchetes e cole no Cursor.
+
+**Publicar um artigo**
+
+```
+Publica um artigo no blog.
+Título:
+Resumo (uma frase):
+Texto:
+```
+
+**Trocar um texto que já está no ar**
+
+```
+Na página [início / blog / cursos / livro / minha história], troca este trecho:
+"[cole o texto que está hoje]"
+por este:
+"[cole o texto novo]"
+```
+
+**WhatsApp, Pix ou preço**
+
+```
+Atualiza estes dados do site:
+WhatsApp:
+Pix:
+Preço do livro Escada Segura:
+```
+
+**Deixar uma página mais clara**
+
+```
+A página [qual] está confusa. Deixa mais prática: diz em uma frase para quem é, o que a pessoa faz e qual botão apertar. Não inventa preço nem promessa nova.
+```
+
+**Atualizar o status no Desk**
+
+```
+No Desk, atualiza o status de [nome do projeto] para: [uma frase do que está no ar agora].
+```
+
+---
+
+## Se preferir fazer direto no GitHub
+
+Dá para editar pelo navegador, sem instalar nada.
 
 > Endereço do projeto: https://github.com/pripalomo-svg/pripalomo-svg.github.io
 
