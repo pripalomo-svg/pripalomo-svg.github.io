@@ -2,6 +2,25 @@
 
 Guia para agentes e devs que trabalham neste repositório.
 
+## Como falar com a Priscila
+
+A dona do site é psicóloga, não programadora. Ela usa o Cursor para cuidar do
+site e acha confuso quando a resposta vem cheia de arquivo, branch, commit ou
+código. O jeito prático está no Desk (`dashboard.html`, seção "Pedir uma
+mudança"): recados prontos para copiar e colar.
+
+- Responda em português do Brasil, em frases curtas.
+- Ela pede do jeito que fala ("muda o preço", "publica um texto", "isso está
+  confuso"). Entenda o pedido e altere o site.
+- No fim, diga só o que mudou, em qual página, e que entra no ar quando a
+  alteração for publicada. Não mostre código, a menos que ela peça.
+- Não peça para ela editar arquivo no GitHub, rodar comando ou escolher branch.
+- Se o pedido for vago, faça a melhoria mais concreta e útil e mostre o
+  resultado. Não invente página, preço ou promessa clínica que ela não pediu.
+- Tarefas comuns: artigo em `posts/` + slug em `posts/index.json`; texto das
+  páginas HTML; WhatsApp, Pix e link de cartão em `assets/app.js`; frase de
+  status no `dashboard.html`.
+
 ## O que é
 
 Site estático da **Priscila Palomo** — psicóloga (CRP 98007), especialista em
@@ -31,7 +50,8 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
 - `escada-segura.html` — landing do produto "Programa Escada Segura".
 - `catalogo-videos.html` — catálogo interno de vídeos.
 - `dashboard.html` — **Desk**: painel interno com o link e uma frase de status
-  de cada projeto; atalhos em `desk/` para salvar no Desktop.
+  de cada projeto; atalhos em `desk/` para salvar no Desktop; recados prontos
+  para pedir uma mudança no Cursor sem falar de código.
 - `terapia-pro.html` — **Terap-ia OS**: sistema de banco da clínica (login/senha,
   pacientes, agenda Google + WhatsApp). Mensalidade R$ 100 (Pix `11950690537`
   ou PagSeguro/cartão). Sem tour de boas-vindas. Dados isolados por usuário

@@ -86,6 +86,27 @@
 }
 .dk-url { font-size: 12px; color: var(--tom); word-break: break-all; }
 .dk-note { font-size: 13px; color: #3D5A66; max-width: 68ch; margin: 0 0 48px; }
+
+.dk-pedir {
+  margin: 18px 0 6px;
+  padding: 22px 22px 18px;
+  background: #fff;
+  border-top: 6px solid #E27A2E;
+}
+.dk-pedir h2 { font-size: 22px; line-height: 1.2; margin-bottom: 8px; }
+.dk-pedir > p { font-size: 14px; line-height: 1.55; max-width: 68ch; margin: 0 0 14px; color: #24383d; }
+.dk-prompts { display: flex; flex-direction: column; gap: 8px; }
+.dk-prompt {
+  display: block; width: 100%; text-align: left;
+  background: #F3F6F4; border: 1.5px solid rgba(14,74,87,.22);
+  padding: 12px 14px; color: #0E4A57; cursor: pointer; font-family: inherit;
+}
+.dk-prompt:hover, .dk-prompt:focus-visible { border-color: #E27A2E; outline: none; }
+.dk-prompt small {
+  display: block; font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: #E27A2E; font-weight: 700; margin-bottom: 4px;
+}
+.dk-prompt span { display: block; font-size: 14px; line-height: 1.45; }
 </style>
 </head>
 <body class="dk-page">
@@ -114,13 +135,41 @@
   <header class="dk-hero">
     <span class="dk-kicker">Desk · painel interno</span>
     <h1>Todos os projetos, um clique.</h1>
-    <p>Aqui estão os links do site e dos produtos, cada um com uma frase do que está no ar hoje. Use o botão para salvar o atalho no Desktop.</p>
+    <p>Para mudar o site, copie um recado e cole no Cursor — como uma mensagem de WhatsApp. Abaixo, cada projeto continua com o link e uma frase do que está no ar.</p>
     <div class="dk-actions">
-      <button type="button" class="dk-btn dk-btn-solid" onclick="baixarAtalho()">Salvar no Desktop</button>
+      <button type="button" class="dk-btn dk-btn-solid" onclick="document.getElementById('pedir').scrollIntoView({behavior:'smooth'})">Pedir uma mudança</button>
+      <button type="button" class="dk-btn dk-btn-ghost" onclick="baixarAtalho()">Salvar no Desktop</button>
       <button type="button" class="dk-btn dk-btn-ghost" onclick="copiarLink()">Copiar link do Desk</button>
     </div>
     <p class="dk-url" id="dk-status" style="margin-top:12px">https://www.priscilapalomo.com/dashboard.html</p>
   </header>
+
+  <section class="dk-pedir" id="pedir" aria-labelledby="pedir-titulo">
+    <h2 id="pedir-titulo">Pedir uma mudança</h2>
+    <p>Clique num recado para copiar. Cole no Cursor, preencha o que está entre colchetes e envie. A resposta deve dizer só o que mudou na página.</p>
+    <div class="dk-prompts">
+      <button type="button" class="dk-prompt" data-recado="artigo">
+        <small>Publicar artigo</small>
+        <span>Título, uma frase de resumo e o texto do post.</span>
+      </button>
+      <button type="button" class="dk-prompt" data-recado="texto">
+        <small>Trocar um texto</small>
+        <span>A página, o trecho de hoje e o trecho novo.</span>
+      </button>
+      <button type="button" class="dk-prompt" data-recado="dados">
+        <small>WhatsApp, Pix ou preço</small>
+        <span>Número, chave Pix e valor do livro, se for o caso.</span>
+      </button>
+      <button type="button" class="dk-prompt" data-recado="clara">
+        <small>Deixar uma página mais clara</small>
+        <span>Para quem é, o que a pessoa faz e qual botão apertar.</span>
+      </button>
+      <button type="button" class="dk-prompt" data-recado="status">
+        <small>Atualizar o Desk</small>
+        <span>Uma frase nova do que está no ar naquele projeto.</span>
+      </button>
+    </div>
+  </section>
 
   <section class="dk-grid" aria-label="Projetos">
 
@@ -258,6 +307,42 @@
 <script src="assets/app.js"></script>
 <script>
 const DESK_URL = 'https://www.priscilapalomo.com/dashboard.html';
+
+const RECADOS = {
+  artigo: `Publica um artigo no blog.
+Título:
+Resumo (uma frase):
+Texto:`,
+  texto: `Na página [início / blog / cursos / livro / minha história], troca este trecho:
+"[cole o texto que está hoje]"
+por este:
+"[cole o texto novo]"`,
+  dados: `Atualiza estes dados do site:
+WhatsApp:
+Pix:
+Preço do livro Escada Segura:`,
+  clara: `A página [qual] está confusa. Deixa mais prática: diz em uma frase para quem é, o que a pessoa faz e qual botão apertar. Não inventa preço nem promessa nova.`,
+  status: `No Desk, atualiza o status de [nome do projeto] para: [uma frase do que está no ar agora].`
+};
+
+document.querySelectorAll('.dk-prompt').forEach((btn) => {
+  btn.addEventListener('click', () => copiarRecado(btn));
+});
+
+async function copiarRecado(btn) {
+  const texto = RECADOS[btn.dataset.recado] || '';
+  const el = document.getElementById('dk-status');
+  const rotulo = btn.querySelector('small');
+  const rotuloOriginal = rotulo ? rotulo.textContent : '';
+  try {
+    await navigator.clipboard.writeText(texto);
+    if (el) el.textContent = 'Recado copiado. Cole na conversa do Cursor e preencha.';
+    if (rotulo) rotulo.textContent = 'Copiado';
+  } catch {
+    if (el) el.textContent = texto;
+  }
+  if (rotulo) setTimeout(() => { rotulo.textContent = rotuloOriginal; }, 1600);
+}
 
 function baixarAtalho() {
   const mac = /Macintosh|Mac OS X|iPhone|iPad/.test(navigator.userAgent);
