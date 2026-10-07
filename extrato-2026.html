@@ -38,6 +38,9 @@
 .kpi.sai strong { color: #FF2BD6; }
 .kpi.res strong { color: #F4FFE8; }
 .kpi em { display: block; margin-top: 6px; font-style: normal; color: #9AA89A; font-size: 13px; }
+.explica { margin-top: 22px; }
+.explica h2 { color: #F4FFE8; font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.explica p { color: #F4FFE8; font-size: 18px; line-height: 1.45; margin: 0 0 10px; max-width: 68ch; }
 .fluxo {
   margin-top: 28px;
   padding-top: 8px;
@@ -208,6 +211,11 @@ table.sheet { width: 100%; border-collapse: collapse; min-width: 520px; }
     <article class="kpi ent"><span>Entrou</span><strong id="kpi-entradas">—</strong><em id="kpi-cofrinho"></em></article>
     <article class="kpi sai"><span>Saiu</span><strong id="kpi-saidas">—</strong></article>
     <article class="kpi res"><span>Resultado</span><strong id="kpi-resultado">—</strong></article>
+  </section>
+
+  <section class="explica" id="explica" aria-labelledby="explica-titulo">
+    <h2 id="explica-titulo">Em poucas palavras</h2>
+    <div id="explica-texto"></div>
   </section>
 
   <section class="fluxo" id="planilha">

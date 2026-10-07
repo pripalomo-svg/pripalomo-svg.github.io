@@ -895,6 +895,78 @@
     black.value = "2026-09";
   }
 
+  function juntar(partes) {
+    if (partes.length <= 1) return partes[0] || "";
+    if (partes.length === 2) return partes[0] + " e " + partes[1];
+    return partes.slice(0, -1).join(", ") + " e " + partes[partes.length - 1];
+  }
+
+  function explicar(m) {
+    const caixa = document.getElementById("explica-texto");
+    if (!caixa) return;
+    const resultado = m.entrou - m.saiu;
+    const frases = [];
+    frases.push(
+      "De janeiro até 25 de setembro entrou " + brl(m.entrou) +
+      " e saiu " + brl(m.saiu) + ". " +
+      (resultado >= 0 ? "Sobrou " : "Faltou ") + brl(Math.abs(resultado)) + "."
+    );
+
+    const fontes = [];
+    const rotuloFonte = {
+      salario_priscila: "do salário da Priscila",
+      aporte_priscila: "das transferências da Priscila",
+      salario_luisa: "do salário da Luísa",
+      outras_entradas: "de outras entradas"
+    };
+    const porFamilia = {};
+    m.txs.forEach((tx) => {
+      if (papelEfetivo(tx) !== "entrada") return;
+      const id = rotuloFonte[tx.familia] ? tx.familia : "outras_entradas";
+      porFamilia[id] = (porFamilia[id] || 0) + Math.abs(tx.valor);
+    });
+    Object.keys(rotuloFonte).forEach((id) => {
+      if (porFamilia[id] > 0.004) fontes.push(rotuloFonte[id] + " (" + brl(porFamilia[id]) + ")");
+    });
+    let origem = "";
+    if (m.cofrinhoEntrada > 0.004) {
+      origem = "Desse valor que entrou, " + brl(m.cofrinhoEntrada) + " foi para os cofrinhos.";
+    }
+    if (fontes.length) {
+      origem += (origem ? " O restante veio " : "O dinheiro veio ") + juntar(fontes) + ".";
+    }
+    if (origem) frases.push(origem);
+
+    const saidas = barrasSaida(m.txs).principais.slice(0, 3);
+    if (saidas.length) {
+      frases.push(
+        "Saiu mais para " +
+        juntar(saidas.map((item) => item.nome + " (" + brl(item.valor) + ")")) +
+        "."
+      );
+    }
+
+    let maiorSaida = null;
+    let melhor = null;
+    MESES.forEach((ym) => {
+      const row = m.mes[ym];
+      const res = row.entradas - row.saidas;
+      if (!maiorSaida || row.saidas > maiorSaida.v) maiorSaida = { ym, v: row.saidas };
+      if (!melhor || res > melhor.v) melhor = { ym, v: res };
+    });
+    if (maiorSaida && melhor) {
+      const nomeMes = (ym) => MES_NOME[mesIdx(ym)] + (ym === "2026-09" ? ", até o dia 25" : "");
+      let meses = "O mês em que mais saiu foi " + nomeMes(maiorSaida.ym) + ", com " + brl(maiorSaida.v) + ".";
+      if (melhor.v >= 0) {
+        meses += " O mês em que mais sobrou foi " + nomeMes(melhor.ym) + ", com " + brl(melhor.v) + ".";
+      }
+      frases.push(meses);
+    }
+
+    caixa.innerHTML = frases.map((frase) => "<p>" + esc(frase) + "</p>").join("");
+    return frases;
+  }
+
   function kpis(m) {
     const por = (id, valor) => {
       const el = document.getElementById(id);
@@ -997,7 +1069,11 @@
     const max = itens.reduce((n, item) => Math.max(n, item.valor), 1);
     caixa.innerHTML = itens.map((item) => htmlColuna(item, max)).join("");
     const frase = document.getElementById("entradas-frase");
-    if (frase) frase.textContent = "Transferências para os cofrinhos são entradas. O nome de cada barra pode ser editado.";
+    if (frase && itens[0]) {
+      frase.textContent = itens[0].chave === "__demais__"
+        ? "A barra maior junta salário, transferências e outras entradas: " + brl(itens[0].valor) + "."
+        : "A maior entrada foi " + itens[0].nome + ", com " + brl(itens[0].valor) + ".";
+    }
   }
 
   function desenharSetas(m) {
@@ -1008,8 +1084,9 @@
     caixa.innerHTML = grupo.itens.map((item) => htmlColuna(item, max)).join("");
     const frase = document.getElementById("setas-frase");
     const principais = grupo.principais;
-    if (frase && principais.length >= 3) {
-      frase.textContent = "Saiu mais para " + principais[0].nome + ", " + principais[1].nome + " e " + principais[2].nome + ". O menu muda a conta.";
+    if (frase && principais.length) {
+      const top = principais.slice(0, 3);
+      frase.textContent = "Saiu mais para " + juntar(top.map((item) => item.nome + " (" + brl(item.valor) + ")")) + ".";
     }
   }
 
@@ -1143,6 +1220,7 @@
     const y = window.scrollY;
     const m = modelo();
     kpis(m);
+    const frases = explicar(m);
     desenharPlanilha(m);
     desenharEntradas(m);
     desenharSetas(m);
@@ -1158,7 +1236,8 @@
       luisa: m.luisa,
       fatura: m.fatura,
       saldo: D.saldoFinal,
-      n: m.txs.length
+      n: m.txs.length,
+      frases: frases || []
     };
   }
 
