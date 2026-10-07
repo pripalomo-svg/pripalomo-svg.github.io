@@ -4,109 +4,189 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Desk — todos os projetos — Priscila Palomo</title>
-<meta name="description" content="Painel interno com o link e o status de cada projeto do site da Priscila Palomo.">
+<meta name="description" content="Mapa interno da casa: o que é das pessoas, o que você oferece e o que é só seu.">
 <meta name="robots" content="noindex">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>P</text></svg>">
 <link rel="stylesheet" href="assets/style.css">
 <style>
 .dk-page {
   --ink: #0E4A57;
-  --paper: #F3F6F4;
-  --card: #fff;
-  background: var(--paper);
+  --paper: #F4EFE6;
+  --folha: #FFFBF4;
+  --areia: #E8DCC8;
   color: var(--ink);
+  background:
+    radial-gradient(ellipse 70% 50% at 8% 12%, rgba(226,122,46,.16), transparent 58%),
+    radial-gradient(ellipse 55% 45% at 92% 18%, rgba(14,74,87,.12), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 70% 78%, rgba(45,122,92,.12), transparent 62%),
+    radial-gradient(ellipse 50% 40% at 12% 88%, rgba(196,69,54,.08), transparent 58%),
+    var(--paper);
 }
 .dk-page h1, .dk-page h2, .dk-page h3 { color: var(--ink); }
-.dk-page nav { background: rgba(243,246,244,.94); border-bottom: 1px solid rgba(14,74,87,.16); }
+.dk-page nav { background: rgba(244,239,230,.9); border-bottom: 1px solid rgba(14,74,87,.12); }
 .dk-page footer {
   background: #0E4A57;
   border-top: 0;
-  color: #F3F6F4;
+  color: #F4EFE6;
 }
-.dk-page .foot-links a, .dk-page .foot-info { color: #F3F6F4; }
+.dk-page .foot-links a, .dk-page .foot-info { color: #F4EFE6; }
 .dk-page .foot-links a:hover { color: #E27A2E; }
 .dk-page ::-webkit-scrollbar-track { background: var(--paper); }
 .dk-page ::-webkit-scrollbar-thumb { background: #E27A2E; }
 
-.dk-hero {
-  margin: 28px 0 8px;
-  padding: 36px 28px 28px;
-  background: #0E4A57;
-  color: #F3F6F4;
+.dk-mesa { width: min(1180px, 92vw); margin-inline: auto; padding-bottom: 8px; }
+
+.dk-abertura {
+  position: relative;
+  margin: 36px 0 8px;
+  padding: 8px 8px 20px;
+  max-width: 58ch;
 }
-.dk-hero h1, .dk-hero p { color: #F3F6F4; }
 .dk-kicker {
-  font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
-  color: #E27A2E; font-weight: 700; display: block; margin-bottom: 10px;
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: #C0641C; font-weight: 700; display: block; margin-bottom: 12px;
 }
-.dk-hero h1 { font-size: clamp(28px, 4.8vw, 44px); line-height: 1.08; margin-bottom: 12px; }
-.dk-hero p { font-size: 15px; line-height: 1.6; max-width: 62ch; }
+.dk-abertura h1 { font-size: clamp(30px, 5vw, 48px); line-height: 1.08; margin-bottom: 14px; }
+.dk-abertura p { font-size: 16px; line-height: 1.65; color: #2c454c; }
 .dk-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 .dk-btn {
   display: inline-flex; align-items: center; justify-content: center;
-  padding: 12px 20px; font-size: 13px; font-weight: 700;
-  letter-spacing: .05em; text-transform: uppercase;
+  padding: 11px 18px; font-size: 13px; font-weight: 700;
+  letter-spacing: .04em;
   cursor: pointer; font-family: inherit; border: 1.5px solid transparent;
+  border-radius: 999px;
 }
 .dk-btn-solid { background: #E27A2E; color: #fff; }
 .dk-btn-solid:hover { background: #C0641C; }
-.dk-btn-ghost { background: transparent; color: #F3F6F4; border-color: rgba(243,246,244,.55); }
-.dk-btn-ghost:hover { border-color: #E27A2E; color: #E27A2E; }
-.dk-hero .dk-url { color: #F7C9A2; margin-top: 14px; }
+.dk-btn-ghost { background: transparent; color: var(--ink); border-color: rgba(14,74,87,.28); }
+.dk-btn-ghost:hover { border-color: #E27A2E; color: #C0641C; }
+.dk-url { font-size: 13px; color: #5A6B78; margin-top: 14px; word-break: break-all; }
 
-.dk-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
-  gap: 14px;
-  margin: 22px 0 48px;
+.dk-caminho {
+  display: block;
+  width: min(720px, 100%);
+  height: 56px;
+  margin: 4px 0 8px;
+  overflow: visible;
 }
-.dk-card {
-  --tom: #0E4A57;
-  padding: 18px 18px 16px;
-  border: 0;
-  border-top: 6px solid var(--tom);
-  display: flex; flex-direction: column; gap: 10px;
-  background: color-mix(in srgb, var(--tom) 10%, #fff);
+.dk-caminho path {
+  fill: none;
+  stroke: #0E4A57;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  opacity: .28;
 }
-.dk-card:hover { background: color-mix(in srgb, var(--tom) 16%, #fff); }
-.dk-tag {
-  font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
-  color: var(--tom); font-weight: 700;
-}
-.dk-card h2 { font-size: 22px; line-height: 1.2; color: var(--tom); }
-.dk-card p { font-size: 14px; color: #24383d; line-height: 1.55; flex: 1; margin: 0; }
-.dk-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-.dk-links a {
-  font-size: 13px; padding: 8px 12px; border: 1.5px solid var(--tom);
-  text-decoration: none; color: var(--tom); background: #fff;
-}
-.dk-links a:hover { background: color-mix(in srgb, var(--tom) 12%, #fff); }
-.dk-links a.primary, .dk-links a.primary:hover {
-  background: var(--tom); color: #fff; border-color: var(--tom);
-}
-.dk-url { font-size: 12px; color: var(--tom); word-break: break-all; }
-.dk-note { font-size: 13px; color: #3D5A66; max-width: 68ch; margin: 0 0 48px; }
 
-.dk-pedir {
-  margin: 18px 0 6px;
-  padding: 22px 22px 18px;
-  background: #fff;
-  border-top: 6px solid #E27A2E;
+.dk-pedir { margin: 10px 0 36px; }
+.dk-pedir h2, .dk-ilha h2 {
+  font-size: 13px; letter-spacing: .16em; text-transform: uppercase;
+  color: #C0641C; margin-bottom: 6px;
 }
-.dk-pedir h2 { font-size: 22px; line-height: 1.2; margin-bottom: 8px; }
-.dk-pedir > p { font-size: 14px; line-height: 1.55; max-width: 68ch; margin: 0 0 14px; color: #24383d; }
-.dk-prompts { display: flex; flex-direction: column; gap: 8px; }
+.dk-pedir > p, .dk-ilha > p {
+  font-size: 15px; line-height: 1.55; max-width: 62ch; margin: 0 0 16px; color: #2c454c;
+}
+
+.dk-prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 16px;
+  align-items: stretch;
+}
 .dk-prompt {
-  display: block; width: 100%; text-align: left;
-  background: #F3F6F4; border: 1.5px solid rgba(14,74,87,.22);
-  padding: 12px 14px; color: #0E4A57; cursor: pointer; font-family: inherit;
+  --rot: 0deg;
+  flex: 1 1 170px;
+  max-width: 240px;
+  display: block;
+  text-align: left;
+  background: #FBE7D6;
+  border: 0;
+  padding: 16px 16px 18px;
+  color: #0E4A57;
+  cursor: pointer;
+  font-family: inherit;
+  border-radius: 18px 28px 16px 22px;
+  box-shadow: 3px 8px 0 rgba(14,74,87,.06), 0 10px 24px rgba(14,74,87,.08);
+  transform: rotate(var(--rot));
+  transition: transform .2s, box-shadow .2s;
 }
-.dk-prompt:hover, .dk-prompt:focus-visible { border-color: #E27A2E; outline: none; }
+.dk-prompt:nth-child(2) { background: #F7D9B8; }
+.dk-prompt:nth-child(3) { background: #F3C49A; }
+.dk-prompt:nth-child(4) { background: #FBE7D6; }
+.dk-prompt:nth-child(5) { background: #E8DCC8; }
+.dk-prompt:hover, .dk-prompt:focus-visible {
+  transform: rotate(0deg) translateY(-3px);
+  outline: 2px solid #E27A2E;
+  outline-offset: 2px;
+}
 .dk-prompt small {
-  display: block; font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
-  color: #E27A2E; font-weight: 700; margin-bottom: 4px;
+  display: block; font-size: 12px; font-weight: 700; margin-bottom: 6px; color: #C0641C;
 }
 .dk-prompt span { display: block; font-size: 14px; line-height: 1.45; }
+
+.dk-mapa { display: flex; flex-direction: column; gap: 42px; margin: 8px 0 28px; }
+.dk-ilha { position: relative; }
+.dk-notas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 16px;
+  align-items: flex-start;
+}
+
+.dk-nota {
+  --tom: #0E4A57;
+  --rot: 0deg;
+  --w: 280px;
+  width: min(var(--w), 100%);
+  background: var(--folha);
+  padding: 20px 20px 16px;
+  border: 0;
+  border-radius: 22px 32px 20px 28px;
+  box-shadow: 4px 10px 0 rgba(14,74,87,.05), 0 14px 28px rgba(14,74,87,.08);
+  transform: rotate(var(--rot));
+  display: flex; flex-direction: column; gap: 10px;
+  position: relative;
+}
+.dk-nota::before {
+  content: "";
+  position: absolute; top: 10px; left: 22px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: color-mix(in srgb, var(--tom) 55%, #fff);
+  box-shadow: 0 1px 0 rgba(14,74,87,.15);
+}
+.dk-nota:hover { transform: rotate(0deg) translateY(-4px); }
+.dk-tag {
+  font-size: 12px; color: var(--tom); font-weight: 700;
+  padding-top: 8px;
+}
+.dk-nota h3 { font-size: 22px; line-height: 1.2; color: var(--tom); }
+.dk-nota p { font-size: 14px; color: #24383d; line-height: 1.55; margin: 0; flex: 1; }
+.dk-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.dk-links a {
+  font-size: 13px; padding: 7px 12px;
+  text-decoration: none; color: var(--tom);
+  background: color-mix(in srgb, var(--tom) 8%, #fff);
+  border-radius: 999px;
+}
+.dk-links a:hover { background: color-mix(in srgb, var(--tom) 16%, #fff); }
+.dk-links a.primary, .dk-links a.primary:hover {
+  background: var(--tom); color: #fff;
+}
+.dk-nota .dk-url { font-size: 12px; color: var(--tom); }
+
+.dk-nota.larga { --w: 360px; }
+.dk-nota.miuda { --w: 230px; }
+
+.dk-note { font-size: 13px; color: #5A6B78; max-width: 68ch; margin: 0 0 48px; }
+
+@media (max-width: 720px) {
+  .dk-prompt, .dk-nota {
+    --rot: 0deg !important;
+    --w: 100%;
+    max-width: none;
+    width: 100%;
+  }
+  .dk-abertura { max-width: none; }
+}
 </style>
 </head>
 <body class="dk-page">
@@ -131,162 +211,192 @@
   </ul>
 </nav>
 
-<main class="wrap">
-  <header class="dk-hero">
-    <span class="dk-kicker">Desk · painel interno</span>
-    <h1>Todos os projetos, um clique.</h1>
-    <p>Para mudar o site, copie um recado e cole no Cursor — como uma mensagem de WhatsApp. Abaixo, cada projeto continua com o link e uma frase do que está no ar.</p>
+<main class="dk-mesa">
+  <header class="dk-abertura">
+    <span class="dk-kicker">Desk · a mesa da casa</span>
+    <h1>Tudo no mesmo olhar, como numa mesa.</h1>
+    <p>Cada papel é um lugar. Embaixo, o que é das pessoas, o que você oferece e o que é só seu. Para mudar algo, copie um recado e cole no Cursor.</p>
     <div class="dk-actions">
       <button type="button" class="dk-btn dk-btn-solid" onclick="document.getElementById('pedir').scrollIntoView({behavior:'smooth'})">Pedir uma mudança</button>
       <button type="button" class="dk-btn dk-btn-ghost" onclick="baixarAtalho()">Salvar no Desktop</button>
       <button type="button" class="dk-btn dk-btn-ghost" onclick="copiarLink()">Copiar link do Desk</button>
     </div>
-    <p class="dk-url" id="dk-status" style="margin-top:12px">https://www.priscilapalomo.com/dashboard.html</p>
+    <p class="dk-url" id="dk-status">https://www.priscilapalomo.com/dashboard.html</p>
   </header>
 
+  <svg class="dk-caminho" viewBox="0 0 720 56" aria-hidden="true">
+    <path d="M8 28 C 80 8, 160 48, 240 24 S 400 6, 480 32 640 52, 712 20"/>
+  </svg>
+
   <section class="dk-pedir" id="pedir" aria-labelledby="pedir-titulo">
-    <h2 id="pedir-titulo">Pedir uma mudança</h2>
-    <p>Clique num recado para copiar. Cole no Cursor, preencha o que está entre colchetes e envie. A resposta deve dizer só o que mudou na página.</p>
+    <h2 id="pedir-titulo">Recados para o Cursor</h2>
+    <p>Clique num papel laranja para copiar. Cole na conversa, preencha e envie.</p>
     <div class="dk-prompts">
-      <button type="button" class="dk-prompt" data-recado="artigo">
+      <button type="button" class="dk-prompt" style="--rot:-1.6deg" data-recado="artigo">
         <small>Publicar artigo</small>
         <span>Título, uma frase de resumo e o texto do post.</span>
       </button>
-      <button type="button" class="dk-prompt" data-recado="texto">
+      <button type="button" class="dk-prompt" style="--rot:1.4deg" data-recado="texto">
         <small>Trocar um texto</small>
         <span>A página, o trecho de hoje e o trecho novo.</span>
       </button>
-      <button type="button" class="dk-prompt" data-recado="dados">
+      <button type="button" class="dk-prompt" style="--rot:-.8deg" data-recado="dados">
         <small>WhatsApp, Pix ou preço</small>
         <span>Número, chave Pix e valor do livro, se for o caso.</span>
       </button>
-      <button type="button" class="dk-prompt" data-recado="clara">
+      <button type="button" class="dk-prompt" style="--rot:1.8deg" data-recado="clara">
         <small>Deixar uma página mais clara</small>
         <span>Para quem é, o que a pessoa faz e qual botão apertar.</span>
       </button>
-      <button type="button" class="dk-prompt" data-recado="status">
+      <button type="button" class="dk-prompt" style="--rot:-1.2deg" data-recado="status">
         <small>Atualizar o Desk</small>
         <span>Uma frase nova do que está no ar naquele projeto.</span>
       </button>
     </div>
   </section>
 
-  <section class="dk-grid" aria-label="Projetos">
+  <section class="dk-mapa" aria-label="Mapa da casa">
 
-    <article class="dk-card" style="--tom:#0E4A57">
-      <span class="dk-tag">Site</span>
-      <h2>Home · fobias</h2>
-      <p>A página inicial está no ar com psicoeducação animada sobre fobias, boas-vindas e a NeuroNews.</p>
-      <div class="dk-links">
-        <a class="primary" href="index.html">Abrir home</a>
-        <a href="https://www.priscilapalomo.com/" target="_blank" rel="noopener">No ar</a>
-      </div>
-    </article>
+    <div class="dk-ilha" id="pessoas">
+      <h2>Com as pessoas</h2>
+      <p>Onde quem chega se encontra com você: a porta, as histórias, o recado e o WhatsApp.</p>
+      <div class="dk-notas">
+        <article class="dk-nota larga" style="--tom:#0E4A57; --rot:-1.4deg">
+          <span class="dk-tag">A porta</span>
+          <h3>Home · fobias</h3>
+          <p>A página inicial está no ar com psicoeducação animada sobre fobias, boas-vindas e a NeuroNews.</p>
+          <div class="dk-links">
+            <a class="primary" href="index.html">Abrir home</a>
+            <a href="https://www.priscilapalomo.com/" target="_blank" rel="noopener">No ar</a>
+          </div>
+        </article>
 
-    <article class="dk-card" style="--tom:#1D6B45">
-      <span class="dk-tag">Conteúdo</span>
-      <h2>Blog</h2>
-      <p>Nove artigos publicados — historinhas, fobias, TOC, ansiedade e o Programa Escada Segura.</p>
-      <div class="dk-links">
-        <a class="primary" href="blog.html">Abrir blog</a>
-        <a href="https://www.priscilapalomo.com/blog.html" target="_blank" rel="noopener">No ar</a>
-      </div>
-    </article>
+        <article class="dk-nota" style="--tom:#1D6B45; --rot:1.1deg">
+          <span class="dk-tag">Histórias</span>
+          <h3>Blog</h3>
+          <p>Nove artigos publicados — historinhas, fobias, TOC, ansiedade e o Programa Escada Segura.</p>
+          <div class="dk-links">
+            <a class="primary" href="blog.html">Abrir blog</a>
+            <a href="https://www.priscilapalomo.com/blog.html" target="_blank" rel="noopener">No ar</a>
+          </div>
+        </article>
 
-    <article class="dk-card" style="--tom:#E27A2E">
-      <span class="dk-tag">Cursos</span>
-      <h2>Cursos Hotmart</h2>
-      <p>Dois cursos online no ar: Mindfulness e Realidade Virtual aplicada às fobias, com checkout na Hotmart.</p>
-      <div class="dk-links">
-        <a class="primary" href="cursos.html">Abrir cursos</a>
-        <a href="https://pay.hotmart.com/O94853840K?off=l9v4xuwt" target="_blank" rel="noopener">Mindfulness</a>
-        <a href="https://pay.hotmart.com/Y97638144H?off=mixc35d0" target="_blank" rel="noopener">RV e fobia</a>
-      </div>
-    </article>
+        <article class="dk-nota" style="--tom:#C0641C; --rot:-.7deg">
+          <span class="dk-tag">Quem você é</span>
+          <h3>Minha história</h3>
+          <p>A apresentação com a bio e os vídeos “draw my life” (Valencia e doutorado) já está publicada.</p>
+          <div class="dk-links">
+            <a class="primary" href="apresentacao.html">Abrir história</a>
+            <a href="https://www.priscilapalomo.com/apresentacao.html" target="_blank" rel="noopener">No ar</a>
+          </div>
+        </article>
 
-    <article class="dk-card" style="--tom:#6B4C9A">
-      <span class="dk-tag">Sistema</span>
-      <h2>Terap-ia OS</h2>
-      <p>O banco da clínica está no ar: login por profissional, pacientes, agenda no Google e aviso no WhatsApp, por R$ 100/mês.</p>
-      <div class="dk-links">
-        <a class="primary" href="terapia-pro.html">Abrir Terap-ia</a>
-        <a href="https://www.priscilapalomo.com/terapia-pro.html" target="_blank" rel="noopener">No ar</a>
-      </div>
-    </article>
+        <article class="dk-nota miuda" style="--tom:#2F6F4E; --rot:1.6deg">
+          <span class="dk-tag">Carta</span>
+          <h3>NeuroNews</h3>
+          <p>A assinatura continua sem backend: o formulário abre o WhatsApp com o e-mail da pessoa.</p>
+          <div class="dk-links">
+            <a class="primary" href="index.html#neuronews">Abrir NeuroNews</a>
+          </div>
+        </article>
 
-    <article class="dk-card" style="--tom:#C44536">
-      <span class="dk-tag">Livro</span>
-      <h2>Escada Segura</h2>
-      <p>A landing do livro Harry Potter e a Magia da Coragem está pronta para venda a R$ 97 (Pix, WhatsApp ou cartão).</p>
-      <div class="dk-links">
-        <a class="primary" href="escada-segura.html">Abrir livro</a>
-        <a href="https://www.priscilapalomo.com/escada-segura.html" target="_blank" rel="noopener">No ar</a>
+        <article class="dk-nota miuda" style="--tom:#128C7E; --rot:-1.1deg">
+          <span class="dk-tag">Falar</span>
+          <h3>WhatsApp e Pix</h3>
+          <p>O canal oficial segue no 11 95069-0537, usado para agenda, newsletter e pagamentos.</p>
+          <div class="dk-links">
+            <a class="primary" href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!" target="_blank" rel="noopener">Abrir WhatsApp</a>
+          </div>
+        </article>
       </div>
-    </article>
+    </div>
 
-    <article class="dk-card" style="--tom:#C0641C">
-      <span class="dk-tag">Bio</span>
-      <h2>Minha história</h2>
-      <p>A apresentação com a bio e os vídeos “draw my life” (Valencia e doutorado) já está publicada.</p>
-      <div class="dk-links">
-        <a class="primary" href="apresentacao.html">Abrir história</a>
-        <a href="https://www.priscilapalomo.com/apresentacao.html" target="_blank" rel="noopener">No ar</a>
-      </div>
-    </article>
+    <svg class="dk-caminho" viewBox="0 0 720 56" aria-hidden="true">
+      <path d="M20 18 C 140 50, 260 6, 380 30 S 560 54, 700 22"/>
+    </svg>
 
-    <article class="dk-card" style="--tom:#2A9D8F">
-      <span class="dk-tag">Pessoal</span>
-      <h2>Dashboard do extrato 2026</h2>
-      <p>1 jan – 25 set. Planilha por data: filtre por tipo e mude o nome do valor. Entrou R$ 439.794,35, com o cofrinho. Saiu R$ 384.738,21.</p>
-      <p class="dk-url">https://www.priscilapalomo.com/extrato-2026.xlsx</p>
-      <div class="dk-links">
-        <a class="primary" href="extrato-2026.html">Abrir dashboard</a>
-        <a href="extrato-2026.xlsx" download>Excel</a>
-      </div>
-    </article>
+    <div class="dk-ilha" id="oferece">
+      <h2>O que você oferece</h2>
+      <p>Cursos, o livro e o sistema da clínica — o que a pessoa pode comprar ou usar.</p>
+      <div class="dk-notas">
+        <article class="dk-nota" style="--tom:#E27A2E; --rot:1.2deg">
+          <span class="dk-tag">Aprender</span>
+          <h3>Cursos Hotmart</h3>
+          <p>Dois cursos online no ar: Mindfulness e Realidade Virtual aplicada às fobias, com checkout na Hotmart.</p>
+          <div class="dk-links">
+            <a class="primary" href="cursos.html">Abrir cursos</a>
+            <a href="https://pay.hotmart.com/O94853840K?off=l9v4xuwt" target="_blank" rel="noopener">Mindfulness</a>
+            <a href="https://pay.hotmart.com/Y97638144H?off=mixc35d0" target="_blank" rel="noopener">RV e fobia</a>
+          </div>
+        </article>
 
-    <article class="dk-card" style="--tom:#3D5A80">
-      <span class="dk-tag">Instagram</span>
-      <h2>Catálogo de vídeos</h2>
-      <p>O catálogo interno reúne as animações de fobias com narrativa e hashtag prontas para postar.</p>
-      <div class="dk-links">
-        <a class="primary" href="catalogo-videos.html">Abrir catálogo</a>
-        <a href="https://www.priscilapalomo.com/catalogo-videos.html" target="_blank" rel="noopener">No ar</a>
-      </div>
-    </article>
+        <article class="dk-nota larga" style="--tom:#C44536; --rot:-1.3deg">
+          <span class="dk-tag">Livro</span>
+          <h3>Escada Segura</h3>
+          <p>A landing do livro Harry Potter e a Magia da Coragem está pronta para venda a R$ 97 (Pix, WhatsApp ou cartão).</p>
+          <div class="dk-links">
+            <a class="primary" href="escada-segura.html">Abrir livro</a>
+            <a href="https://www.priscilapalomo.com/escada-segura.html" target="_blank" rel="noopener">No ar</a>
+          </div>
+        </article>
 
-    <article class="dk-card" style="--tom:#2F6F4E">
-      <span class="dk-tag">Newsletter</span>
-      <h2>NeuroNews</h2>
-      <p>A assinatura continua sem backend: o formulário abre o WhatsApp com o e-mail da pessoa.</p>
-      <div class="dk-links">
-        <a class="primary" href="index.html#neuronews">Abrir NeuroNews</a>
+        <article class="dk-nota" style="--tom:#6B4C9A; --rot:.8deg">
+          <span class="dk-tag">Clínica</span>
+          <h3>Terap-ia OS</h3>
+          <p>O banco da clínica está no ar: login por profissional, pacientes, agenda no Google e aviso no WhatsApp, por R$ 100/mês.</p>
+          <div class="dk-links">
+            <a class="primary" href="terapia-pro.html">Abrir Terap-ia</a>
+            <a href="https://www.priscilapalomo.com/terapia-pro.html" target="_blank" rel="noopener">No ar</a>
+          </div>
+        </article>
       </div>
-    </article>
+    </div>
 
-    <article class="dk-card" style="--tom:#128C7E">
-      <span class="dk-tag">Contato</span>
-      <h2>WhatsApp e Pix</h2>
-      <p>O canal oficial segue no 11 95069-0537, usado para agenda, newsletter e pagamentos.</p>
-      <div class="dk-links">
-        <a class="primary" href="https://wa.me/5511950690537?text=Ol%C3%A1%20Priscila!" target="_blank" rel="noopener">Abrir WhatsApp</a>
-      </div>
-    </article>
+    <svg class="dk-caminho" viewBox="0 0 720 56" aria-hidden="true">
+      <path d="M8 36 C 120 8, 250 48, 390 16 S 580 4, 712 34"/>
+    </svg>
 
-    <article class="dk-card" style="--tom:#8C3A6E">
-      <span class="dk-tag">Código</span>
-      <h2>GitHub Pages</h2>
-      <p>O site estático publica direto da branch main em priscilapalomo.com, sem build nem pacotes.</p>
-      <div class="dk-links">
-        <a class="primary" href="https://github.com/pripalomo-svg/pripalomo-svg.github.io" target="_blank" rel="noopener">Abrir repositório</a>
-        <a href="https://www.priscilapalomo.com/" target="_blank" rel="noopener">Domínio</a>
+    <div class="dk-ilha" id="casa">
+      <h2>Só seu</h2>
+      <p>Números, vídeos para postar e o lugar onde o site mora. Interno, sem aparecer no Google.</p>
+      <div class="dk-notas">
+        <article class="dk-nota larga" style="--tom:#2A9D8F; --rot:-.9deg">
+          <span class="dk-tag">Números</span>
+          <h3>Extrato 2026</h3>
+          <p>1 jan – 25 set. Planilha por data: filtre por tipo e mude o nome do valor. Entrou R$ 439.794,35, com o cofrinho. Saiu R$ 384.738,21.</p>
+          <p class="dk-url">https://www.priscilapalomo.com/extrato-2026.xlsx</p>
+          <div class="dk-links">
+            <a class="primary" href="extrato-2026.html">Abrir dashboard</a>
+            <a href="extrato-2026.xlsx" download>Excel</a>
+          </div>
+        </article>
+
+        <article class="dk-nota" style="--tom:#3D5A80; --rot:1.5deg">
+          <span class="dk-tag">Instagram</span>
+          <h3>Catálogo de vídeos</h3>
+          <p>O catálogo interno reúne as animações de fobias com narrativa e hashtag prontas para postar.</p>
+          <div class="dk-links">
+            <a class="primary" href="catalogo-videos.html">Abrir catálogo</a>
+            <a href="https://www.priscilapalomo.com/catalogo-videos.html" target="_blank" rel="noopener">No ar</a>
+          </div>
+        </article>
+
+        <article class="dk-nota miuda" style="--tom:#8C3A6E; --rot:-1.5deg">
+          <span class="dk-tag">Onde mora</span>
+          <h3>GitHub Pages</h3>
+          <p>O site estático publica direto da branch main em priscilapalomo.com, sem build nem pacotes.</p>
+          <div class="dk-links">
+            <a class="primary" href="https://github.com/pripalomo-svg/pripalomo-svg.github.io" target="_blank" rel="noopener">Abrir repositório</a>
+            <a href="https://www.priscilapalomo.com/" target="_blank" rel="noopener">Domínio</a>
+          </div>
+        </article>
       </div>
-    </article>
+    </div>
 
   </section>
 
   <p class="dk-note">
-    Este Desk é interno (não aparece no Google). Depois de clicar em <strong>Salvar no Desktop</strong>,
+    Este Desk é interno. Depois de clicar em <strong>Salvar no Desktop</strong>,
     o arquivo de atalho vai para a pasta de downloads — arraste-o para a área de trabalho.
   </p>
 </main>

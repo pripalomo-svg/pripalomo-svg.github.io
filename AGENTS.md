@@ -49,9 +49,9 @@ Não abra os `.html` via `file://` — o JS usa `fetch()`, que exige origem HTTP
 - `apresentacao.html` — bio + vídeos "draw my life".
 - `escada-segura.html` — landing do produto "Programa Escada Segura".
 - `catalogo-videos.html` — catálogo interno de vídeos.
-- `dashboard.html` — **Desk**: painel interno com o link e uma frase de status
-  de cada projeto; atalhos em `desk/` para salvar no Desktop; recados prontos
-  para pedir uma mudança no Cursor sem falar de código.
+- `dashboard.html` — **Desk**: mapa interno da casa em três ilhas (com as
+  pessoas, o que você oferece, só seu); recados prontos para o Cursor;
+  atalhos em `desk/` para salvar no Desktop.
 - `terapia-pro.html` — **Terap-ia OS**: sistema de banco da clínica (login/senha,
   pacientes, agenda Google + WhatsApp). Mensalidade R$ 100 (Pix `11950690537`
   ou PagSeguro/cartão). Sem tour de boas-vindas. Dados isolados por usuário
